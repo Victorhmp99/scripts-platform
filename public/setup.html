@@ -753,7 +753,8 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       company_id: companyId,
       scripts: generatedData.scripts || {},
       qual: generatedData.qual || [],
-      aq: generatedData.aq || []
+      aq: generatedData.aq || [],
+      structure: generatedData.structure || []
     }, { onConflict: 'company_id' });
 
     if (error) throw new Error(error.message);
