@@ -1,12 +1,8 @@
-// Proxy seguro para Gemini API — chave nunca exposta ao cliente
+// Proxy seguro para Groq API — chave nunca exposta ao cliente
 
 export default async function handler(req, res) {
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Método não permitido' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido' });
 
   const { company } = req.body;
   if (!company?.name) {
@@ -16,41 +12,49 @@ export default async function handler(req, res) {
   const prompt = buildPrompt(company);
 
   try {
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.8,
-            maxOutputTokens: 8192
+    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          {
+            role: 'system',
+            content: 'Você é um especialista em scripts de vendas B2B para o mercado brasileiro. Responda APENAS com JSON válido, sem texto adicional, sem markdown, sem explicações.'
+          },
+          {
+            role: 'user',
+            content: prompt
           }
-        })
-      }
-    );
+        ],
+        temperature: 0.8,
+        max_tokens: 8000,
+        response_format: { type: 'json_object' }
+      })
+    });
 
-    if (!geminiRes.ok) {
-      const err = await geminiRes.text();
-      console.error('Gemini error:', err);
+    if (!groqRes.ok) {
+      const err = await groqRes.text();
+      console.error('Groq error:', err);
       let errMsg = 'Erro na geração de scripts';
       try { errMsg = JSON.parse(err)?.error?.message || errMsg; } catch {}
       return res.status(500).json({ error: errMsg });
     }
 
-    const data = await geminiRes.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const data = await groqRes.json();
+    const text = data.choices?.[0]?.message?.content;
 
     if (!text) {
-      return res.status(500).json({ error: 'Resposta vazia do Gemini' });
+      return res.status(500).json({ error: 'Resposta vazia da IA' });
     }
 
     let parsed;
     try {
       parsed = JSON.parse(text);
     } catch {
-      // tenta extrair JSON do texto caso venha com markdown
       const match = text.match(/```json\n?([\s\S]*?)\n?```/) || text.match(/\{[\s\S]*\}/);
       parsed = JSON.parse(match?.[1] || match?.[0] || text);
     }
@@ -58,7 +62,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ data: parsed });
   } catch (err) {
     console.error('Erro generate-scripts:', err);
-    return res.status(500).json({ error: 'Erro interno ao gerar scripts' });
+    return res.status(500).json({ error: 'Erro interno: ' + err.message });
   }
 }
 
