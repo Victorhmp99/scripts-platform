@@ -593,8 +593,13 @@ function buildDynamicUI() {
   // Remove painéis estáticos e recria todos dinamicamente
   document.querySelectorAll('.tab-panel').forEach(p => p.remove());
 
+  // Remove qualificacao/aquecimento do STRUCTURE (são adicionados manualmente abaixo)
+  const filteredStructure = STRUCTURE.filter(t =>
+    t.tab_id !== 'qualificacao' && t.tab_id !== 'aquecimento'
+  );
+
   const allTabs = [
-    ...STRUCTURE,
+    ...filteredStructure,
     { tab_id: 'qualificacao', tab_label: 'Qualificação' },
     { tab_id: 'aquecimento', tab_label: 'Aquecimento 30d' }
   ];
@@ -684,7 +689,7 @@ function renderSection(sec) {
 function renderScriptCard(catKey, idx) {
   const editKey = catKey + '_' + idx;
   const edit = EDITS[editKey];
-  const originalText = D[catKey]?.[idx] || '';
+  const originalText = scriptVal(D[catKey]?.[idx] || '');
   const text = edit?.content ?? originalText;
   const usage = edit?.usage_count || 0;
   const isEdited = edit?.content !== undefined && edit.content !== originalText;
@@ -793,7 +798,7 @@ function renderAqCard(item) {
   const i = item.d - 1;
   const editKey = 'aq_' + i;
   const edit = EDITS[editKey];
-  const text = edit?.content ?? item.t;
+  const text = edit?.content ?? scriptVal(item.t);
   const usage = edit?.usage_count || 0;
   const isEdited = edit?.content !== undefined && edit.content !== item.t;
 
@@ -1105,6 +1110,25 @@ function switchTab(tabId, btn) {
   document.getElementById('pageDesc').textContent = meta.desc || '';
 
   currentTab = tabId;
+}
+
+// ── Normaliza valor de script para string ──────────────────────
+// Lida com string, objeto {assunto,corpo}, array, etc.
+function scriptVal(val) {
+  if (!val && val !== 0) return '';
+  if (typeof val === 'string') return val;
+  if (Array.isArray(val)) return val.map(scriptVal).join('\n\n');
+  if (typeof val === 'object') {
+    // Tenta formatos comuns de e-mail
+    if (val.assunto || val.subject) {
+      const s = val.assunto || val.subject || '';
+      const b = val.corpo || val.body || val.conteudo || Object.values(val).slice(1).join('\n');
+      return `**Assunto:** ${s}\n\n${b}`;
+    }
+    // Genérico: junta todos os valores
+    return Object.values(val).map(scriptVal).join('\n\n');
+  }
+  return String(val);
 }
 
 // ── Utilitários ────────────────────────────────────────────────
