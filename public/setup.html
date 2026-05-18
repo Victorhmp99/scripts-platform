@@ -481,13 +481,27 @@ D30|Tag do gatilho: Texto do dia 30...</div>
 
   // ── Navegação ────────────────────────────────────────────────
   async function nextStep() {
-    const err = document.getElementById('errStep1');
-    if (err) err.classList.remove('show');
+    const errEl = document.getElementById('errStep1');
+    if (errEl) errEl.classList.remove('show');
 
     if (currentStep === 0) {
       if (!validateStep1()) return;
-      await saveCompanyData();
+      const btn = document.getElementById('btnNext');
+      btn.disabled = true;
+      btn.textContent = 'Salvando...';
+      try {
+        await saveCompanyData();
+      } catch (e) {
+        errEl.textContent = e.message;
+        errEl.classList.add('show');
+        btn.disabled = false;
+        btn.innerHTML = 'Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>';
+        return;
+      }
+      btn.disabled = false;
+      btn.innerHTML = 'Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>';
     }
+
     if (currentStep === 1) {
       if (method === 'txt') {
         const content = document.getElementById('txtContent').value.trim();
@@ -497,7 +511,8 @@ D30|Tag do gatilho: Texto do dia 30...</div>
         }
       }
     }
-    if (currentStep === 2) return; // controlado pela geração
+
+    if (currentStep === 2) return;
 
     goToStep(currentStep + 1);
 
@@ -529,11 +544,10 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     const setor = document.getElementById('s1Setor').value.trim();
     const servicos = document.getElementById('s1Servicos').value.trim();
     const publico = document.getElementById('s1Publico').value.trim();
-    const processo = document.getElementById('s1Processo').value.trim();
     const err = document.getElementById('errStep1');
 
-    if (!nome || !setor || !servicos || !publico || !processo) {
-      err.textContent = 'Preencha todos os campos obrigatórios (*)';
+    if (!nome || !setor || !servicos || !publico) {
+      err.textContent = 'Preencha os campos obrigatórios: nome, setor, serviços e público-alvo.';
       err.classList.add('show');
       return false;
     }
