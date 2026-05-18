@@ -112,7 +112,6 @@ Retorne JSON com esta estrutura:
   "__structure": [
     {"tab_id":"dia-a-dia","tab_label":"Dia a Dia","sections":[
       {"key":"primeiro-contato","label":"Primeiro Contato","desc":"Primeira abordagem"},
-      {"key":"agradecimento-ligacao","label":"Agradecimento Ligação","desc":"Após ligação"},
       {"key":"confirmacao","label":"Confirmação","desc":"Confirmar compromisso"},
       {"key":"lembrete","label":"Lembrete","desc":"Antes do compromisso"},
       {"key":"pos-fechamento","label":"Pós-Fechamento","desc":"Boas-vindas ao cliente"}

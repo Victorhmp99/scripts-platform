@@ -507,7 +507,7 @@ const CAT_LABELS = {
   if (!session) { window.location.href = '/index.html'; return; }
 
   currentUser = session.user;
-  const { data: prof } = await sb.from('profiles').select('role, company_id, full_name, companies(name)').eq('id', currentUser.id).single();
+  const { data: prof } = await sb.from('profiles').select('role, company_id, full_name, companies(name, last_regenerated_at)').eq('id', currentUser.id).single();
   if (!prof) { window.location.href = '/index.html'; return; }
 
   userRole = prof.role;
@@ -517,7 +517,31 @@ const CAT_LABELS = {
   document.getElementById('userRole').textContent = prof.role;
   document.getElementById('companyNameLogo').textContent = prof.companies?.name || '';
   if (prof.role === 'admin') document.getElementById('adminLink').style.display = 'block';
-  if (['admin', 'gestor'].includes(prof.role)) document.getElementById('regenerateLink').style.display = 'block';
+  if (['admin', 'gestor'].includes(prof.role)) {
+    const lastRegen = prof.companies?.last_regenerated_at;
+    const regenLink = document.getElementById('regenerateLink');
+    const regenBtn = regenLink?.querySelector('button');
+
+    if (lastRegen && prof.role !== 'admin') {
+      const daysSince = (Date.now() - new Date(lastRegen).getTime()) / (1000 * 60 * 60 * 24);
+      const daysLeft = Math.ceil(7 - daysSince);
+      if (daysLeft > 0) {
+        regenLink.style.display = 'block';
+        regenLink.removeAttribute('href');
+        regenLink.style.cursor = 'default';
+        if (regenBtn) {
+          regenBtn.disabled = true;
+          regenBtn.style.opacity = '0.5';
+          regenBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Refazer (${daysLeft}d)`;
+          regenBtn.title = `Disponível em ${daysLeft} dia${daysLeft > 1 ? 's' : ''}`;
+        }
+      } else {
+        regenLink.style.display = 'block';
+      }
+    } else {
+      regenLink.style.display = 'block';
+    }
+  }
 
   if (userRole === 'admin' && !companyId) {
     // Admin sem empresa — redireciona para admin
@@ -607,11 +631,16 @@ function buildDynamicUI() {
 // ── Renderização ───────────────────────────────────────────────
 function renderAll() {
   if (STRUCTURE && STRUCTURE.length) {
-    // Renderiza abas dinâmicas
+    const renderedKeys = new Set();
     STRUCTURE.forEach(tab => {
       const panel = document.getElementById('panel-' + tab.tab_id);
       if (!panel) return;
-      panel.innerHTML = (tab.sections || []).map(sec => renderSection(sec)).join('');
+      const sections = (tab.sections || []).filter(sec => {
+        if (renderedKeys.has(sec.key)) return false;
+        renderedKeys.add(sec.key);
+        return true;
+      });
+      panel.innerHTML = sections.map(sec => renderSection(sec)).join('');
     });
   } else {
     // Fallback: abas fixas (Green Lab / empresas sem estrutura)

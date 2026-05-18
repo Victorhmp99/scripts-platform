@@ -802,7 +802,10 @@ D30|Tag do gatilho: Texto do dia 30...</div>
 
     if (error) throw new Error(error.message);
 
-    await sb.from('companies').update({ setup_complete: true }).eq('id', companyId);
+    await sb.from('companies').update({
+      setup_complete: true,
+      last_regenerated_at: new Date().toISOString()
+    }).eq('id', companyId);
   }
 
   // ── Preview ──────────────────────────────────────────────────
@@ -822,31 +825,43 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     tabBar.innerHTML = '';
     contents.innerHTML = '';
 
-    // Tabs de scripts
-    const scriptKeys = Object.keys(generatedData.scripts || {});
-    scriptKeys.forEach((key, i) => {
-      const tab = document.createElement('button');
-      tab.className = 'preview-tab' + (i === 0 ? ' active' : '');
-      tab.textContent = CAT_LABELS[key] || key;
-      tab.onclick = () => {
+    const structure = generatedData.__structure || generatedData.structure || [];
+    const seenKeys = new Set();
+    let tabIndex = 0;
+
+    // Renderiza abas baseado na estrutura gerada pela IA
+    structure.forEach(tab => {
+      if (!tab.sections?.length) return;
+      const tabBtn = document.createElement('button');
+      tabBtn.className = 'preview-tab' + (tabIndex === 0 ? ' active' : '');
+      tabBtn.textContent = tab.tab_label;
+      const tabId = 'pt-' + tab.tab_id;
+      tabBtn.onclick = () => {
         document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.preview-content').forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById('pc-' + key).classList.add('active');
+        tabBtn.classList.add('active');
+        document.getElementById(tabId)?.classList.add('active');
       };
-      tabBar.appendChild(tab);
+      tabBar.appendChild(tabBtn);
 
-      const content = document.createElement('div');
-      content.className = 'preview-content' + (i === 0 ? ' active' : '');
-      content.id = 'pc-' + key;
-      const variants = generatedData.scripts[key];
-      content.innerHTML = Object.entries(variants).map(([idx, text]) => `
-        <div class="script-preview-item">
-          <div class="script-preview-label">Variante ${parseInt(idx) + 1}</div>
-          ${text.replace(/\n/g, '<br>')}
-        </div>
-      `).join('');
-      contents.appendChild(content);
+      const tabContent = document.createElement('div');
+      tabContent.className = 'preview-content' + (tabIndex === 0 ? ' active' : '');
+      tabContent.id = tabId;
+
+      tab.sections.forEach(sec => {
+        if (seenKeys.has(sec.key)) return; // evita duplicatas
+        seenKeys.add(sec.key);
+        const scripts = generatedData[sec.key];
+        if (!scripts) return;
+        tabContent.innerHTML += `<div style="margin-bottom:16px"><div class="script-preview-label" style="margin-bottom:8px;font-size:0.8rem;color:var(--green)">${sec.label}</div>` +
+          Object.entries(scripts).map(([idx, text]) => `
+            <div class="script-preview-item">
+              <div class="script-preview-label">Variante ${parseInt(idx)+1}</div>
+              ${String(text).replace(/\n/g,'<br>')}
+            </div>`).join('') + '</div>';
+      });
+      contents.appendChild(tabContent);
+      tabIndex++;
     });
 
     // Tab qualificação
@@ -858,19 +873,16 @@ D30|Tag do gatilho: Texto do dia 30...</div>
         document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.preview-content').forEach(c => c.classList.remove('active'));
         tab.classList.add('active');
-        document.getElementById('pc-qual').classList.add('active');
+        document.getElementById('pc-qual')?.classList.add('active');
       };
       tabBar.appendChild(tab);
-
       const content = document.createElement('div');
       content.className = 'preview-content';
       content.id = 'pc-qual';
       content.innerHTML = generatedData.qual.map(q => `
         <div class="script-preview-item">
-          <div class="script-preview-label">${q.num}</div>
-          ${q.q}
-        </div>
-      `).join('');
+          <div class="script-preview-label">${q.num}</div>${q.q}
+        </div>`).join('');
       contents.appendChild(content);
     }
   }
