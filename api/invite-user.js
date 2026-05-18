@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Role inválido' });
   }
 
-  const redirectTo = `${process.env.APP_URL || 'https://seu-app.vercel.app'}/app.html`;
+  const redirectTo = `${process.env.APP_URL || 'https://scripts-platform.vercel.app'}/set-password.html`;
 
   try {
     // Envia convite — Supabase cria o usuário e dispara o e-mail
