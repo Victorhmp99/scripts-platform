@@ -691,38 +691,19 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     const company = companyData;
     if (!company?.name) throw new Error('Dados da empresa não encontrados. Volte e preencha novamente.');
 
-    // ── Chamada 1: Scripts + Estrutura ─────────────────────────
-    document.getElementById('generatingMsg').textContent = 'Gerando scripts (passo 1 de 2)...';
+    document.getElementById('generatingMsg').textContent = 'Criando scripts personalizados com Gemini...';
 
-    const r1 = await fetch('/api/generate-scripts', {
+    const res = await fetch('/api/generate-scripts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ company })
     });
-    const b1 = await r1.json();
-    if (!r1.ok) throw new Error(b1.error || `Erro ${r1.status} na geração de scripts`);
-    if (!b1.data) throw new Error('A IA não retornou scripts. Tente novamente.');
 
-    // ── Pausa para respeitar limite TPM do Groq (12k/min) ────────
-    await countdown(30, 'Aguardando limite da IA');
+    const body = await res.json();
+    if (!res.ok) throw new Error(body.error || `Erro ${res.status} na geração`);
+    if (!body.data) throw new Error('A IA não retornou scripts. Tente novamente.');
 
-    // ── Chamada 2: Aquecimento 30 dias ─────────────────────────
-    document.getElementById('generatingMsg').textContent = 'Gerando aquecimento 30 dias (passo 2 de 2)...';
-
-    const r2 = await fetch('/api/generate-aquecimento', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ company })
-    });
-    const b2 = await r2.json();
-    if (!r2.ok) throw new Error(b2.error || `Erro no aquecimento`);
-
-    // ── Junta os resultados ─────────────────────────────────────
-    generatedData = {
-      ...b1.data,
-      aq: b2.data?.aq || b1.data?.aq || []
-    };
-
+    generatedData = body.data;
     document.getElementById('generatingMsg').textContent = 'Scripts gerados com sucesso!';
   }
 
