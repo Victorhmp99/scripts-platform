@@ -401,7 +401,7 @@
         <td>${u.companies?.name || '<span style="color:var(--muted)">—</span>'}</td>
         <td>
           <button class="action-btn" onclick="reenviarConvite('${u.email}')">Reenviar</button>
-          ${u.id !== currentUserId ? `<button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>` : ''}
+          ${(currentUserId && u.id && u.id !== currentUserId) ? `<button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>` : ''}
         </td>
       </tr>
     `).join('');
