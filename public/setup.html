@@ -240,6 +240,11 @@
         <label>Qual a sua principal proposta de valor?</label>
         <input id="s1Valor" placeholder="Ex: Aumentamos em 30% o faturamento da clínica em 90 dias" />
       </div>
+      <div class="field">
+        <label>Como é o processo de vendas? *</label>
+        <textarea id="s1Processo" placeholder="Descreva o caminho do lead até fechar: como ele chega, como é o primeiro contato, as etapas até a reunião, como você apresenta a proposta e como fecha. Quanto mais detalhe, mais precisos ficam os scripts."></textarea>
+        <div class="field-hint">Ex: Lead chega pelo Instagram → SDR faz primeiro contato no WhatsApp → qualificação por ligação → reunião com especialista → proposta → fechamento</div>
+      </div>
     </div>
   </div>
 
@@ -524,9 +529,10 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     const setor = document.getElementById('s1Setor').value.trim();
     const servicos = document.getElementById('s1Servicos').value.trim();
     const publico = document.getElementById('s1Publico').value.trim();
+    const processo = document.getElementById('s1Processo').value.trim();
     const err = document.getElementById('errStep1');
 
-    if (!nome || !setor || !servicos || !publico) {
+    if (!nome || !setor || !servicos || !publico || !processo) {
       err.textContent = 'Preencha todos os campos obrigatórios (*)';
       err.classList.add('show');
       return false;
@@ -542,6 +548,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       target_audience: document.getElementById('s1Publico').value.trim(),
       pain_points: document.getElementById('s1Dores').value.trim(),
       value_prop: document.getElementById('s1Valor').value.trim(),
+      sales_process: document.getElementById('s1Processo').value.trim(),
     };
 
     if (companyId) {

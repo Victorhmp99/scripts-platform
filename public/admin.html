@@ -334,16 +334,18 @@
 <script>
   const SUPABASE_URL = 'https://opssjtkciavzcqapbzla.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wc3NqdGtjaWF2emNxYXBiemxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDE1NDUsImV4cCI6MjA5NDYxNzU0NX0.9gG7v5Y3Hzq0GeNEz2opz9WEaPjnBTd5k9JAu365QUM';
-  const ADMIN_SECRET = 'greenlab2025'; // deve bater com ADMIN_SECRET no .env do Vercel
+  const ADMIN_SECRET = 'GreenLab@2025!';
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
   let empresas = [];
   let usuarios = [];
+  let currentUserId = null;
 
   // ── Auth guard ──────────────────────────────────────────────
   (async () => {
     const { data: { session } } = await sb.auth.getSession();
     if (!session) { window.location.href = '/index.html'; return; }
+    currentUserId = session.user.id;
     const { data: prof } = await sb.from('profiles').select('role').eq('id', session.user.id).single();
     if (prof?.role !== 'admin') { window.location.href = '/app.html'; return; }
     loadData();
@@ -408,7 +410,7 @@
         <td>${u.companies?.name || '<span style="color:var(--muted)">—</span>'}</td>
         <td>
           <button class="action-btn" onclick="reenviarConvite('${u.email}')">Reenviar</button>
-          <button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>
+          ${u.id !== currentUserId ? `<button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>` : ''}
         </td>
       </tr>
     `).join('');
