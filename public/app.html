@@ -346,6 +346,12 @@
         <div class="user-name" id="userName">—</div>
         <div class="user-role" id="userRole">—</div>
       </div>
+      <a id="adminLink" href="/admin.html" style="display:none; text-decoration:none;">
+        <button class="logout-btn" style="color:var(--green); width:100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
+          Painel Admin
+        </button>
+      </a>
       <button class="logout-btn" onclick="logout()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Sair da plataforma
@@ -503,6 +509,7 @@ const CAT_LABELS = {
   document.getElementById('userName').textContent = prof.full_name || currentUser.email;
   document.getElementById('userRole').textContent = prof.role;
   document.getElementById('companyNameLogo').textContent = prof.companies?.name || '';
+  if (prof.role === 'admin') document.getElementById('adminLink').style.display = 'block';
 
   if (userRole === 'admin' && !companyId) {
     // Admin sem empresa — redireciona para admin
