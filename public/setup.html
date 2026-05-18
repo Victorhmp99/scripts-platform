@@ -458,8 +458,9 @@ D30|Tag do gatilho: Texto do dia 30...</div>
 
     companyId = prof.company_id;
 
-    // Se já tem setup completo, vai direto pro app
-    if (companyId) {
+    // Se já tem setup completo, vai direto pro app — EXCETO se for modo regenerar
+    const isRegenerate = new URLSearchParams(window.location.search).get('mode') === 'regenerate';
+    if (!isRegenerate && companyId) {
       const { data: scripts } = await sb.from('company_scripts').select('id').eq('company_id', companyId).single();
       if (scripts) { window.location.href = '/app.html'; return; }
     }

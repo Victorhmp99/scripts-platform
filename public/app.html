@@ -346,6 +346,12 @@
         <div class="user-name" id="userName">—</div>
         <div class="user-role" id="userRole">—</div>
       </div>
+      <a id="regenerateLink" href="/setup.html?mode=regenerate" style="display:none; text-decoration:none;">
+        <button class="logout-btn" style="color:var(--warning); width:100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Refazer Scripts
+        </button>
+      </a>
       <a id="adminLink" href="/admin.html" style="display:none; text-decoration:none;">
         <button class="logout-btn" style="color:var(--green); width:100%;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
@@ -510,6 +516,7 @@ const CAT_LABELS = {
   document.getElementById('userRole').textContent = prof.role;
   document.getElementById('companyNameLogo').textContent = prof.companies?.name || '';
   if (prof.role === 'admin') document.getElementById('adminLink').style.display = 'block';
+  if (['admin', 'gestor'].includes(prof.role)) document.getElementById('regenerateLink').style.display = 'block';
 
   if (userRole === 'admin' && !companyId) {
     // Admin sem empresa — redireciona para admin
