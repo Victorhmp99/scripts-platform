@@ -179,7 +179,11 @@
 
     async function redirectByRole(userId) {
       const { data: profile } = await sb.from('profiles').select('role, company_id').eq('id', userId).single();
-      if (!profile) return;
+      if (!profile) {
+        // Perfil ainda não existe — vai para setup
+        window.location.href = '/setup.html';
+        return;
+      }
       if (profile.role === 'admin') {
         window.location.href = '/admin.html';
       } else if (!profile.company_id) {
