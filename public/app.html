@@ -540,10 +540,12 @@ async function loadScripts() {
     return;
   }
 
-  D = scriptsRes.data.scripts || {};
+  const rawScripts = scriptsRes.data.scripts || {};
+  // Lê estrutura embutida no JSONB e remove do objeto de scripts
+  STRUCTURE = rawScripts.__structure || [];
+  D = Object.fromEntries(Object.entries(rawScripts).filter(([k]) => k !== '__structure'));
   QUAL = scriptsRes.data.qual || [];
   AQ = scriptsRes.data.aq || [];
-  STRUCTURE = scriptsRes.data.structure || [];
 
   (editsRes.data || []).forEach(e => {
     EDITS[e.script_key] = { content: e.content, usage_count: e.usage_count };

@@ -222,7 +222,22 @@
       <div class="error-msg" id="errStep1"></div>
       <div class="field-grid">
         <div class="field"><label>Nome da empresa *</label><input id="s1Nome" placeholder="Ex: Clínica Sorridentes" /></div>
+        <div class="field"><label>Nome do vendedor *</label><input id="s1Vendedor" placeholder="Ex: João, Maria..." /></div>
+      </div>
+      <div class="field-grid">
         <div class="field"><label>Setor / Nicho *</label><input id="s1Setor" placeholder="Ex: Odontologia, Imóveis, SaaS..." /></div>
+        <div class="field">
+          <label>Segmento *</label>
+          <select id="s1Segmento">
+            <option value="">Selecione o segmento</option>
+            <option value="Negócio Local">Negócio Local (clínica, salão, restaurante, loja física...)</option>
+            <option value="E-commerce">E-commerce (loja online, dropshipping...)</option>
+            <option value="Serviço Online">Serviço Online (mentoria, curso, freelancer...)</option>
+            <option value="B2B / Empresas">B2B / Empresas (vende para outras empresas)</option>
+            <option value="Agência / Consultoria">Agência / Consultoria (marketing, gestão, jurídico...)</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
       </div>
       <div class="field">
         <label>O que você vende? *</label>
@@ -241,9 +256,18 @@
         <input id="s1Valor" placeholder="Ex: Aumentamos em 30% o faturamento da clínica em 90 dias" />
       </div>
       <div class="field">
+        <label>Tom de voz da empresa</label>
+        <select id="s1Tom">
+          <option value="Direto e humano">Direto e humano (padrão)</option>
+          <option value="Formal e profissional">Formal e profissional</option>
+          <option value="Descontraído e próximo">Descontraído e próximo</option>
+          <option value="Consultivo e técnico">Consultivo e técnico</option>
+        </select>
+      </div>
+      <div class="field">
         <label>Como é o processo de vendas? *</label>
-        <textarea id="s1Processo" placeholder="Descreva o caminho do lead até fechar: como ele chega, como é o primeiro contato, as etapas até a reunião, como você apresenta a proposta e como fecha. Quanto mais detalhe, mais precisos ficam os scripts."></textarea>
-        <div class="field-hint">Ex: Lead chega pelo Instagram → SDR faz primeiro contato no WhatsApp → qualificação por ligação → reunião com especialista → proposta → fechamento</div>
+        <textarea id="s1Processo" placeholder="Descreva o caminho do lead até fechar: como ele chega, as etapas até a decisão, como apresenta e como fecha. Quanto mais detalhe, mais precisos os scripts."></textarea>
+        <div class="field-hint">Ex: Lead vem pelo Instagram → primeiro contato WhatsApp → qualificação por ligação → reunião online → proposta → fechamento</div>
       </div>
     </div>
   </div>
@@ -543,13 +567,15 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   // ── Step 1 ───────────────────────────────────────────────────
   function validateStep1() {
     const nome = document.getElementById('s1Nome').value.trim();
+    const vendedor = document.getElementById('s1Vendedor').value.trim();
     const setor = document.getElementById('s1Setor').value.trim();
+    const segmento = document.getElementById('s1Segmento').value;
     const servicos = document.getElementById('s1Servicos').value.trim();
     const publico = document.getElementById('s1Publico').value.trim();
     const err = document.getElementById('errStep1');
 
-    if (!nome || !setor || !servicos || !publico) {
-      err.textContent = 'Preencha os campos obrigatórios: nome, setor, serviços e público-alvo.';
+    if (!nome || !vendedor || !setor || !segmento || !servicos || !publico) {
+      err.textContent = 'Preencha todos os campos obrigatórios: nome, vendedor, setor, segmento, serviços e cliente ideal.';
       err.classList.add('show');
       return false;
     }
@@ -559,11 +585,14 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   async function saveCompanyData() {
     const company = {
       name: document.getElementById('s1Nome').value.trim(),
+      seller_name: document.getElementById('s1Vendedor').value.trim(),
       industry: document.getElementById('s1Setor').value.trim(),
+      segment: document.getElementById('s1Segmento').value,
       services: document.getElementById('s1Servicos').value.trim(),
       target_audience: document.getElementById('s1Publico').value.trim(),
       pain_points: document.getElementById('s1Dores').value.trim(),
       value_prop: document.getElementById('s1Valor').value.trim(),
+      tone: document.getElementById('s1Tom').value,
       sales_process: document.getElementById('s1Processo').value.trim(),
     };
     companyData = company; // guarda para usar na geração sem precisar re-buscar
@@ -749,12 +778,19 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   async function saveScripts() {
     document.getElementById('generatingMsg').textContent = 'Salvando no banco de dados...';
 
+    // Embute a estrutura dentro do JSONB de scripts (evita precisar de coluna nova)
+    const scriptsWithStructure = {
+      ...generatedData,           // inclui tudo que a IA retornou
+      __structure: generatedData.__structure || generatedData.structure || []
+    };
+    // Remove __structure e qual/aq do objeto de scripts (ficam em colunas separadas)
+    const { __structure, qual: _q, aq: _a, structure: _s, ...scriptsOnly } = scriptsWithStructure;
+
     const { error } = await sb.from('company_scripts').upsert({
       company_id: companyId,
-      scripts: generatedData.scripts || {},
+      scripts: { ...scriptsOnly, __structure },
       qual: generatedData.qual || [],
-      aq: generatedData.aq || [],
-      structure: generatedData.structure || []
+      aq: generatedData.aq || []
     }, { onConflict: 'company_id' });
 
     if (error) throw new Error(error.message);
