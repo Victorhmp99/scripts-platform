@@ -543,10 +543,20 @@
   }
 
   async function deletarUsuario(id, nome) {
-    if (!confirm(`Remover acesso de "${nome}"? Ele não conseguirá mais fazer login.`)) return;
-    await sb.from('profiles').update({ company_id: null, role: 'user' }).eq('id', id);
-    toast('Acesso removido', 'red');
-    loadUsuarios();
+    if (!confirm(`Remover acesso de "${nome}"?\n\nEle não conseguirá mais fazer login na plataforma.`)) return;
+    try {
+      const res = await fetch('/api/delete-user', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        body: JSON.stringify({ user_id: id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast('Acesso removido', 'red');
+      loadUsuarios();
+    } catch (e) {
+      toast('Erro: ' + e.message, 'red');
+    }
   }
 
   // ── UI helpers ───────────────────────────────────────────────
