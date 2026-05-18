@@ -106,6 +106,10 @@
     }
     .method-card:hover { border-color: rgba(0,232,122,0.4); background: var(--green-dim); }
     .method-card.selected { border-color: var(--green); background: var(--green-dim); }
+    .method-card.locked {
+      opacity: 0.5; cursor: not-allowed; pointer-events: none;
+      border-color: var(--border) !important; background: var(--surface) !important;
+    }
     .method-card .icon {
       width: 42px; height: 42px; background: var(--green-dim); border: 1px solid var(--green);
       border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
@@ -113,6 +117,11 @@
     .method-card .icon svg { width: 20px; height: 20px; }
     .method-card h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
     .method-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+    .ia-lock-badge {
+      display: inline-block; margin-top: 10px; font-size: 0.75rem; font-weight: 600;
+      background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.3);
+      color: #ff6b6b; border-radius: 6px; padding: 3px 8px;
+    }
 
     /* TXT template */
     .template-box {
@@ -288,6 +297,7 @@
         </div>
         <h4>Gerar com IA</h4>
         <p>A IA cria todos os scripts automaticamente com base nas informações da sua empresa. Rápido e fácil.</p>
+        <div class="ia-lock-badge" id="iaLockBadge" style="display:none">🔒 Disponível em <span id="iaLockDays"></span></div>
       </div>
       <div class="method-card" id="cardTXT" onclick="selectMethod('txt')">
         <div class="icon">
@@ -482,11 +492,34 @@ D30|Tag do gatilho: Texto do dia 30...</div>
 
     companyId = prof.company_id;
 
+    const params = new URLSearchParams(window.location.search);
+    const isRegenerate = params.get('mode') === 'regenerate';
+
     // Se já tem setup completo, vai direto pro app — EXCETO se for modo regenerar
-    const isRegenerate = new URLSearchParams(window.location.search).get('mode') === 'regenerate';
     if (!isRegenerate && companyId) {
       const { data: scripts } = await sb.from('company_scripts').select('id').eq('company_id', companyId).single();
       if (scripts) { window.location.href = '/app.html'; return; }
+    }
+
+    // Checa limite semanal de IA (só no modo regenerar)
+    if (isRegenerate) {
+      const lastParam = params.get('last');
+      if (lastParam) {
+        const lastDate = new Date(lastParam);
+        const diffMs = Date.now() - lastDate.getTime();
+        const diffDays = diffMs / (1000 * 60 * 60 * 24);
+        if (diffDays < 7) {
+          const daysLeft = Math.ceil(7 - diffDays);
+          // Bloqueia card de IA e mostra badge com dias restantes
+          const cardIA = document.getElementById('cardIA');
+          cardIA.classList.add('locked');
+          cardIA.classList.remove('selected');
+          document.getElementById('iaLockBadge').style.display = 'inline-block';
+          document.getElementById('iaLockDays').textContent = daysLeft === 1 ? '1 dia' : `${daysLeft} dias`;
+          // Seleciona TXT automaticamente
+          selectMethod('txt');
+        }
+      }
     }
 
     // Preenche campo de nome da empresa se disponível
@@ -618,6 +651,8 @@ D30|Tag do gatilho: Texto do dia 30...</div>
 
   // ── Step 2 ───────────────────────────────────────────────────
   function selectMethod(m) {
+    // Não permite selecionar IA se estiver bloqueado
+    if (m === 'ia' && document.getElementById('cardIA').classList.contains('locked')) return;
     method = m;
     document.getElementById('cardIA').classList.toggle('selected', m === 'ia');
     document.getElementById('cardTXT').classList.toggle('selected', m === 'txt');
