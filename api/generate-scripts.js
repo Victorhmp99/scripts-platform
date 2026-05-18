@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
   try {
     const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,8 +25,7 @@ export default async function handler(req, res) {
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
             temperature: 0.8,
-            maxOutputTokens: 16384,
-            responseMimeType: 'application/json'
+            maxOutputTokens: 8192
           }
         })
       }
@@ -35,7 +34,9 @@ export default async function handler(req, res) {
     if (!geminiRes.ok) {
       const err = await geminiRes.text();
       console.error('Gemini error:', err);
-      return res.status(500).json({ error: 'Erro na geração de scripts' });
+      let errMsg = 'Erro na geração de scripts';
+      try { errMsg = JSON.parse(err)?.error?.message || errMsg; } catch {}
+      return res.status(500).json({ error: errMsg });
     }
 
     const data = await geminiRes.json();
