@@ -558,20 +558,17 @@ async function loadScripts() {
 
 // ── Constrói sidebar e painéis dinamicamente a partir da STRUCTURE ─
 function buildDynamicUI() {
-  // Se não tem estrutura (empresa antiga ou Green Lab seed), usa tabs fixas
   if (!STRUCTURE || !STRUCTURE.length) return;
 
-  // Limpa sidebar e mobile tabs
   const nav = document.querySelector('.nav');
   const mobileTabs = document.getElementById('mobileTabs');
   const contentArea = document.querySelector('.content');
+
   nav.innerHTML = '';
   mobileTabs.innerHTML = '';
-
-  // Remove painéis existentes e recria dinamicamente
+  // Remove painéis estáticos e recria todos dinamicamente
   document.querySelectorAll('.tab-panel').forEach(p => p.remove());
 
-  // Adiciona abas dinâmicas + qualificação + aquecimento
   const allTabs = [
     ...STRUCTURE,
     { tab_id: 'qualificacao', tab_label: 'Qualificação' },
@@ -579,20 +576,20 @@ function buildDynamicUI() {
   ];
 
   allTabs.forEach((tab, idx) => {
-    // Cria painel
+    // Painel — usa appendChild (não insertBefore) para evitar erro de referência
     const panel = document.createElement('div');
     panel.className = 'tab-panel' + (idx === 0 ? ' active' : '');
     panel.id = 'panel-' + tab.tab_id;
-    contentArea.insertBefore(panel, document.getElementById('toast'));
+    contentArea.appendChild(panel);
 
-    // Cria nav item no sidebar
+    // Nav sidebar
     const btn = document.createElement('button');
     btn.className = 'tab-btn' + (idx === 0 ? ' active' : '');
     btn.innerHTML = `<span class="dot"></span>${tab.tab_label}`;
     btn.onclick = () => switchTab(tab.tab_id, btn);
     nav.appendChild(btn);
 
-    // Cria mobile tab
+    // Mobile tab
     const mobileBtn = document.createElement('button');
     mobileBtn.className = 'mobile-tab' + (idx === 0 ? ' active' : '');
     mobileBtn.textContent = tab.tab_label;
@@ -600,14 +597,10 @@ function buildDynamicUI() {
     mobileTabs.appendChild(mobileBtn);
   });
 
-  // Define aba inicial
   if (allTabs.length > 0) {
     currentTab = allTabs[0].tab_id;
-    const meta = STRUCTURE[0];
-    if (meta) {
-      document.getElementById('pageTitle').textContent = meta.tab_label;
-      document.getElementById('pageDesc').textContent = '';
-    }
+    document.getElementById('pageTitle').textContent = allTabs[0].tab_label || '';
+    document.getElementById('pageDesc').textContent = '';
   }
 }
 
