@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Scripts Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #060f09; --surface: #0e1f14; --card: #112a1a; --border: #1c3d27;
+      --green: #00e87a; --green-dim: rgba(0,232,122,0.1); --green-glow: rgba(0,232,122,0.2);
+      --text: #e8f5e9; --muted: rgba(232,245,233,0.5); --danger: #ff6b6b;
+      --warning: #ffc107;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* Layout */
+    .layout { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 240px; background: var(--surface); border-right: 1px solid var(--border);
+      padding: 24px 16px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0;
+    }
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px; padding: 8px 12px; margin-bottom: 20px;
+    }
+    .sidebar-logo .mark {
+      width: 36px; height: 36px; background: var(--green-dim); border: 1px solid var(--green);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 16px var(--green-glow);
+    }
+    .sidebar-logo .mark svg { width: 18px; height: 18px; }
+    .sidebar-logo span { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+    .sidebar-logo span em { color: var(--green); font-style: normal; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
+      cursor: pointer; color: var(--muted); font-size: 0.9rem; transition: all 0.15s;
+      border: 1px solid transparent; text-decoration: none;
+    }
+    .nav-item:hover { background: var(--green-dim); color: var(--text); }
+    .nav-item.active { background: var(--green-dim); color: var(--green); border-color: rgba(0,232,122,0.2); }
+    .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .sidebar-bottom { margin-top: auto; }
+    .logout-btn {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
+      cursor: pointer; color: var(--muted); font-size: 0.9rem; transition: all 0.15s;
+      background: none; border: none; width: 100%; text-align: left; font-family: inherit;
+    }
+    .logout-btn:hover { color: var(--danger); background: rgba(255,107,107,0.08); }
+    .logout-btn svg { width: 18px; height: 18px; }
+
+    /* Main */
+    .main { flex: 1; padding: 32px; overflow-y: auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-header { margin-bottom: 28px; }
+    .page-header h1 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; }
+    .page-header p { color: var(--muted); font-size: 0.875rem; margin-top: 4px; }
+
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+    }
+    .stat-card .num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--green); }
+    .stat-card .label { color: var(--muted); font-size: 0.8125rem; margin-top: 4px; }
+
+    /* Table */
+    .table-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; margin-bottom: 24px;
+    }
+    .table-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px; border-bottom: 1px solid var(--border);
+    }
+    .table-header h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left; padding: 12px 20px; font-size: 0.75rem; font-weight: 500;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+    td { padding: 14px 20px; font-size: 0.9rem; border-bottom: 1px solid rgba(28,61,39,0.5); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(0,232,122,0.03); }
+    .badge {
+      display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 500;
+    }
+    .badge-admin { background: rgba(0,232,122,0.15); color: var(--green); }
+    .badge-gestor { background: rgba(255,193,7,0.15); color: var(--warning); }
+    .badge-user { background: rgba(232,245,233,0.1); color: var(--muted); }
+    .badge-ok { background: rgba(0,232,122,0.15); color: var(--green); }
+    .badge-pending { background: rgba(255,193,7,0.15); color: var(--warning); }
+    .action-btn {
+      background: none; border: 1px solid var(--border); border-radius: 7px; color: var(--muted);
+      padding: 5px 10px; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; font-family: inherit;
+    }
+    .action-btn:hover { border-color: var(--green); color: var(--green); }
+    .action-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
+    .empty-row td { text-align: center; color: var(--muted); padding: 32px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: #060f09; border: none; border-radius: 10px;
+      font-family: 'Syne', sans-serif; font-size: 0.875rem; font-weight: 700;
+      padding: 10px 18px; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-ghost {
+      background: none; border: 1px solid var(--border); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+    }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+    .btn svg { width: 16px; height: 16px; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(6,15,9,0.85); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; z-index: 100; padding: 24px;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+      padding: 32px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto;
+      transform: scale(0.95); transition: transform 0.2s;
+    }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block; font-size: 0.75rem; font-weight: 500; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 9px;
+      color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9375rem;
+      padding: 10px 14px; outline: none; transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--green);
+    }
+    .field select option { background: var(--surface); }
+    .field textarea { resize: vertical; min-height: 80px; }
+    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+    .error-msg {
+      background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3);
+      border-radius: 8px; color: var(--danger); font-size: 0.85rem;
+      padding: 10px 14px; margin-bottom: 14px; display: none;
+    }
+    .error-msg.show { display: block; }
+    .success-msg {
+      background: rgba(0,232,122,0.1); border: 1px solid rgba(0,232,122,0.3);
+      border-radius: 8px; color: var(--green); font-size: 0.85rem;
+      padding: 10px 14px; margin-bottom: 14px; display: none;
+    }
+    .success-msg.show { display: block; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px; padding: 12px 18px;
+      font-size: 0.875rem; z-index: 200; transform: translateY(80px); opacity: 0;
+      transition: all 0.3s; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.green { border-color: rgba(0,232,122,0.4); color: var(--green); }
+    .toast.red { border-color: rgba(255,107,107,0.4); color: var(--danger); }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <span>Scripts <em>Platform</em></span>
+    </div>
+
+    <div class="nav-item active" onclick="showPage('empresas')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
+      Empresas
+    </div>
+    <div class="nav-item" onclick="showPage('usuarios')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Usuários
+    </div>
+
+    <div class="sidebar-bottom">
+      <a class="nav-item" href="/app.html" style="text-decoration:none; margin-bottom:4px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Meus Scripts
+      </a>
+      <button class="logout-btn" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sair
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- Stats sempre visíveis -->
+    <div class="stats" id="statsArea">
+      <div class="stat-card">
+        <div class="num" id="statEmpresas">—</div>
+        <div class="label">Empresas cadastradas</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="statUsuarios">—</div>
+        <div class="label">Usuários ativos</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="statSetup">—</div>
+        <div class="label">Setup concluído</div>
+      </div>
+    </div>
+
+    <!-- Página: Empresas -->
+    <div class="page active" id="page-empresas">
+      <div class="page-header">
+        <h1>Empresas</h1>
+        <p>Gerencie as empresas clientes com acesso à plataforma</p>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Todas as empresas</h3>
+          <button class="btn" onclick="openModal('modalEmpresa')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nova empresa
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Empresa</th><th>Setor</th><th>Setup</th><th>Criado em</th><th>Ações</th></tr>
+          </thead>
+          <tbody id="tblEmpresas">
+            <tr class="empty-row"><td colspan="5">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Página: Usuários -->
+    <div class="page" id="page-usuarios">
+      <div class="page-header">
+        <h1>Usuários</h1>
+        <p>Controle quem tem acesso à plataforma e com qual função</p>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Todos os usuários</h3>
+          <button class="btn" onclick="openModal('modalUsuario')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Convidar usuário
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Usuário</th><th>Função</th><th>Empresa</th><th>Ações</th></tr>
+          </thead>
+          <tbody id="tblUsuarios">
+            <tr class="empty-row"><td colspan="5">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal: Nova Empresa -->
+<div class="modal-overlay" id="modalEmpresa">
+  <div class="modal">
+    <h3>Nova empresa</h3>
+    <div class="error-msg" id="errEmpresa"></div>
+    <div class="field"><label>Nome da empresa *</label><input id="empNome" placeholder="Ex: Clínica Sorridentes" /></div>
+    <div class="field"><label>Setor / Nicho *</label><input id="empSetor" placeholder="Ex: Odontologia, Imóveis, SaaS B2B..." /></div>
+    <div class="field"><label>Serviços / Produtos *</label><textarea id="empServicos" placeholder="Descreva os principais serviços ou produtos da empresa"></textarea></div>
+    <div class="field"><label>Público-alvo</label><input id="empPublico" placeholder="Ex: Pequenas clínicas odontológicas" /></div>
+    <div class="field"><label>Principais dores que resolve</label><textarea id="empDores" placeholder="Quais problemas a empresa resolve para seus clientes?"></textarea></div>
+    <div class="field"><label>Proposta de valor</label><input id="empValor" placeholder="Ex: Aumento de 30% na conversão de leads" /></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalEmpresa')">Cancelar</button>
+      <button class="btn" onclick="criarEmpresa()">Criar empresa</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Convidar Usuário -->
+<div class="modal-overlay" id="modalUsuario">
+  <div class="modal">
+    <h3>Convidar usuário</h3>
+    <p style="color:var(--muted); font-size:0.85rem; margin-bottom:18px; line-height:1.5;">
+      Um e-mail de acesso será enviado automaticamente. O usuário clica no link e já entra na plataforma — sem precisar criar senha.
+    </p>
+    <div class="error-msg" id="errUsuario"></div>
+    <div class="success-msg" id="sucUsuario"></div>
+    <div class="field"><label>E-mail do usuário *</label><input id="usrEmail" type="email" placeholder="email@empresa.com" /></div>
+    <div class="field"><label>Nome completo</label><input id="usrNome" placeholder="Nome do usuário (opcional)" /></div>
+    <div class="field">
+      <label>Função *</label>
+      <select id="usrRole">
+        <option value="user">Usuário — acessa os scripts da empresa</option>
+        <option value="gestor">Gestor — pode editar e configurar scripts</option>
+        <option value="admin">Admin — acesso total (Green Lab)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Empresa</label>
+      <select id="usrEmpresa"><option value="">— Nenhuma (admin sem empresa) —</option></select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalUsuario')">Cancelar</button>
+      <button class="btn" id="btnCriarUsr" onclick="convidarUsuario()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+        Enviar convite
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const SUPABASE_URL = 'https://opssjtkciavzcqapbzla.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wc3NqdGtjaWF2emNxYXBiemxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDE1NDUsImV4cCI6MjA5NDYxNzU0NX0.9gG7v5Y3Hzq0GeNEz2opz9WEaPjnBTd5k9JAu365QUM';
+  const ADMIN_SECRET = 'greenlab2025'; // deve bater com ADMIN_SECRET no .env do Vercel
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  let empresas = [];
+  let usuarios = [];
+
+  // ── Auth guard ──────────────────────────────────────────────
+  (async () => {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { window.location.href = '/index.html'; return; }
+    const { data: prof } = await sb.from('profiles').select('role').eq('id', session.user.id).single();
+    if (prof?.role !== 'admin') { window.location.href = '/app.html'; return; }
+    loadData();
+  })();
+
+  async function loadData() {
+    await Promise.all([loadEmpresas(), loadUsuarios()]);
+    updateStats();
+  }
+
+  async function loadEmpresas() {
+    const { data } = await sb.from('companies').select('*').order('created_at', { ascending: false });
+    empresas = data || [];
+    renderEmpresas();
+    populateEmpresaSelect();
+  }
+
+  async function loadUsuarios() {
+    const { data } = await sb.from('profiles').select('id, email, full_name, role, company_id, created_at, companies(name)').order('created_at', { ascending: false });
+    usuarios = data || [];
+    renderUsuarios();
+  }
+
+  function updateStats() {
+    document.getElementById('statEmpresas').textContent = empresas.length;
+    document.getElementById('statUsuarios').textContent = usuarios.length;
+    document.getElementById('statSetup').textContent = empresas.filter(e => e.setup_complete).length;
+  }
+
+  function renderEmpresas() {
+    const tbody = document.getElementById('tblEmpresas');
+    if (!empresas.length) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Nenhuma empresa cadastrada ainda</td></tr>';
+      return;
+    }
+    tbody.innerHTML = empresas.map(e => `
+      <tr>
+        <td><strong>${e.name}</strong></td>
+        <td>${e.industry || '—'}</td>
+        <td><span class="badge ${e.setup_complete ? 'badge-ok' : 'badge-pending'}">${e.setup_complete ? '✓ Concluído' : '⏳ Pendente'}</span></td>
+        <td>${new Date(e.created_at).toLocaleDateString('pt-BR')}</td>
+        <td>
+          <button class="action-btn danger" onclick="deletarEmpresa('${e.id}', '${e.name.replace(/'/g,"\\'")}')">Remover</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function renderUsuarios() {
+    const tbody = document.getElementById('tblUsuarios');
+    if (!usuarios.length) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Nenhum usuário cadastrado ainda</td></tr>';
+      return;
+    }
+    tbody.innerHTML = usuarios.map(u => `
+      <tr>
+        <td>
+          <div style="font-weight:500">${u.full_name || '—'}</div>
+          <div style="font-size:0.78rem; color:var(--muted); margin-top:2px">${u.email || ''}</div>
+        </td>
+        <td><span class="badge badge-${u.role}">${u.role}</span></td>
+        <td>${u.companies?.name || '<span style="color:var(--muted)">—</span>'}</td>
+        <td>
+          <button class="action-btn" onclick="reenviarConvite('${u.email}')">Reenviar</button>
+          <button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function populateEmpresaSelect() {
+    const sel = document.getElementById('usrEmpresa');
+    sel.innerHTML = '<option value="">— Nenhuma (admin sem empresa) —</option>';
+    empresas.forEach(e => {
+      sel.innerHTML += `<option value="${e.id}">${e.name}</option>`;
+    });
+  }
+
+  // ── Criar empresa ────────────────────────────────────────────
+  async function criarEmpresa() {
+    const nome = document.getElementById('empNome').value.trim();
+    const setor = document.getElementById('empSetor').value.trim();
+    const servicos = document.getElementById('empServicos').value.trim();
+    const publico = document.getElementById('empPublico').value.trim();
+    const dores = document.getElementById('empDores').value.trim();
+    const valor = document.getElementById('empValor').value.trim();
+    const err = document.getElementById('errEmpresa');
+    err.classList.remove('show');
+
+    if (!nome || !setor || !servicos) {
+      err.textContent = 'Preencha os campos obrigatórios (*)';
+      err.classList.add('show');
+      return;
+    }
+
+    const { error } = await sb.from('companies').insert({
+      name: nome, industry: setor, services: servicos,
+      target_audience: publico, pain_points: dores, value_prop: valor
+    });
+
+    if (error) { err.textContent = error.message; err.classList.add('show'); return; }
+
+    closeModal('modalEmpresa');
+    clearEmpresaForm();
+    toast('Empresa criada com sucesso', 'green');
+    loadData();
+  }
+
+  function clearEmpresaForm() {
+    ['empNome','empSetor','empServicos','empPublico','empDores','empValor'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+  }
+
+  // ── Convidar usuário (envia e-mail de acesso) ─────────────────
+  async function convidarUsuario() {
+    const email = document.getElementById('usrEmail').value.trim();
+    const nome = document.getElementById('usrNome').value.trim();
+    const role = document.getElementById('usrRole').value;
+    const companyId = document.getElementById('usrEmpresa').value;
+    const err = document.getElementById('errUsuario');
+    const suc = document.getElementById('sucUsuario');
+    const btn = document.getElementById('btnCriarUsr');
+
+    err.classList.remove('show');
+    suc.classList.remove('show');
+
+    if (!email) {
+      err.textContent = 'Informe o e-mail do usuário';
+      err.classList.add('show');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = 'Enviando convite...';
+
+    try {
+      const res = await fetch('/api/invite-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        body: JSON.stringify({ email, full_name: nome, role, company_id: companyId || null })
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        err.textContent = data.error || 'Erro ao enviar convite';
+        err.classList.add('show');
+      } else {
+        suc.textContent = data.status === 'updated'
+          ? `✓ Acesso de ${email} atualizado`
+          : `✓ Convite enviado para ${email}`;
+        suc.classList.add('show');
+        document.getElementById('usrEmail').value = '';
+        document.getElementById('usrNome').value = '';
+        loadUsuarios();
+        setTimeout(() => closeModal('modalUsuario'), 2000);
+      }
+    } catch (e) {
+      err.textContent = 'Erro de conexão';
+      err.classList.add('show');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Enviar convite`;
+  }
+
+  // ── Deletar ──────────────────────────────────────────────────
+  async function deletarEmpresa(id, nome) {
+    if (!confirm(`Remover a empresa "${nome}"? Esta ação não pode ser desfeita.`)) return;
+    await sb.from('companies').delete().eq('id', id);
+    toast('Empresa removida', 'red');
+    loadData();
+  }
+
+  async function reenviarConvite(email) {
+    if (!email) return;
+    const btn = event.currentTarget;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try {
+      const res = await fetch('/api/invite-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (res.ok) toast(`Convite reenviado para ${email}`, 'green');
+      else toast(data.error || 'Erro ao reenviar', 'red');
+    } catch {
+      toast('Erro de conexão', 'red');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Reenviar';
+  }
+
+  async function deletarUsuario(id, nome) {
+    if (!confirm(`Remover acesso de "${nome}"? Ele não conseguirá mais fazer login.`)) return;
+    await sb.from('profiles').update({ company_id: null, role: 'user' }).eq('id', id);
+    toast('Acesso removido', 'red');
+    loadUsuarios();
+  }
+
+  // ── UI helpers ───────────────────────────────────────────────
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.querySelectorAll(`#${id} .error-msg, #${id} .success-msg`).forEach(el => el.classList.remove('show'));
+  }
+
+  function toast(msg, type = 'green') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  async function logout() {
+    await sb.auth.signOut();
+    window.location.href = '/index.html';
+  }
+
+  // Fecha modal clicando fora
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>

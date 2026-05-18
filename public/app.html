@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scripts Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #060f09; --surface: #0e1f14; --card: #112a1a; --card-hover: #163322;
+      --border: #1c3d27; --border-light: rgba(28,61,39,0.6);
+      --green: #00e87a; --green-dim: rgba(0,232,122,0.1); --green-glow: rgba(0,232,122,0.2);
+      --text: #e8f5e9; --muted: rgba(232,245,233,0.48); --muted2: rgba(232,245,233,0.28);
+      --danger: #ff6b6b; --warning: #ffc107;
+      --sidebar-w: 220px;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* ── Layout ── */
+    .layout { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;
+    }
+    .sidebar-head {
+      padding: 20px 16px 12px; border-bottom: 1px solid var(--border);
+    }
+    .logo { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
+    .logo .mark {
+      width: 32px; height: 32px; background: var(--green-dim); border: 1px solid var(--green);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 12px var(--green-glow); flex-shrink: 0;
+    }
+    .logo .mark svg { width: 16px; height: 16px; }
+    .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.875rem; line-height: 1.1; }
+    .logo-text em { color: var(--green); font-style: normal; display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.7; }
+    .company-name {
+      font-size: 0.75rem; color: var(--muted); padding: 0 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* Search */
+    .search-wrap { padding: 12px 12px 0; }
+    .search-input {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.8125rem; padding: 8px 10px 8px 30px; outline: none;
+      transition: border-color 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgba(232,245,233,0.35)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: 9px center;
+    }
+    .search-input:focus { border-color: var(--green); }
+    .search-input::placeholder { color: var(--muted2); }
+
+    /* Nav */
+    .nav { padding: 10px 8px; flex: 1; }
+    .nav-section { margin-bottom: 18px; }
+    .nav-section-label {
+      font-size: 0.65rem; color: var(--muted2); text-transform: uppercase;
+      letter-spacing: 0.1em; padding: 0 8px; margin-bottom: 4px; font-weight: 600;
+    }
+    .tab-btn {
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid transparent;
+      background: none; color: var(--muted); font-family: 'DM Sans', sans-serif;
+      font-size: 0.8375rem; cursor: pointer; transition: all 0.15s; text-align: left;
+    }
+    .tab-btn:hover { background: var(--green-dim); color: var(--text); }
+    .tab-btn.active { background: var(--green-dim); color: var(--green); border-color: rgba(0,232,122,0.2); }
+    .tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .tab-btn .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+      margin-left: auto; flex-shrink: 0; display: none;
+    }
+    .tab-btn.active .dot { display: block; }
+
+    /* Sidebar bottom */
+    .sidebar-bottom { padding: 12px 8px; border-top: 1px solid var(--border); }
+    .user-info { padding: 8px 10px; margin-bottom: 4px; }
+    .user-name { font-size: 0.8125rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-role { font-size: 0.7rem; color: var(--muted); text-transform: capitalize; }
+    .logout-btn {
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      padding: 8px 10px; border-radius: 8px; background: none; border: none;
+      color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.8125rem;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .logout-btn:hover { color: var(--danger); background: rgba(255,107,107,0.08); }
+    .logout-btn svg { width: 15px; height: 15px; }
+
+    /* ── Main ── */
+    .main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+
+    /* Top bar */
+    .top-bar {
+      padding: 16px 28px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--surface); position: sticky; top: 0; z-index: 10; flex-shrink: 0;
+    }
+    .top-bar h1 { font-family: 'Syne', sans-serif; font-size: 1.125rem; font-weight: 700; }
+    .top-bar p { color: var(--muted); font-size: 0.8125rem; margin-top: 2px; }
+    .top-actions { display: flex; gap: 8px; align-items: center; }
+    .search-results-badge {
+      background: var(--green-dim); border: 1px solid rgba(0,232,122,0.3);
+      color: var(--green); border-radius: 20px; padding: 3px 10px; font-size: 0.75rem;
+      display: none;
+    }
+
+    /* Content */
+    .content { padding: 24px 28px; flex: 1; }
+
+    /* Tab panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Section */
+    .section { margin-bottom: 32px; }
+    .section-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border-light);
+    }
+    .section-icon {
+      width: 32px; height: 32px; background: var(--green-dim); border: 1px solid rgba(0,232,122,0.2);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .section-icon svg { width: 16px; height: 16px; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: 0.9375rem; font-weight: 700; }
+    .section-desc { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+    .script-count {
+      margin-left: auto; font-size: 0.75rem; color: var(--muted2);
+      background: var(--bg); border: 1px solid var(--border); border-radius: 20px;
+      padding: 2px 10px;
+    }
+
+    /* Script grid */
+    .scripts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+
+    /* Script card */
+    .script-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; transition: all 0.2s; position: relative;
+    }
+    .script-card:hover { border-color: rgba(0,232,122,0.25); background: var(--card-hover); }
+    .script-card.editing { border-color: var(--green); box-shadow: 0 0 0 2px var(--green-dim); }
+
+    .card-header {
+      display: flex; align-items: center; gap: 8px; padding: 10px 14px 8px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .card-num {
+      font-size: 0.7rem; font-weight: 600; color: var(--green); background: var(--green-dim);
+      border-radius: 4px; padding: 2px 7px; font-family: monospace;
+    }
+    .card-usage {
+      font-size: 0.7rem; color: var(--muted2); margin-left: auto;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .card-usage svg { width: 10px; height: 10px; }
+    .badge-edited {
+      font-size: 0.65rem; font-weight: 600; color: var(--green); background: var(--green-dim);
+      border: 1px solid rgba(0,232,122,0.3); border-radius: 4px; padding: 1px 6px;
+    }
+
+    .card-body { padding: 12px 14px; }
+    .card-text {
+      font-size: 0.875rem; line-height: 1.65; color: var(--text);
+      white-space: pre-wrap; word-break: break-word; min-height: 48px;
+    }
+    .card-text.search-highlight em { background: rgba(0,232,122,0.2); border-radius: 3px; padding: 0 2px; font-style: normal; }
+    .card-textarea {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem; line-height: 1.65; padding: 10px 12px; outline: none;
+      resize: vertical; min-height: 100px; transition: border-color 0.2s;
+    }
+    .card-textarea:focus { border-color: var(--green); }
+
+    .card-actions { display: flex; gap: 6px; padding: 8px 14px 12px; flex-wrap: wrap; }
+    .action-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border-radius: 7px; font-size: 0.78rem; font-family: 'DM Sans', sans-serif;
+      font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid var(--border);
+      background: none; color: var(--muted);
+    }
+    .action-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+    .action-btn.primary { background: var(--green); color: #060f09; border-color: var(--green); font-weight: 600; }
+    .action-btn.primary:hover { opacity: 0.88; }
+    .action-btn.danger:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,107,107,0.08); }
+    .action-btn.copied { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+    .action-btn svg { width: 12px; height: 12px; }
+
+    /* Qualificação */
+    .qual-list { display: flex; flex-direction: column; gap: 10px; }
+    .qual-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    }
+    .qual-card.editing { border-color: var(--green); }
+    .qual-num {
+      font-size: 0.7rem; font-weight: 700; color: var(--green); text-transform: uppercase;
+      letter-spacing: 0.06em; padding: 10px 14px 0;
+    }
+    .qual-text { font-size: 0.9rem; line-height: 1.6; padding: 6px 14px 12px; }
+    .qual-textarea {
+      width: 100%; background: var(--surface); border: none; border-top: 1px solid var(--border);
+      color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      line-height: 1.6; padding: 10px 14px; outline: none; resize: vertical; min-height: 80px;
+    }
+
+    /* Aquecimento */
+    .aq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+    .aq-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    }
+    .aq-card.editing { border-color: var(--green); }
+    .aq-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px 8px; border-bottom: 1px solid var(--border-light); }
+    .aq-day {
+      font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700;
+      color: var(--green); background: var(--green-dim); border-radius: 4px; padding: 2px 8px;
+    }
+    .aq-tag { font-size: 0.7rem; color: var(--muted); }
+    .aq-usage { margin-left: auto; font-size: 0.7rem; color: var(--muted2); display: flex; align-items: center; gap: 4px; }
+
+    /* Empty + Loading */
+    .state-empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 60px 24px; text-align: center;
+    }
+    .state-empty svg { width: 40px; height: 40px; color: var(--muted2); margin-bottom: 16px; }
+    .state-empty p { color: var(--muted); font-size: 0.9rem; }
+
+    .loading-state {
+      display: flex; align-items: center; justify-content: center; height: 200px;
+    }
+    .spinner {
+      width: 36px; height: 36px; border: 2.5px solid var(--border);
+      border-top-color: var(--green); border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Search no content */
+    .search-results { display: none; }
+    .search-results.active { display: block; }
+    .search-result-item {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s;
+    }
+    .search-result-item:hover { border-color: rgba(0,232,122,0.3); background: var(--card-hover); }
+    .search-result-cat { font-size: 0.7rem; color: var(--green); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .search-result-text { font-size: 0.875rem; line-height: 1.6; }
+    .search-result-text mark { background: rgba(0,232,122,0.2); border-radius: 3px; padding: 0 2px; color: inherit; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px; padding: 11px 16px;
+      font-size: 0.8375rem; z-index: 200; transform: translateY(80px); opacity: 0;
+      transition: all 0.25s; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.green { border-color: rgba(0,232,122,0.4); color: var(--green); }
+    .toast.red { border-color: rgba(255,107,107,0.35); color: var(--danger); }
+
+    /* Mobile */
+    .mobile-tab-bar {
+      display: none; overflow-x: auto; gap: 6px; padding: 10px 16px;
+      background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      scrollbar-width: none;
+    }
+    .mobile-tab-bar::-webkit-scrollbar { display: none; }
+    .mobile-tab { padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; border: 1px solid var(--border); background: none; color: var(--muted); font-family: inherit; transition: all 0.15s; }
+    .mobile-tab.active { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .mobile-tab-bar { display: flex; }
+      .content { padding: 16px; }
+      .top-bar { padding: 12px 16px; }
+      .scripts-grid { grid-template-columns: 1fr; }
+      .aq-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div class="logo">
+        <div class="mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="logo-text">Scripts Platform<em id="companyNameLogo">carregando...</em></div>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input class="search-input" type="text" id="searchInput" placeholder="Buscar scripts..." oninput="onSearch(this.value)" />
+    </div>
+
+    <nav class="nav">
+      <div class="nav-section">
+        <div class="nav-section-label">Prospecção</div>
+        <button class="tab-btn active" onclick="switchTab('dia-a-dia', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Dia a Dia
+          <span class="dot"></span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('prospeccao', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Prospecção Ativa
+          <span class="dot"></span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('inbound', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+          Lead Inbound
+          <span class="dot"></span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('followup', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17,1 21,5 17,9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7,23 3,19 7,15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          Follow Up
+          <span class="dot"></span>
+        </button>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Processo</div>
+        <button class="tab-btn" onclick="switchTab('qualificacao', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Qualificação
+          <span class="dot"></span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('aquecimento', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+          Aquecimento 30d
+          <span class="dot"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="user-info">
+        <div class="user-name" id="userName">—</div>
+        <div class="user-role" id="userRole">—</div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sair da plataforma
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+    <!-- Mobile tabs -->
+    <div class="mobile-tab-bar" id="mobileTabs">
+      <button class="mobile-tab active" onclick="switchTab('dia-a-dia', this)">Dia a Dia</button>
+      <button class="mobile-tab" onclick="switchTab('prospeccao', this)">Prospecção</button>
+      <button class="mobile-tab" onclick="switchTab('inbound', this)">Inbound</button>
+      <button class="mobile-tab" onclick="switchTab('followup', this)">Follow Up</button>
+      <button class="mobile-tab" onclick="switchTab('qualificacao', this)">Qualificação</button>
+      <button class="mobile-tab" onclick="switchTab('aquecimento', this)">Aquecimento</button>
+    </div>
+
+    <main class="main">
+      <!-- Top bar -->
+      <div class="top-bar">
+        <div>
+          <h1 id="pageTitle">Scripts do Dia a Dia</h1>
+          <p id="pageDesc">Fluxo principal de contato e acompanhamento</p>
+        </div>
+        <div class="top-actions">
+          <span class="search-results-badge" id="searchBadge"></span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Loading -->
+        <div class="loading-state" id="loadingState"><div class="spinner"></div></div>
+
+        <!-- Busca global -->
+        <div class="search-results" id="searchResults"></div>
+
+        <!-- Tab: Dia a Dia -->
+        <div class="tab-panel active" id="panel-dia-a-dia"></div>
+        <!-- Tab: Prospecção -->
+        <div class="tab-panel" id="panel-prospeccao"></div>
+        <!-- Tab: Inbound -->
+        <div class="tab-panel" id="panel-inbound"></div>
+        <!-- Tab: Follow Up -->
+        <div class="tab-panel" id="panel-followup"></div>
+        <!-- Tab: Qualificação -->
+        <div class="tab-panel" id="panel-qualificacao"></div>
+        <!-- Tab: Aquecimento -->
+        <div class="tab-panel" id="panel-aquecimento"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = 'https://opssjtkciavzcqapbzla.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wc3NqdGtjaWF2emNxYXBiemxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDE1NDUsImV4cCI6MjA5NDYxNzU0NX0.9gG7v5Y3Hzq0GeNEz2opz9WEaPjnBTd5k9JAu365QUM';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ── Estado global ──────────────────────────────────────────────
+let D = {};       // scripts gerados (por categoria → {0,1,2,3,4})
+let QUAL = [];    // qualificação
+let AQ = [];      // aquecimento
+let EDITS = {};   // edições salvas: script_key → {content, usage_count}
+let companyId = null;
+let currentUser = null;
+let userRole = null;
+let searchTimer = null;
+let currentTab = 'dia-a-dia';
+
+// Definição das abas e seções
+const TABS = {
+  'dia-a-dia': {
+    title: 'Scripts do Dia a Dia',
+    desc: 'Fluxo principal de contato e acompanhamento',
+    sections: [
+      { key: 'primeiro-contato', label: 'Primeiro Contato', desc: 'Primeira mensagem ao prospect (cold outreach)', icon: 'msg' },
+      { key: 'agradecimento',    label: 'Agradecimento',    desc: 'Após a primeira ligação ou reunião inicial', icon: 'heart' },
+      { key: 'confirmacao',      label: 'Confirmação',      desc: 'Confirmar reunião ou demonstração agendada', icon: 'check' },
+      { key: 'lembrete',         label: 'Lembrete',         desc: 'Enviar 1-2h antes do encontro', icon: 'bell' },
+      { key: 'fechamento',       label: 'Pós-Venda',        desc: 'Boas-vindas após fechar o contrato', icon: 'star' },
+    ]
+  },
+  'prospeccao': {
+    title: 'Prospecção Ativa',
+    desc: 'Scripts para ligações e contato com decisores',
+    sections: [
+      { key: 'secretaria',     label: 'Secretária / Recepcionista', desc: 'Passar pela barreira e ser transferido', icon: 'phone' },
+      { key: 'doutor-direto',  label: 'Decisor Atende Direto',      desc: 'Pitch rápido quando o decisor pega o telefone', icon: 'user' },
+      { key: 'pos-secretaria', label: 'Pós-Secretária',             desc: 'Mensagem após passar pela barreira', icon: 'msg' },
+      { key: 'pos-pdf',        label: 'Pós-Envio de Proposta',      desc: 'Follow-up após enviar material ou proposta', icon: 'file' },
+      { key: 'pos-doutor',     label: 'Pós-Reunião com Decisor',    desc: 'Resumo e próximos passos após a reunião', icon: 'check' },
+    ]
+  },
+  'inbound': {
+    title: 'Lead Inbound',
+    desc: 'Scripts para leads que chegaram por iniciativa própria',
+    sections: [
+      { key: 'formulario',   label: 'Lead via Formulário', desc: 'Respondeu um formulário ou anúncio', icon: 'form' },
+      { key: 'interessado',  label: 'Lead Interessado',    desc: 'Demonstrou interesse mas não agendou', icon: 'eye' },
+    ]
+  },
+  'followup': {
+    title: 'Follow Up',
+    desc: 'Retomar contato com leads parados ou que não fecharam',
+    sections: [
+      { key: 'fu-msg',        label: 'Follow-up por Mensagem', desc: '1-3 dias sem resposta', icon: 'msg' },
+      { key: 'fu-ligacao',    label: 'Follow-up por Ligação',  desc: 'Script de ligação para reengajar', icon: 'phone' },
+      { key: 'fu-noshow',     label: 'No-show',                desc: 'Prospect não apareceu na reunião', icon: 'x' },
+      { key: 'fu-nao-fechou', label: 'Não Fechou',             desc: 'Participou mas não assinou', icon: 'refresh' },
+    ]
+  }
+};
+
+const ICONS = {
+  msg:     `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  heart:   `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  check:   `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg>`,
+  bell:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+  star:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  phone:   `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.63a16 16 0 0 0 6 6l.95-1.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 15l.19 1.92z"/></svg>`,
+  user:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  file:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>`,
+  form:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>`,
+  eye:     `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  x:       `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+  refresh: `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>`,
+};
+
+const CAT_LABELS = {
+  'primeiro-contato': 'Primeiro Contato', 'agradecimento': 'Agradecimento',
+  'confirmacao': 'Confirmação', 'lembrete': 'Lembrete', 'fechamento': 'Pós-Venda',
+  'secretaria': 'Secretária', 'doutor-direto': 'Decisor Direto',
+  'pos-secretaria': 'Pós-Secretária', 'pos-pdf': 'Pós-Proposta', 'pos-doutor': 'Pós-Reunião',
+  'formulario': 'Formulário', 'interessado': 'Interessado',
+  'fu-msg': 'FU Mensagem', 'fu-ligacao': 'FU Ligação', 'fu-noshow': 'No-show', 'fu-nao-fechou': 'Não Fechou'
+};
+
+// ── Auth + carregamento ────────────────────────────────────────
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/index.html'; return; }
+
+  currentUser = session.user;
+  const { data: prof } = await sb.from('profiles').select('role, company_id, full_name, companies(name)').eq('id', currentUser.id).single();
+  if (!prof) { window.location.href = '/index.html'; return; }
+
+  userRole = prof.role;
+  companyId = prof.company_id;
+
+  document.getElementById('userName').textContent = prof.full_name || currentUser.email;
+  document.getElementById('userRole').textContent = prof.role;
+  document.getElementById('companyNameLogo').textContent = prof.companies?.name || '';
+
+  if (userRole === 'admin' && !companyId) {
+    // Admin sem empresa — redireciona para admin
+    window.location.href = '/admin.html';
+    return;
+  }
+  if (!companyId) { window.location.href = '/setup.html'; return; }
+
+  await loadScripts();
+})();
+
+async function loadScripts() {
+  const [scriptsRes, editsRes] = await Promise.all([
+    sb.from('company_scripts').select('scripts, qual, aq').eq('company_id', companyId).single(),
+    sb.from('script_edits').select('script_key, content, usage_count').eq('company_id', companyId)
+  ]);
+
+  if (!scriptsRes.data) {
+    window.location.href = '/setup.html';
+    return;
+  }
+
+  D = scriptsRes.data.scripts || {};
+  QUAL = scriptsRes.data.qual || [];
+  AQ = scriptsRes.data.aq || [];
+
+  (editsRes.data || []).forEach(e => {
+    EDITS[e.script_key] = { content: e.content, usage_count: e.usage_count };
+  });
+
+  document.getElementById('loadingState').style.display = 'none';
+  renderAll();
+}
+
+// ── Renderização ───────────────────────────────────────────────
+function renderAll() {
+  // Abas principais
+  Object.entries(TABS).forEach(([tabId, tabDef]) => {
+    const panel = document.getElementById('panel-' + tabId);
+    panel.innerHTML = tabDef.sections.map(sec => renderSection(sec)).join('');
+  });
+  renderQual();
+  renderAq();
+}
+
+function renderSection(sec) {
+  const scripts = D[sec.key] || {};
+  const entries = Object.entries(scripts);
+  // Ordena por uso
+  entries.sort(([ai], [bi]) => {
+    const au = (EDITS[sec.key + '_' + ai]?.usage_count || 0);
+    const bu = (EDITS[sec.key + '_' + bi]?.usage_count || 0);
+    return bu - au;
+  });
+
+  const cards = entries.length > 0
+    ? entries.map(([idx]) => renderScriptCard(sec.key, idx)).join('')
+    : `<div class="state-empty"><p>Sem scripts nesta categoria ainda.</p></div>`;
+
+  return `
+    <div class="section" id="sec-${sec.key}">
+      <div class="section-header">
+        <div class="section-icon">${ICONS[sec.icon] || ICONS.msg}</div>
+        <div>
+          <div class="section-title">${sec.label}</div>
+          <div class="section-desc">${sec.desc}</div>
+        </div>
+        <span class="script-count">${entries.length} scripts</span>
+      </div>
+      <div class="scripts-grid" id="grid-${sec.key}">${cards}</div>
+    </div>`;
+}
+
+function renderScriptCard(catKey, idx) {
+  const editKey = catKey + '_' + idx;
+  const edit = EDITS[editKey];
+  const originalText = D[catKey]?.[idx] || '';
+  const text = edit?.content ?? originalText;
+  const usage = edit?.usage_count || 0;
+  const isEdited = edit?.content !== undefined && edit.content !== originalText;
+  const varNum = parseInt(idx) + 1;
+
+  return `
+    <div class="script-card" id="card-${editKey}">
+      <div class="card-header">
+        <span class="card-num">V${varNum}</span>
+        ${isEdited ? '<span class="badge-edited">Editado</span>' : ''}
+        <span class="card-usage">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+          ${usage}x
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="card-text" id="txt-${editKey}">${escHtml(text)}</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn primary" onclick="copyScript('${editKey}', '${catKey}', '${idx}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar
+        </button>
+        <button class="action-btn" onclick="editScript('${editKey}', '${catKey}', '${idx}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Editar
+        </button>
+        ${isEdited ? `<button class="action-btn danger" onclick="resetScript('${editKey}', '${catKey}', '${idx}')">Resetar</button>` : ''}
+      </div>
+    </div>`;
+}
+
+function renderQual() {
+  const panel = document.getElementById('panel-qualificacao');
+  if (!QUAL.length) {
+    panel.innerHTML = '<div class="state-empty"><p>Sem perguntas de qualificação ainda.</p></div>';
+    return;
+  }
+  panel.innerHTML = `
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">${ICONS.check}</div>
+        <div>
+          <div class="section-title">Fluxo de Qualificação</div>
+          <div class="section-desc">Perguntas estruturadas para qualificar o lead</div>
+        </div>
+        <span class="script-count">${QUAL.length} perguntas</span>
+      </div>
+      <div class="qual-list" id="qualList">${QUAL.map((q, i) => renderQualCard(q, i)).join('')}</div>
+    </div>`;
+}
+
+function renderQualCard(q, i) {
+  const editKey = 'qual_' + i;
+  const edit = EDITS[editKey];
+  const text = edit?.content ?? q.q;
+  const usage = edit?.usage_count || 0;
+  const isEdited = edit?.content !== undefined && edit.content !== q.q;
+
+  return `
+    <div class="qual-card" id="card-${editKey}">
+      <div class="qual-num">${q.num}</div>
+      <div class="qual-text" id="txt-${editKey}">${escHtml(text)}</div>
+      <div class="card-actions" style="padding:0 14px 12px; display:flex; gap:6px;">
+        <button class="action-btn primary" onclick="copyQual('${editKey}', ${i})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar
+        </button>
+        <button class="action-btn" onclick="editQual('${editKey}', ${i})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Editar
+        </button>
+        ${isEdited ? `<button class="action-btn danger" onclick="resetQual('${editKey}', ${i})">Resetar</button>` : ''}
+        ${usage > 0 ? `<span style="margin-left:auto; font-size:0.7rem; color:var(--muted2); align-self:center;">${usage}x</span>` : ''}
+      </div>
+    </div>`;
+}
+
+function renderAq() {
+  const panel = document.getElementById('panel-aquecimento');
+  if (!AQ.length) {
+    panel.innerHTML = '<div class="state-empty"><p>Sem sequência de aquecimento ainda.</p></div>';
+    return;
+  }
+  // Ordena por uso
+  const sorted = [...AQ].sort((a, b) => {
+    const au = EDITS['aq_' + (a.d-1)]?.usage_count || 0;
+    const bu = EDITS['aq_' + (b.d-1)]?.usage_count || 0;
+    return bu - au;
+  });
+  panel.innerHTML = `
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">${ICONS.star}</div>
+        <div>
+          <div class="section-title">Sequência de Aquecimento — 30 Dias</div>
+          <div class="section-desc">Mensagens diárias com gatilhos psicológicos para nutrir leads</div>
+        </div>
+        <span class="script-count">${AQ.length} dias</span>
+      </div>
+      <div class="aq-grid">${sorted.map((item, sortedIdx) => renderAqCard(item)).join('')}</div>
+    </div>`;
+}
+
+function renderAqCard(item) {
+  const i = item.d - 1;
+  const editKey = 'aq_' + i;
+  const edit = EDITS[editKey];
+  const text = edit?.content ?? item.t;
+  const usage = edit?.usage_count || 0;
+  const isEdited = edit?.content !== undefined && edit.content !== item.t;
+
+  return `
+    <div class="aq-card" id="card-${editKey}">
+      <div class="aq-header">
+        <span class="aq-day">Dia ${item.d}</span>
+        <span class="aq-tag">${item.tag}</span>
+        ${isEdited ? '<span class="badge-edited" style="font-size:0.62rem; padding:1px 5px;">Editado</span>' : ''}
+        <span class="aq-usage">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+          ${usage}x
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="card-text" id="txt-${editKey}">${escHtml(text)}</div>
+      </div>
+      <div class="card-actions">
+        <button class="action-btn primary" onclick="copyAq('${editKey}', ${i})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar
+        </button>
+        <button class="action-btn" onclick="editAq('${editKey}', ${i})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Editar
+        </button>
+        ${isEdited ? `<button class="action-btn danger" onclick="resetAq('${editKey}', ${i})">Resetar</button>` : ''}
+      </div>
+    </div>`;
+}
+
+// ── Copiar ─────────────────────────────────────────────────────
+async function doC(ek, txt) {
+  try { await navigator.clipboard.writeText(txt); } catch(e) {
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  }
+  toast('✓ Copiado!', 'green');
+  const btn = document.querySelector(`#card-${ek} .action-btn.primary`);
+  if (!btn) return;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '✓ Copiado'; btn.classList.add('copied');
+  setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1500);
+}
+
+async function copyScript(editKey, catKey, idx) {
+  const text = EDITS[editKey]?.content ?? D[catKey]?.[idx] ?? '';
+  await doC(editKey, text);
+  const usage = (EDITS[editKey]?.usage_count || 0) + 1;
+  await upsertEdit(editKey, text, usage, true);
+  EDITS[editKey] = { ...(EDITS[editKey] || {}), usage_count: usage };
+  refreshCardUsage(editKey, usage);
+}
+
+async function copyQual(editKey, i) {
+  const text = EDITS[editKey]?.content ?? QUAL[i]?.q ?? '';
+  await doC(editKey, text);
+  const usage = (EDITS[editKey]?.usage_count || 0) + 1;
+  await upsertEdit(editKey, QUAL[i]?.q ?? text, usage, true, text);
+  EDITS[editKey] = { ...(EDITS[editKey] || {}), usage_count: usage };
+}
+
+async function copyAq(editKey, i) {
+  const text = EDITS[editKey]?.content ?? AQ[i]?.t ?? '';
+  await doC(editKey, text);
+  const usage = (EDITS[editKey]?.usage_count || 0) + 1;
+  await upsertEdit(editKey, AQ[i]?.t ?? text, usage, true, text);
+  EDITS[editKey] = { ...(EDITS[editKey] || {}), usage_count: usage };
+}
+
+function refreshCardUsage(editKey, usage) {
+  const card = document.getElementById('card-' + editKey);
+  if (!card) return;
+  const usageEl = card.querySelector('.card-usage');
+  if (usageEl) usageEl.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>${usage}x`;
+}
+
+// ── Editar scripts ─────────────────────────────────────────────
+function editScript(editKey, catKey, idx) {
+  const card = document.getElementById('card-' + editKey);
+  if (!card) return;
+  const txt = document.getElementById('txt-' + editKey);
+  const currentText = EDITS[editKey]?.content ?? D[catKey]?.[idx] ?? '';
+  card.classList.add('editing');
+  txt.innerHTML = `<textarea class="card-textarea" id="ta-${editKey}">${currentText}</textarea>`;
+  const actions = card.querySelector('.card-actions');
+  actions.innerHTML = `
+    <button class="action-btn primary" onclick="saveScript('${editKey}','${catKey}','${idx}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+      Salvar
+    </button>
+    <button class="action-btn" onclick="cancelEdit('${editKey}','${catKey}','${idx}')">Cancelar</button>
+  `;
+  document.getElementById('ta-' + editKey)?.focus();
+}
+
+async function saveScript(editKey, catKey, idx) {
+  const ta = document.getElementById('ta-' + editKey);
+  if (!ta) return;
+  const newText = ta.value;
+  const usage = EDITS[editKey]?.usage_count || 0;
+  await upsertEdit(editKey, newText, usage, false);
+  EDITS[editKey] = { content: newText, usage_count: usage };
+  // Re-render só esse card
+  const card = document.getElementById('card-' + editKey);
+  if (card) card.outerHTML = renderScriptCard(catKey, idx);
+  toast('✓ Script salvo', 'green');
+}
+
+function cancelEdit(editKey, catKey, idx) {
+  const card = document.getElementById('card-' + editKey);
+  if (card) card.outerHTML = renderScriptCard(catKey, idx);
+}
+
+async function resetScript(editKey, catKey, idx) {
+  if (!confirm('Resetar para o script original?')) return;
+  await sb.from('script_edits').delete().match({ company_id: companyId, script_key: editKey });
+  delete EDITS[editKey];
+  const card = document.getElementById('card-' + editKey);
+  if (card) card.outerHTML = renderScriptCard(catKey, idx);
+  toast('↺ Script resetado', 'green');
+}
+
+// ── Editar qualificação ────────────────────────────────────────
+function editQual(editKey, i) {
+  const card = document.getElementById('card-' + editKey);
+  if (!card) return;
+  const txt = document.getElementById('txt-' + editKey);
+  const currentText = EDITS[editKey]?.content ?? QUAL[i]?.q ?? '';
+  card.classList.add('editing');
+  txt.innerHTML = `<textarea class="qual-textarea" id="ta-${editKey}">${currentText}</textarea>`;
+  const actions = card.querySelector('.card-actions');
+  actions.innerHTML = `
+    <button class="action-btn primary" onclick="saveQual('${editKey}',${i})">Salvar</button>
+    <button class="action-btn" onclick="renderQual()">Cancelar</button>
+  `;
+  document.getElementById('ta-' + editKey)?.focus();
+}
+
+async function saveQual(editKey, i) {
+  const ta = document.getElementById('ta-' + editKey);
+  if (!ta) return;
+  const newText = ta.value;
+  const usage = EDITS[editKey]?.usage_count || 0;
+  await upsertEdit(editKey, newText, usage, false);
+  EDITS[editKey] = { content: newText, usage_count: usage };
+  renderQual();
+  toast('✓ Pergunta salva', 'green');
+}
+
+async function resetQual(editKey, i) {
+  if (!confirm('Resetar para a pergunta original?')) return;
+  await sb.from('script_edits').delete().match({ company_id: companyId, script_key: editKey });
+  delete EDITS[editKey];
+  renderQual();
+  toast('↺ Resetado', 'green');
+}
+
+// ── Editar aquecimento ─────────────────────────────────────────
+function editAq(editKey, i) {
+  const card = document.getElementById('card-' + editKey);
+  if (!card) return;
+  const txt = document.getElementById('txt-' + editKey);
+  const currentText = EDITS[editKey]?.content ?? AQ[i]?.t ?? '';
+  card.classList.add('editing');
+  txt.innerHTML = `<textarea class="card-textarea" id="ta-${editKey}">${currentText}</textarea>`;
+  const actions = card.querySelector('.card-actions');
+  actions.innerHTML = `
+    <button class="action-btn primary" onclick="saveAq('${editKey}',${i})">Salvar</button>
+    <button class="action-btn" onclick="renderAq()">Cancelar</button>
+  `;
+  document.getElementById('ta-' + editKey)?.focus();
+}
+
+async function saveAq(editKey, i) {
+  const ta = document.getElementById('ta-' + editKey);
+  if (!ta) return;
+  const newText = ta.value;
+  const usage = EDITS[editKey]?.usage_count || 0;
+  await upsertEdit(editKey, newText, usage, false);
+  EDITS[editKey] = { content: newText, usage_count: usage };
+  renderAq();
+  toast('✓ Mensagem salva', 'green');
+}
+
+async function resetAq(editKey, i) {
+  if (!confirm('Resetar para a mensagem original?')) return;
+  await sb.from('script_edits').delete().match({ company_id: companyId, script_key: editKey });
+  delete EDITS[editKey];
+  renderAq();
+  toast('↺ Resetado', 'green');
+}
+
+// ── Persistência ───────────────────────────────────────────────
+async function upsertEdit(editKey, defaultContent, usage, onlyUsage = false, overrideContent = null) {
+  const content = overrideContent ?? EDITS[editKey]?.content ?? defaultContent;
+  await sb.from('script_edits').upsert(
+    { company_id: companyId, script_key: editKey, content, usage_count: usage },
+    { onConflict: 'company_id,script_key' }
+  );
+}
+
+// ── Busca ──────────────────────────────────────────────────────
+function onSearch(q) {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => doSearch(q.trim()), 200);
+}
+
+function doSearch(q) {
+  const resultsEl = document.getElementById('searchResults');
+  const badge = document.getElementById('searchBadge');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  if (!q) {
+    resultsEl.classList.remove('active');
+    badge.style.display = 'none';
+    panels.forEach(p => p.classList.remove('hidden-by-search'));
+    document.getElementById('panel-' + currentTab).classList.add('active');
+    return;
+  }
+
+  panels.forEach(p => p.classList.remove('active'));
+  resultsEl.classList.add('active');
+
+  const lower = q.toLowerCase();
+  const results = [];
+
+  // Scripts
+  Object.entries(D).forEach(([cat, variants]) => {
+    Object.entries(variants).forEach(([idx, defaultText]) => {
+      const editKey = cat + '_' + idx;
+      const text = EDITS[editKey]?.content ?? defaultText;
+      if (text.toLowerCase().includes(lower)) {
+        results.push({ type: 'script', cat, idx, editKey, text });
+      }
+    });
+  });
+
+  // Qualificação
+  QUAL.forEach((q_item, i) => {
+    const editKey = 'qual_' + i;
+    const text = EDITS[editKey]?.content ?? q_item.q;
+    if (text.toLowerCase().includes(lower)) {
+      results.push({ type: 'qual', i, editKey, text, label: q_item.num });
+    }
+  });
+
+  // Aquecimento
+  AQ.forEach((item, i) => {
+    const editKey = 'aq_' + i;
+    const text = EDITS[editKey]?.content ?? item.t;
+    if (text.toLowerCase().includes(lower)) {
+      results.push({ type: 'aq', i, editKey, text, day: item.d, tag: item.tag });
+    }
+  });
+
+  badge.textContent = results.length + ' resultado' + (results.length !== 1 ? 's' : '');
+  badge.style.display = 'inline-flex';
+
+  if (!results.length) {
+    resultsEl.innerHTML = '<div class="state-empty"><p>Nenhum script encontrado para "<strong>' + escHtml(q) + '"</strong>.</p></div>';
+    return;
+  }
+
+  resultsEl.innerHTML = results.map(r => {
+    const highlighted = highlight(r.text, q);
+    let cat = '';
+    if (r.type === 'script') cat = `${CAT_LABELS[r.cat] || r.cat} · Variante ${parseInt(r.idx)+1}`;
+    if (r.type === 'qual') cat = `Qualificação · ${r.label}`;
+    if (r.type === 'aq') cat = `Aquecimento · Dia ${r.day} · ${r.tag}`;
+    return `<div class="search-result-item">
+      <div class="search-result-cat">${cat}</div>
+      <div class="search-result-text">${highlighted}</div>
+    </div>`;
+  }).join('');
+}
+
+function highlight(text, q) {
+  const safe = escHtml(text);
+  const safeQ = escHtml(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return safe.replace(new RegExp(`(${safeQ})`, 'gi'), '<mark>$1</mark>');
+}
+
+// ── Navegação entre abas ───────────────────────────────────────
+const TAB_META = {
+  'dia-a-dia':    { title: 'Scripts do Dia a Dia', desc: 'Fluxo principal de contato e acompanhamento' },
+  'prospeccao':   { title: 'Prospecção Ativa', desc: 'Scripts para ligações e contato com decisores' },
+  'inbound':      { title: 'Lead Inbound', desc: 'Scripts para leads que chegaram por iniciativa própria' },
+  'followup':     { title: 'Follow Up', desc: 'Retomar contato com leads parados ou que não fecharam' },
+  'qualificacao': { title: 'Qualificação', desc: 'Fluxo estruturado de perguntas para qualificar o lead' },
+  'aquecimento':  { title: 'Aquecimento 30 Dias', desc: 'Sequência de mensagens com gatilhos psicológicos' },
+};
+
+function switchTab(tabId, btn) {
+  // Limpa busca se ativa
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput?.value) { searchInput.value = ''; doSearch(''); }
+
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.mobile-tab').forEach(b => b.classList.remove('active'));
+
+  document.getElementById('panel-' + tabId).classList.add('active');
+  if (btn) btn.classList.add('active');
+
+  const meta = TAB_META[tabId] || {};
+  document.getElementById('pageTitle').textContent = meta.title || '';
+  document.getElementById('pageDesc').textContent = meta.desc || '';
+
+  currentTab = tabId;
+}
+
+// ── Utilitários ────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toast(msg, type = 'green') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  window.location.href = '/index.html';
+}
+</script>
+</body>
+</html>

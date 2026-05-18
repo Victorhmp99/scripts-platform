@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurar Scripts — Scripts Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #060f09; --surface: #0e1f14; --card: #112a1a; --border: #1c3d27;
+      --green: #00e87a; --green-dim: rgba(0,232,122,0.1); --green-glow: rgba(0,232,122,0.2);
+      --text: #e8f5e9; --muted: rgba(232,245,233,0.5); --danger: #ff6b6b;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text);
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+      padding: 32px 24px;
+      background-image:
+        radial-gradient(ellipse 50% 50% at 10% 20%, rgba(0,232,122,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(0,232,122,0.04) 0%, transparent 70%);
+    }
+
+    /* Header */
+    .top-bar {
+      width: 100%; max-width: 700px; display: flex;
+      align-items: center; justify-content: space-between; margin-bottom: 40px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo .mark {
+      width: 36px; height: 36px; background: var(--green-dim); border: 1px solid var(--green);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 16px var(--green-glow);
+    }
+    .logo .mark svg { width: 18px; height: 18px; }
+    .logo span { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+    .logo span em { color: var(--green); font-style: normal; }
+    .logout-link {
+      color: var(--muted); font-size: 0.85rem; cursor: pointer; background: none;
+      border: none; font-family: inherit; transition: color 0.15s;
+    }
+    .logout-link:hover { color: var(--danger); }
+
+    /* Progress */
+    .progress-wrap { width: 100%; max-width: 700px; margin-bottom: 36px; }
+    .progress-label {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-label span { font-size: 0.8125rem; color: var(--muted); }
+    .progress-label strong { font-size: 0.8125rem; color: var(--green); }
+    .progress-bar {
+      width: 100%; height: 4px; background: var(--border); border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: var(--green); border-radius: 4px;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* Steps */
+    .step { width: 100%; max-width: 700px; display: none; }
+    .step.active { display: block; }
+    .step-header { margin-bottom: 28px; }
+    .step-num {
+      font-size: 0.75rem; font-weight: 500; color: var(--green); text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 8px;
+    }
+    .step-header h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .step-header p { color: var(--muted); font-size: 0.9375rem; line-height: 1.6; }
+
+    /* Cards */
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 28px;
+      margin-bottom: 16px;
+    }
+
+    /* Fields */
+    .field { margin-bottom: 18px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: block; font-size: 0.75rem; font-weight: 500; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.9375rem; padding: 12px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--green); box-shadow: 0 0 0 3px var(--green-dim);
+    }
+    .field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+    .field select option { background: var(--surface); }
+    .field-hint { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 540px) { .field-grid { grid-template-columns: 1fr; } }
+
+    /* Method select */
+    .method-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 540px) { .method-cards { grid-template-columns: 1fr; } }
+    .method-card {
+      background: var(--surface); border: 2px solid var(--border); border-radius: 14px;
+      padding: 22px; cursor: pointer; transition: all 0.2s; text-align: left;
+    }
+    .method-card:hover { border-color: rgba(0,232,122,0.4); background: var(--green-dim); }
+    .method-card.selected { border-color: var(--green); background: var(--green-dim); }
+    .method-card .icon {
+      width: 42px; height: 42px; background: var(--green-dim); border: 1px solid var(--green);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+    }
+    .method-card .icon svg { width: 20px; height: 20px; }
+    .method-card h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .method-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+
+    /* TXT template */
+    .template-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px; font-family: monospace; font-size: 0.8rem; color: var(--muted);
+      line-height: 1.7; overflow-x: auto; white-space: pre; margin-bottom: 16px;
+    }
+    .template-box .key { color: var(--green); }
+
+    /* Geração / Preview */
+    .generating {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 60px 24px; text-align: center;
+    }
+    .spinner {
+      width: 48px; height: 48px; border: 3px solid var(--border);
+      border-top-color: var(--green); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin-bottom: 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .generating h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; margin-bottom: 8px; }
+    .generating p { color: var(--muted); font-size: 0.875rem; }
+
+    .preview-tab-bar {
+      display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .preview-tab {
+      padding: 7px 14px; border-radius: 8px; font-size: 0.8125rem; cursor: pointer;
+      border: 1px solid var(--border); color: var(--muted); transition: all 0.15s; background: none;
+      font-family: inherit;
+    }
+    .preview-tab.active { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+    .preview-content { display: none; }
+    .preview-content.active { display: block; }
+    .script-preview-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 10px; font-size: 0.875rem; line-height: 1.7;
+      color: var(--text);
+    }
+    .script-preview-label {
+      font-size: 0.7rem; color: var(--green); font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 8px;
+    }
+
+    /* Footer nav */
+    .step-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 24px; width: 100%; max-width: 700px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: #060f09; border: none; border-radius: 10px;
+      font-family: 'Syne', sans-serif; font-size: 0.9375rem; font-weight: 700;
+      padding: 12px 22px; cursor: pointer; transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn svg { width: 16px; height: 16px; }
+    .btn-ghost {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+    }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+    .btn-invis { background: none; border: none; color: var(--muted); cursor: pointer; font-family: inherit; font-size: 0.9rem; }
+    .btn-invis:hover { color: var(--text); }
+
+    /* Error */
+    .error-msg {
+      background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3);
+      border-radius: 8px; color: var(--danger); font-size: 0.875rem;
+      padding: 12px 14px; margin-bottom: 16px; display: none;
+    }
+    .error-msg.show { display: block; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="logo">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <span>Scripts <em>Platform</em></span>
+    </div>
+    <button class="logout-link" onclick="logout()">Sair</button>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="stepLabel">Passo 1 de 4</span>
+      <strong id="stepName">Informações da empresa</strong>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+  </div>
+
+  <!-- STEP 1: Informações da empresa -->
+  <div class="step active" id="step1">
+    <div class="step-header">
+      <div class="step-num">Passo 1 — Empresa</div>
+      <h2>Conte sobre a sua empresa</h2>
+      <p>Essas informações serão usadas pela IA para criar scripts 100% personalizados para o seu negócio.</p>
+    </div>
+    <div class="card">
+      <div class="error-msg" id="errStep1"></div>
+      <div class="field-grid">
+        <div class="field"><label>Nome da empresa *</label><input id="s1Nome" placeholder="Ex: Clínica Sorridentes" /></div>
+        <div class="field"><label>Setor / Nicho *</label><input id="s1Setor" placeholder="Ex: Odontologia, Imóveis, SaaS..." /></div>
+      </div>
+      <div class="field">
+        <label>O que você vende? *</label>
+        <textarea id="s1Servicos" placeholder="Descreva os seus principais serviços ou produtos"></textarea>
+      </div>
+      <div class="field">
+        <label>Quem é o seu cliente ideal? *</label>
+        <input id="s1Publico" placeholder="Ex: Pequenas clínicas odontológicas com 1-3 cadeiras" />
+      </div>
+      <div class="field">
+        <label>Quais dores o seu produto resolve?</label>
+        <textarea id="s1Dores" placeholder="Ex: Falta de pacientes novos, dependência de indicações, agenda vazia..."></textarea>
+      </div>
+      <div class="field">
+        <label>Qual a sua principal proposta de valor?</label>
+        <input id="s1Valor" placeholder="Ex: Aumentamos em 30% o faturamento da clínica em 90 dias" />
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Método de geração -->
+  <div class="step" id="step2">
+    <div class="step-header">
+      <div class="step-num">Passo 2 — Método</div>
+      <h2>Como quer criar os scripts?</h2>
+      <p>Escolha a forma mais rápida para você. Ambos geram scripts completos e editáveis.</p>
+    </div>
+    <div class="method-cards">
+      <div class="method-card selected" id="cardIA" onclick="selectMethod('ia')">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 8v4l3 3"/><circle cx="19" cy="5" r="3"/>
+          </svg>
+        </div>
+        <h4>Gerar com IA</h4>
+        <p>A IA cria todos os scripts automaticamente com base nas informações da sua empresa. Rápido e fácil.</p>
+      </div>
+      <div class="method-card" id="cardTXT" onclick="selectMethod('txt')">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/>
+          </svg>
+        </div>
+        <h4>Importar TXT</h4>
+        <p>Você ou o Green Lab já escreveu os scripts. Importe o arquivo no formato modelo e eles serão carregados.</p>
+      </div>
+    </div>
+
+    <!-- Template TXT -->
+    <div id="txtSection" style="display:none; margin-top:20px;">
+      <div class="card">
+        <p style="margin-bottom:12px; font-size:0.875rem; color:var(--muted);">
+          Use exatamente este formato no seu arquivo .txt. Baixe o modelo ou cole o conteúdo abaixo.
+        </p>
+        <div class="template-box" id="templateBox"><span class="key">[EMPRESA]</span>
+Nome: Nome da Empresa
+Setor: Setor/Nicho
+
+<span class="key">[PRIMEIRO_CONTATO]</span>
+V1: Olá {nome}! Script variante 1...
+V2: Bom dia {nome}! Script variante 2...
+V3: Variante 3...
+V4: Variante 4...
+V5: Variante 5...
+
+<span class="key">[AGRADECIMENTO]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[CONFIRMACAO]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[LEMBRETE]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[FECHAMENTO]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[SECRETARIA]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[DOUTOR_DIRETO]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[POS_SECRETARIA]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[POS_PDF]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[POS_DOUTOR]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[FORMULARIO]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[INTERESSADO]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[FU_MSG]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[FU_LIGACAO]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[FU_NOSHOW]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[FU_NAO_FECHOU]</span>
+V1: ... V2: ... V3: ... V4: ... V5: ...
+
+<span class="key">[QUALIFICACAO]</span>
+ABERTURA: Texto de abertura...
+Q1: Pergunta 1...
+Q2: Pergunta 2...
+Q3: Pergunta 3...
+Q4: Pergunta 4...
+Q5: Pergunta 5...
+Q6: Pergunta 6...
+Q7: Pergunta 7...
+TRANSICAO: Texto de transição...
+
+<span class="key">[AQUECIMENTO]</span>
+D1|Tag do gatilho: Texto da mensagem do dia 1...
+D2|Tag do gatilho: Texto do dia 2...
+...
+D30|Tag do gatilho: Texto do dia 30...</div>
+        <button class="btn btn-ghost" onclick="downloadTemplate()" style="margin-bottom:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Baixar modelo .txt
+        </button>
+        <div class="field">
+          <label>Cole o conteúdo do TXT aqui *</label>
+          <textarea id="txtContent" style="min-height:160px; font-family:monospace; font-size:0.8rem;" placeholder="Cole o conteúdo do arquivo .txt aqui..."></textarea>
+        </div>
+        <div style="text-align:center; margin-top:8px;">
+          <label style="cursor:pointer; color:var(--green); font-size:0.875rem; display:inline-flex; align-items:center; gap:6px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            ou selecionar arquivo .txt
+            <input type="file" accept=".txt" style="display:none" onchange="loadTxtFile(event)" />
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: Gerar / Processar -->
+  <div class="step" id="step3">
+    <div class="step-header">
+      <div class="step-num">Passo 3 — Geração</div>
+      <h2 id="s3Title">Gerando seus scripts com IA</h2>
+      <p id="s3Desc">A IA está criando scripts personalizados para a sua empresa. Isso leva cerca de 30 segundos.</p>
+    </div>
+    <div class="card">
+      <div class="generating" id="generatingState">
+        <div class="spinner"></div>
+        <h3>Criando scripts personalizados...</h3>
+        <p id="generatingMsg">Analisando a empresa e gerando os scripts</p>
+      </div>
+      <div id="generatedState" style="display:none">
+        <p style="color:var(--green); font-size:0.95rem; margin-bottom:20px;">
+          ✓ Scripts gerados! Revise abaixo antes de salvar.
+        </p>
+        <div class="preview-tab-bar" id="previewTabs"></div>
+        <div id="previewContents"></div>
+      </div>
+      <div class="error-msg show" id="errStep3" style="display:none !important;"></div>
+    </div>
+  </div>
+
+  <!-- STEP 4: Confirmação -->
+  <div class="step" id="step4">
+    <div class="step-header">
+      <div class="step-num">Passo 4 — Pronto!</div>
+      <h2>Tudo configurado 🎉</h2>
+      <p>Seus scripts personalizados foram salvos. Acesse a central de scripts da sua empresa.</p>
+    </div>
+    <div class="card" style="text-align:center; padding:48px 28px;">
+      <div style="width:64px; height:64px; background:var(--green-dim); border:1.5px solid var(--green); border-radius:20px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:20px; box-shadow: 0 0 32px var(--green-glow);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="30" height="30"><polyline points="20,6 9,17 4,12"/></svg>
+      </div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.25rem; margin-bottom:10px;">Scripts prontos!</h3>
+      <p style="color:var(--muted); max-width:380px; margin:0 auto 28px; line-height:1.6;">
+        Você tem acesso a mais de 80 scripts personalizados para a sua empresa, divididos por etapa do processo de vendas.
+      </p>
+      <button class="btn" onclick="window.location.href='/app.html'">
+        Acessar meus scripts
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="step-footer" id="stepFooter">
+    <button class="btn-invis" id="btnBack" onclick="prevStep()" style="display:none">← Voltar</button>
+    <div></div>
+    <button class="btn" id="btnNext" onclick="nextStep()">
+      Continuar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+    </button>
+  </div>
+
+<script>
+  const SUPABASE_URL = 'https://opssjtkciavzcqapbzla.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wc3NqdGtjaWF2emNxYXBiemxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDE1NDUsImV4cCI6MjA5NDYxNzU0NX0.9gG7v5Y3Hzq0GeNEz2opz9WEaPjnBTd5k9JAu365QUM';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  const STEPS = ['step1', 'step2', 'step3', 'step4'];
+  const STEP_NAMES = ['Informações da empresa', 'Método de geração', 'Gerar scripts', 'Concluído'];
+  const STEP_PROGRESS = [25, 50, 75, 100];
+
+  let currentStep = 0;
+  let method = 'ia'; // 'ia' ou 'txt'
+  let generatedData = null;
+  let companyId = null;
+  let userId = null;
+
+  // ── Auth guard ──────────────────────────────────────────────
+  (async () => {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { window.location.href = '/index.html'; return; }
+    userId = session.user.id;
+    const { data: prof } = await sb.from('profiles').select('role, company_id').eq('id', userId).single();
+    if (!prof) { window.location.href = '/index.html'; return; }
+    if (prof.role === 'admin') { window.location.href = '/admin.html'; return; }
+
+    companyId = prof.company_id;
+
+    // Se já tem setup completo, vai direto pro app
+    if (companyId) {
+      const { data: scripts } = await sb.from('company_scripts').select('id').eq('company_id', companyId).single();
+      if (scripts) { window.location.href = '/app.html'; return; }
+    }
+
+    // Preenche campo de nome da empresa se disponível
+    if (companyId) {
+      const { data: company } = await sb.from('companies').select('*').eq('id', companyId).single();
+      if (company) prefillCompanyData(company);
+    }
+  })();
+
+  function prefillCompanyData(c) {
+    if (c.name) document.getElementById('s1Nome').value = c.name;
+    if (c.industry) document.getElementById('s1Setor').value = c.industry;
+    if (c.services) document.getElementById('s1Servicos').value = c.services;
+    if (c.target_audience) document.getElementById('s1Publico').value = c.target_audience;
+    if (c.pain_points) document.getElementById('s1Dores').value = c.pain_points;
+    if (c.value_prop) document.getElementById('s1Valor').value = c.value_prop;
+  }
+
+  // ── Navegação ────────────────────────────────────────────────
+  async function nextStep() {
+    const err = document.getElementById('errStep1');
+    if (err) err.classList.remove('show');
+
+    if (currentStep === 0) {
+      if (!validateStep1()) return;
+      await saveCompanyData();
+    }
+    if (currentStep === 1) {
+      if (method === 'txt') {
+        const content = document.getElementById('txtContent').value.trim();
+        if (!content) {
+          alert('Cole o conteúdo do arquivo TXT antes de continuar.');
+          return;
+        }
+      }
+    }
+    if (currentStep === 2) return; // controlado pela geração
+
+    goToStep(currentStep + 1);
+
+    if (currentStep === 2) {
+      runGeneration();
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 0) goToStep(currentStep - 1);
+  }
+
+  function goToStep(n) {
+    document.getElementById(STEPS[currentStep]).classList.remove('active');
+    currentStep = n;
+    document.getElementById(STEPS[currentStep]).classList.add('active');
+
+    document.getElementById('stepLabel').textContent = `Passo ${n + 1} de ${STEPS.length}`;
+    document.getElementById('stepName').textContent = STEP_NAMES[n];
+    document.getElementById('progressFill').style.width = STEP_PROGRESS[n] + '%';
+
+    document.getElementById('btnBack').style.display = n > 0 && n < 3 ? 'block' : 'none';
+    document.getElementById('stepFooter').style.display = n === 2 || n === 3 ? 'none' : 'flex';
+  }
+
+  // ── Step 1 ───────────────────────────────────────────────────
+  function validateStep1() {
+    const nome = document.getElementById('s1Nome').value.trim();
+    const setor = document.getElementById('s1Setor').value.trim();
+    const servicos = document.getElementById('s1Servicos').value.trim();
+    const publico = document.getElementById('s1Publico').value.trim();
+    const err = document.getElementById('errStep1');
+
+    if (!nome || !setor || !servicos || !publico) {
+      err.textContent = 'Preencha todos os campos obrigatórios (*)';
+      err.classList.add('show');
+      return false;
+    }
+    return true;
+  }
+
+  async function saveCompanyData() {
+    const data = {
+      name: document.getElementById('s1Nome').value.trim(),
+      industry: document.getElementById('s1Setor').value.trim(),
+      services: document.getElementById('s1Servicos').value.trim(),
+      target_audience: document.getElementById('s1Publico').value.trim(),
+      pain_points: document.getElementById('s1Dores').value.trim(),
+      value_prop: document.getElementById('s1Valor').value.trim(),
+    };
+
+    if (companyId) {
+      await sb.from('companies').update(data).eq('id', companyId);
+    } else {
+      const { data: newCompany } = await sb.from('companies').insert(data).select().single();
+      if (newCompany) {
+        companyId = newCompany.id;
+        await sb.from('profiles').update({ company_id: companyId }).eq('id', userId);
+      }
+    }
+  }
+
+  // ── Step 2 ───────────────────────────────────────────────────
+  function selectMethod(m) {
+    method = m;
+    document.getElementById('cardIA').classList.toggle('selected', m === 'ia');
+    document.getElementById('cardTXT').classList.toggle('selected', m === 'txt');
+    document.getElementById('txtSection').style.display = m === 'txt' ? 'block' : 'none';
+  }
+
+  function loadTxtFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => { document.getElementById('txtContent').value = e.target.result; };
+    reader.readAsText(file, 'UTF-8');
+  }
+
+  function downloadTemplate() {
+    const template = document.getElementById('templateBox').innerText;
+    const blob = new Blob([template], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'modelo-scripts.txt';
+    a.click();
+  }
+
+  // ── Step 3: Geração ──────────────────────────────────────────
+  async function runGeneration() {
+    const generatingEl = document.getElementById('generatingState');
+    const generatedEl = document.getElementById('generatedState');
+    const errEl = document.getElementById('errStep3');
+
+    generatingEl.style.display = 'flex';
+    generatedEl.style.display = 'none';
+    errEl.style.display = 'none';
+
+    try {
+      if (method === 'ia') {
+        await generateWithAI();
+      } else {
+        await generateFromTXT();
+      }
+
+      // Salva no banco
+      await saveScripts();
+
+      // Mostra preview
+      renderPreview();
+      generatingEl.style.display = 'none';
+      generatedEl.style.display = 'block';
+
+      // Botão para avançar
+      const footer = document.getElementById('stepFooter');
+      footer.style.display = 'flex';
+      document.getElementById('btnNext').textContent = 'Salvar e acessar scripts →';
+      document.getElementById('btnNext').onclick = finishSetup;
+      document.getElementById('btnBack').style.display = 'none';
+
+    } catch (err) {
+      console.error(err);
+      generatingEl.style.display = 'none';
+      errEl.textContent = 'Erro ao gerar scripts: ' + err.message + '. Tente novamente.';
+      errEl.style.display = 'block !important';
+      errEl.style.cssText = 'display:block !important; background:rgba(255,107,107,0.1); border:1px solid rgba(255,107,107,0.3); border-radius:8px; color:#ff6b6b; font-size:.875rem; padding:12px 14px; margin-bottom:16px;';
+
+      const footer = document.getElementById('stepFooter');
+      footer.style.display = 'flex';
+      document.getElementById('btnNext').textContent = 'Tentar novamente';
+      document.getElementById('btnNext').onclick = () => { goToStep(2); runGeneration(); };
+      document.getElementById('btnBack').style.display = 'block';
+    }
+  }
+
+  async function generateWithAI() {
+    document.getElementById('generatingMsg').textContent = 'Chamando a IA do Gemini...';
+
+    const { data: company } = await sb.from('companies').select('*').eq('id', companyId).single();
+
+    const res = await fetch('/api/generate-scripts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ company })
+    });
+
+    if (!res.ok) {
+      const e = await res.json();
+      throw new Error(e.error || 'Falha na API');
+    }
+
+    const { data } = await res.json();
+    generatedData = data;
+    document.getElementById('generatingMsg').textContent = 'Scripts gerados com sucesso!';
+  }
+
+  async function generateFromTXT() {
+    document.getElementById('generatingMsg').textContent = 'Processando o arquivo TXT...';
+    const txt = document.getElementById('txtContent').value;
+    generatedData = parseTXT(txt);
+    document.getElementById('generatingMsg').textContent = 'Arquivo processado!';
+    await new Promise(r => setTimeout(r, 600));
+  }
+
+  function parseTXT(txt) {
+    const sections = {};
+    const lines = txt.split('\n');
+    let current = null;
+
+    const keyMap = {
+      'PRIMEIRO_CONTATO': 'primeiro-contato', 'AGRADECIMENTO': 'agradecimento',
+      'CONFIRMACAO': 'confirmacao', 'LEMBRETE': 'lembrete', 'FECHAMENTO': 'fechamento',
+      'SECRETARIA': 'secretaria', 'DOUTOR_DIRETO': 'doutor-direto',
+      'POS_SECRETARIA': 'pos-secretaria', 'POS_PDF': 'pos-pdf', 'POS_DOUTOR': 'pos-doutor',
+      'FORMULARIO': 'formulario', 'INTERESSADO': 'interessado', 'FU_MSG': 'fu-msg',
+      'FU_LIGACAO': 'fu-ligacao', 'FU_NOSHOW': 'fu-noshow', 'FU_NAO_FECHOU': 'fu-nao-fechou'
+    };
+
+    const scripts = {};
+    const qual = [];
+    const aq = [];
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      const sectionMatch = trimmed.match(/^\[(.+)\]$/);
+      if (sectionMatch) { current = sectionMatch[1]; continue; }
+      if (!current || !trimmed) continue;
+
+      if (keyMap[current]) {
+        const match = trimmed.match(/^V(\d+):\s*(.+)$/);
+        if (match) {
+          const key = keyMap[current];
+          if (!scripts[key]) scripts[key] = {};
+          scripts[key][String(parseInt(match[1]) - 1)] = match[2];
+        }
+      }
+
+      if (current === 'QUALIFICACAO') {
+        const qualMap = { 'ABERTURA': 'Abertura', 'Q1': 'Q1', 'Q2': 'Q2', 'Q3': 'Q3',
+          'Q4': 'Q4', 'Q5': 'Q5', 'Q6': 'Q6', 'Q7': 'Q7', 'TRANSICAO': 'Transição' };
+        const match = trimmed.match(/^([A-Z0-9]+):\s*(.+)$/);
+        if (match && qualMap[match[1]]) {
+          qual.push({ num: qualMap[match[1]], q: match[2] });
+        }
+      }
+
+      if (current === 'AQUECIMENTO') {
+        const match = trimmed.match(/^D(\d+)\|([^:]+):\s*(.+)$/);
+        if (match) {
+          aq.push({ d: parseInt(match[1]), tag: match[2].trim(), t: match[3] });
+        }
+      }
+    }
+
+    return { scripts, qual, aq };
+  }
+
+  async function saveScripts() {
+    document.getElementById('generatingMsg').textContent = 'Salvando no banco de dados...';
+
+    const { error } = await sb.from('company_scripts').upsert({
+      company_id: companyId,
+      scripts: generatedData.scripts || {},
+      qual: generatedData.qual || [],
+      aq: generatedData.aq || []
+    }, { onConflict: 'company_id' });
+
+    if (error) throw new Error(error.message);
+
+    await sb.from('companies').update({ setup_complete: true }).eq('id', companyId);
+  }
+
+  // ── Preview ──────────────────────────────────────────────────
+  const CAT_LABELS = {
+    'primeiro-contato': 'Primeiro Contato', 'agradecimento': 'Agradecimento',
+    'confirmacao': 'Confirmação', 'lembrete': 'Lembrete', 'fechamento': 'Fechamento',
+    'secretaria': 'Secretária', 'doutor-direto': 'Decisor Direto',
+    'pos-secretaria': 'Pós-Secretária', 'pos-pdf': 'Pós-PDF', 'pos-doutor': 'Pós-Reunião',
+    'formulario': 'Formulário', 'interessado': 'Interessado',
+    'fu-msg': 'Follow-up Msg', 'fu-ligacao': 'Follow-up Lig.',
+    'fu-noshow': 'No-show', 'fu-nao-fechou': 'Não Fechou'
+  };
+
+  function renderPreview() {
+    const tabBar = document.getElementById('previewTabs');
+    const contents = document.getElementById('previewContents');
+    tabBar.innerHTML = '';
+    contents.innerHTML = '';
+
+    // Tabs de scripts
+    const scriptKeys = Object.keys(generatedData.scripts || {});
+    scriptKeys.forEach((key, i) => {
+      const tab = document.createElement('button');
+      tab.className = 'preview-tab' + (i === 0 ? ' active' : '');
+      tab.textContent = CAT_LABELS[key] || key;
+      tab.onclick = () => {
+        document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.preview-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('pc-' + key).classList.add('active');
+      };
+      tabBar.appendChild(tab);
+
+      const content = document.createElement('div');
+      content.className = 'preview-content' + (i === 0 ? ' active' : '');
+      content.id = 'pc-' + key;
+      const variants = generatedData.scripts[key];
+      content.innerHTML = Object.entries(variants).map(([idx, text]) => `
+        <div class="script-preview-item">
+          <div class="script-preview-label">Variante ${parseInt(idx) + 1}</div>
+          ${text.replace(/\n/g, '<br>')}
+        </div>
+      `).join('');
+      contents.appendChild(content);
+    });
+
+    // Tab qualificação
+    if (generatedData.qual?.length) {
+      const tab = document.createElement('button');
+      tab.className = 'preview-tab';
+      tab.textContent = 'Qualificação';
+      tab.onclick = () => {
+        document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.preview-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('pc-qual').classList.add('active');
+      };
+      tabBar.appendChild(tab);
+
+      const content = document.createElement('div');
+      content.className = 'preview-content';
+      content.id = 'pc-qual';
+      content.innerHTML = generatedData.qual.map(q => `
+        <div class="script-preview-item">
+          <div class="script-preview-label">${q.num}</div>
+          ${q.q}
+        </div>
+      `).join('');
+      contents.appendChild(content);
+    }
+  }
+
+  async function finishSetup() {
+    window.location.href = '/app.html';
+  }
+
+  async function logout() {
+    await sb.auth.signOut();
+    window.location.href = '/index.html';
+  }
+</script>
+</body>
+</html>
