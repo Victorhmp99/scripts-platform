@@ -445,6 +445,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   let generatedData = null;
   let companyId = null;
   let userId = null;
+  let companyData = null; // dados da empresa guardados do passo 1
 
   // ── Auth guard ──────────────────────────────────────────────
   (async () => {
@@ -564,6 +565,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       value_prop: document.getElementById('s1Valor').value.trim(),
       sales_process: document.getElementById('s1Processo').value.trim(),
     };
+    companyData = company; // guarda para usar na geração sem precisar re-buscar
 
     // Pega o token JWT do usuário logado para enviar ao servidor
     const { data: { session } } = await sb.auth.getSession();
@@ -644,9 +646,8 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     } catch (err) {
       console.error(err);
       generatingEl.style.display = 'none';
-      errEl.textContent = 'Erro ao gerar scripts: ' + err.message + '. Tente novamente.';
-      errEl.style.display = 'block !important';
-      errEl.style.cssText = 'display:block !important; background:rgba(255,107,107,0.1); border:1px solid rgba(255,107,107,0.3); border-radius:8px; color:#ff6b6b; font-size:.875rem; padding:12px 14px; margin-bottom:16px;';
+      errEl.textContent = err.message || 'Erro ao gerar scripts. Tente novamente.';
+      errEl.style.cssText = 'display:block; background:rgba(255,107,107,0.1); border:1px solid rgba(255,107,107,0.3); border-radius:8px; color:#ff6b6b; font-size:.875rem; padding:12px 14px; margin-bottom:16px;';
 
       const footer = document.getElementById('stepFooter');
       footer.style.display = 'flex';
@@ -659,7 +660,9 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   async function generateWithAI() {
     document.getElementById('generatingMsg').textContent = 'Chamando a IA do Gemini...';
 
-    const { data: company } = await sb.from('companies').select('*').eq('id', companyId).single();
+    // Usa os dados já salvos no passo 1 — sem precisar re-buscar do banco
+    const company = companyData;
+    if (!company?.name) throw new Error('Dados da empresa não encontrados. Volte e preencha novamente.');
 
     const res = await fetch('/api/generate-scripts', {
       method: 'POST',
@@ -667,13 +670,17 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       body: JSON.stringify({ company })
     });
 
+    const body = await res.json();
+
     if (!res.ok) {
-      const e = await res.json();
-      throw new Error(e.error || 'Falha na API');
+      throw new Error(body.error || `Erro ${res.status} na API de geração`);
     }
 
-    const { data } = await res.json();
-    generatedData = data;
+    if (!body.data) {
+      throw new Error('A IA não retornou scripts. Tente novamente.');
+    }
+
+    generatedData = body.data;
     document.getElementById('generatingMsg').textContent = 'Scripts gerados com sucesso!';
   }
 
