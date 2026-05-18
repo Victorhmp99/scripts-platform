@@ -688,29 +688,38 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   }
 
   async function generateWithAI() {
-    document.getElementById('generatingMsg').textContent = 'Chamando a IA do Gemini...';
-
-    // Usa os dados já salvos no passo 1 — sem precisar re-buscar do banco
     const company = companyData;
     if (!company?.name) throw new Error('Dados da empresa não encontrados. Volte e preencha novamente.');
 
-    const res = await fetch('/api/generate-scripts', {
+    // ── Chamada 1: Scripts + Estrutura ─────────────────────────
+    document.getElementById('generatingMsg').textContent = 'Gerando scripts (passo 1 de 2)...';
+
+    const r1 = await fetch('/api/generate-scripts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ company })
     });
+    const b1 = await r1.json();
+    if (!r1.ok) throw new Error(b1.error || `Erro ${r1.status} na geração de scripts`);
+    if (!b1.data) throw new Error('A IA não retornou scripts. Tente novamente.');
 
-    const body = await res.json();
+    // ── Chamada 2: Aquecimento 30 dias ─────────────────────────
+    document.getElementById('generatingMsg').textContent = 'Gerando aquecimento 30 dias (passo 2 de 2)...';
 
-    if (!res.ok) {
-      throw new Error(body.error || `Erro ${res.status} na API de geração`);
-    }
+    const r2 = await fetch('/api/generate-aquecimento', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ company })
+    });
+    const b2 = await r2.json();
+    if (!r2.ok) throw new Error(b2.error || `Erro no aquecimento`);
 
-    if (!body.data) {
-      throw new Error('A IA não retornou scripts. Tente novamente.');
-    }
+    // ── Junta os resultados ─────────────────────────────────────
+    generatedData = {
+      ...b1.data,
+      aq: b2.data?.aq || b1.data?.aq || []
+    };
 
-    generatedData = body.data;
     document.getElementById('generatingMsg').textContent = 'Scripts gerados com sucesso!';
   }
 
