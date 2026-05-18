@@ -187,13 +187,13 @@
       <span>Scripts <em>Platform</em></span>
     </div>
 
-    <div class="nav-item active" onclick="showPage('empresas')">
+    <div class="nav-item active" onclick="showPage('usuarios')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Acessos
+    </div>
+    <div class="nav-item" onclick="showPage('empresas')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
       Empresas
-    </div>
-    <div class="nav-item" onclick="showPage('usuarios')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Usuários
     </div>
 
     <div class="sidebar-bottom">
@@ -226,43 +226,18 @@
       </div>
     </div>
 
-    <!-- Página: Empresas -->
-    <div class="page active" id="page-empresas">
+    <!-- Página: Acessos (principal) -->
+    <div class="page active" id="page-usuarios">
       <div class="page-header">
-        <h1>Empresas</h1>
-        <p>Gerencie as empresas clientes com acesso à plataforma</p>
+        <h1>Acessos</h1>
+        <p>Convide pelo e-mail — a empresa configura os scripts sozinha depois</p>
       </div>
       <div class="table-card">
         <div class="table-header">
-          <h3>Todas as empresas</h3>
-          <button class="btn" onclick="openModal('modalEmpresa')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Nova empresa
-          </button>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Empresa</th><th>Setor</th><th>Setup</th><th>Criado em</th><th>Ações</th></tr>
-          </thead>
-          <tbody id="tblEmpresas">
-            <tr class="empty-row"><td colspan="5">Carregando...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Página: Usuários -->
-    <div class="page" id="page-usuarios">
-      <div class="page-header">
-        <h1>Usuários</h1>
-        <p>Controle quem tem acesso à plataforma e com qual função</p>
-      </div>
-      <div class="table-card">
-        <div class="table-header">
-          <h3>Todos os usuários</h3>
+          <h3>Quem tem acesso</h3>
           <button class="btn" onclick="openModal('modalUsuario')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Convidar usuário
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+            Convidar por e-mail
           </button>
         </div>
         <table>
@@ -270,6 +245,27 @@
             <tr><th>Usuário</th><th>Função</th><th>Empresa</th><th>Ações</th></tr>
           </thead>
           <tbody id="tblUsuarios">
+            <tr class="empty-row"><td colspan="4">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Página: Empresas (só visualização) -->
+    <div class="page" id="page-empresas">
+      <div class="page-header">
+        <h1>Empresas</h1>
+        <p>Empresas que já fizeram o setup dos seus scripts</p>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Empresas cadastradas</h3>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Empresa</th><th>Setor</th><th>Setup</th><th>Criado em</th><th>Ações</th></tr>
+          </thead>
+          <tbody id="tblEmpresas">
             <tr class="empty-row"><td colspan="5">Carregando...</td></tr>
           </tbody>
         </table>
@@ -299,25 +295,21 @@
 <!-- Modal: Convidar Usuário -->
 <div class="modal-overlay" id="modalUsuario">
   <div class="modal">
-    <h3>Convidar usuário</h3>
+    <h3>Convidar por e-mail</h3>
     <p style="color:var(--muted); font-size:0.85rem; margin-bottom:18px; line-height:1.5;">
-      Um e-mail de acesso será enviado automaticamente. O usuário clica no link e já entra na plataforma — sem precisar criar senha.
+      A pessoa recebe um link por e-mail, clica e já entra. Ela mesma preenche os dados da empresa e gera os scripts.
     </p>
     <div class="error-msg" id="errUsuario"></div>
     <div class="success-msg" id="sucUsuario"></div>
-    <div class="field"><label>E-mail do usuário *</label><input id="usrEmail" type="email" placeholder="email@empresa.com" /></div>
-    <div class="field"><label>Nome completo</label><input id="usrNome" placeholder="Nome do usuário (opcional)" /></div>
+    <div class="field"><label>E-mail *</label><input id="usrEmail" type="email" placeholder="email@empresa.com" /></div>
+    <div class="field"><label>Nome (opcional)</label><input id="usrNome" placeholder="Nome da pessoa" /></div>
     <div class="field">
-      <label>Função *</label>
+      <label>Nível de acesso</label>
       <select id="usrRole">
-        <option value="user">Usuário — acessa os scripts da empresa</option>
-        <option value="gestor">Gestor — pode editar e configurar scripts</option>
-        <option value="admin">Admin — acesso total (Green Lab)</option>
+        <option value="gestor">Gestor — configura e usa os scripts da empresa</option>
+        <option value="user">Usuário — só usa os scripts (não edita)</option>
+        <option value="admin">Admin — acesso total ao painel (Green Lab)</option>
       </select>
-    </div>
-    <div class="field">
-      <label>Empresa</label>
-      <select id="usrEmpresa"><option value="">— Nenhuma (admin sem empresa) —</option></select>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modalUsuario')">Cancelar</button>
@@ -360,7 +352,6 @@
     const { data } = await sb.from('companies').select('*').order('created_at', { ascending: false });
     empresas = data || [];
     renderEmpresas();
-    populateEmpresaSelect();
   }
 
   async function loadUsuarios() {
@@ -465,7 +456,7 @@
     const email = document.getElementById('usrEmail').value.trim();
     const nome = document.getElementById('usrNome').value.trim();
     const role = document.getElementById('usrRole').value;
-    const companyId = document.getElementById('usrEmpresa').value;
+    const companyId = null;
     const err = document.getElementById('errUsuario');
     const suc = document.getElementById('sucUsuario');
     const btn = document.getElementById('btnCriarUsr');
