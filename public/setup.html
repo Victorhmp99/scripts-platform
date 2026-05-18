@@ -703,6 +703,9 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     if (!r1.ok) throw new Error(b1.error || `Erro ${r1.status} na geração de scripts`);
     if (!b1.data) throw new Error('A IA não retornou scripts. Tente novamente.');
 
+    // ── Pausa para respeitar limite TPM do Groq (12k/min) ────────
+    await countdown(30, 'Aguardando limite da IA');
+
     // ── Chamada 2: Aquecimento 30 dias ─────────────────────────
     document.getElementById('generatingMsg').textContent = 'Gerando aquecimento 30 dias (passo 2 de 2)...';
 
@@ -721,6 +724,20 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     };
 
     document.getElementById('generatingMsg').textContent = 'Scripts gerados com sucesso!';
+  }
+
+  function countdown(seconds, label) {
+    return new Promise(resolve => {
+      let remaining = seconds;
+      const msgEl = document.getElementById('generatingMsg');
+      const tick = () => {
+        msgEl.textContent = `${label} (${remaining}s)...`;
+        if (remaining <= 0) { resolve(); return; }
+        remaining--;
+        setTimeout(tick, 1000);
+      };
+      tick();
+    });
   }
 
   async function generateFromTXT() {
