@@ -555,7 +555,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   }
 
   async function saveCompanyData() {
-    const data = {
+    const company = {
       name: document.getElementById('s1Nome').value.trim(),
       industry: document.getElementById('s1Setor').value.trim(),
       services: document.getElementById('s1Servicos').value.trim(),
@@ -565,15 +565,23 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       sales_process: document.getElementById('s1Processo').value.trim(),
     };
 
-    if (companyId) {
-      const { error } = await sb.from('companies').update(data).eq('id', companyId);
-      if (error) throw new Error('Erro ao salvar dados da empresa: ' + error.message);
-    } else {
-      const { data: newCompany, error } = await sb.from('companies').insert(data).select().single();
-      if (error || !newCompany) throw new Error('Erro ao criar empresa: ' + (error?.message || 'tente novamente'));
-      companyId = newCompany.id;
-      await sb.from('profiles').update({ company_id: companyId }).eq('id', userId);
-    }
+    // Pega o token JWT do usuário logado para enviar ao servidor
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) throw new Error('Sessão expirada. Faça login novamente.');
+
+    const res = await fetch('/api/create-company', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`
+      },
+      body: JSON.stringify({ company, company_id: companyId || null })
+    });
+
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.error || 'Erro ao salvar empresa');
+
+    companyId = result.company_id;
   }
 
   // ── Step 2 ───────────────────────────────────────────────────
