@@ -505,10 +505,20 @@
 
   // ── Deletar ──────────────────────────────────────────────────
   async function deletarEmpresa(id, nome) {
-    if (!confirm(`Remover a empresa "${nome}"? Esta ação não pode ser desfeita.`)) return;
-    await sb.from('companies').delete().eq('id', id);
-    toast('Empresa removida', 'red');
-    loadData();
+    if (!confirm(`Remover a empresa "${nome}"?\n\nTodos os scripts e acessos vinculados serão removidos. Esta ação não pode ser desfeita.`)) return;
+    try {
+      const res = await fetch('/api/delete-company', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        body: JSON.stringify({ company_id: id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast('Empresa removida', 'red');
+      loadData();
+    } catch (e) {
+      toast('Erro: ' + e.message, 'red');
+    }
   }
 
   async function reenviarConvite(email) {
