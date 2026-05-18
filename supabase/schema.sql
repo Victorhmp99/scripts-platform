@@ -51,14 +51,26 @@ CREATE TABLE IF NOT EXISTS script_edits (
 -- ============================================================
 -- Trigger: cria perfil automaticamente ao criar usuário
 -- ============================================================
-CREATE OR REPLACE FUNCTION handle_new_user()
-RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER
+SECURITY DEFINER SET search_path = public
+LANGUAGE plpgsql
+AS $$
 BEGIN
-  INSERT INTO profiles (id, full_name)
-  VALUES (NEW.id, NEW.raw_user_meta_data->>'full_name');
+  BEGIN
+    INSERT INTO public.profiles (id, full_name, email)
+    VALUES (
+      NEW.id,
+      COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.email),
+      NEW.email
+    )
+    ON CONFLICT (id) DO NOTHING;
+  EXCEPTION WHEN OTHERS THEN
+    NULL;
+  END;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
@@ -102,29 +114,32 @@ RETURNS UUID AS $$
 $$ LANGUAGE sql SECURITY DEFINER;
 
 -- Policies: companies
+DROP POLICY IF EXISTS "admin vê tudo" ON companies;
+DROP POLICY IF EXISTS "usuário vê sua empresa" ON companies;
 CREATE POLICY "admin vê tudo" ON companies
   FOR ALL USING (get_my_role() = 'admin');
-
 CREATE POLICY "usuário vê sua empresa" ON companies
   FOR SELECT USING (id = get_my_company());
 
 -- Policies: profiles
+DROP POLICY IF EXISTS "admin vê todos perfis" ON profiles;
+DROP POLICY IF EXISTS "usuário vê seu perfil" ON profiles;
+DROP POLICY IF EXISTS "usuário atualiza seu perfil" ON profiles;
 CREATE POLICY "admin vê todos perfis" ON profiles
   FOR ALL USING (get_my_role() = 'admin');
-
 CREATE POLICY "usuário vê seu perfil" ON profiles
   FOR SELECT USING (id = auth.uid());
-
 CREATE POLICY "usuário atualiza seu perfil" ON profiles
   FOR UPDATE USING (id = auth.uid());
 
 -- Policies: company_scripts
+DROP POLICY IF EXISTS "admin vê todos scripts" ON company_scripts;
+DROP POLICY IF EXISTS "usuário vê scripts da empresa" ON company_scripts;
+DROP POLICY IF EXISTS "gestor atualiza scripts da empresa" ON company_scripts;
 CREATE POLICY "admin vê todos scripts" ON company_scripts
   FOR ALL USING (get_my_role() = 'admin');
-
 CREATE POLICY "usuário vê scripts da empresa" ON company_scripts
   FOR SELECT USING (company_id = get_my_company());
-
 CREATE POLICY "gestor atualiza scripts da empresa" ON company_scripts
   FOR ALL USING (
     company_id = get_my_company()
@@ -132,11 +147,12 @@ CREATE POLICY "gestor atualiza scripts da empresa" ON company_scripts
   );
 
 -- Policies: script_edits
+DROP POLICY IF EXISTS "admin vê todas edições" ON script_edits;
+DROP POLICY IF EXISTS "usuário vê edições da empresa" ON script_edits;
+DROP POLICY IF EXISTS "usuário edita scripts da empresa" ON script_edits;
 CREATE POLICY "admin vê todas edições" ON script_edits
   FOR ALL USING (get_my_role() = 'admin');
-
 CREATE POLICY "usuário vê edições da empresa" ON script_edits
   FOR SELECT USING (company_id = get_my_company());
-
 CREATE POLICY "usuário edita scripts da empresa" ON script_edits
   FOR ALL USING (company_id = get_my_company());
