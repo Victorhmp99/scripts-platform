@@ -19,8 +19,9 @@ export default async function handler(req, res) {
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
             temperature: 0.8,
-            maxOutputTokens: 32768,
-            responseMimeType: 'application/json'
+            maxOutputTokens: 16384,
+            responseMimeType: 'application/json',
+            thinkingConfig: { thinkingBudget: 0 }
           }
         })
       }
@@ -35,14 +36,25 @@ export default async function handler(req, res) {
     }
 
     const data = await geminiRes.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) return res.status(500).json({ error: 'Resposta vazia do Gemini' });
+
+    // Gemini 2.5 pode ter thinking tokens em parts[0] — pega a última parte com texto
+    const parts = data.candidates?.[0]?.content?.parts || [];
+    const text = parts.filter(p => p.text).map(p => p.text).pop();
+    if (!text) {
+      console.error('Gemini sem texto:', JSON.stringify(data).substring(0, 500));
+      return res.status(500).json({ error: 'Resposta vazia do Gemini' });
+    }
 
     let parsed;
-    try { parsed = JSON.parse(text); }
-    catch {
-      const m = text.match(/```json\n?([\s\S]*?)\n?```/) || text.match(/\{[\s\S]*\}/);
-      parsed = JSON.parse(m?.[1] || m?.[0] || text);
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      const m = text.match(/```json\n?([\s\S]*?)\n?```/) || text.match(/\{[\s\S]*\}/s);
+      try { parsed = JSON.parse(m?.[1] || m?.[0] || text); }
+      catch(e2) {
+        console.error('Parse error. Texto recebido:', text.substring(0, 500));
+        return res.status(500).json({ error: 'Erro ao interpretar resposta da IA' });
+      }
     }
 
     return res.status(200).json({ data: parsed });
