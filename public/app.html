@@ -553,8 +553,12 @@ async function loadScripts() {
   // Lê estrutura embutida no JSONB e remove do objeto de scripts
   STRUCTURE = rawScripts.__structure || [];
   D = Object.fromEntries(Object.entries(rawScripts).filter(([k]) => k !== '__structure'));
-  QUAL = scriptsRes.data.qual || [];
-  AQ = scriptsRes.data.aq || [];
+  // Garante que QUAL e AQ são sempre arrays (Gemini às vezes retorna objeto)
+  const rawQual = scriptsRes.data.qual;
+  QUAL = Array.isArray(rawQual) ? rawQual : (rawQual ? Object.values(rawQual) : []);
+
+  const rawAq = scriptsRes.data.aq;
+  AQ = Array.isArray(rawAq) ? rawAq : (rawAq ? Object.values(rawAq) : []);
 
   (editsRes.data || []).forEach(e => {
     EDITS[e.script_key] = { content: e.content, usage_count: e.usage_count };
@@ -709,7 +713,8 @@ function renderScriptCard(catKey, idx) {
 
 function renderQual() {
   const panel = document.getElementById('panel-qualificacao');
-  if (!QUAL.length) {
+  if (!panel) return;
+  if (!Array.isArray(QUAL) || !QUAL.length) {
     panel.innerHTML = '<div class="state-empty"><p>Sem perguntas de qualificação ainda.</p></div>';
     return;
   }
@@ -755,7 +760,8 @@ function renderQualCard(q, i) {
 
 function renderAq() {
   const panel = document.getElementById('panel-aquecimento');
-  if (!AQ.length) {
+  if (!panel) return;
+  if (!Array.isArray(AQ) || !AQ.length) {
     panel.innerHTML = '<div class="state-empty"><p>Sem sequência de aquecimento ainda.</p></div>';
     return;
   }
@@ -780,18 +786,20 @@ function renderAq() {
 }
 
 function renderAqCard(item) {
-  const i = item.d - 1;
+  // Gemini às vezes usa "text" ou "mensagem" em vez de "t"
+  const rawText = item.t ?? item.text ?? item.mensagem ?? '';
+  const i = (item.d ?? 1) - 1;
   const editKey = 'aq_' + i;
   const edit = EDITS[editKey];
-  const text = edit?.content ?? scriptVal(item.t);
+  const text = edit?.content ?? scriptVal(rawText);
   const usage = edit?.usage_count || 0;
   const isEdited = edit?.content !== undefined && edit.content !== item.t;
 
   return `
     <div class="aq-card" id="card-${editKey}">
       <div class="aq-header">
-        <span class="aq-day">Dia ${item.d}</span>
-        <span class="aq-tag">${item.tag}</span>
+        <span class="aq-day">Dia ${item.d ?? i + 1}</span>
+        <span class="aq-tag">${escHtml(item.tag ?? '')}</span>
         ${isEdited ? '<span class="badge-edited" style="font-size:0.62rem; padding:1px 5px;">Editado</span>' : ''}
         <span class="aq-usage">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>

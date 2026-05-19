@@ -828,11 +828,14 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     // Remove __structure e qual/aq do objeto de scripts (ficam em colunas separadas)
     const { __structure, qual: _q, aq: _a, structure: _s, ...scriptsOnly } = scriptsWithStructure;
 
+    // Normaliza qual/aq para array mesmo se a IA retornar objeto
+    const normalizeToArray = v => Array.isArray(v) ? v : (v ? Object.values(v) : []);
+
     const { error } = await sb.from('company_scripts').upsert({
       company_id: companyId,
       scripts: { ...scriptsOnly, __structure },
-      qual: generatedData.qual || [],
-      aq: generatedData.aq || []
+      qual: normalizeToArray(generatedData.qual),
+      aq: normalizeToArray(generatedData.aq)
     }, { onConflict: 'company_id' });
 
     if (error) throw new Error(error.message);
