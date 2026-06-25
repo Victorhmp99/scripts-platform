@@ -1,6 +1,6 @@
 -- ============================================================
--- Scripts Platform - Schema Supabase
--- Execute este SQL no SQL Editor do seu projeto Supabase
+-- Scripts Platform - Schema Supabase (versão completa/atualizada)
+-- Execute este SQL no SQL Editor do seu projeto Supabase NOVO
 -- ============================================================
 
 -- Tabela de empresas clientes
@@ -13,7 +13,11 @@ CREATE TABLE IF NOT EXISTS companies (
   pain_points TEXT,
   value_prop TEXT,
   sales_process TEXT,
+  segment TEXT,
+  seller_name TEXT,
+  tone TEXT,
   setup_complete BOOLEAN DEFAULT FALSE,
+  last_regenerated_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -23,6 +27,7 @@ CREATE TABLE IF NOT EXISTS profiles (
   company_id UUID REFERENCES companies(id) ON DELETE SET NULL,
   role TEXT CHECK (role IN ('admin', 'gestor', 'user')) DEFAULT 'user',
   full_name TEXT,
+  email TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
