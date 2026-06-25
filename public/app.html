@@ -542,7 +542,7 @@ const CAT_LABELS = {
 
 async function loadScripts() {
   const [scriptsRes, editsRes] = await Promise.all([
-    sb.from('company_scripts').select('scripts, qual, aq, structure').eq('company_id', companyId).single(),
+    sb.from('company_scripts').select('scripts, qual, aq').eq('company_id', companyId).single(),
     sb.from('script_edits').select('script_key, content, usage_count').eq('company_id', companyId)
   ]);
 
