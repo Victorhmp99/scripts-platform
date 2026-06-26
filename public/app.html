@@ -571,6 +571,23 @@ async function loadScripts() {
   renderAll();
 }
 
+// ── Identifica abas/seções reservadas (Qualificação/Aquecimento) ──
+// Usa substring case-insensitive porque a IA varia o nome exato
+// (ex: "aquecimento-30-dias", "qualificacao-vendas") em vez de usar
+// sempre o tab_id canônico — comparação exata deixava duplicar a aba.
+function isReservedTab(tab) {
+  const id = (tab.tab_id || '').toLowerCase();
+  const label = (tab.tab_label || '').toLowerCase();
+  return id.includes('qualific') || label.includes('qualific') ||
+         id.includes('aquec') || label.includes('aquec');
+}
+function isReservedSectionKey(key) {
+  const k = (key || '').toLowerCase();
+  return k.includes('qualific') || k.includes('aquec');
+}
+
+let FILTERED_STRUCTURE = [];
+
 // ── Constrói sidebar e painéis dinamicamente a partir da STRUCTURE ─
 function buildDynamicUI() {
   if (!STRUCTURE || !STRUCTURE.length) return;
@@ -585,12 +602,10 @@ function buildDynamicUI() {
   document.querySelectorAll('.tab-panel').forEach(p => p.remove());
 
   // Remove qualificacao/aquecimento do STRUCTURE (são adicionados manualmente abaixo)
-  const filteredStructure = STRUCTURE.filter(t =>
-    t.tab_id !== 'qualificacao' && t.tab_id !== 'aquecimento'
-  );
+  FILTERED_STRUCTURE = STRUCTURE.filter(t => !isReservedTab(t));
 
   const allTabs = [
-    ...filteredStructure,
+    ...FILTERED_STRUCTURE,
     { tab_id: 'qualificacao', tab_label: 'Qualificação' },
     { tab_id: 'aquecimento', tab_label: 'Aquecimento 30d' }
   ];
@@ -628,10 +643,11 @@ function buildDynamicUI() {
 function renderAll() {
   if (STRUCTURE && STRUCTURE.length) {
     const renderedKeys = new Set();
-    STRUCTURE.forEach(tab => {
+    FILTERED_STRUCTURE.forEach(tab => {
       const panel = document.getElementById('panel-' + tab.tab_id);
       if (!panel) return;
       const sections = (tab.sections || []).filter(sec => {
+        if (isReservedSectionKey(sec.key)) return false;
         if (renderedKeys.has(sec.key)) return false;
         renderedKeys.add(sec.key);
         return true;

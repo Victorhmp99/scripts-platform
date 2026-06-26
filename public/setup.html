@@ -863,7 +863,16 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     tabBar.innerHTML = '';
     contents.innerHTML = '';
 
-    const structure = generatedData.__structure || generatedData.structure || [];
+    // Remove abas de Qualificação/Aquecimento que a IA às vezes duplica
+    // dentro do __structure (nome varia: "aquecimento-30-dias", etc.)
+    // — essas já são renderizadas separadamente via generatedData.qual/aq.
+    const isReserved = tab => {
+      const id = (tab.tab_id || '').toLowerCase();
+      const label = (tab.tab_label || '').toLowerCase();
+      return id.includes('qualific') || label.includes('qualific') ||
+             id.includes('aquec') || label.includes('aquec');
+    };
+    const structure = (generatedData.__structure || generatedData.structure || []).filter(t => !isReserved(t));
     const seenKeys = new Set();
     let tabIndex = 0;
 
@@ -887,6 +896,8 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       tabContent.id = tabId;
 
       tab.sections.forEach(sec => {
+        const k = (sec.key || '').toLowerCase();
+        if (k.includes('qualific') || k.includes('aquec')) return;
         if (seenKeys.has(sec.key)) return; // evita duplicatas
         seenKeys.add(sec.key);
         const scripts = generatedData[sec.key];
