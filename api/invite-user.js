@@ -2,6 +2,7 @@
 // O usuário recebe um link, clica e já entra autenticado — sem precisar criar senha
 
 import { createClient } from '@supabase/supabase-js';
+import { requireAdmin } from './_auth.js';
 
 const supabaseAdmin = createClient(
   process.env.SUPABASE_URL,
@@ -12,10 +13,8 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido' });
 
-  const token = req.headers.authorization?.replace('Bearer ', '');
-  if (token !== process.env.ADMIN_SECRET) {
-    return res.status(401).json({ error: 'Não autorizado' });
-  }
+  const auth = await requireAdmin(req);
+  if (auth.error) return res.status(auth.status).json({ error: auth.error });
 
   const { email, full_name, role = 'user', company_id } = req.body;
 

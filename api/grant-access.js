@@ -2,6 +2,7 @@
 // O CRM envia uma requisição POST com email, nome e company_id (ou dados para criar empresa nova)
 
 import { createClient } from '@supabase/supabase-js';
+import { requireAdmin } from './_auth.js';
 
 const supabaseAdmin = createClient(
   process.env.SUPABASE_URL,
@@ -12,10 +13,8 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   // Autenticação: CRM deve enviar Authorization: Bearer CRM_WEBHOOK_SECRET
-  const token = req.headers.authorization?.replace('Bearer ', '');
-  if (token !== process.env.ADMIN_SECRET) {
-    return res.status(401).json({ error: 'Não autorizado' });
-  }
+  const auth = await requireAdmin(req);
+  if (auth.error) return res.status(auth.status).json({ error: auth.error });
 
   const { action } = req.body;
 

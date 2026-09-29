@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jornada do Paciente — Green Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/modulo.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  .etapas { margin-top:20px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+  @media (max-width:860px) { .etapas { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:520px) { .etapas { grid-template-columns:1fr; } }
+  .etapa { border:1px solid rgba(47,227,138,0.24); border-radius:14px; padding:16px; background:rgba(255,255,255,0.03); }
+  .etapa b { display:block; font-size:0.8125rem; font-weight:700; color:var(--mint); }
+  .etapa span { display:block; margin-top:7px; font-size:0.75rem; font-weight:300; line-height:1.5; color:var(--muted); }
+  .etapa em { display:block; margin-top:10px; font-style:normal; font-size:0.6875rem; color:var(--amber); font-weight:500; }
+  .palco { margin-top:20px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+  @media (max-width:700px) { .palco { grid-template-columns:1fr; } }
+  .palco div { border:1px solid rgba(47,227,138,0.22); border-radius:16px; padding:20px; background:rgba(255,255,255,0.03); }
+  .palco b { display:block; font-size:0.6875rem; letter-spacing:2px; text-transform:uppercase; color:var(--mint); font-weight:600; }
+  .palco p { margin-top:10px; font-size:0.875rem; font-weight:300; line-height:1.55; color:var(--soft); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="voltar" href="/portal.html">← Central de Ferramentas</a>
+  <img src="/logo-green-hub.png" alt="Green Hub" />
+  <div class="salvo" id="statusSalvo">—</div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <h4>Neste módulo</h4>
+    <nav>
+      <a href="#l1"><b>01</b> As 5 etapas</a>
+      <a href="#l2"><b>02</b> As 5 falhas clássicas</a>
+      <a href="#l3"><b>03</b> Frontstage e backstage</a>
+      <a href="#l4"><b>04</b> Tempo de resposta</a>
+      <a href="#resultado"><b>★</b> Leitura do resultado</a>
+    </nav>
+  </aside>
+
+  <div>
+    <header class="hero">
+      <div class="eyebrow">Comercial</div>
+      <h1>Jornada<br><em>do paciente</em></h1>
+      <p>Do momento em que ele percebe o problema até decidir tratar, o paciente passa por cinco etapas. Cada ponto de falha dessa jornada é dinheiro que some antes de virar agendamento — e é também a oportunidade mais barata de ganhar margem.</p>
+    </header>
+
+    <section class="lente" id="l1">
+      <div class="lente-num">Conceito 01</div>
+      <h2>As cinco <em>etapas</em></h2>
+      <p class="texto">Mapear a jornada não é desenhar um fluxograma bonito. É descobrir onde o paciente trava — e cada etapa tem uma falha típica que se repete em quase toda clínica.</p>
+      <div class="etapas">
+        <div class="etapa"><b>1 · Descoberta</b><span>Ele percebe que tem um problema e começa a procurar.</span><em>Falha: ninguém encontra você</em></div>
+        <div class="etapa"><b>2 · Orientação</b><span>Busca entender as opções e o próximo passo.</span><em>Falha: próximo passo confuso</em></div>
+        <div class="etapa"><b>3 · Interação</b><span>Fala com alguém da clínica pela primeira vez.</span><em>Falha: espera excessiva</em></div>
+        <div class="etapa"><b>4 · Informação</b><span>Passa dados, recebe orçamento, tira dúvidas.</span><em>Falha: informação repetida</em></div>
+        <div class="etapa"><b>5 · Decisão</b><span>Fecha, adia ou desiste.</span><em>Falha: silêncio da clínica</em></div>
+      </div>
+      <div class="destaque">Cada ponto de falha é uma oportunidade de melhorar experiência <strong>e</strong> margem ao mesmo tempo — porque paciente que não trava na jornada custa menos para converter.</div>
+    </section>
+
+    <section class="lente" id="l2">
+      <div class="lente-num">Conceito 02</div>
+      <h2>As cinco falhas <em>clássicas</em></h2>
+      <p class="texto">Quase todo problema de experiência cai em uma destas cinco. Repare que só a terceira é culpa da execução — as outras quatro nascem de decisão errada lá em cima.</p>
+      <ul class="pontos">
+        <li>O gestor <strong>supõe errado</strong> o que o paciente esperava.</li>
+        <li>O gestor define um <strong>padrão de serviço errado</strong> para aquela expectativa.</li>
+        <li>A equipe <strong>não entrega</strong> no padrão que foi definido.</li>
+        <li>O paciente chega com <strong>expectativa equivocada</strong>, por falha de comunicação da clínica.</li>
+        <li>A experiência entregue <strong>não corresponde</strong> ao que foi prometido na propaganda.</li>
+      </ul>
+      <div class="destaque">Quando o paciente reclama, a reação natural é culpar quem atendeu. Na maioria das vezes, <strong>a falha aconteceu antes</strong> — na expectativa que a própria clínica criou.</div>
+    </section>
+
+    <section class="lente" id="l3">
+      <div class="lente-num">Conceito 03</div>
+      <h2>Frontstage e <em>backstage</em></h2>
+      <p class="texto">O Service Blueprint é o raio-x da sua entrega. Ele mostra o que o paciente vê e, principalmente, o que ele não vê — que é onde moram as falhas que você não enxerga mais, de tão acostumado.</p>
+      <div class="palco">
+        <div><b>Frontstage — o que ele vê</b><p>A recepcionista, a mensagem no WhatsApp, a sala de espera, o dentista, o orçamento, a cobrança. Tudo que o paciente vive na pele.</p></div>
+        <div><b>Backstage — o que ele não vê</b><p>O sistema de agendamento, quem confirma, quem lança no prontuário, quem faz o follow-up, o laboratório, a régua de cobrança.</p></div>
+      </div>
+      <div class="destaque">Falha de frontstage o paciente reclama. Falha de backstage ele <strong>não reclama — ele só não volta</strong>.</div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 01</div>
+        <div class="exercicio-corpo">
+          <h3>Onde a sua jornada trava</h3>
+          <p class="ajuda">Pense nos pacientes que sumiram nos últimos 60 dias. Em que ponto eles costumam parar?</p>
+          <div class="campos">
+            <label class="campo-bloco"><span>A etapa em que você mais perde paciente</span>
+              <select data-c id="j_etapa">
+                <option value="">Selecione</option>
+                <option>Descoberta — pouca gente chega</option>
+                <option>Orientação — chega e não entende o próximo passo</option>
+                <option>Interação — demora para ser atendido</option>
+                <option>Informação — recebe orçamento e some</option>
+                <option>Decisão — diz que vai pensar e não volta</option>
+              </select>
+            </label>
+            <label class="campo-bloco"><span>Quantos pontos de contato da jornada estão mapeados por escrito?</span>
+              <select data-c id="j_mapeados">
+                <option value="">Selecione</option>
+                <option>Nenhum</option>
+                <option>Alguns, na cabeça da equipe</option>
+                <option>Todos, documentados</option>
+              </select>
+            </label>
+            <label class="campo-bloco"><span>Quem faz o follow-up do paciente que recebeu orçamento e não respondeu?</span>
+              <select data-c id="j_followup">
+                <option value="">Selecione</option>
+                <option>Ninguém, específicamente</option>
+                <option>A recepção, quando dá tempo</option>
+                <option>Pessoa definida, com rotina e prazo</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l4">
+      <div class="lente-num">Conceito 04</div>
+      <h2>Tempo de <em>resposta</em></h2>
+      <p class="texto">Existe um número que decide mais conversão do que qualquer script: <strong>quanto tempo o paciente espera pela primeira resposta</strong>. Lead que recebe retorno em até 5 minutos converte muito mais do que o mesmo lead respondido uma hora depois — depois disso, a conversão despenca.</p>
+      <p class="texto">Não é sobre ser rápido por educação. É porque, na hora em que ele mandou mensagem, ele estava decidido a resolver. Uma hora depois, ele já está em outra coisa — ou já foi respondido pelo concorrente.</p>
+      <div class="destaque">Investir em anúncio sem resolver o tempo de resposta é encher um balde furado: <strong>você paga pelo lead e entrega ele para quem responde primeiro.</strong></div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 02</div>
+        <div class="exercicio-corpo">
+          <h3>A sua velocidade real</h3>
+          <p class="ajuda">Abra o WhatsApp da clínica e olhe as últimas 10 conversas iniciadas por pacientes. Meça o tempo real, não o que você imagina.</p>
+          <div class="campos">
+            <div class="linha"><label>Tempo médio até a primeira resposta <small>em minutos</small></label><input class="valor" type="number" min="0" data-c id="j_tempo" placeholder="min"></div>
+            <div class="linha"><label>Quantos desses 10 foram respondidos no mesmo dia</label><input class="valor" type="number" min="0" max="10" data-c id="j_mesmodia" placeholder="de 10"></div>
+            <div class="linha"><label>Quantos viraram consulta agendada</label><input class="valor" type="number" min="0" max="10" data-c id="j_agendou" placeholder="de 10"></div>
+          </div>
+          <div class="saidas">
+            <div class="saida"><span>Tempo de resposta</span><b id="o_tempo">—</b><small>meta: até 5 minutos</small></div>
+            <div class="saida"><span>Respondidos no dia</span><b id="o_dia">—</b><small>de 10 conversas</small></div>
+            <div class="saida"><span>Conversão em agendamento</span><b id="o_conv">—</b><small>saudável acima de 20%</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="resultado" id="resultado">
+      <h2>Leitura do <em>resultado</em></h2>
+      <p>Atualiza sozinho conforme você preenche as atividades acima.</p>
+      <div class="sinais" id="sinais"></div>
+      <div class="veredito" id="veredito">
+        <b style="color:var(--footer)">Aguardando</b>
+        <p style="color:var(--muted)">Preencha as atividades para receber a leitura da sua jornada.</p>
+      </div>
+      <div class="plano" id="plano">
+        <div class="plano-topo">
+          <h3>O que fazer agora</h3>
+          <button class="btn-copiar" id="btnCopiar" onclick="copiarPlano()">Copiar plano</button>
+        </div>
+        <div class="passos" id="passos"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div><b>GREEN HUB</b><span> · JORNADA DO PACIENTE</span></div></footer>
+
+<script>
+window.MODULO = {
+  slug: 'jornada-paciente',
+
+  rotulos: {
+    verde:    'Verde · jornada bem cuidada',
+    amarelo:  'Amarelo · vazamento na jornada',
+    vermelho: 'Vermelho · você paga e perde o paciente'
+  },
+
+  mensagens: {
+    vermelho: 'A clínica está perdendo paciente depois de já ter pago para atraí-lo. Isso é o vazamento mais caro que existe, porque o custo já foi feito. O plano abaixo ataca o ponto exato onde ele some.',
+    amarelo:  'A jornada funciona, mas com pontos frágeis que custam agendamento todo mês sem aparecer em lugar nenhum. Resolva o primeiro item do plano antes de aumentar investimento em anúncio.',
+    verde:    'Jornada cuidada e com resposta rápida. Agora o ganho está em manter esse padrão quando o volume aumentar.'
+  },
+
+  aoMudar: function (h) {
+    var num = h.num;
+    var t = num('j_tempo'), dia = num('j_mesmodia'), ag = num('j_agendou');
+    var c = {};
+
+    if (t !== null) {
+      c.tempo = t;
+      document.getElementById('o_tempo').textContent = t < 60 ? t + ' min' : (Math.round(t / 6) / 10) + ' h';
+    }
+    if (dia !== null) { c.dia = dia; document.getElementById('o_dia').textContent = dia + ' de 10'; }
+    if (ag !== null) { c.conv = ag * 10; document.getElementById('o_conv').textContent = pct(c.conv); }
+
+    window.MODULO.calc = c;
+  },
+
+  avaliar: function (h) {
+    var s = [];
+    var c = window.MODULO.calc || {};
+    var txt = h.txt;
+
+    if (c.tempo !== undefined) s.push({
+      nivel: c.tempo > 60 ? 'vermelho' : c.tempo > 5 ? 'amarelo' : 'verde',
+      titulo: 'Primeira resposta em ' + (c.tempo < 60 ? c.tempo + ' minutos' : (Math.round(c.tempo / 6) / 10) + ' horas'),
+      texto: c.tempo > 60 ? 'Mais de uma hora de espera. Nessa faixa o paciente já resolveu em outro lugar ou esfriou — você pagou pelo lead e entregou para o concorrente.'
+           : c.tempo > 5 ? 'Fora da janela dos 5 minutos. Ainda dá para recuperar, mas cada minuto a mais derruba a chance de agendar.'
+           : 'Dentro da janela que converte. Esse é um diferencial real e pouca clínica sustenta isso.',
+      acao: {
+        titulo: 'Defina um responsável pela primeira resposta em até 5 minutos',
+        porque: 'Quando o paciente manda mensagem, ele está decidido naquele instante. Uma hora depois, ele já está em outra coisa.',
+        como: 'Escolha uma pessoa por turno como responsável pelo WhatsApp, com notificação ligada. Enquanto não houver alguém livre, deixe uma resposta automática que já ofereça dois horários de avaliação.'
+      }
+    });
+
+    if (c.conv !== undefined) s.push({
+      nivel: c.conv < 20 ? 'vermelho' : c.conv < 40 ? 'amarelo' : 'verde',
+      titulo: 'Conversão de conversa em agendamento: ' + pct(c.conv),
+      texto: c.conv < 20 ? 'De cada 10 pessoas que procuraram a clínica, menos de duas marcaram. O problema não está no anúncio, está no atendimento.'
+           : c.conv < 40 ? 'Dentro do comum, mas com espaço claro de ganho sem gastar um real a mais em mídia.'
+           : 'Conversão forte. O time comercial está fazendo a parte dele.',
+      acao: {
+        titulo: 'Reescreva a abertura do atendimento',
+        porque: 'Com ' + pct(c.conv) + ' de conversão, aumentar investimento em anúncio multiplica o desperdício em vez do resultado.',
+        como: 'Troque "posso ajudar?" por uma pergunta que qualifica e já oferece horário: pergunte o que ele quer resolver e ofereça dois horários concretos de avaliação na mesma mensagem.'
+      }
+    });
+
+    var etapa = txt('j_etapa');
+    if (etapa) {
+      var receitas = {
+        'Descoberta — pouca gente chega': {
+          titulo: 'Ajuste alcance antes de ajustar atendimento',
+          porque: 'Se o problema é volume, melhorar script não muda o resultado.',
+          como: 'Revise segmentação e criativo da campanha e garanta que o Google Meu Negócio esteja completo, com fotos atuais e avaliações recentes.'
+        },
+        'Orientação — chega e não entende o próximo passo': {
+          titulo: 'Deixe um único próximo passo óbvio',
+          porque: 'Paciente confuso não decide — ele adia. E adiar, na prática, é desistir.',
+          como: 'Em todo ponto de contato, termine com uma única instrução clara: "o próximo passo é a avaliação, tenho terça às 14h ou quinta às 10h".'
+        },
+        'Interação — demora para ser atendido': {
+          titulo: 'Ataque o tempo de resposta primeiro',
+          porque: 'Demora na primeira resposta é a maior causa isolada de perda de lead pago.',
+          como: 'Defina responsável por turno pelo WhatsApp e configure resposta automática fora do horário que já ofereça horários de avaliação.'
+        },
+        'Informação — recebe orçamento e some': {
+          titulo: 'Crie a régua de follow-up do orçamento',
+          porque: 'Orçamento entregue sem acompanhamento é proposta esquecida — a maioria das vendas acontece depois do terceiro contato.',
+          como: 'Combine três toques: 24h depois com uma dúvida útil, 3 dias depois com um caso parecido, 7 dias depois com uma condição de pagamento.'
+        },
+        'Decisão — diz que vai pensar e não volta': {
+          titulo: 'Trate a objeção antes dela aparecer',
+          porque: '"Vou pensar" quase sempre é preço, medo do procedimento ou falta de confiança que não foram tratados na consulta.',
+          como: 'Na avaliação, pergunte de 0 a 10 o quanto aquilo resolveria o problema dele e o que faltou para ser 10. A resposta entrega a objeção real antes de ele ir embora.'
+        }
+      };
+
+      s.push({
+        nivel: 'vermelho',
+        titulo: 'Maior perda na etapa de ' + etapa.split(' — ')[0],
+        texto: 'Você identificou onde o paciente some. Essa é a etapa que merece atenção antes de qualquer outra coisa na jornada.',
+        acao: receitas[etapa]
+      });
+    }
+
+    var fup = txt('j_followup');
+    if (fup) s.push({
+      nivel: fup === 'Pessoa definida, com rotina e prazo' ? 'verde' : fup === 'A recepção, quando dá tempo' ? 'amarelo' : 'vermelho',
+      titulo: 'Follow-up de orçamento: ' + fup.toLowerCase(),
+      texto: fup === 'Pessoa definida, com rotina e prazo' ? 'Existe dono e existe prazo. É assim que orçamento vira tratamento.'
+           : fup === 'A recepção, quando dá tempo' ? 'Follow-up que depende de sobrar tempo nunca acontece em semana cheia — justamente quando há mais orçamento em aberto.'
+           : 'Sem ninguém responsável, todo orçamento não respondido vira perda silenciosa.',
+      acao: {
+        titulo: 'Nomeie o dono do follow-up e coloque na agenda',
+        porque: 'Tarefa sem dono e sem horário não acontece — e cada orçamento esquecido já custou o lead que o gerou.',
+        como: 'Escolha uma pessoa e reserve 30 minutos fixos por dia para ela percorrer os orçamentos em aberto dos últimos 15 dias.'
+      }
+    });
+
+    var map = txt('j_mapeados');
+    if (map) s.push({
+      nivel: map === 'Todos, documentados' ? 'verde' : map === 'Alguns, na cabeça da equipe' ? 'amarelo' : 'vermelho',
+      titulo: 'Pontos de contato: ' + map.toLowerCase(),
+      texto: map === 'Todos, documentados' ? 'Jornada documentada é jornada que pode ser treinada e cobrada.'
+           : map === 'Alguns, na cabeça da equipe' ? 'Conhecimento na cabeça da equipe vai embora junto com a pessoa quando ela sai.'
+           : 'Sem mapa, cada atendimento acontece de um jeito e ninguém sabe onde está falhando.',
+      acao: {
+        titulo: 'Escreva a jornada em uma página',
+        porque: 'O que não está escrito não pode ser treinado nem melhorado.',
+        como: 'Liste as cinco etapas e, para cada uma, escreva: quem atende, qual ferramenta usa, quanto tempo leva e qual é o próximo passo que o paciente deve dar.'
+      }
+    });
+
+    return s;
+  }
+};
+</script>
+<script src="/modulo.js"></script>
+</body>
+</html>

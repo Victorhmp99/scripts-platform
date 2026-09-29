@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Marca e Posicionamento — Green Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/modulo.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  .iceberg { margin-top:20px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+  @media (max-width:700px) { .iceberg { grid-template-columns:1fr; } }
+  .camada { border:1px solid rgba(47,227,138,0.22); border-radius:16px; padding:20px; background:rgba(255,255,255,0.03); }
+  .camada.fundo { background:rgba(47,227,138,0.07); border-color:rgba(47,227,138,0.4); }
+  .camada b { display:block; font-size:1.5rem; font-weight:800; color:var(--mint); }
+  .camada span { display:block; font-size:0.6875rem; letter-spacing:2px; text-transform:uppercase; color:var(--footer); font-weight:600; margin-top:2px; }
+  .camada p { margin-top:10px; font-size:0.8125rem; font-weight:300; line-height:1.5; color:var(--muted); }
+  .camada ul { margin-top:12px; list-style:none; display:flex; flex-wrap:wrap; gap:6px; }
+  .camada li { font-size:0.75rem; padding:4px 10px; border-radius:999px; border:1px solid rgba(47,227,138,0.22); color:var(--soft); }
+  .declaracao { margin-top:18px; border:1px solid rgba(47,227,138,0.4); border-radius:14px; padding:20px; background:rgba(47,227,138,0.06); font-size:0.9375rem; line-height:1.7; color:#EAF6F0; }
+  .declaracao.vazia { border-style:dashed; border-color:rgba(255,255,255,0.14); background:rgba(4,8,6,0.35); color:#61736A; font-weight:300; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="voltar" href="/portal.html">← Central de Ferramentas</a>
+  <img src="/logo-green-hub.png" alt="Green Hub" />
+  <div class="salvo" id="statusSalvo">—</div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <h4>Neste módulo</h4>
+    <nav>
+      <a href="#l1"><b>01</b> O iceberg da marca</a>
+      <a href="#l2"><b>02</b> Os 9 elementos</a>
+      <a href="#l3"><b>03</b> Pesquisa de percepção</a>
+      <a href="#l4"><b>04</b> Declaração de posicionamento</a>
+      <a href="#resultado"><b>★</b> Leitura do resultado</a>
+    </nav>
+  </aside>
+
+  <div>
+    <header class="hero">
+      <div class="eyebrow">Marketing</div>
+      <h1>Marca e<br><em>posicionamento</em></h1>
+      <p>Marca é como o mercado percebe sua clínica. Não é logotipo, não é cor, não é slogan — é o conjunto de sinais que fazem o paciente confiar, lembrar e escolher você antes mesmo de comparar preço.</p>
+    </header>
+
+    <section class="lente" id="l1">
+      <div class="lente-num">Conceito 01</div>
+      <h2>O iceberg da <em>marca</em></h2>
+      <p class="texto">A maioria das clínicas investe só no que está acima da superfície — a ponta que chama atenção. Mas é o que está embaixo que sustenta tudo, cria a diferença real e que nenhum concorrente copia rápido.</p>
+      <div class="iceberg">
+        <div class="camada">
+          <b>20%</b><span>Visível</span>
+          <p>O que o paciente vê. Copiável em uma semana por qualquer concorrente.</p>
+          <ul><li>Logo</li><li>Cores</li><li>Fachada</li><li>Site</li><li>Redes sociais</li><li>Material impresso</li></ul>
+        </div>
+        <div class="camada fundo">
+          <b>80%</b><span>Invisível</span>
+          <p>O que sustenta a percepção. É aqui que mora a diferença que ninguém copia.</p>
+          <ul><li>Propósito</li><li>Diferenciação</li><li>Persona</li><li>História</li><li>Tom de voz</li><li>Experiência</li><li>Valores</li></ul>
+        </div>
+      </div>
+      <div class="destaque">Sem estratégia, você <strong>paga para existir</strong> — precisa anunciar sempre para ser lembrado. Com estratégia, o mercado puxa você.</div>
+    </section>
+
+    <section class="lente" id="l2">
+      <div class="lente-num">Conceito 02</div>
+      <h2>Os 9 <em>elementos</em></h2>
+      <p class="texto">Marca completa tem nove elementos. Os quatro primeiros formam o núcleo (por que ela existe), o quinto é a articulação (o que ela reivindica) e os quatro últimos são a superfície (como ela se expressa).</p>
+      <table class="ref">
+        <tr><th>#</th><th>Elemento</th></tr>
+        <tr><td>1</td><td><b>Propósito</b> — por que a clínica existe além do lucro. Não muda com tendência.</td></tr>
+        <tr><td>2</td><td><b>Visão</b> — onde quer chegar em 5 a 10 anos. Específica e temporal.</td></tr>
+        <tr><td>3</td><td><b>Missão</b> — o que faz, para quem e como. Opera o propósito no presente.</td></tr>
+        <tr><td>4</td><td><b>Valores</b> — os princípios que decidem no conflito. Filtro ético e cultural.</td></tr>
+        <tr><td>5</td><td><b>Posicionamento</b> — o espaço único na cabeça do paciente. É escolha: para quem você é e para quem não é.</td></tr>
+        <tr><td>6</td><td><b>Personalidade</b> — se a marca fosse uma pessoa, quem seria. Cinco adjetivos.</td></tr>
+        <tr><td>7</td><td><b>Tom de voz</b> — como ela fala e escreve. É a personalidade virando palavra.</td></tr>
+        <tr><td>8</td><td><b>Identidade visual</b> — logo, cores, tipografia. Traduz a marca para imagem.</td></tr>
+        <tr><td>9</td><td><b>Experiência</b> — cada ponto de contato reforça ou destrói. É a soma de todas as interações.</td></tr>
+      </table>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 01</div>
+        <div class="exercicio-corpo">
+          <h3>Inventário da sua marca</h3>
+          <p class="ajuda">Para cada elemento, marque como ele está hoje. Seja honesto: "genérico" é quando existe no papel mas serviria para qualquer concorrente.</p>
+          <div class="campos">
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">1 · Propósito</label><select data-c id="m_e1"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">2 · Visão</label><select data-c id="m_e2"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">3 · Missão</label><select data-c id="m_e3"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">4 · Valores</label><select data-c id="m_e4"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">5 · Posicionamento</label><select data-c id="m_e5"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">6 · Personalidade</label><select data-c id="m_e6"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">7 · Tom de voz</label><select data-c id="m_e7"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">8 · Identidade visual</label><select data-c id="m_e8"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+            <div class="trio"><label style="font-size:0.875rem;color:var(--soft)">9 · Experiência</label><select data-c id="m_e9"><option value="">Como está?</option><option>Definido</option><option>Genérico</option><option>Em branco</option></select><span></span></div>
+          </div>
+          <div class="saidas">
+            <div class="saida"><span>Definidos</span><b id="o_def">—</b><small>de 9 elementos</small></div>
+            <div class="saida"><span>Genéricos</span><b id="o_gen">—</b><small>existem, mas não diferenciam</small></div>
+            <div class="saida"><span>Em branco</span><b id="o_bra">—</b><small>nunca foram definidos</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l3">
+      <div class="lente-num">Conceito 03</div>
+      <h2>Pesquisa de <em>percepção</em></h2>
+      <p class="texto">Posicionamento não é o que você decide ser — é o espaço que você ocupa na cabeça do paciente. E isso não se descobre em reunião interna: se descobre perguntando para quem já comprou.</p>
+      <p class="texto">Ligue para 5 a 10 pacientes ativos. As respostas revelam o posicionamento <strong>real</strong> da clínica, que quase sempre é diferente do desejado.</p>
+      <table class="ref">
+        <tr><th>Pergunta</th><th>O que revela</th></tr>
+        <tr><td>Em 3 palavras</td><td>A percepção real — o que ficou na cabeça dele.</td></tr>
+        <tr><td>Por que nós</td><td>O diferencial percebido. Costuma surpreender.</td></tr>
+        <tr><td>O que mais valoriza</td><td>Os atributos que sustentam o posicionamento.</td></tr>
+        <tr><td>O que poderia melhorar</td><td>Os gaps críticos de experiência.</td></tr>
+        <tr><td>Para quem indicaria</td><td>O perfil de paciente ideal na visão de quem já pagou.</td></tr>
+      </table>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 02</div>
+        <div class="exercicio-corpo">
+          <h3>O que os pacientes já te disseram</h3>
+          <div class="campos">
+            <label class="campo-bloco"><span>Quantos pacientes você já ouviu formalmente sobre isso?</span>
+              <select data-c id="m_pesquisa">
+                <option value="">Selecione</option>
+                <option>Nenhum ainda</option>
+                <option>Conversas informais</option>
+                <option>5 ou mais, com perguntas estruturadas</option>
+              </select>
+            </label>
+            <label class="campo-bloco"><span>As 3 palavras que os pacientes mais usam para descrever a clínica</span><input type="text" data-c id="m_palavras" placeholder="Ex: atenciosa, cara, moderna"></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l4">
+      <div class="lente-num">Conceito 04</div>
+      <h2>Declaração de <em>posicionamento</em></h2>
+      <p class="texto">A declaração não é slogan — ninguém a vê. É a âncora interna que orienta toda comunicação, o produto e a experiência. Se ela serviria para qualquer concorrente, ela não está pronta.</p>
+      <div class="destaque">O teste: leia sua declaração trocando o nome da sua clínica pelo do concorrente. <strong>Se continuar fazendo sentido, ela ainda é genérica.</strong></div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 03</div>
+        <div class="exercicio-corpo">
+          <h3>Monte a sua declaração</h3>
+          <p class="ajuda">Preencha as seis partes. A frase final se monta sozinha embaixo.</p>
+          <div class="campos">
+            <label class="campo-bloco"><span>Para… <small style="color:var(--footer)">qual público exatamente</small></span><input type="text" data-c id="m_para" placeholder="Ex: adultos de 35 a 60 anos que perderam dentes e evitam sorrir"></label>
+            <label class="campo-bloco"><span>Que precisa de…</span><input type="text" data-c id="m_precisa" placeholder="Ex: recuperar a mastigação e a autoestima sem passar anos em tratamento"></label>
+            <label class="campo-bloco"><span>A [sua clínica] é…</span><input type="text" data-c id="m_categoria" placeholder="Ex: uma clínica especializada em reabilitação oral"></label>
+            <label class="campo-bloco"><span>Que oferece…</span><input type="text" data-c id="m_oferece" placeholder="Ex: protocolo completo com carga imediata em 24h"></label>
+            <label class="campo-bloco"><span>Diferente de…</span><input type="text" data-c id="m_diferente" placeholder="Ex: clínicas generalistas que tratam implante como mais um procedimento"></label>
+            <label class="campo-bloco"><span>Porque…</span><input type="text" data-c id="m_porque" placeholder="Ex: fazemos só isso há 12 anos e já reabilitamos 800 pacientes"></label>
+          </div>
+          <div class="declaracao vazia" id="o_declaracao">Preencha os campos acima para ver sua declaração montada.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="resultado" id="resultado">
+      <h2>Leitura do <em>resultado</em></h2>
+      <p>Atualiza sozinho conforme você preenche as atividades acima.</p>
+      <div class="sinais" id="sinais"></div>
+      <div class="veredito" id="veredito">
+        <b style="color:var(--footer)">Aguardando</b>
+        <p style="color:var(--muted)">Preencha as atividades para receber a leitura da sua marca.</p>
+      </div>
+      <div class="plano" id="plano">
+        <div class="plano-topo">
+          <h3>O que fazer agora</h3>
+          <button class="btn-copiar" id="btnCopiar" onclick="copiarPlano()">Copiar plano</button>
+        </div>
+        <div class="passos" id="passos"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div><b>GREEN HUB</b><span> · MARCA E POSICIONAMENTO</span></div></footer>
+
+<script>
+window.MODULO = {
+  slug: 'marca-posicionamento',
+
+  rotulos: {
+    verde:    'Verde · marca com base sólida',
+    amarelo:  'Amarelo · marca genérica',
+    vermelho: 'Vermelho · marca sem fundação'
+  },
+
+  mensagens: {
+    vermelho: 'A clínica está investindo nos 20% visíveis sem ter os 80% que sustentam. Enquanto a fundação não existir, cada real de anúncio compra atenção que não fica. Comece pelo plano abaixo.',
+    amarelo:  'A marca existe no papel, mas ainda serviria para qualquer concorrente. O trabalho agora não é criar mais coisa, é tornar concreto o que já está escrito.',
+    verde:    'Base sólida e diferenciada. O próximo passo é garantir que cada ponto de contato entregue o que a declaração promete.'
+  },
+
+  ELEMENTOS: ['Propósito','Visão','Missão','Valores','Posicionamento','Personalidade','Tom de voz','Identidade visual','Experiência'],
+
+  aoMudar: function (h) {
+    var txt = h.txt;
+    var estados = [];
+    for (var i = 1; i <= 9; i++) estados.push(txt('m_e' + i));
+
+    var conta = function (v) { return estados.filter(function (e) { return e === v; }).length; };
+    var respondidos = estados.filter(Boolean).length;
+
+    document.getElementById('o_def').textContent = respondidos ? conta('Definido') : '—';
+    document.getElementById('o_gen').textContent = respondidos ? conta('Genérico') : '—';
+    document.getElementById('o_bra').textContent = respondidos ? conta('Em branco') : '—';
+
+    var partes = ['m_para','m_precisa','m_categoria','m_oferece','m_diferente','m_porque'].map(txt);
+    var caixa = document.getElementById('o_declaracao');
+    var preenchidas = partes.filter(Boolean).length;
+
+    if (preenchidas === 6) {
+      caixa.classList.remove('vazia');
+      caixa.textContent = 'Para ' + partes[0] + ', que precisa de ' + partes[1] + ', a ' + partes[2] +
+                          ' oferece ' + partes[3] + '. Diferente de ' + partes[4] + ', porque ' + partes[5] + '.';
+    } else {
+      caixa.classList.add('vazia');
+      caixa.textContent = preenchidas === 0
+        ? 'Preencha os campos acima para ver sua declaração montada.'
+        : 'Faltam ' + (6 - preenchidas) + ' de 6 partes para montar a declaração.';
+    }
+
+    window.MODULO.calc = {
+      estados: estados, respondidos: respondidos,
+      definidos: conta('Definido'), genericos: conta('Genérico'), brancos: conta('Em branco'),
+      declaracaoCompleta: preenchidas === 6, partesFaltando: 6 - preenchidas
+    };
+  },
+
+  avaliar: function (h) {
+    var s = [];
+    var c = window.MODULO.calc || {};
+    var txt = h.txt;
+    var nomes = window.MODULO.ELEMENTOS;
+
+    if (c.respondidos) {
+      var emBranco = [];
+      for (var i = 0; i < 9; i++) if (c.estados[i] === 'Em branco') emBranco.push(nomes[i]);
+
+      s.push({
+        nivel: c.brancos >= 3 ? 'vermelho' : c.brancos >= 1 ? 'amarelo' : 'verde',
+        titulo: c.brancos + ' de 9 elementos em branco',
+        texto: c.brancos >= 3 ? 'Falta fundação. Comunicar sem esses elementos é pagar anúncio para dizer o que qualquer clínica diria.'
+             : c.brancos >= 1 ? 'Quase completo. O que falta costuma ser justamente o que daria personalidade à comunicação.'
+             : 'Todos os nove elementos existem. Agora o critério deixa de ser existência e passa a ser qualidade.',
+        acao: {
+          titulo: emBranco.length ? 'Defina: ' + emBranco.slice(0, 3).join(', ') : 'Revise a qualidade dos nove elementos',
+          porque: 'Elemento em branco vira improviso na hora de comunicar — e improviso nunca é consistente.',
+          como: emBranco.indexOf('Personalidade') >= 0 || emBranco.indexOf('Tom de voz') >= 0
+            ? 'Comece pela Personalidade: converse com 3 pacientes e pergunte quais 5 adjetivos descrevem a clínica. Desses adjetivos sai o Tom de voz.'
+            : 'Reserve 2 horas no bloco estratégico desta semana e escreva um parágrafo para cada elemento que está em branco.'
+        }
+      });
+
+      var nucleoGenerico = [0,1,2,3,4].filter(function (i) { return c.estados[i] === 'Genérico'; }).length;
+      if (c.genericos > 0) s.push({
+        nivel: nucleoGenerico >= 2 ? 'vermelho' : c.genericos >= 3 ? 'amarelo' : 'verde',
+        titulo: c.genericos + ' elementos genéricos' + (nucleoGenerico ? ' — ' + nucleoGenerico + ' no núcleo' : ''),
+        texto: nucleoGenerico >= 2 ? 'O núcleo da marca está genérico. Se propósito e posicionamento servem para qualquer clínica, nada abaixo deles diferencia.'
+             : c.genericos >= 3 ? 'Muita coisa escrita que não diferencia. Genérico é pior que vazio: dá a sensação falsa de que está resolvido.'
+             : 'Pouca coisa genérica. Vale refinar quando sobrar tempo.',
+        acao: {
+          titulo: 'Troque uma frase genérica por um diferencial concreto',
+          porque: 'Frase que serve para o concorrente não ocupa espaço nenhum na cabeça do paciente.',
+          como: 'Pegue o elemento mais genérico e responda: qual desconforto específico nós eliminamos que os outros não eliminam? Reescreva a partir dessa resposta e teste com 2 pacientes.'
+        }
+      });
+    }
+
+    var pesquisa = txt('m_pesquisa');
+    if (pesquisa) s.push({
+      nivel: pesquisa === '5 ou mais, com perguntas estruturadas' ? 'verde' : pesquisa === 'Conversas informais' ? 'amarelo' : 'vermelho',
+      titulo: 'Pesquisa de percepção: ' + pesquisa.toLowerCase(),
+      texto: pesquisa === '5 ou mais, com perguntas estruturadas' ? 'Você sabe o que o paciente realmente pensa. É a base mais confiável para posicionar.'
+           : pesquisa === 'Conversas informais' ? 'Conversa solta traz impressão, não padrão. Sem as mesmas perguntas, não dá para comparar respostas.'
+           : 'O posicionamento hoje é uma suposição interna. Sem ouvir o paciente, é chute com boa intenção.',
+      acao: {
+        titulo: 'Ligue para 5 pacientes esta semana',
+        porque: 'O posicionamento real mora na cabeça de quem já pagou, não na reunião interna.',
+        como: 'Use sempre as mesmas 5 perguntas: como nos descreveria em 3 palavras, por que nos escolheu, o que mais valoriza, o que poderia melhorar, para quem indicaria. Anote as palavras que se repetem.'
+      }
+    });
+
+    if (c.declaracaoCompleta !== undefined && (c.declaracaoCompleta || c.partesFaltando < 6)) s.push({
+      nivel: c.declaracaoCompleta ? 'verde' : 'amarelo',
+      titulo: c.declaracaoCompleta ? 'Declaração de posicionamento montada' : 'Faltam ' + c.partesFaltando + ' partes da declaração',
+      texto: c.declaracaoCompleta ? 'Você tem a âncora escrita. Agora ela precisa aparecer no site, no script de atendimento e na sala de espera.'
+           : 'A declaração incompleta não serve de âncora — e sem âncora cada peça de comunicação é decidida do zero.',
+      acao: {
+        titulo: c.declaracaoCompleta ? 'Aplique a declaração em três pontos de contato' : 'Complete as partes que faltam na declaração',
+        porque: c.declaracaoCompleta ? 'Declaração que fica no documento não muda percepção nenhuma.'
+                                     : 'Sem as seis partes, a frase não fecha e não orienta decisão.',
+        como: c.declaracaoCompleta ? 'Reescreva esta semana: o texto da bio do Instagram, a primeira frase do atendimento no WhatsApp e a apresentação da clínica na avaliação.'
+                                   : 'Volte na atividade 03 e preencha os campos em branco. Se travar no "diferente de", liste 3 concorrentes e escreva o que eles fazem que você não faz.'
+      }
+    });
+
+    return s;
+  }
+};
+</script>
+<script src="/modulo.js"></script>
+</body>
+</html>

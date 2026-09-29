@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Green Hub — Central de Ferramentas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #040806;
+    --mint: #2FE38A;
+    --mint-bright: #3DFF9F;
+    --card: rgba(255,255,255,0.035);
+    --card-border: rgba(47,227,138,0.22);
+    --text: #FFFFFF;
+    --muted: #9FB0A8;
+    --soft: #D3DED8;
+    --footer: #5C6E65;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background:
+      radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.44) 0%, rgba(14,92,56,0.28) 32%, rgba(6,26,18,0.09) 60%, rgba(4,8,6,0) 84%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ---------- topo ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid rgba(47,227,138,0.12);
+  }
+  .topbar img { height: 42px; object-fit: contain; }
+  .topbar-right { display: flex; align-items: center; gap: 18px; }
+  .empresa {
+    font-size: 0.8125rem; font-weight: 500; color: var(--soft);
+    text-align: right; line-height: 1.35;
+  }
+  .empresa small { display: block; color: var(--footer); font-size: 0.6875rem; letter-spacing: 1.6px; text-transform: uppercase; }
+  .sair {
+    background: transparent; border: 1px solid rgba(47,227,138,0.35);
+    color: var(--mint); border-radius: 999px;
+    font-family: inherit; font-size: 0.8125rem; font-weight: 600;
+    padding: 8px 18px; cursor: pointer; transition: background 0.15s;
+  }
+  .sair:hover { background: rgba(47,227,138,0.10); }
+
+  /* ---------- cabeçalho ---------- */
+  .hero { max-width: 1180px; margin: 0 auto; padding: 56px 40px 8px; }
+  .hero .eyebrow { font-size: 0.6875rem; font-weight: 600; letter-spacing: 4px; color: var(--mint); text-transform: uppercase; }
+  .hero h1 { margin-top: 12px; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
+  .hero h1 em { font-style: normal; color: var(--mint); }
+  .hero p { margin-top: 10px; font-size: 0.9375rem; font-weight: 300; color: var(--muted); max-width: 620px; }
+
+  /* ---------- seções ---------- */
+  main { max-width: 1180px; margin: 0 auto; padding: 24px 40px 80px; }
+  .area { margin-top: 48px; }
+  .area-head { display: flex; align-items: baseline; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(47,227,138,0.14); }
+  .area-head h2 { font-size: 1.125rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .area-head span { font-size: 0.75rem; font-weight: 300; color: var(--footer); }
+
+  .grid { margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 660px) { .grid { grid-template-columns: 1fr; } .hero, main, .topbar { padding-left: 20px; padding-right: 20px; } }
+
+  /* ---------- card ---------- */
+  .card {
+    display: flex; flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 22px;
+    min-height: 208px;
+    text-decoration: none; color: inherit;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+  }
+  a.card:hover { border-color: rgba(47,227,138,0.55); background: rgba(47,227,138,0.07); transform: translateY(-2px); }
+
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .icon {
+    width: 42px; height: 42px; flex: 0 0 auto;
+    border-radius: 12px;
+    background: rgba(47,227,138,0.12);
+    border: 1px solid rgba(47,227,138,0.28);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icon svg { width: 20px; height: 20px; stroke: var(--mint); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  .tag {
+    font-size: 0.625rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 999px;
+    background: rgba(47,227,138,0.14); color: var(--mint);
+    border: 1px solid rgba(47,227,138,0.25);
+  }
+
+  .card h3 { margin-top: 16px; font-size: 1.0625rem; font-weight: 700; line-height: 1.25; }
+  .card p { margin-top: 8px; font-size: 0.8125rem; font-weight: 300; line-height: 1.55; color: var(--muted); }
+  .card-foot { margin-top: auto; padding-top: 16px; font-size: 0.75rem; font-weight: 600; color: var(--mint); display: flex; align-items: center; gap: 6px; }
+
+  /* ---------- bloqueado ---------- */
+  .card.locked { border-style: dashed; border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.015); cursor: default; }
+  .card.locked .icon { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.10); }
+  .card.locked .icon svg { stroke: #4E6259; }
+  .card.locked h3 { color: #7E9188; }
+  .card.locked p { color: #61736A; }
+  .card.locked .tag { background: transparent; color: #5C6E65; border-color: rgba(255,255,255,0.10); }
+  .card.locked .card-foot { color: #5C6E65; }
+
+  .prazo { font-size: 0.6875rem; font-weight: 500; color: #C9A227; margin-top: 6px; }
+
+  .aviso {
+    margin-top: 22px; max-width: 660px;
+    border: 1px solid rgba(240,196,58,0.34); background: rgba(240,196,58,0.08);
+    border-radius: 14px; padding: 15px 18px;
+    font-size: 0.875rem; font-weight: 300; line-height: 1.6; color: #F0E3BC;
+  }
+  .aviso b { font-weight: 600; color: #fff; }
+
+  /* ---------- estados ---------- */
+  .estado { max-width: 1180px; margin: 0 auto; padding: 80px 40px; text-align: center; color: var(--muted); font-weight: 300; }
+  .vazio {
+    margin-top: 22px; border: 1px dashed rgba(47,227,138,0.28); border-radius: 18px;
+    padding: 34px; text-align: center; color: var(--muted); font-size: 0.875rem; font-weight: 300;
+  }
+  footer { border-top: 1px solid rgba(47,227,138,0.12); padding: 22px 40px; }
+  footer div { max-width: 1180px; margin: 0 auto; font-size: 0.6875rem; letter-spacing: 2.2px; text-transform: uppercase; font-weight: 600; }
+  footer b { color: var(--mint); font-weight: 600; }
+  footer span { color: var(--footer); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="/logo-green-hub.png" alt="Green Hub" />
+  <div class="topbar-right">
+    <div class="empresa" id="empresaBox"></div>
+    <button class="sair" onclick="sair()">Sair</button>
+  </div>
+</div>
+
+<div id="conteudo">
+  <div class="estado">Carregando sua central...</div>
+</div>
+
+<footer>
+  <div><b>GREEN HUB</b><span> · CENTRAL DE FERRAMENTAS</span></div>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://dckvprqsecaxaooppqfp.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRja3ZwcnFzZWNheGFvb3BwcWZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzOTU4MjcsImV4cCI6MjA5Nzk3MTgyN30.fY17RCGW5k_9hDIfGStJn4Xi_HpeL1ned5zrZQCOwZ4';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+const AREAS = [
+  { key: 'gestao',    titulo: 'Gestão da Empresa', sub: 'Tempo, finanças e precificação' },
+  { key: 'comercial', titulo: 'Comercial',          sub: 'Esteira de vendas e atendimento' },
+  { key: 'marketing', titulo: 'Marketing',          sub: 'Marca, posicionamento e criativos' }
+];
+
+const ICONES = {
+  clock:      '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  wallet:     '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18"/><circle cx="16.8" cy="14.8" r="1.2"/>',
+  target:     '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  sparkles:   '<path d="M12 3l1.8 4.9L19 9.7l-5.2 1.8L12 16l-1.8-4.5L5 9.7l5.2-1.8z"/><path d="M18 15l.9 2.4 2.1.8-2.1.8L18 21l-.9-2 -2.1-.8 2.1-.8z"/>',
+  calculator: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8"/><path d="M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/>',
+  users:      '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"/><path d="M16 8.5a3 3 0 0 1 0 5"/><path d="M18 20c0-2.4-.9-4.1-2.3-5"/>',
+  route:      '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H14a4 4 0 0 0 0-8H9a4 4 0 0 1 0-4h2.5"/>',
+  message:    '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  gem:        '<path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18"/><path d="M9 4l3 16 3-16"/>',
+  image:      '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M3 17l5-4 4 3 3-2 6 5"/>',
+  lock:       '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'
+};
+
+function svg(nome) {
+  return '<svg viewBox="0 0 24 24">' + (ICONES[nome] || ICONES.target) + '</svg>';
+}
+
+function escapar(t) {
+  return String(t ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+function formatarPrazo(iso) {
+  const d = new Date(iso);
+  const dias = Math.ceil((d - new Date()) / 86400000);
+  const data = d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  return dias <= 7 ? `Acesso até ${data} · faltam ${dias} dia(s)` : `Acesso até ${data}`;
+}
+
+function cardHTML(item) {
+  const tag  = item.kind === 'ferramenta' ? 'Ferramenta' : 'Conteúdo';
+  const meio = `
+    <div class="card-top">
+      <div class="icon">${svg(item.unlocked ? item.icon : 'lock')}</div>
+      <span class="tag">${tag}</span>
+    </div>
+    <h3>${escapar(item.title)}</h3>
+    <p>${escapar(item.description)}</p>`;
+
+  if (!item.unlocked) {
+    return `<div class="card locked">${meio}
+      <div class="card-foot">Fale com a Green Hub para liberar</div>
+    </div>`;
+  }
+
+  const prazo = item.expires_at ? `<div class="prazo">${formatarPrazo(item.expires_at)}</div>` : '';
+  const alvo  = item.external ? ' target="_blank" rel="noopener"' : '';
+
+  return `<a class="card" href="${escapar(item.href)}"${alvo}>${meio}
+    <div class="card-foot">${item.external ? 'Abrir em nova aba' : 'Abrir'} →</div>
+    ${prazo}
+  </a>`;
+}
+
+function render(itens, perfil, empresa) {
+  document.getElementById('empresaBox').innerHTML =
+    `<small>Empresa</small>${escapar(empresa?.name || '—')}`;
+
+  const primeiroNome = (perfil?.full_name || '').trim().split(' ')[0];
+  const liberados = itens.filter(i => i.unlocked).length;
+
+  // Veio redirecionado de um item que não está liberado
+  const bloqueado = new URLSearchParams(location.search).get('bloqueado');
+  const itemBloqueado = bloqueado ? itens.find(i => i.slug === bloqueado) : null;
+
+  const aviso = itemBloqueado ? `
+    <div class="aviso">
+      <b>${escapar(itemBloqueado.title)}</b> não está liberado para a sua clínica no momento.
+      Fale com o seu consultor da Green Hub para liberar o acesso.
+    </div>` : '';
+
+  const semNada = liberados === 0 ? `
+    <div class="aviso">
+      Ainda não há nada liberado para a sua clínica.
+      Fale com o seu consultor da Green Hub — ele define o que entra no seu acesso.
+    </div>` : '';
+
+  let html = `
+    <div class="hero">
+      <div class="eyebrow">Central de Ferramentas</div>
+      <h1>${primeiroNome ? `Olá, ${escapar(primeiroNome)}.` : 'Bem-vindo.'}<br>Tudo que sua clínica precisa, <em>num lugar só</em>.</h1>
+      <p>Conteúdos e ferramentas para estruturar gestão, comercial e marketing. Você tem ${liberados} ${liberados === 1 ? 'item liberado' : 'itens liberados'} hoje.</p>
+      ${aviso}${semNada}
+    </div>
+    <main>`;
+
+  for (const area of AREAS) {
+    const doArea = itens.filter(i => i.area === area.key);
+    if (!doArea.length) continue;
+
+    html += `
+      <section class="area">
+        <div class="area-head">
+          <h2>${area.titulo}</h2>
+          <span>${area.sub}</span>
+        </div>`;
+
+    const abertos = doArea.filter(i => i.unlocked);
+    html += abertos.length || doArea.length
+      ? `<div class="grid">${doArea.map(cardHTML).join('')}</div>`
+      : `<div class="vazio">Nada liberado nesta área ainda.</div>`;
+
+    html += `</section>`;
+  }
+
+  html += `</main>`;
+  document.getElementById('conteudo').innerHTML = html;
+}
+
+/* Demonstração local: só roda em localhost, nunca em produção. */
+const ITENS_DEMO = [
+  { slug:'diagnostico-tempo',    area:'gestao',    kind:'conteudo',   title:'Diagnóstico 360° do Tempo',       description:'Audite onde sua semana vaza e redesenhe a agenda em blocos protegidos.',                  href:'/modulo-diagnostico-tempo.html?demo=1',    external:false, icon:'clock',      unlocked:true,  expires_at:null },
+  { slug:'financas',             area:'gestao',    kind:'conteudo',   title:'Finanças da Clínica',              description:'DRE, margens, vazamentos financeiros e ponto de equilíbrio.',                              href:'/modulo-financas.html?demo=1',             external:false, icon:'wallet',     unlocked:true,  expires_at:null },
+  { slug:'estrategia-valor',     area:'gestao',    kind:'conteudo',   title:'Estratégia e Percepção de Valor',  description:'Por que o paciente aceita pagar mais — e como aumentar isso sem subir custo.',             href:'/modulo-estrategia-valor.html?demo=1',     external:false, icon:'target',     unlocked:true,  expires_at:null },
+  { slug:'ia-na-pratica',        area:'gestao',    kind:'conteudo',   title:'IA na Prática',                    description:'O framework do prompt perfeito e as ferramentas que valem para a clínica.',                href:'/modulo-ia-na-pratica.html?demo=1',        external:false, icon:'sparkles',   unlocked:true,  expires_at:null },
+  { slug:'calculadora-preco',    area:'gestao',    kind:'ferramenta', title:'Calculadora de Precificação',      description:'Custo da hora-cadeira, material e imposto para chegar no preço certo do tratamento.',      href:'/ferramenta-calculadora.html?demo=1',      external:false, icon:'calculator', unlocked:true,  expires_at:'2026-10-29T00:00:00Z' },
+  { slug:'estrutura-comercial',  area:'comercial', kind:'conteudo',   title:'Estrutura Comercial',              description:'Quem faz o quê na esteira: SDR, closer, CS e o diagnóstico de gargalo.',                   href:'/modulo-estrutura-comercial.html?demo=1',  external:false, icon:'users',      unlocked:true,  expires_at:null },
+  { slug:'jornada-paciente',     area:'comercial', kind:'conteudo',   title:'Jornada do Paciente',              description:'Mapeie os pontos de contato e ache as falhas que custam agendamento.',                     href:'/modulo-jornada-paciente.html?demo=1',     external:false, icon:'route',      unlocked:true,  expires_at:null },
+  { slug:'gerador-scripts',      area:'comercial', kind:'ferramenta', title:'Gerador de Scripts',               description:'Scripts de atendimento, qualificação e aquecimento gerados para a sua clínica.',           href:'/app.html',                                external:false, icon:'message',  unlocked:true,  expires_at:null },
+  { slug:'marca-posicionamento', area:'marketing', kind:'conteudo',   title:'Marca e Posicionamento',           description:'O iceberg da marca, os 9 elementos e a sua declaração de posicionamento.',                 href:'/modulo-marca-posicionamento.html?demo=1', external:false, icon:'gem',        unlocked:true,  expires_at:null },
+  { slug:'biblioteca-criativos', area:'marketing', kind:'ferramenta', title:'Biblioteca de Criativos',          description:'Referências de criativos validados para inspirar as próximas campanhas.',                  href:'https://referencias-criativos.vercel.app/index.html', external:true, icon:'image', unlocked:true, expires_at:null }
+];
+
+async function iniciar() {
+  const local = ['localhost', '127.0.0.1', '::1'].includes(location.hostname);
+  if (local && new URLSearchParams(location.search).has('demo')) {
+    render(ITENS_DEMO, { full_name: 'Victor Hugo' }, { name: 'Clínica Sorriso Vivo' });
+    window.sair = () => alert('Modo demonstração.');
+    return;
+  }
+
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/index.html'; return; }
+
+  const { data: perfil } = await sb
+    .from('profiles')
+    .select('full_name, role, company_id')
+    .eq('id', session.user.id)
+    .single();
+
+  if (!perfil?.company_id) { window.location.href = '/setup.html'; return; }
+
+  const [{ data: empresa }, { data: itens, error }] = await Promise.all([
+    sb.from('companies').select('name').eq('id', perfil.company_id).single(),
+    sb.rpc('get_my_portal_items')
+  ]);
+
+  if (error) {
+    document.getElementById('conteudo').innerHTML =
+      `<div class="estado">Não consegui carregar suas ferramentas.<br>${escapar(error.message)}</div>`;
+    return;
+  }
+
+  render(itens || [], perfil, empresa);
+}
+
+async function sair() {
+  await sb.auth.signOut();
+  window.location.href = '/index.html';
+}
+
+iniciar();
+</script>
+</body>
+</html>

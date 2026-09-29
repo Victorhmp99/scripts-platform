@@ -224,6 +224,31 @@
     .aq-tag { font-size: 0.7rem; color: var(--muted); }
     .aq-usage { margin-left: auto; font-size: 0.7rem; color: var(--muted2); display: flex; align-items: center; gap: 4px; }
 
+    /* Setup banner */
+    .setup-banner {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 80px 32px; max-width: 480px; margin: 0 auto;
+    }
+    .setup-banner-icon {
+      width: 72px; height: 72px; background: var(--green-dim); border: 1.5px solid var(--green);
+      border-radius: 20px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px; box-shadow: 0 0 32px var(--green-glow);
+    }
+    .setup-banner-icon svg { width: 32px; height: 32px; color: var(--green); }
+    .setup-banner h2 {
+      font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .setup-banner p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 28px; }
+    .setup-banner-btn {
+      display: inline-block; background: var(--green); color: #060f09;
+      font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700;
+      padding: 14px 28px; border-radius: 12px; text-decoration: none;
+      transition: opacity 0.2s; margin-bottom: 16px;
+    }
+    .setup-banner-btn:hover { opacity: 0.88; }
+    .setup-banner-hint { font-size: 0.8rem; color: var(--muted2); margin-bottom: 0; }
+
     /* Empty + Loading */
     .state-empty {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -350,6 +375,12 @@
         <button class="logout-btn" style="color:var(--warning); width:100%;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
           Refazer Scripts
+        </button>
+      </a>
+      <a href="/portal.html" style="text-decoration:none;">
+        <button class="logout-btn" style="color:var(--green); width:100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          Central de Ferramentas
         </button>
       </a>
       <a id="adminLink" href="/admin.html" style="display:none; text-decoration:none;">
@@ -531,14 +562,48 @@ const CAT_LABELS = {
   }
 
   if (userRole === 'admin' && !companyId) {
-    // Admin sem empresa — redireciona para admin
     window.location.href = '/admin.html';
     return;
   }
-  if (!companyId) { window.location.href = '/setup.html'; return; }
+
+  if (!companyId) {
+    showSetupBanner();
+    return;
+  }
+
+  // Liberação do gerador é controlada pelo painel (admin passa sempre).
+  // Se a tabela do portal ainda não existir, não bloqueia ninguém.
+  if (userRole !== 'admin') {
+    const { data: itens, error: erroItens } = await sb.rpc('get_my_portal_items');
+    if (!erroItens && Array.isArray(itens)) {
+      const gerador = itens.find(i => i.slug === 'gerador-scripts');
+      if (!gerador || !gerador.unlocked) {
+        window.location.href = '/portal.html?bloqueado=gerador-scripts';
+        return;
+      }
+    }
+  }
 
   await loadScripts();
 })();
+
+function showSetupBanner() {
+  document.getElementById('loadingState').style.display = 'none';
+  const content = document.querySelector('.content');
+  content.innerHTML = `
+    <div class="setup-banner">
+      <div class="setup-banner-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+      </div>
+      <h2>Bem-vindo à plataforma!</h2>
+      <p>Seus scripts ainda não foram gerados. Quando estiver pronto, complete o cadastro para que a IA crie scripts personalizados para o seu negócio.</p>
+      <a href="/setup.html" class="setup-banner-btn">Completar cadastro e gerar scripts</a>
+      <p class="setup-banner-hint">Pode fazer isso quando quiser — seus dados de acesso já estão salvos.</p>
+    </div>
+  `;
+}
 
 async function loadScripts() {
   const [scriptsRes, editsRes] = await Promise.all([
@@ -547,7 +612,7 @@ async function loadScripts() {
   ]);
 
   if (!scriptsRes.data) {
-    window.location.href = '/setup.html';
+    showSetupBanner();
     return;
   }
 

@@ -1,6 +1,7 @@
 // Cria usuário com service_role (bypassa RLS) — só chamado pelo admin
 
 import { createClient } from '@supabase/supabase-js';
+import { requireAdmin } from './_auth.js';
 
 const supabaseAdmin = createClient(
   process.env.SUPABASE_URL,
@@ -11,11 +12,8 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido' });
 
-  // Valida senha de admin (header Authorization: Bearer ADMIN_SECRET)
-  const auth = req.headers.authorization?.replace('Bearer ', '');
-  if (auth !== process.env.ADMIN_SECRET) {
-    return res.status(401).json({ error: 'Não autorizado' });
-  }
+  const auth = await requireAdmin(req);
+  if (auth.error) return res.status(auth.status).json({ error: auth.error });
 
   const { email, password, full_name, role, company_id } = req.body;
 

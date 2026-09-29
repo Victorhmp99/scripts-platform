@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diagnóstico 360° do Tempo — Green Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/modulo.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="voltar" href="/portal.html">← Central de Ferramentas</a>
+  <img src="/logo-green-hub.png" alt="Green Hub" />
+  <div class="salvo" id="statusSalvo">—</div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <h4>Neste módulo</h4>
+    <nav>
+      <a href="#l1"><b>01</b> Tríade do Tempo</a>
+      <a href="#l2"><b>02</b> Lei de Pareto</a>
+      <a href="#l3"><b>03</b> Matriz de Eisenhower</a>
+      <a href="#l4"><b>04</b> Quadrante do Dono</a>
+      <a href="#l5"><b>05</b> Matriz de Delegação</a>
+      <a href="#l6"><b>06</b> Time Blocking</a>
+      <a href="#resultado"><b>★</b> Leitura do resultado</a>
+    </nav>
+  </aside>
+
+  <div>
+    <header class="hero">
+      <div class="eyebrow">Gestão da Empresa</div>
+      <h1>Diagnóstico 360°<br><em>do seu tempo</em></h1>
+      <p>Empresário comum reage à agenda. Empresário 360° desenha a semana antes dela começar. Responda as seis atividades pensando na sua última semana real — não na ideal — e no fim você recebe a leitura e o plano.</p>
+    </header>
+
+    <section class="lente" id="l1">
+      <div class="lente-num">Lente 01</div>
+      <h2>Tríade do <em>Tempo</em></h2>
+      <p class="texto">Tempo é o único recurso que não volta. Você não negocia mais horas por dia, e nenhum concorrente seu também. A diferença está em como cada um classifica e protege as horas que tem.</p>
+      <p class="texto">Toda hora da sua semana cai em uma de três caixas. O ato simples de <strong>nomear</strong> cada bloco já reduz de 10 a 20% do tempo perdido.</p>
+      <ul class="pontos">
+        <li><strong>Importante</strong> — move resultado de longo prazo. Em geral, planejado.</li>
+        <li><strong>Urgente</strong> — tem prazo curto. Em geral, reativo.</li>
+        <li><strong>Circunstancial</strong> — aparece sem aviso. Em geral, dispensável.</li>
+      </ul>
+      <div class="destaque">Clínica em modo caos costuma ficar em 70% urgente e 25% circunstancial. A meta é <strong>60% importante, 30% urgente e 10% circunstancial</strong>.</div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 01</div>
+        <div class="exercicio-corpo">
+          <h3>Auditoria das 168 horas</h3>
+          <p class="ajuda">Pense na sua última semana e estime o percentual de tempo em cada categoria. Os três valores somam 100%.</p>
+          <div class="campos">
+            <div class="linha"><label>Importante</label><input class="pct" type="number" min="0" max="100" data-c id="t_imp" placeholder="%"></div>
+            <div class="linha"><label>Urgente</label><input class="pct" type="number" min="0" max="100" data-c id="t_urg" placeholder="%"></div>
+            <div class="linha"><label>Circunstancial</label><input class="pct" type="number" min="0" max="100" data-c id="t_cir" placeholder="%"></div>
+          </div>
+          <div class="soma" data-soma="t_imp,t_urg,t_cir">Total: <b>0</b> / 100</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l2">
+      <div class="lente-num">Lente 02</div>
+      <h2>Lei de <em>Pareto</em></h2>
+      <p class="texto">20% das atividades produzem 80% do resultado. Pareto não é regra matemática, é régua de decisão: sempre que algo te paralisar, pergunte se aquilo está nos seus 20%.</p>
+      <ul class="pontos">
+        <li>Em vendas: 20% dos pacientes geram 80% do faturamento.</li>
+        <li>Na equipe: 20% das pessoas entregam 80% da operação crítica.</li>
+        <li>Na agenda: 20% das reuniões geram 80% das decisões.</li>
+        <li>No marketing: 20% dos canais trazem 80% dos leads.</li>
+      </ul>
+      <div class="destaque">A pergunta-chave: <strong>se eu só pudesse fazer um quinto do que faço hoje, o que seria?</strong> O que sobrar é onde a semana deveria estar concentrada. O resto é negociável, delegável ou descartável.</div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 02</div>
+        <div class="exercicio-corpo">
+          <h3>Os seus 20%</h3>
+          <p class="ajuda">Responda rápido, sem pensar muito. A primeira resposta costuma ser a verdadeira.</p>
+          <div class="campos">
+            <label class="campo-bloco"><span>Os tratamentos ou pacientes que mais pesam no faturamento</span><input type="text" data-c id="p_clientes" placeholder="Ex: implante e protocolo respondem por 60%"></label>
+            <label class="campo-bloco"><span>As atividades suas que mais geram resultado</span><input type="text" data-c id="p_atividades" placeholder="Ex: avaliação de novos pacientes, fechamento de orçamento"></label>
+            <label class="campo-bloco"><span>As reuniões que não precisam de você na próxima semana</span><input type="text" data-c id="p_reunioes" placeholder="Ex: alinhamento operacional da recepção"></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l3">
+      <div class="lente-num">Lente 03</div>
+      <h2>Matriz de <em>Eisenhower</em></h2>
+      <p class="texto">Eisenhower separa urgência de importância — duas coisas que o dono em modo reativo confunde todo dia. Quase tudo que <strong>parece</strong> urgente não é importante; e quase tudo que é importante não é urgente, até virar crise.</p>
+      <ul class="pontos">
+        <li><strong>Q1</strong> importante e urgente — faça agora.</li>
+        <li><strong>Q2</strong> importante, não urgente — agende.</li>
+        <li><strong>Q3</strong> urgente, não importante — delegue.</li>
+        <li><strong>Q4</strong> nem urgente nem importante — elimine.</li>
+      </ul>
+      <div class="destaque">O verdadeiro indicador de saúde da agenda é o tamanho do <strong>Q2</strong>. Se você passa menos de 30% do tempo planejando, formando pessoas e pensando estratégia, seu crescimento depende de heroísmo — e heroísmo cansa.</div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 03</div>
+        <div class="exercicio-corpo">
+          <h3>Distribuição da semana</h3>
+          <p class="ajuda">Pegue a agenda da semana passada e classifique cada compromisso. Os quatro valores somam 100%.</p>
+          <div class="grade2">
+            <div class="quad"><span>Q1 · Fazer agora</span><input class="pct" type="number" min="0" max="100" data-c id="e_q1" placeholder="%"></div>
+            <div class="quad"><span>Q2 · Agendar</span><input class="pct" type="number" min="0" max="100" data-c id="e_q2" placeholder="%"></div>
+            <div class="quad"><span>Q3 · Delegar</span><input class="pct" type="number" min="0" max="100" data-c id="e_q3" placeholder="%"></div>
+            <div class="quad"><span>Q4 · Eliminar</span><input class="pct" type="number" min="0" max="100" data-c id="e_q4" placeholder="%"></div>
+          </div>
+          <div class="soma" data-soma="e_q1,e_q2,e_q3,e_q4">Total: <b>0</b> / 100</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l4">
+      <div class="lente-num">Lente 04</div>
+      <h2>Quadrante do <em>Dono</em></h2>
+      <p class="texto">Eisenhower classifica tarefas. Este classifica <strong>você</strong>. Dá pra ter uma agenda 60% em Q2 e ainda assim estar em modo operacional — basta que esse Q2 sejam tarefas executadas, não decididas.</p>
+      <ul class="pontos">
+        <li><strong>Operacional</strong> — você executa a tarefa.</li>
+        <li><strong>Tático</strong> — você organiza quem faz.</li>
+        <li><strong>Estratégico</strong> — você decide o que a clínica vai e não vai fazer.</li>
+        <li><strong>Visionário</strong> — você desenha o próximo nível.</li>
+      </ul>
+      <div class="destaque">Enquanto o dono opera, a clínica cresce no limite da capacidade dele. Quando o dono decide e cria, ela cresce no limite do time. <strong>100% operacional é uma clínica do tamanho de uma pessoa só.</strong></div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 04</div>
+        <div class="exercicio-corpo">
+          <h3>Em que modo você está</h3>
+          <p class="ajuda">Estime o seu percentual em cada modo na semana passada. Os quatro valores somam 100%.</p>
+          <div class="campos">
+            <div class="linha"><label>Operacional <small>você executa</small></label><input class="pct" type="number" min="0" max="100" data-c id="d_op" placeholder="%"></div>
+            <div class="linha"><label>Tático <small>você coordena</small></label><input class="pct" type="number" min="0" max="100" data-c id="d_tat" placeholder="%"></div>
+            <div class="linha"><label>Estratégico <small>você decide</small></label><input class="pct" type="number" min="0" max="100" data-c id="d_est" placeholder="%"></div>
+            <div class="linha"><label>Visionário <small>você cria</small></label><input class="pct" type="number" min="0" max="100" data-c id="d_vis" placeholder="%"></div>
+          </div>
+          <div class="soma" data-soma="d_op,d_tat,d_est,d_vis">Total: <b>0</b> / 100</div>
+          <div class="campos" style="margin-top:16px">
+            <label class="campo-bloco"><span>Para onde você precisa migrar nos próximos 90 dias?</span><input type="text" data-c id="d_meta" placeholder="Ex: estratégico"></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l5">
+      <div class="lente-num">Lente 05</div>
+      <h2>Matriz de <em>Delegação</em></h2>
+      <p class="texto">Delegar mal é pior do que não delegar: cria a sensação falsa de que o assunto está coberto enquanto o resultado se deteriora em silêncio. Delegar não é decisão de sim ou não — são quatro níveis.</p>
+      <ul class="pontos">
+        <li><strong>N1 · faço sozinho</strong> — a pessoa não toca no assunto.</li>
+        <li><strong>N2 · faço junto</strong> — trabalhamos lado a lado, eu lidero e formo.</li>
+        <li><strong>N3 · delego com check</strong> — a pessoa faz e me mostra antes de executar.</li>
+        <li><strong>N4 · delego com autonomia</strong> — a pessoa decide e me reporta o resultado.</li>
+      </ul>
+      <div class="destaque">O erro mais comum é pular do N1 direto pro N4. A pessoa falha, você reassume e conclui que "ninguém faz como eu". A sequência correta é gradual: atividade nova começa em N2, evolui pra N3 e só vira N4 depois de o resultado se sustentar por dois ou três ciclos.</div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 05</div>
+        <div class="exercicio-corpo">
+          <h3>Plano de delegação</h3>
+          <p class="ajuda">Escolha três atividades que você faz hoje. Marque o nível atual e a meta em 30 dias — a meta nunca é menor que o nível de hoje.</p>
+          <div class="campos">
+            <div class="deleg">
+              <input type="text" data-c id="dl1_a" placeholder="Atividade 1">
+              <select data-c id="dl1_h"><option value="">Nível hoje</option><option>N1</option><option>N2</option><option>N3</option><option>N4</option></select>
+              <select data-c id="dl1_m"><option value="">Meta 30d</option><option>N1</option><option>N2</option><option>N3</option><option>N4</option></select>
+            </div>
+            <div class="deleg">
+              <input type="text" data-c id="dl2_a" placeholder="Atividade 2">
+              <select data-c id="dl2_h"><option value="">Nível hoje</option><option>N1</option><option>N2</option><option>N3</option><option>N4</option></select>
+              <select data-c id="dl2_m"><option value="">Meta 30d</option><option>N1</option><option>N2</option><option>N3</option><option>N4</option></select>
+            </div>
+            <div class="deleg">
+              <input type="text" data-c id="dl3_a" placeholder="Atividade 3">
+              <select data-c id="dl3_h"><option value="">Nível hoje</option><option>N1</option><option>N2</option><option>N3</option><option>N4</option></select>
+              <select data-c id="dl3_m"><option value="">Meta 30d</option><option>N1</option><option>N2</option><option>N3</option><option>N4</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l6">
+      <div class="lente-num">Lente 06</div>
+      <h2>Time <em>Blocking</em></h2>
+      <p class="texto">Time Blocking é o que transforma as cinco lentes anteriores em rotina executável. Sem blocos fixos, a agenda volta a ser invadida por mensagem e reunião "rapidinha" em duas semanas.</p>
+      <p class="texto">Trate os blocos como contrato com você mesmo: não se move sem motivo escrito. Quando você cede um bloco por "uma coisa rápida", está avisando o time inteiro de que aquela proteção é negociável.</p>
+      <div class="destaque">Quando alguém pedir "uma horinha sua", a resposta deixa de ser "deixa eu ver" e passa a ser <strong>"tenho terça às 14h ou quinta às 15h"</strong>.</div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 06</div>
+        <div class="exercicio-corpo">
+          <h3>Sua semana em 5 blocos</h3>
+          <p class="ajuda">Escreva dia e horário de cada bloco recorrente. Depois lance na agenda como evento fixo.</p>
+          <div class="campos">
+            <div class="linha"><label style="max-width:150px">Estratégico</label><input type="text" data-c id="b_est" placeholder="Ex: segunda 8h-12h — números e decisões"></div>
+            <div class="linha"><label style="max-width:150px">Comercial</label><input type="text" data-c id="b_com" placeholder="Ex: terça e quinta 14h-17h — pacientes-chave"></div>
+            <div class="linha"><label style="max-width:150px">Time</label><input type="text" data-c id="b_time" placeholder="Ex: quarta 9h-12h — 1:1s e formação"></div>
+            <div class="linha"><label style="max-width:150px">Revisão</label><input type="text" data-c id="b_rev" placeholder="Ex: sexta 14h-16h — indicadores da semana"></div>
+            <div class="linha"><label style="max-width:150px">Pessoal</label><input type="text" data-c id="b_pes" placeholder="Ex: diário 7h-8h — treino e leitura"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="resultado" id="resultado">
+      <h2>Leitura do <em>resultado</em></h2>
+      <p>Atualiza sozinho conforme você preenche as atividades acima.</p>
+      <div class="sinais" id="sinais"></div>
+      <div class="veredito" id="veredito">
+        <b style="color:var(--footer)">Aguardando</b>
+        <p style="color:var(--muted)">Preencha as atividades para receber o diagnóstico da sua agenda.</p>
+      </div>
+      <div class="plano" id="plano">
+        <div class="plano-topo">
+          <h3>O que fazer agora</h3>
+          <button class="btn-copiar" id="btnCopiar" onclick="copiarPlano()">Copiar plano</button>
+        </div>
+        <div class="passos" id="passos"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div><b>GREEN HUB</b><span> · DIAGNÓSTICO 360° DO TEMPO</span></div></footer>
+
+<script>
+window.MODULO = {
+  slug: 'diagnostico-tempo',
+
+  rotulos: {
+    verde:    'Verde · agenda saudável',
+    amarelo:  'Amarelo · ponto de atenção',
+    vermelho: 'Vermelho · agenda refém'
+  },
+
+  mensagens: {
+    vermelho: 'Sua agenda hoje é reativa: o tempo vaza em circunstancial, o planejamento não tem espaço e o dono ainda executa. Não tente arrumar tudo de uma vez — siga o plano abaixo na ordem.',
+    amarelo:  'A estrutura existe, mas cede fácil. O risco não é o caos, é a erosão: um bloco cedido por semana e em um mês a agenda voltou a ser reativa. O plano abaixo ataca o ponto mais frágil primeiro.',
+    verde:    'Sua semana está desenhada e protegida. O próximo salto não vem de organizar mais o tempo, e sim de subir de quadrante.'
+  },
+
+  planoTudoCerto: {
+    titulo: 'Suba de quadrante',
+    porque: 'Sua agenda já está protegida — organizar mais o tempo não traz o próximo salto.',
+    como: 'Escolha mais uma atividade para migrar de nível de delegação e use a folga para decidir e criar, não para executar.'
+  },
+
+  avaliar: function (h) {
+    var s = [];
+    var num = h.num, txt = h.txt, el = h.el;
+
+    var cir = num('t_cir');
+    if (cir !== null) s.push({
+      nivel: cir > 20 ? 'vermelho' : cir > 10 ? 'amarelo' : 'verde',
+      titulo: 'Circunstancial em ' + cir + '% da semana',
+      texto: cir > 20 ? 'Mais de um quinto do seu tempo é sequestrado por imprevisto. Falta filtro na porta de entrada da agenda.'
+           : cir > 10 ? 'Dá pra conviver, mas já é tempo suficiente para custar um bloco estratégico inteiro por semana.'
+           : 'O imprevisto está sob controle. Continue nomeando cada bloco antes da semana começar.',
+      acao: {
+        titulo: 'Crie um filtro de entrada na agenda',
+        porque: 'Hoje ' + cir + '% da sua semana entra sem passar por nenhum critério. É esse vazamento que come o bloco estratégico.',
+        como: 'Nos próximos 7 dias, antes de aceitar qualquer compromisso novo, responda: isso é importante, urgente ou circunstancial? O que for circunstancial vira mensagem ou é recusado.'
+      }
+    });
+
+    var q2 = num('e_q2');
+    if (q2 !== null) s.push({
+      nivel: q2 < 15 ? 'vermelho' : q2 < 30 ? 'amarelo' : 'verde',
+      titulo: 'Q2 (planejar) em ' + q2 + '% da semana',
+      texto: q2 < 15 ? 'Praticamente não existe planejamento na sua semana. O crescimento hoje depende de heroísmo.'
+           : q2 < 30 ? 'O planejamento existe, mas é a primeira coisa a ser cortada quando algo urgente aparece.'
+           : 'Você está protegendo o que constrói a clínica no longo prazo.',
+      acao: {
+        titulo: 'Reserve o bloco de planejamento antes de tudo',
+        porque: 'Com o Q2 em ' + q2 + '%, o que constrói a clínica só acontece quando sobra tempo — e nunca sobra.',
+        como: 'Lance hoje um bloco recorrente de 2h no início da semana, marcado como ocupado. Ele entra na agenda antes de qualquer atendimento ou reunião.'
+      }
+    });
+
+    var op = num('d_op');
+    if (op !== null) s.push({
+      nivel: op > 60 ? 'vermelho' : op > 40 ? 'amarelo' : 'verde',
+      titulo: 'Modo operacional em ' + op + '% do tempo',
+      texto: op > 60 ? 'A clínica está crescendo no limite da sua capacidade pessoal — é uma clínica do tamanho de uma pessoa só.'
+           : op > 40 ? 'Você já divide o tempo, mas o operacional ainda decide o tamanho da operação.'
+           : 'Você está no lugar certo: decidindo e criando mais do que executando.',
+      acao: {
+        titulo: 'Tire uma atividade das suas mãos nesta semana',
+        porque: 'Com ' + op + '% do seu tempo no operacional, a clínica não cresce além do que você consegue executar sozinho.',
+        como: 'Escolha a atividade operacional que mais se repete, faça uma vez junto com a pessoa (N2) e combine que na próxima ela faz e te mostra antes de executar (N3).'
+      }
+    });
+
+    var linhas = ['dl1','dl2','dl3'].map(function (p) {
+      return { a: txt(p + '_a'), h: el(p + '_h').value, m: el(p + '_m').value };
+    });
+    var sobem = linhas.filter(function (d) { return d.h && d.m && d.m > d.h; });
+    if (linhas.some(function (d) { return d.h; })) s.push({
+      nivel: sobem.length === 0 ? 'vermelho' : sobem.length < 2 ? 'amarelo' : 'verde',
+      titulo: sobem.length + ' de 3 atividades sobem de nível em 30 dias',
+      texto: sobem.length === 0 ? 'Nenhuma atividade tem plano de sair de onde está. Sem isso, o operacional não diminui.'
+           : sobem.length < 2 ? 'Tem movimento, mas devagar. Escolha mais uma atividade para subir de nível neste mês.'
+           : 'Plano de delegação consistente. Só respeite a sequência: nunca pule direto para autonomia total.',
+      acao: {
+        titulo: sobem.length ? 'Marque o acompanhamento de: ' + (sobem[0].a || 'a atividade que vai subir de nível')
+                             : 'Defina a primeira atividade que sai das suas mãos',
+        porque: sobem.length ? 'Delegação só se sustenta com check combinado — sem data marcada, ela volta pra você em duas semanas.'
+                             : 'Você listou as atividades, mas nenhuma tem meta de subir de nível. Sem meta, nada muda.',
+        como: sobem.length ? 'Agende agora uma conversa de 20 minutos por semana com a pessoa responsável, durante 30 dias, só para revisar essa atividade.'
+                           : 'Volte na atividade 05 e defina, para pelo menos uma linha, um nível de meta maior que o de hoje.'
+      }
+    });
+
+    var blocos = [['b_est','Estratégico'],['b_com','Comercial'],['b_time','Time'],['b_rev','Revisão'],['b_pes','Pessoal']];
+    var feitos = blocos.filter(function (b) { return txt(b[0]); });
+    var faltam = blocos.filter(function (b) { return !txt(b[0]); }).map(function (b) { return b[1]; });
+    if (feitos.length) s.push({
+      nivel: feitos.length < 3 ? 'vermelho' : feitos.length < 5 ? 'amarelo' : 'verde',
+      titulo: feitos.length + ' de 5 blocos definidos',
+      texto: feitos.length < 3 ? 'A semana ainda não tem esqueleto. Sem bloco fixo, tudo vira negociável.'
+           : feitos.length < 5 ? 'Quase lá. Os blocos que faltam são exatamente os que costumam ser invadidos primeiro.'
+           : 'Semana desenhada. Agora o trabalho é defender cada bloco quando pedirem "uma horinha".',
+      acao: {
+        titulo: faltam.length ? 'Defina os blocos que faltam: ' + faltam.join(', ') : 'Lance os 5 blocos como eventos recorrentes',
+        porque: faltam.length ? 'Bloco que não tem dia e hora não existe — é intenção, não compromisso.'
+                              : 'Os blocos só passam a valer quando ocupam espaço real na agenda e aparecem como indisponível para os outros.',
+        como: faltam.length ? 'Volte na atividade 06 e escreva dia e horário de cada bloco que ficou em branco.'
+                            : 'Abra seu calendário e crie os 5 como evento recorrente. Quando pedirem sua hora, ofereça um horário fora dos blocos.'
+      }
+    });
+
+    return s;
+  }
+};
+</script>
+<script src="/modulo.js"></script>
+</body>
+</html>

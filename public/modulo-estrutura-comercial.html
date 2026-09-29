@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Estrutura Comercial — Green Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/modulo.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  .funcao { display:grid; grid-template-columns:1fr 210px; gap:12px; align-items:center; }
+  @media (max-width:700px) { .funcao { grid-template-columns:1fr; } }
+  .funcao label { font-size:0.875rem; color:var(--soft); }
+  .funcao label small { display:block; color:var(--footer); font-size:0.75rem; font-weight:300; margin-top:2px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="voltar" href="/portal.html">← Central de Ferramentas</a>
+  <img src="/logo-green-hub.png" alt="Green Hub" />
+  <div class="salvo" id="statusSalvo">—</div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <h4>Neste módulo</h4>
+    <nav>
+      <a href="#l1"><b>01</b> As funções da esteira</a>
+      <a href="#l2"><b>02</b> Quem resolve cada problema</a>
+      <a href="#l3"><b>03</b> Seu mapa de funções</a>
+      <a href="#resultado"><b>★</b> Leitura do resultado</a>
+    </nav>
+  </aside>
+
+  <div>
+    <header class="hero">
+      <div class="eyebrow">Comercial</div>
+      <h1>Estrutura<br><em>comercial</em></h1>
+      <p>Vender não é uma atividade só — são várias, com perfis diferentes. Quando uma pessoa acumula todas, a que mais aparece é a que sobrevive, e as outras vazam sem ninguém notar.</p>
+    </header>
+
+    <section class="lente" id="l1">
+      <div class="lente-num">Conceito 01</div>
+      <h2>As funções da <em>esteira</em></h2>
+      <p class="texto">Cada função tem um papel distinto na jornada e exige uma habilidade diferente. Não é obrigatório ter uma pessoa para cada uma — clínica pequena acumula, e tudo bem. O problema é <strong>acumular sem saber</strong>, porque aí ninguém percebe qual etapa parou de acontecer.</p>
+      <table class="ref">
+        <tr><th>Função</th><th>Papel e habilidade-chave</th></tr>
+        <tr><td>SDR</td><td>Primeiro contato. Qualifica e agenda a avaliação. Precisa de <b>escuta e objetividade</b>.</td></tr>
+        <tr><td>Closer</td><td>Conduz a avaliação até a decisão. Precisa de <b>argumentação e domínio do tratamento</b>.</td></tr>
+        <tr><td>Farmer</td><td>Cuida da base: retorno, manutenção, novos tratamentos em quem já é paciente. Precisa de <b>relacionamento</b>.</td></tr>
+        <tr><td>Hunter</td><td>Busca paciente novo ativamente, não só espera o anúncio. Precisa de <b>iniciativa e resiliência</b>.</td></tr>
+        <tr><td>Customer Success</td><td>Garante que quem fechou tenha boa experiência e volte. Precisa de <b>visão analítica e empatia</b>.</td></tr>
+        <tr><td>Assistente</td><td>Documentos, CRM atualizado, agenda organizada. Precisa de <b>organização</b>.</td></tr>
+      </table>
+      <div class="destaque">A função que quase toda clínica esquece é o <strong>Farmer</strong>. Vender de novo para quem já confia em você é mais barato do que conquistar alguém novo — e é justamente isso que fica sem dono.</div>
+    </section>
+
+    <section class="lente" id="l2">
+      <div class="lente-num">Conceito 02</div>
+      <h2>Quem resolve <em>cada problema</em></h2>
+      <p class="texto">Quando o resultado comercial cai, a discussão costuma virar "o marketing não traz lead bom" contra "o comercial não sabe vender". Este quadro encerra a discussão: cada sintoma tem uma área responsável e uma ação específica.</p>
+      <table class="ref">
+        <tr><th>Sintoma</th><th>Quem resolve e como</th></tr>
+        <tr><td>Muitos leads, poucas vendas</td><td><b>Marketing + Vendas</b> — revisar qualidade do lead e a abordagem do primeiro contato.</td></tr>
+        <tr><td>Pouca gente chegando</td><td><b>Marketing</b> — ajustar canal, mensagem e oferta.</td></tr>
+        <tr><td>Bons leads que esfriam</td><td><b>Vendas</b> — melhorar tempo de resposta e follow-up.</td></tr>
+        <tr><td>Paciente chega com expectativa errada</td><td><b>Marketing</b> — a comunicação está prometendo o que a clínica não entrega.</td></tr>
+        <tr><td>"Esse lead não presta"</td><td><b>Marketing + Vendas</b> — falta critério combinado do que é lead qualificado.</td></tr>
+        <tr><td>Baixa conversão de orçamento</td><td><b>Vendas</b> — argumentação e negociação na avaliação.</td></tr>
+        <tr><td>Campanha gera lead, mas não faturamento</td><td><b>Marketing + Vendas</b> — faltam indicadores conectados até a receita.</td></tr>
+      </table>
+      <div class="destaque">Sem indicador ligando lead a receita, cada área mostra o número que a favorece: o marketing mostra volume, o comercial mostra dificuldade. <strong>Quem perde é a clínica.</strong></div>
+    </section>
+
+    <section class="lente" id="l3">
+      <div class="lente-num">Conceito 03</div>
+      <h2>Seu mapa de <em>funções</em></h2>
+      <p class="texto">Marque como está hoje, de verdade. "Acumulada" não é problema em si — o problema é a função que não tem dono nenhum.</p>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 01</div>
+        <div class="exercicio-corpo">
+          <h3>Quem faz o quê na sua clínica</h3>
+          <div class="campos">
+            <div class="funcao"><label>SDR <small>primeiro contato, qualifica e agenda</small></label><select data-c id="c_sdr"><option value="">Como está?</option><option>Pessoa dedicada</option><option>Acumulada com outra função</option><option>Ninguém faz</option></select></div>
+            <div class="funcao"><label>Closer <small>conduz a avaliação até a decisão</small></label><select data-c id="c_closer"><option value="">Como está?</option><option>Pessoa dedicada</option><option>Acumulada com outra função</option><option>Ninguém faz</option></select></div>
+            <div class="funcao"><label>Farmer <small>retorno e novos tratamentos na base</small></label><select data-c id="c_farmer"><option value="">Como está?</option><option>Pessoa dedicada</option><option>Acumulada com outra função</option><option>Ninguém faz</option></select></div>
+            <div class="funcao"><label>Hunter <small>busca paciente novo ativamente</small></label><select data-c id="c_hunter"><option value="">Como está?</option><option>Pessoa dedicada</option><option>Acumulada com outra função</option><option>Ninguém faz</option></select></div>
+            <div class="funcao"><label>Customer Success <small>experiência de quem já fechou</small></label><select data-c id="c_cs"><option value="">Como está?</option><option>Pessoa dedicada</option><option>Acumulada com outra função</option><option>Ninguém faz</option></select></div>
+            <div class="funcao"><label>Assistente <small>CRM, documentos e agenda</small></label><select data-c id="c_assist"><option value="">Como está?</option><option>Pessoa dedicada</option><option>Acumulada com outra função</option><option>Ninguém faz</option></select></div>
+          </div>
+          <div class="saidas">
+            <div class="saida"><span>Com dono</span><b id="o_dono">—</b><small>de 6 funções</small></div>
+            <div class="saida"><span>Acumuladas</span><b id="o_acum">—</b><small>dividem atenção</small></div>
+            <div class="saida"><span>Sem ninguém</span><b id="o_sem">—</b><small>etapas que vazam</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 02</div>
+        <div class="exercicio-corpo">
+          <h3>O sintoma que mais aparece hoje</h3>
+          <p class="ajuda">Escolha o que você mais ouve nas reuniões. O plano vai apontar a área responsável.</p>
+          <div class="campos">
+            <label class="campo-bloco"><span>Sintoma principal</span>
+              <select data-c id="c_sintoma">
+                <option value="">Selecione</option>
+                <option>Muitos leads, poucas vendas</option>
+                <option>Pouca gente chegando</option>
+                <option>Bons leads que esfriam</option>
+                <option>Paciente chega com expectativa errada</option>
+                <option>Baixa conversão de orçamento</option>
+                <option>Campanha gera lead, mas não faturamento</option>
+              </select>
+            </label>
+            <label class="campo-bloco"><span>Existe critério escrito do que é um lead qualificado?</span>
+              <select data-c id="c_criterio">
+                <option value="">Selecione</option>
+                <option>Sim, combinado entre marketing e comercial</option>
+                <option>Cada um tem o seu entendimento</option>
+                <option>Não existe</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="resultado" id="resultado">
+      <h2>Leitura do <em>resultado</em></h2>
+      <p>Atualiza sozinho conforme você preenche as atividades acima.</p>
+      <div class="sinais" id="sinais"></div>
+      <div class="veredito" id="veredito">
+        <b style="color:var(--footer)">Aguardando</b>
+        <p style="color:var(--muted)">Preencha as atividades para receber a leitura da sua estrutura comercial.</p>
+      </div>
+      <div class="plano" id="plano">
+        <div class="plano-topo">
+          <h3>O que fazer agora</h3>
+          <button class="btn-copiar" id="btnCopiar" onclick="copiarPlano()">Copiar plano</button>
+        </div>
+        <div class="passos" id="passos"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div><b>GREEN HUB</b><span> · ESTRUTURA COMERCIAL</span></div></footer>
+
+<script>
+window.MODULO = {
+  slug: 'estrutura-comercial',
+
+  rotulos: {
+    verde:    'Verde · esteira com donos definidos',
+    amarelo:  'Amarelo · funções acumuladas',
+    vermelho: 'Vermelho · etapas sem dono'
+  },
+
+  mensagens: {
+    vermelho: 'Existem etapas da venda que hoje não têm dono. Isso significa que elas simplesmente não acontecem nas semanas cheias — e ninguém percebe, porque não há indicador para elas.',
+    amarelo:  'A esteira funciona, mas concentrada em poucas pessoas. Quando a agenda aperta, a função menos visível é a primeira a parar.',
+    verde:    'Cada etapa tem dono. Agora o trabalho é medir cada uma separadamente para saber onde a conversão cai.'
+  },
+
+  FUNCOES: [
+    ['c_sdr', 'SDR', 'o primeiro contato fica sem resposta rápida'],
+    ['c_closer', 'Closer', 'a avaliação não é conduzida até a decisão'],
+    ['c_farmer', 'Farmer', 'a base de pacientes não gera novos tratamentos'],
+    ['c_hunter', 'Hunter', 'a clínica só cresce quando o anúncio está no ar'],
+    ['c_cs', 'Customer Success', 'quem fechou não é acompanhado e não volta'],
+    ['c_assist', 'Assistente', 'o CRM fica desatualizado e o histórico se perde']
+  ],
+
+  aoMudar: function (h) {
+    var txt = h.txt;
+    var estados = window.MODULO.FUNCOES.map(function (f) { return txt(f[0]); });
+    var respondidas = estados.filter(Boolean).length;
+    var conta = function (v) { return estados.filter(function (e) { return e === v; }).length; };
+
+    document.getElementById('o_dono').textContent = respondidas ? conta('Pessoa dedicada') : '—';
+    document.getElementById('o_acum').textContent = respondidas ? conta('Acumulada com outra função') : '—';
+    document.getElementById('o_sem').textContent  = respondidas ? conta('Ninguém faz') : '—';
+
+    window.MODULO.calc = {
+      estados: estados, respondidas: respondidas,
+      dedicadas: conta('Pessoa dedicada'),
+      acumuladas: conta('Acumulada com outra função'),
+      semDono: conta('Ninguém faz')
+    };
+  },
+
+  avaliar: function (h) {
+    var s = [];
+    var txt = h.txt;
+    var c = window.MODULO.calc || {};
+
+    if (c.respondidas) {
+      var orfas = window.MODULO.FUNCOES.filter(function (f, i) { return c.estados[i] === 'Ninguém faz'; });
+
+      if (c.semDono > 0) s.push({
+        nivel: c.semDono >= 2 ? 'vermelho' : 'amarelo',
+        titulo: c.semDono + ' função' + (c.semDono > 1 ? 'ões' : '') + ' sem ninguém: ' + orfas.map(function (f) { return f[1]; }).join(', '),
+        texto: 'Consequência direta: ' + orfas.map(function (f) { return f[2]; }).join('; ') + '.',
+        acao: {
+          titulo: 'Dê um dono para ' + orfas[0][1] + ' ainda esta semana',
+          porque: 'Etapa sem dono não aparece em indicador nenhum — ela some em silêncio e leva receita junto.',
+          como: 'Não precisa contratar. Escolha alguém da equipe, defina o que exatamente essa função faz, em qual horário, e qual número ela precisa reportar toda semana.'
+        }
+      });
+
+      if (c.acumuladas >= 3) s.push({
+        nivel: 'amarelo',
+        titulo: c.acumuladas + ' funções acumuladas',
+        texto: 'Acumular não é erro em clínica enxuta, mas com essa concentração a função menos urgente sempre perde para a mais barulhenta.',
+        acao: {
+          titulo: 'Separe horário fixo para a função que sempre fica por último',
+          porque: 'Quando uma pessoa faz várias funções, a que não tem hora marcada é a que deixa de acontecer.',
+          como: 'Reserve blocos na agenda: 30 minutos por dia para follow-up e 1 hora por semana para reativar a base de pacientes antigos.'
+        }
+      });
+
+      if (c.semDono === 0 && c.acumuladas < 3) s.push({
+        nivel: 'verde',
+        titulo: 'Todas as seis funções têm dono',
+        texto: 'Estrutura definida. Daqui o ganho vem de medir cada etapa separadamente.',
+        acao: {
+          titulo: 'Meça a conversão de cada etapa da esteira',
+          porque: 'Com donos definidos, o próximo salto vem de saber onde exatamente a conversão cai.',
+          como: 'Acompanhe semanalmente: contatos recebidos, quantos viraram avaliação, quantas avaliações viraram orçamento e quantos orçamentos fecharam.'
+        }
+      });
+    }
+
+    var sintoma = txt('c_sintoma');
+    if (sintoma) {
+      var receitas = {
+        'Muitos leads, poucas vendas': { area: 'Marketing + Vendas', titulo: 'Revise qualidade do lead e abordagem do primeiro contato', porque: 'Volume alto com conversão baixa quase sempre é desencontro entre o que o anúncio promete e o que o atendimento oferece.', como: 'Ouça 10 primeiros atendimentos gravados e compare com o texto do anúncio que trouxe aquele paciente. O desencontro aparece em minutos.' },
+        'Pouca gente chegando': { area: 'Marketing', titulo: 'Ajuste canal, mensagem e oferta antes de mexer no comercial', porque: 'Se falta volume, melhorar script não resolve — não há com quem falar.', como: 'Revise a segmentação da campanha, troque o criativo por um que mostre resultado real e garanta o Google Meu Negócio completo e com avaliações recentes.' },
+        'Bons leads que esfriam': { area: 'Vendas', titulo: 'Ataque tempo de resposta e follow-up', porque: 'Lead bom que esfria é quase sempre lead bom que esperou demais.', como: 'Defina responsável pela primeira resposta em até 5 minutos e crie três toques de follow-up para quem recebeu orçamento e não respondeu.' },
+        'Paciente chega com expectativa errada': { area: 'Marketing', titulo: 'Alinhe a promessa da comunicação com a entrega real', porque: 'Expectativa errada nasce na propaganda, não no atendimento — e quem paga a conta é quem atende.', como: 'Liste o que o anúncio promete e compare com o que a clínica entrega de fato. Corrija o texto, não o paciente.' },
+        'Baixa conversão de orçamento': { area: 'Vendas', titulo: 'Trabalhe argumentação e tratamento de objeção', porque: 'Orçamento apresentado sem valor construído antes vira comparação de preço.', como: 'Na avaliação, pergunte de 0 a 10 o quanto aquilo resolveria o problema dele e o que faltaria para ser 10. A objeção real aparece antes de ele ir embora.' },
+        'Campanha gera lead, mas não faturamento': { area: 'Marketing + Vendas', titulo: 'Conecte os indicadores até a receita', porque: 'Sem ligar lead a faturamento, cada área mostra o número que a favorece e ninguém enxerga o funil inteiro.', como: 'Monte um acompanhamento único: investimento, leads, avaliações agendadas, orçamentos apresentados, tratamentos fechados e receita. Revise toda sexta com as duas áreas juntas.' }
+      };
+      var r = receitas[sintoma];
+
+      s.push({
+        nivel: 'vermelho',
+        titulo: 'Sintoma principal: ' + sintoma,
+        texto: 'Área responsável: ' + r.area + '. Esse é o ponto que merece atenção antes de qualquer outro ajuste comercial.',
+        acao: { titulo: r.titulo, porque: r.porque, como: r.como }
+      });
+    }
+
+    var crit = txt('c_criterio');
+    if (crit) s.push({
+      nivel: crit === 'Sim, combinado entre marketing e comercial' ? 'verde' : crit === 'Cada um tem o seu entendimento' ? 'amarelo' : 'vermelho',
+      titulo: 'Critério de lead qualificado: ' + crit.toLowerCase(),
+      texto: crit === 'Sim, combinado entre marketing e comercial' ? 'Com critério combinado, a discussão sai do achismo e vira ajuste de processo.'
+           : crit === 'Cada um tem o seu entendimento' ? 'Entendimentos diferentes garantem discussão eterna sobre qualidade de lead.'
+           : 'Sem critério, não há como avaliar se o problema é o lead ou o atendimento.',
+      acao: {
+        titulo: 'Escreva em uma linha o que é lead qualificado para a clínica',
+        porque: 'Sem definição comum, marketing e comercial medem coisas diferentes e cada um se defende com o próprio número.',
+        como: 'Junte as duas pontas por 30 minutos e definam juntos: qual tratamento busca, qual região, qual faixa de investimento e qual urgência. Escreva e afixe onde os dois times veem.'
+      }
+    });
+
+    return s;
+  }
+};
+</script>
+<script src="/modulo.js"></script>
+</body>
+</html>

@@ -184,7 +184,7 @@
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
         </svg>
       </div>
-      <span>Scripts <em>Platform</em></span>
+      <span>Green <em>Hub</em></span>
     </div>
 
     <div class="nav-item active" onclick="showPage('usuarios')">
@@ -194,6 +194,10 @@
     <div class="nav-item" onclick="showPage('empresas')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
       Empresas
+    </div>
+    <div class="nav-item" onclick="showPage('liberacoes')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0"/></svg>
+      Liberações
     </div>
 
     <div class="sidebar-bottom">
@@ -271,6 +275,34 @@
         </table>
       </div>
     </div>
+    <!-- Liberações por empresa -->
+    <div class="page" id="page-liberacoes">
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Liberações por empresa</h2>
+          <p style="margin-top:6px; font-size:0.8125rem; color:var(--muted); font-weight:300; line-height:1.5;">
+            Escolha a empresa e marque exatamente o que ela pode abrir na central. Sem marcação, o item aparece com cadeado.
+            A data é opcional — preenchida, o acesso cai sozinho no dia seguinte.
+          </p>
+        </div>
+
+        <div style="padding:18px 20px; border-bottom:1px solid var(--border); display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+          <select id="libEmpresa" onchange="carregarLiberacoes()" style="min-width:280px; background:var(--surface); border:1px solid var(--border); color:var(--text); font-family:inherit; font-size:0.875rem; padding:10px 12px; border-radius:8px;">
+            <option value="">Selecione a empresa...</option>
+          </select>
+          <button class="btn btn-ghost" onclick="marcarTodas(true)">Liberar tudo</button>
+          <button class="btn btn-ghost" onclick="marcarTodas(false)">Bloquear tudo</button>
+          <button class="btn" id="btnSalvarLib" onclick="salvarLiberacoes()" style="margin-left:auto;">Salvar liberações</button>
+        </div>
+
+        <div id="libLista" style="padding:8px 20px 20px;">
+          <p style="padding:28px 0; text-align:center; color:var(--muted); font-size:0.875rem; font-weight:300;">
+            Selecione uma empresa para ver o que ela pode acessar.
+          </p>
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -288,6 +320,31 @@
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modalEmpresa')">Cancelar</button>
       <button class="btn" onclick="criarEmpresa()">Criar empresa</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Editar Usuário -->
+<div class="modal-overlay" id="modalEditarUsuario">
+  <div class="modal">
+    <h3>Editar acesso</h3>
+    <div id="editUsrInfo" style="margin-bottom:18px; padding:10px 14px; background:var(--surface); border-radius:8px; font-size:0.875rem; color:var(--muted);"></div>
+    <div class="error-msg" id="errEditUsuario"></div>
+    <div class="field">
+      <label>Função</label>
+      <select id="editUsrRole">
+        <option value="user">Usuário — só usa os scripts (não edita)</option>
+        <option value="gestor">Gestor — configura e usa os scripts da empresa</option>
+        <option value="admin">Admin — acesso total ao painel (Green Lab)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Empresa vinculada</label>
+      <select id="editUsrEmpresa"></select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalEditarUsuario')">Cancelar</button>
+      <button class="btn" id="btnSalvarEdicao" onclick="salvarEdicaoUsuario()">Salvar alterações</button>
     </div>
   </div>
 </div>
@@ -326,8 +383,15 @@
 <script>
   const SUPABASE_URL = 'https://dckvprqsecaxaooppqfp.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRja3ZwcnFzZWNheGFvb3BwcWZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzOTU4MjcsImV4cCI6MjA5Nzk3MTgyN30.fY17RCGW5k_9hDIfGStJn4Xi_HpeL1ned5zrZQCOwZ4';
-  const ADMIN_SECRET = 'GreenLab@2025!';
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  // Toda chamada às rotas de /api vai com o JWT da sessão.
+  // Quem autoriza é o papel do usuário no banco, não um segredo no front.
+  async function cabecalhoAutenticado() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { window.location.href = '/index.html'; throw new Error('Sessão expirada'); }
+    return { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token };
+  }
 
   let empresas = [];
   let usuarios = [];
@@ -352,6 +416,7 @@
     const { data } = await sb.from('companies').select('*').order('created_at', { ascending: false });
     empresas = data || [];
     renderEmpresas();
+    popularSelectLiberacoes();
   }
 
   async function loadUsuarios() {
@@ -400,11 +465,60 @@
         <td><span class="badge badge-${u.role}">${u.role}</span></td>
         <td>${u.companies?.name || '<span style="color:var(--muted)">—</span>'}</td>
         <td>
+          <button class="action-btn" onclick="abrirEditarUsuario('${u.id}')">Editar</button>
           <button class="action-btn" onclick="reenviarConvite('${u.email}')">Reenviar</button>
           ${(currentUserId && u.id && u.id !== currentUserId) ? `<button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>` : ''}
         </td>
       </tr>
     `).join('');
+  }
+
+  let editingUserId = null;
+
+  function abrirEditarUsuario(userId) {
+    const u = usuarios.find(x => x.id === userId);
+    if (!u) return;
+    editingUserId = userId;
+
+    document.getElementById('editUsrInfo').innerHTML =
+      `<strong>${u.full_name || '—'}</strong> &nbsp;·&nbsp; ${u.email || ''}`;
+    document.getElementById('editUsrRole').value = u.role || 'user';
+    document.getElementById('errEditUsuario').classList.remove('show');
+
+    const sel = document.getElementById('editUsrEmpresa');
+    sel.innerHTML = '<option value="">— Nenhuma —</option>';
+    empresas.forEach(e => {
+      sel.innerHTML += `<option value="${e.id}" ${e.id === u.company_id ? 'selected' : ''}>${e.name}</option>`;
+    });
+
+    openModal('modalEditarUsuario');
+  }
+
+  async function salvarEdicaoUsuario() {
+    const role = document.getElementById('editUsrRole').value;
+    const companyId = document.getElementById('editUsrEmpresa').value || null;
+    const err = document.getElementById('errEditUsuario');
+    const btn = document.getElementById('btnSalvarEdicao');
+    err.classList.remove('show');
+    btn.disabled = true;
+    btn.textContent = 'Salvando...';
+
+    const { error } = await sb.from('profiles')
+      .update({ role, company_id: companyId })
+      .eq('id', editingUserId);
+
+    btn.disabled = false;
+    btn.textContent = 'Salvar alterações';
+
+    if (error) {
+      err.textContent = error.message;
+      err.classList.add('show');
+      return;
+    }
+
+    closeModal('modalEditarUsuario');
+    toast('Perfil atualizado com sucesso', 'green');
+    await loadData();
   }
 
   function populateEmpresaSelect() {
@@ -476,7 +590,7 @@
     try {
       const res = await fetch('/api/invite-user', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        headers: await cabecalhoAutenticado(),
         body: JSON.stringify({ email, full_name: nome, role, company_id: companyId || null })
       });
       const data = await res.json();
@@ -509,7 +623,7 @@
     try {
       const res = await fetch('/api/delete-company', {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        headers: await cabecalhoAutenticado(),
         body: JSON.stringify({ company_id: id })
       });
       const data = await res.json();
@@ -529,7 +643,7 @@
     try {
       const res = await fetch('/api/invite-user', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        headers: await cabecalhoAutenticado(),
         body: JSON.stringify({ email })
       });
       const data = await res.json();
@@ -547,7 +661,7 @@
     try {
       const res = await fetch('/api/delete-user', {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ADMIN_SECRET}` },
+        headers: await cabecalhoAutenticado(),
         body: JSON.stringify({ user_id: id })
       });
       const data = await res.json();
@@ -556,6 +670,150 @@
       loadUsuarios();
     } catch (e) {
       toast('Erro: ' + e.message, 'red');
+    }
+  }
+
+  // ── Liberações por empresa ───────────────────────────────────
+  const AREAS_LABEL = { gestao: 'Gestão da Empresa', comercial: 'Comercial', marketing: 'Marketing' };
+  let libItens = [];
+
+  function popularSelectLiberacoes() {
+    const sel = document.getElementById('libEmpresa');
+    if (!sel) return;
+    const atual = sel.value;
+    sel.innerHTML = '<option value="">Selecione a empresa...</option>' +
+      (empresas || []).map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+    if (atual) sel.value = atual;
+  }
+
+  async function carregarLiberacoes() {
+    const companyId = document.getElementById('libEmpresa').value;
+    const box = document.getElementById('libLista');
+
+    if (!companyId) {
+      libItens = [];
+      box.innerHTML = '<p style="padding:28px 0; text-align:center; color:var(--muted); font-size:0.875rem; font-weight:300;">Selecione uma empresa para ver o que ela pode acessar.</p>';
+      return;
+    }
+
+    box.innerHTML = '<p style="padding:28px 0; text-align:center; color:var(--muted); font-size:0.875rem;">Carregando...</p>';
+
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      const resp = await fetch('/api/portal-access?company_id=' + encodeURIComponent(companyId), {
+        headers: { Authorization: 'Bearer ' + session.access_token }
+      });
+      const json = await resp.json();
+      if (!resp.ok) throw new Error(json.error || 'Falha ao carregar');
+
+      libItens = json.items || [];
+      renderLiberacoes();
+    } catch (e) {
+      box.innerHTML = `<p style="padding:28px 0; text-align:center; color:var(--danger); font-size:0.875rem;">${e.message}</p>`;
+    }
+  }
+
+  function renderLiberacoes() {
+    const box = document.getElementById('libLista');
+
+    if (!libItens.length) {
+      box.innerHTML = '<p style="padding:28px 0; text-align:center; color:var(--muted); font-size:0.875rem;">Nenhum item no catálogo. Rode a migration do portal.</p>';
+      return;
+    }
+
+    const porArea = {};
+    libItens.forEach(i => { (porArea[i.area] = porArea[i.area] || []).push(i); });
+
+    box.innerHTML = Object.entries(porArea).map(([area, itens]) => `
+      <div style="margin-top:18px;">
+        <div style="font-size:0.6875rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; padding:8px 0 10px;">
+          ${AREAS_LABEL[area] || area}
+        </div>
+        ${itens.map(i => `
+          <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid var(--border);">
+            <input type="checkbox" id="lib_${i.slug}" ${i.enabled ? 'checked' : ''}
+                   onchange="alternarItem('${i.slug}', this.checked)"
+                   style="width:18px; height:18px; accent-color:var(--green); cursor:pointer; flex:0 0 auto;" />
+            <label for="lib_${i.slug}" style="flex:1 1 auto; cursor:pointer;">
+              <b style="display:block; font-size:0.875rem; font-weight:600;">${i.title}</b>
+              <span style="display:block; margin-top:2px; font-size:0.75rem; color:var(--muted); font-weight:300;">
+                ${i.kind === 'ferramenta' ? 'Ferramenta' : 'Conteúdo'} · ${i.description || ''}
+              </span>
+            </label>
+            <input type="date" id="exp_${i.slug}" value="${i.expires_at ? i.expires_at.slice(0, 10) : ''}"
+                   ${i.enabled ? '' : 'disabled'}
+                   onchange="definirPrazo('${i.slug}', this.value)"
+                   title="Deixe vazio para acesso sem prazo"
+                   style="flex:0 0 auto; width:160px; background:var(--surface); border:1px solid var(--border); color:var(--text); font-family:inherit; font-size:0.8125rem; padding:8px 10px; border-radius:8px;" />
+          </div>
+        `).join('')}
+      </div>
+    `).join('');
+  }
+
+  function alternarItem(slug, valor) {
+    const item = libItens.find(i => i.slug === slug);
+    if (!item) return;
+    item.enabled = valor;
+    const campoData = document.getElementById('exp_' + slug);
+    if (campoData) {
+      campoData.disabled = !valor;
+      if (!valor) { campoData.value = ''; item.expires_at = null; }
+    }
+  }
+
+  function definirPrazo(slug, valor) {
+    const item = libItens.find(i => i.slug === slug);
+    if (item) item.expires_at = valor || null;
+  }
+
+  function marcarTodas(valor) {
+    if (!libItens.length) return;
+    libItens.forEach(i => {
+      i.enabled = valor;
+      if (!valor) i.expires_at = null;
+    });
+    renderLiberacoes();
+  }
+
+  async function salvarLiberacoes() {
+    const companyId = document.getElementById('libEmpresa').value;
+    if (!companyId) { toast('Selecione uma empresa primeiro.', 'red'); return; }
+
+    const totalLiberados = libItens.filter(i => i.enabled).length;
+    if (totalLiberados === 0) {
+      const nomeEmpresa = (empresas.find(e => e.id === companyId) || {}).name || 'esta empresa';
+      const ok = confirm(
+        `Você está deixando ${nomeEmpresa} sem nenhum acesso.\n\n` +
+        `A pessoa vai conseguir entrar no sistema, mas não verá nada além de cadeados.\n\n` +
+        `Confirma?`
+      );
+      if (!ok) return;
+    }
+
+    const btn = document.getElementById('btnSalvarLib');
+    btn.disabled = true;
+    btn.textContent = 'Salvando...';
+
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      const resp = await fetch('/api/portal-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + session.access_token },
+        body: JSON.stringify({
+          company_id: companyId,
+          items: libItens.map(i => ({ slug: i.slug, enabled: !!i.enabled, expires_at: i.expires_at || null }))
+        })
+      });
+      const json = await resp.json();
+      if (!resp.ok) throw new Error(json.error || 'Falha ao salvar');
+
+      toast(`${json.liberados} item(ns) liberado(s) para esta empresa.`);
+    } catch (e) {
+      toast('Erro: ' + e.message, 'red');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Salvar liberações';
     }
   }
 

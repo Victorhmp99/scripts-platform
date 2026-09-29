@@ -8,25 +8,35 @@ export default async function handler(req, res) {
   if (!company?.name) return res.status(400).json({ error: 'Dados incompletos' });
 
   try {
-    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.GROQ_API_KEY}` },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          { role: 'system', content: 'Especialista em copywriting. Responda APENAS JSON válido, sem markdown.' },
-          { role: 'user', content: buildAqPrompt(company) }
-        ],
-        temperature: 0.8,
-        max_tokens: 6000,
-        response_format: { type: 'json_object' }
-      })
-    });
+    let groqRes, lastErr;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      if (attempt > 0) await new Promise(r => setTimeout(r, 2000 * attempt));
+      groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.GROQ_API_KEY}` },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: 'Especialista em copywriting. Responda APENAS JSON válido, sem markdown.' },
+            { role: 'user', content: buildAqPrompt(company) }
+          ],
+          temperature: 0.8,
+          max_tokens: 6000,
+          response_format: { type: 'json_object' }
+        })
+      });
+      if (groqRes.ok) break;
+      const errText = await groqRes.text();
+      lastErr = errText;
+      console.error(`Groq error (attempt ${attempt + 1}):`, errText);
+      let code;
+      try { code = JSON.parse(errText)?.error?.code; } catch {}
+      if (code !== 503 && code !== 429 && groqRes.status !== 503 && groqRes.status !== 429) break;
+    }
 
     if (!groqRes.ok) {
-      const err = await groqRes.text();
       let msg = 'Erro no aquecimento';
-      try { msg = JSON.parse(err)?.error?.message || msg; } catch {}
+      try { msg = JSON.parse(lastErr)?.error?.message || msg; } catch {}
       return res.status(500).json({ error: msg });
     }
 

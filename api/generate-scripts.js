@@ -10,28 +10,43 @@ export default async function handler(req, res) {
   const prompt = buildPrompt(company);
 
   try {
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.8,
-            maxOutputTokens: 16384,
-            responseMimeType: 'application/json',
-            thinkingConfig: { thinkingBudget: 0 }
+    const models = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+    let geminiRes, lastErr;
+
+    for (const model of models) {
+      for (let attempt = 0; attempt < 3; attempt++) {
+        if (attempt > 0) await new Promise(r => setTimeout(r, 1500 * attempt));
+        geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: 0.8,
+                maxOutputTokens: 16384,
+                responseMimeType: 'application/json',
+                thinkingConfig: { thinkingBudget: 0 }
+              }
+            })
           }
-        })
+        );
+        if (geminiRes.ok) break;
+        const errText = await geminiRes.text();
+        lastErr = errText;
+        console.error(`Gemini error (${model} attempt ${attempt + 1}):`, errText);
+        // só tenta de novo em 503/429; outros erros quebra direto
+        let code;
+        try { code = JSON.parse(errText)?.error?.code; } catch {}
+        if (code !== 503 && code !== 429) break;
       }
-    );
+      if (geminiRes.ok) break;
+    }
 
     if (!geminiRes.ok) {
-      const err = await geminiRes.text();
-      console.error('Gemini error:', err);
       let msg = 'Erro na geração de scripts';
-      try { msg = JSON.parse(err)?.error?.message || msg; } catch {}
+      try { msg = JSON.parse(lastErr)?.error?.message || msg; } catch {}
       return res.status(500).json({ error: msg });
     }
 

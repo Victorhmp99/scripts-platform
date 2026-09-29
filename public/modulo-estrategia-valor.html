@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Estratégia e Percepção de Valor — Green Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/modulo.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="voltar" href="/portal.html">← Central de Ferramentas</a>
+  <img src="/logo-green-hub.png" alt="Green Hub" />
+  <div class="salvo" id="statusSalvo">—</div>
+</div>
+
+<div class="wrap">
+  <aside>
+    <h4>Neste módulo</h4>
+    <nav>
+      <a href="#l1"><b>01</b> Apaixone-se pelo problema</a>
+      <a href="#l2"><b>02</b> Percepção de valor</a>
+      <a href="#l3"><b>03</b> As duas perguntas da oferta</a>
+      <a href="#l4"><b>04</b> Quem vence junto com você</a>
+      <a href="#resultado"><b>★</b> Leitura do resultado</a>
+    </nav>
+  </aside>
+
+  <div>
+    <header class="hero">
+      <div class="eyebrow">Gestão da Empresa</div>
+      <h1>Estratégia e<br><em>percepção de valor</em></h1>
+      <p>Preço é o que você cobra. Valor é o que o paciente acha que está recebendo. A distância entre os dois é onde mora a margem — e ela quase nunca se resolve baixando preço.</p>
+    </header>
+
+    <section class="lente" id="l1">
+      <div class="lente-num">Conceito 01</div>
+      <h2>Apaixone-se pelo <em>problema</em></h2>
+      <p class="texto">Empresa que cresce muito não se apaixona pela solução que já vende — se apaixona pelo problema que resolve. Quem ama a solução defende o jeito atual de fazer. Quem ama o problema fica livre para mudar o jeito quantas vezes for preciso.</p>
+      <p class="texto">Na clínica isso aparece assim: quem ama o procedimento vende procedimento. Quem ama o problema do paciente — não conseguir mastigar, ter vergonha de sorrir, viver com dor — vende <strong>transformação</strong>. E transformação não se compara por tabela de preço.</p>
+      <div class="destaque">Paciente não acorda querendo comprar um implante. Ele acorda querendo <strong>voltar a comer o que gosta sem sentir dor</strong>. Quem comunica o segundo não disputa preço com quem comunica o primeiro.</div>
+    </section>
+
+    <section class="lente" id="l2">
+      <div class="lente-num">Conceito 02</div>
+      <h2>Percepção de <em>valor</em></h2>
+      <p class="texto">Quanto mais valor o paciente percebe, mais disposto ele fica a pagar. E percepção se constrói com sinais concretos — não com adjetivos sobre si mesmo.</p>
+      <p class="texto">O ponto importante: quase todo sinal que aumenta percepção de valor <strong>custa pouco ou nada</strong>. O que ele exige é intenção e consistência.</p>
+      <ul class="pontos">
+        <li><strong>Diagnóstico</strong> — quanto mais completa a avaliação, maior o valor percebido do tratamento.</li>
+        <li><strong>Material entregue</strong> — plano de tratamento impresso vale mais que o mesmo plano falado.</li>
+        <li><strong>Ambiente e recepção</strong> — o cuidado com o detalhe sinaliza cuidado com o procedimento.</li>
+        <li><strong>Acompanhamento</strong> — a mensagem no dia seguinte vale mais do que parece.</li>
+        <li><strong>Prova</strong> — caso parecido com o dele reduz a sensação de risco.</li>
+      </ul>
+      <div class="destaque">Quando o paciente diz "está caro", muitas vezes ele está dizendo <strong>"não entendi por que vale isso"</strong>. As duas frases pedem respostas completamente diferentes.</div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 01</div>
+        <div class="exercicio-corpo">
+          <h3>O que hoje faz seu paciente perceber valor</h3>
+          <p class="ajuda">Liste coisas concretas que ele vive, não adjetivos sobre a clínica. "Atendimento humanizado" não conta; "recebe o plano impresso na hora" conta.</p>
+          <div class="campos">
+            <label class="campo-bloco"><span>Sinal de valor 1</span><input type="text" data-c id="v_s1" placeholder="Ex: avaliação com escaneamento 3D e simulação do resultado"></label>
+            <label class="campo-bloco"><span>Sinal de valor 2</span><input type="text" data-c id="v_s2" placeholder="Ex: plano de tratamento impresso, com etapas e prazos"></label>
+            <label class="campo-bloco"><span>Sinal de valor 3</span><input type="text" data-c id="v_s3" placeholder="Ex: ligação do dentista no dia seguinte ao procedimento"></label>
+            <label class="campo-bloco"><span>O que aumentaria a percepção de valor sem aumentar seu custo?</span><input type="text" data-c id="v_sem_custo" placeholder="Ex: enviar vídeo de 1 min explicando o plano antes da consulta de retorno"></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l3">
+      <div class="lente-num">Conceito 03</div>
+      <h2>As duas perguntas da <em>oferta</em></h2>
+      <p class="texto">Toda oferta precisa responder duas coisas, nessa ordem: <strong>o quê</strong> o paciente ganha, e <strong>como</strong> você entrega isso. A maioria só responde a primeira — e aí o paciente acredita no resultado mas não acredita que <em>você</em> vai entregá-lo.</p>
+      <table class="ref">
+        <tr><th>Pergunta</th><th>O que ela resolve</th></tr>
+        <tr><td>O quê</td><td>O resultado concreto. Desejo. Sem isso, não há motivo para comprar.</td></tr>
+        <tr><td>Como</td><td>O mecanismo que torna o resultado crível. Sem isso, vira promessa de anúncio.</td></tr>
+      </table>
+      <div class="destaque">"Volte a sorrir em 24 horas" é o quê. "Com protocolo de carga imediata, planejado digitalmente antes da cirurgia" é o como. <strong>Junto, vira oferta. Separado, vira propaganda.</strong></div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 02</div>
+        <div class="exercicio-corpo">
+          <h3>A sua oferta principal</h3>
+          <div class="campos">
+            <label class="campo-bloco"><span>O QUÊ — o resultado que o paciente leva</span><input type="text" data-c id="v_oque" placeholder="Ex: voltar a mastigar normalmente em 24 horas"></label>
+            <label class="campo-bloco"><span>COMO — o mecanismo que torna isso possível</span><input type="text" data-c id="v_como" placeholder="Ex: carga imediata com planejamento digital feito antes da cirurgia"></label>
+          </div>
+          <div class="campos" style="margin-top:16px">
+            <div class="linha"><label>Ticket médio do seu tratamento principal hoje</label><input class="valor" type="number" min="0" data-c id="v_ticket" placeholder="R$"></div>
+            <div class="linha"><label>Quanto você acredita que ele poderia valer <small>se o valor fosse bem comunicado</small></label><input class="valor" type="number" min="0" data-c id="v_ticket_ideal" placeholder="R$"></div>
+          </div>
+          <div class="saidas">
+            <div class="saida"><span>Diferença</span><b id="o_gap">—</b><small>entre o que cobra e o que acha que vale</small></div>
+            <div class="saida"><span>Por 10 tratamentos/mês</span><b id="o_gap_mes">—</b><small>o que isso representaria</small></div>
+            <div class="saida"><span>No ano</span><b id="o_gap_ano">—</b><small>se o padrão se mantiver</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lente" id="l4">
+      <div class="lente-num">Conceito 04</div>
+      <h2>Quem vence <em>junto com você</em></h2>
+      <p class="texto">Uma pergunta simples que muda a forma de decidir: <strong>quando a sua clínica cresce, quem cresce junto?</strong></p>
+      <p class="texto">Se a resposta for só "eu", o crescimento é solitário e frágil — ninguém além de você tem motivo para empurrar. Quando a equipe ganha com o resultado, quando o parceiro ganha com a indicação, quando o paciente ganha em sair melhor do que entrou, o crescimento passa a ter mais gente remando.</p>
+      <div class="destaque">Isso não é discurso bonito, é estrutura: participação em resultado para quem bate meta, parceria com quem indica, programa de benefício para quem volta. <strong>Cada um desses é um motor que não depende de você empurrar.</strong></div>
+
+      <div class="exercicio">
+        <div class="exercicio-topo">Sua vez — atividade 03</div>
+        <div class="exercicio-corpo">
+          <h3>Quem ganha quando você ganha</h3>
+          <div class="campos">
+            <label class="campo-bloco"><span>Sua equipe ganha algo quando a clínica bate meta?</span>
+              <select data-c id="v_equipe">
+                <option value="">Selecione</option>
+                <option>Sim, com regra clara e conhecida</option>
+                <option>Às vezes, de forma informal</option>
+                <option>Não</option>
+              </select>
+            </label>
+            <label class="campo-bloco"><span>Existe algum parceiro ou indicador que ganha com o crescimento da clínica?</span>
+              <select data-c id="v_parceiro">
+                <option value="">Selecione</option>
+                <option>Sim, com acordo definido</option>
+                <option>Indicações acontecem, mas sem contrapartida</option>
+                <option>Não temos</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="resultado" id="resultado">
+      <h2>Leitura do <em>resultado</em></h2>
+      <p>Atualiza sozinho conforme você preenche as atividades acima.</p>
+      <div class="sinais" id="sinais"></div>
+      <div class="veredito" id="veredito">
+        <b style="color:var(--footer)">Aguardando</b>
+        <p style="color:var(--muted)">Preencha as atividades para receber a leitura da sua estratégia de valor.</p>
+      </div>
+      <div class="plano" id="plano">
+        <div class="plano-topo">
+          <h3>O que fazer agora</h3>
+          <button class="btn-copiar" id="btnCopiar" onclick="copiarPlano()">Copiar plano</button>
+        </div>
+        <div class="passos" id="passos"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div><b>GREEN HUB</b><span> · ESTRATÉGIA E PERCEPÇÃO DE VALOR</span></div></footer>
+
+<script>
+window.MODULO = {
+  slug: 'estrategia-valor',
+
+  rotulos: {
+    verde:    'Verde · valor bem construído',
+    amarelo:  'Amarelo · valor subcomunicado',
+    vermelho: 'Vermelho · disputando por preço'
+  },
+
+  mensagens: {
+    vermelho: 'Hoje a clínica está sendo comparada por preço, porque o paciente não tem elementos para comparar por outra coisa. O plano abaixo cria esses elementos sem aumentar seu custo.',
+    amarelo:  'Existe valor sendo entregue, mas boa parte dele acontece sem o paciente perceber. Entregar e não comunicar tem o mesmo efeito comercial de não entregar.',
+    verde:    'A percepção de valor está bem construída. O próximo passo é garantir que ela apareça igual em todo atendimento, independente de quem atende.'
+  },
+
+  aoMudar: function (h) {
+    var num = h.num;
+    var t = num('v_ticket'), ti = num('v_ticket_ideal');
+    var c = {};
+
+    if (t !== null && ti !== null && ti > 0) {
+      c.gap = ti - t;
+      c.gapPct = t > 0 ? (ti - t) / t * 100 : null;
+      document.getElementById('o_gap').textContent = moeda(c.gap) + (c.gapPct !== null ? ' · ' + pct(c.gapPct) : '');
+      document.getElementById('o_gap_mes').textContent = moeda(c.gap * 10);
+      document.getElementById('o_gap_ano').textContent = moeda(c.gap * 10 * 12);
+    }
+
+    window.MODULO.calc = c;
+  },
+
+  avaliar: function (h) {
+    var s = [];
+    var txt = h.txt;
+    var c = window.MODULO.calc || {};
+
+    var sinaisValor = ['v_s1','v_s2','v_s3'].filter(function (id) { return txt(id); });
+    if (sinaisValor.length || txt('v_sem_custo')) s.push({
+      nivel: sinaisValor.length === 0 ? 'vermelho' : sinaisValor.length < 3 ? 'amarelo' : 'verde',
+      titulo: sinaisValor.length + ' de 3 sinais de valor mapeados',
+      texto: sinaisValor.length === 0 ? 'Nenhum sinal concreto listado. Se você não consegue nomear, o paciente não consegue perceber.'
+           : sinaisValor.length < 3 ? 'Já existe algo, mas pouco. Quanto menos sinais, mais a conversa cai no preço.'
+           : 'Três sinais concretos é uma base sólida para justificar valor sem desconto.',
+      acao: {
+        titulo: txt('v_sem_custo') ? 'Implemente esta semana: ' + txt('v_sem_custo') : 'Escolha um sinal de valor novo e implante já',
+        porque: 'Percepção de valor sobe com sinal concreto, não com adjetivo sobre a clínica.',
+        como: txt('v_sem_custo') ? 'Defina quem faz, em que momento da jornada, e teste com os próximos 10 pacientes antes de decidir se fica.'
+                                 : 'Comece pelo mais barato: entregar o plano de tratamento impresso e mandar uma mensagem de acompanhamento no dia seguinte.'
+      }
+    });
+
+    var oque = txt('v_oque'), como = txt('v_como');
+    if (oque || como) s.push({
+      nivel: (oque && como) ? 'verde' : 'vermelho',
+      titulo: (oque && como) ? 'Oferta responde "o quê" e "como"' : 'Oferta incompleta — falta o ' + (oque ? '"como"' : '"o quê"'),
+      texto: (oque && como) ? 'O paciente entende o resultado e acredita no caminho. É isso que tira a conversa da comparação por preço.'
+           : oque ? 'Você promete o resultado mas não explica o mecanismo. Sem o "como", a promessa soa como propaganda.'
+                  : 'Você explica o método mas não diz o que o paciente ganha. Método sem resultado não gera desejo.',
+      acao: {
+        titulo: (oque && como) ? 'Leve a oferta completa para todos os pontos de contato' : 'Complete a oferta com o que falta',
+        porque: (oque && como) ? 'Oferta que só existe na cabeça do dono não muda a conversa de vendas.'
+                               : 'Oferta pela metade faz o paciente pedir desconto, porque é a única variável que ele consegue avaliar.',
+        como: (oque && como) ? 'Escreva a frase única juntando os dois e use no anúncio, na bio, na primeira mensagem do WhatsApp e na abertura da avaliação.'
+                             : 'Volte na atividade 02 e escreva a parte que falta. Se travar no "como", responda: o que fazemos aqui que a clínica ao lado não faz?'
+      }
+    });
+
+    if (c.gap !== undefined && c.gap > 0) s.push({
+      nivel: c.gapPct > 30 ? 'vermelho' : c.gapPct > 10 ? 'amarelo' : 'verde',
+      titulo: 'Você cobra ' + moeda(c.gap) + ' a menos do que acredita que vale',
+      texto: c.gapPct > 30 ? 'A distância é grande. Isso quase nunca é problema de tabela — é o valor que não está sendo comunicado antes do preço aparecer.'
+           : c.gapPct > 10 ? 'Existe espaço de preço não capturado, provavelmente por insegurança na hora de apresentar.'
+           : 'Preço praticado está próximo do que você acredita que vale.',
+      acao: {
+        titulo: 'Teste o novo preço nos próximos 10 orçamentos',
+        porque: 'Considerando 10 tratamentos por mês, essa diferença representa ' + moeda(c.gap * 10 * 12) + ' por ano deixados na mesa.',
+        como: 'Não mude a tabela toda. Apresente o valor novo para os próximos 10 pacientes, com os sinais de valor entregues antes do preço, e compare a taxa de fechamento com o mês anterior.'
+      }
+    });
+
+    var eq = txt('v_equipe');
+    if (eq) s.push({
+      nivel: eq === 'Sim, com regra clara e conhecida' ? 'verde' : eq === 'Às vezes, de forma informal' ? 'amarelo' : 'vermelho',
+      titulo: 'Equipe ganha com o resultado: ' + eq.toLowerCase(),
+      texto: eq === 'Sim, com regra clara e conhecida' ? 'Quando a equipe ganha junto, ela empurra junto. Esse é um motor que não depende de você.'
+           : eq === 'Às vezes, de forma informal' ? 'Bônus informal não muda comportamento, porque ninguém consegue prever se vai acontecer.'
+           : 'Só você ganha quando a clínica cresce — então só você tem motivo para empurrar.',
+      acao: {
+        titulo: 'Crie uma regra simples de participação no resultado',
+        porque: 'Quando o crescimento beneficia só o dono, todo esforço extra depende exclusivamente dele.',
+        como: 'Escolha um indicador que a equipe controla — taxa de confirmação, conversão de orçamento — e defina uma contrapartida clara ao bater a meta. Regra escrita e conhecida por todos.'
+      }
+    });
+
+    return s;
+  }
+};
+</script>
+<script src="/modulo.js"></script>
+</body>
+</html>
