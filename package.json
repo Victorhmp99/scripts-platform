@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test \"tests/criativos/*.test.js\""
+    "test": "node --test \"tests/criativos/*.test.js\" \"tests/*.test.js\""
   },
   "engines": {
     "node": "22.x"
