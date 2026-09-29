@@ -114,6 +114,12 @@
   .nota { border: 1px solid rgba(240,196,58,0.34); background: rgba(240,196,58,0.08); border-radius: 11px; padding: 12px 14px; font-size: 0.8125rem; font-weight: 300; line-height: 1.55; color: #F0E3BC; }
   .nota-erro { border-color: rgba(232,86,74,0.4); background: rgba(232,86,74,0.09); color: #FFC9C4; }
   .nota-erro b { font-weight: 600; color: #fff; }
+  .dica { margin-top: 7px; font-size: 0.75rem; font-weight: 300; line-height: 1.6; color: var(--fraco, #8FA39A); }
+  .dica b { font-weight: 600; color: #C8D6CF; }
+  .dica-status { margin-top: 7px; font-size: 0.78125rem; font-weight: 500; display: none; }
+  .dica-status.ok { display: block; color: var(--acento, #2FE38A); }
+  .dica-status.botao { display: block; color: #F0C43A; }
+  .dica-status.erro { display: block; color: #E8564A; }
 
   /* ---------- modal ---------- */
   .modal-fundo { position: fixed; inset: 0; background: rgba(0,0,0,0.72); display: none; align-items: center; justify-content: center; padding: 24px; z-index: 50; }
@@ -232,7 +238,14 @@
 
         <div class="campo">
           <label for="fSrc" id="rotuloSrc">Link do criativo</label>
-          <input type="url" id="fSrc" placeholder="https://www.facebook.com/ads/library/?id=...">
+          <input type="url" id="fSrc" placeholder="Cole o link do vídeo">
+          <p class="dica" id="dicaSrc">
+            Vira player dentro do site: <b>YouTube</b> (vídeo, Shorts ou youtu.be), <b>Instagram</b> (reel ou post),
+            <b>TikTok</b>, <b>Vimeo</b>, <b>Google Drive</b> (com o link compartilhável), <b>Loom</b>
+            e link direto de arquivo <b>.mp4 / .webm / .mov</b>.<br>
+            A <b>Biblioteca de Anúncios do Meta</b> não deixa embutir — esses entram como botão para abrir em outra aba.
+          </p>
+          <p class="dica-status" id="statusSrc"></p>
         </div>
 
         <div class="campo">

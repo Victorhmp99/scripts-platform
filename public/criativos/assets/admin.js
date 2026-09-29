@@ -4,6 +4,7 @@
 import { slugificar } from './dados.js';
 import { carregarDoArquivo } from './dados.js';
 import { lerAcervoRemoto, publicarAcervo, sessaoAtual, entrar, sair } from './acervo.js';
+import { resolverEmbed } from './embed.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -150,9 +151,48 @@ function desenharFormulario() {
   $('fSrc').type = arquivo ? 'text' : 'url';
   $('rotuloSrc').textContent = arquivo ? 'Caminho do arquivo' : 'Link do criativo';
 
+  $('dicaSrc').style.display = arquivo ? 'none' : '';
+  conferirLink();
+
   $('avisoSemArquivo').style.display = 'none';
   $('btnVirarLink').style.display = 'none';
   if (arquivo) conferirArquivo(c);
+}
+
+/** Diz na hora, embaixo do campo, como aquele link vai aparecer no site. */
+const NOMES = {
+  'youtube.com': 'YouTube', 'youtu.be': 'YouTube', 'instagram.com': 'Instagram',
+  'tiktok.com': 'TikTok', 'vimeo.com': 'Vimeo', 'drive.google.com': 'Google Drive',
+  'loom.com': 'Loom',
+};
+
+function conferirLink() {
+  const alvo = $('statusSrc');
+  const c = cri();
+  const url = $('fSrc').value.trim();
+  alvo.className = 'dica-status';
+  alvo.textContent = '';
+  if (!c || c.tipo !== 'link' || !url) return;
+
+  const { modo } = resolverEmbed(url);
+  if (modo === 'video') {
+    alvo.className = 'dica-status ok';
+    alvo.textContent = 'Arquivo de vídeo — toca direto na página.';
+    return;
+  }
+  if (modo === 'iframe') {
+    const dono = Object.keys(NOMES).find((d) => url.includes(d));
+    alvo.className = 'dica-status ok';
+    alvo.textContent = `${NOMES[dono] ?? 'Plataforma reconhecida'} — o vídeo aparece embutido na página.`;
+    return;
+  }
+  if (/facebook\.com\/ads\/library/i.test(url)) {
+    alvo.className = 'dica-status botao';
+    alvo.textContent = 'Biblioteca de Anúncios: não pode ser embutida. Entra como botão para abrir em outra aba.';
+    return;
+  }
+  alvo.className = 'dica-status erro';
+  alvo.textContent = 'Link não reconhecido. Vai virar só um botão — confira se colou o endereço do vídeo.';
 }
 
 /** Alguns criativos antigos apontam para MP4 que não está no acervo. */
@@ -454,6 +494,7 @@ function ligarEventos() {
   document.querySelectorAll('#painelCriativo input, #painelCriativo textarea')
     .forEach((campo) => campo.addEventListener('input', lerFormulario));
   $('fPaciente').addEventListener('change', lerFormulario);
+  $('fSrc').addEventListener('input', conferirLink);
 
   window.addEventListener('beforeunload', (e) => {
     if (sujo) { e.preventDefault(); e.returnValue = ''; }
