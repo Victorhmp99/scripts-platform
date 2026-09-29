@@ -19,6 +19,29 @@
 
     /* Layout */
     .layout { display: flex; min-height: 100vh; }
+
+    /* Gaveta do menu — só aparece no celular (ver o @media no fim) */
+    .barra-celular {
+      display: none; position: sticky; top: 0; z-index: 50;
+      align-items: center; gap: 12px; padding: 12px 14px;
+      background: rgba(4,8,6,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .barra-celular span { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.9375rem; }
+    .abrir-menu {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--green-dim); border: 1px solid rgba(47,227,138,0.3);
+      border-radius: 11px; color: var(--green); cursor: pointer;
+    }
+    .abrir-menu svg { width: 20px; height: 20px; }
+    .fundo-menu {
+      display: none; position: fixed; inset: 0; z-index: 55;
+      background: rgba(0,0,0,0.6); opacity: 0; pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .layout.menu-aberto ~ .fundo-menu,
+    .fundo-menu.visivel { opacity: 1; pointer-events: auto; }
     .sidebar {
       width: 240px; background: var(--surface); border-right: 1px solid var(--border);
       padding: 24px 16px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0;
@@ -197,24 +220,20 @@
        ========================================================== */
     @media (max-width: 900px) {
       .layout { flex-direction: column; min-height: 100dvh; }
-      /* A lateral vira uma faixa que rola de lado. Empilhada, os sete
-         itens ocupavam a tela inteira antes de aparecer qualquer conteúdo. */
+      /* No celular a lateral vira gaveta: fica fora da tela e entra
+         quando você toca no menu. A faixa no topo escondia os itens. */
+      .barra-celular { display: flex; }
       .sidebar {
-        width: 100%; flex-shrink: 0; border-right: 0;
-        border-bottom: 1px solid var(--border);
-        padding: 10px 12px; gap: 6px;
-        flex-direction: row; align-items: center;
-        overflow-x: auto; overflow-y: hidden;
-        -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+        width: 268px; max-width: 84vw;
+        transform: translateX(-100%);
+        transition: transform 0.22s ease;
+        overflow-y: auto;
+        border-right: 1px solid var(--border);
+        box-shadow: 18px 0 44px rgba(0,0,0,0.5);
       }
-      .sidebar::-webkit-scrollbar { display: none; }
-      .sidebar > * { flex: 0 0 auto; }
-      .sidebar-logo { margin: 0 6px 0 0; padding: 0; }
-      .sidebar-logo span { display: none; }
-      .sidebar .nav-item { white-space: nowrap; padding: 9px 13px; margin: 0; }
-      .sidebar-bottom { margin-top: 0; display: flex; gap: 6px; }
-      .sidebar-bottom > * { margin-bottom: 0 !important; }
-      .sidebar-bottom .logout-btn { width: auto; white-space: nowrap; padding: 9px 13px; }
+      .layout.menu-aberto .sidebar { transform: translateX(0); }
+      .fundo-menu { display: block; }
       .main { padding: 20px 16px; }
       .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
       .table-header { flex-wrap: wrap; gap: 12px; padding: 16px; }
@@ -263,6 +282,15 @@
   <link rel="stylesheet" href="/base-mobile.css">
 </head>
 <body>
+<!-- Barra que só existe no celular: abre a gaveta do menu -->
+<div class="barra-celular">
+  <button class="abrir-menu" onclick="alternarMenu()" aria-label="Abrir o menu" aria-expanded="false" id="btnMenu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <span id="tituloCelular">Painel de configuração</span>
+</div>
+<div class="fundo-menu" id="fundoMenu" onclick="alternarMenu()"></div>
+
 <div class="layout">
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -969,6 +997,17 @@
   }
 
   // ── UI helpers ───────────────────────────────────────────────
+  function alternarMenu(forcar) {
+    const layout = document.querySelector('.layout');
+    const fundo = document.getElementById('fundoMenu');
+    const abrir = forcar === undefined ? !layout.classList.contains('menu-aberto') : forcar;
+    layout.classList.toggle('menu-aberto', abrir);
+    fundo.classList.toggle('visivel', abrir);
+    document.getElementById('btnMenu').setAttribute('aria-expanded', String(abrir));
+    // sem isso a página continua rolando por trás da gaveta
+    document.body.style.overflow = abrir ? 'hidden' : '';
+  }
+
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -977,6 +1016,11 @@
     // tambem trocam de aba e precisam acender o item certo do menu.
     document.querySelector(`.nav-item[data-pagina="${name}"]`)?.classList.add('active');
     document.querySelector('.main')?.scrollTo({ top: 0 });
+    const aceso = document.querySelector(`.nav-item[data-pagina="${name}"]`);
+    const titulo = document.getElementById('tituloCelular');
+    if (titulo && aceso) titulo.textContent = aceso.textContent.trim();
+    alternarMenu(false);
+    window.scrollTo({ top: 0 });
   }
 
   function openModal(id) { document.getElementById(id).classList.add('open'); }

@@ -8,6 +8,20 @@ import { resolverEmbed, miniatura } from './embed.js';
 
 const $ = (id) => document.getElementById(id);
 
+/** No celular as colunas viram etapas empilhadas. Depois de escolher,
+ *  leva a tela até a etapa seguinte em vez de deixar você procurar. */
+const ehCelular = () => window.matchMedia('(max-width: 900px)').matches;
+
+function irPara(id) {
+  if (!ehCelular()) return;
+  requestAnimationFrame(() => {
+    const alvo = $(id);
+    if (alvo && alvo.style.display !== 'none') {
+      alvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+}
+
 let acervo = null;        // { procedimentos: [...] }
 let sessao = null;
 let selecionado = { procedimento: null, formato: null, criativo: null };
@@ -78,6 +92,7 @@ function desenharProcedimentos() {
     b.onclick = () => {
       selecionado = { procedimento: b.dataset.proc, formato: null, criativo: null };
       desenharTudo();
+      irPara('colunaFormatos');
     };
   });
 }
@@ -101,6 +116,7 @@ function desenharFormatos() {
       selecionado.formato = b.dataset.fmt;
       selecionado.criativo = null;
       desenharTudo();
+      irPara('colunaCriativos');
     };
   });
 }
@@ -121,7 +137,7 @@ function desenharCriativos() {
   }).join('') || '<p class="vazio">Nenhum criativo neste formato.</p>';
 
   lista.querySelectorAll('[data-cri]').forEach((b) => {
-    b.onclick = () => { selecionado.criativo = b.dataset.cri; desenharTudo(); };
+    b.onclick = () => { selecionado.criativo = b.dataset.cri; desenharTudo(); irPara('painelCriativo'); };
   });
 }
 

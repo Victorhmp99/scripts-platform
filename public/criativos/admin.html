@@ -24,7 +24,7 @@
   }
 
   /* ---------- login ---------- */
-  .tela-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .tela-login { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px; }
   .caixa-login { width: 100%; max-width: 380px; }
   .caixa-login img { height: 46px; display: block; margin: 0 auto 26px; }
   .caixa-login h1 { font-size: 1.375rem; font-weight: 700; text-align: center; }
@@ -164,6 +164,36 @@
 @media (max-width: 1100px) { .colunas { grid-template-columns: 1fr; } }
 
 @media (max-width: 720px) { .dupla { grid-template-columns: 1fr; } }
+
+/* ==========================================================
+   Celular. Três problemas se somavam aqui:
+   1. as listas e o formulário tinham rolagem PRÓPRIA dentro da
+      página — dois rolares brigando no mesmo dedo;
+   2. os limites eram em 100vh, que no celular não encolhe quando
+      o teclado abre: o campo em foco ia parar embaixo dele;
+   3. as quatro colunas empilhadas viravam uma página longa sem
+      indicação de onde você está.
+   ========================================================== */
+@media (max-width: 900px) {
+  /* Uma rolagem só: a da página. */
+  .colunas { min-height: 0; }
+  .lista, .form { overflow: visible; max-height: none; padding-right: 0; }
+
+  .coluna { border-right: 0; border-bottom: 1px solid rgba(47,227,138,0.12); padding: 16px; }
+  .coluna:last-child { border-bottom: 0; }
+
+  /* O título de cada etapa acompanha a rolagem, para você saber
+     em qual parte está. */
+  .coluna-cab {
+    position: sticky; top: 0; z-index: 5;
+    margin: -16px -16px 4px; padding: 12px 16px;
+    background: rgba(4,8,6,0.94); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(47,227,138,0.10);
+  }
+
+  /* Espaço no fim para o último campo não ficar colado no teclado. */
+  #painelCriativo { padding-bottom: 40vh; }
+}
 </style>
   <link rel="stylesheet" href="/base-mobile.css">
 </head>

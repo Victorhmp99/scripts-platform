@@ -323,6 +323,10 @@
       .top-bar-esq { gap: 10px; }
       .btn-central { padding: 9px 11px; }
       .btn-central span { display: none; }
+      /* Altura travada + overflow:hidden escondia o campo em foco
+         quando o teclado abria. No celular a página rola normal. */
+      .layout { height: auto; min-height: 100dvh; overflow: visible; }
+      .main { overflow-y: visible; }
       .scripts-grid { grid-template-columns: 1fr; }
       .aq-grid { grid-template-columns: 1fr; }
     }
