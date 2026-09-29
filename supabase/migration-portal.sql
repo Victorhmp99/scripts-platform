@@ -161,19 +161,19 @@ CREATE TRIGGER module_answers_updated_at
 -- ------------------------------------------------------------
 INSERT INTO portal_items (slug, area, kind, title, description, href, external, icon, sort_order) VALUES
   -- Gestão da empresa
-  ('diagnostico-tempo',   'gestao',    'conteudo',   'Diagnóstico 360° do Tempo',   'Audite onde sua semana vaza e redesenhe a agenda em blocos protegidos.',            '/modulo-diagnostico-tempo.html',   FALSE, 'clock',       10),
-  ('financas',            'gestao',    'conteudo',   'Finanças da Clínica',          'DRE, margens, vazamentos financeiros e ponto de equilíbrio.',                       '/modulo-financas.html',            FALSE, 'wallet',      20),
-  ('estrategia-valor',    'gestao',    'conteudo',   'Estratégia e Percepção de Valor', 'Por que o paciente aceita pagar mais — e como aumentar isso sem subir custo.',    '/modulo-estrategia-valor.html',    FALSE, 'target',      30),
-  ('ia-na-pratica',       'gestao',    'conteudo',   'IA na Prática',                'O framework do prompt perfeito e as ferramentas que valem para a clínica.',          '/modulo-ia-na-pratica.html',       FALSE, 'sparkles',    40),
-  ('calculadora-preco',   'gestao',    'ferramenta', 'Calculadora de Precificação',  'Custo da hora-cadeira, material e imposto para chegar no preço certo do tratamento.', '/ferramenta-calculadora.html',     FALSE, 'calculator',  50),
+  ('diagnostico-tempo',   'gestao',    'conteudo',   'Diagnóstico 360° do Tempo',   'Audite onde sua semana vaza e redesenhe a agenda em blocos protegidos.',            '/modulo-diagnostico-tempo',   FALSE, 'clock',       10),
+  ('financas',            'gestao',    'conteudo',   'Finanças da Clínica',          'DRE, margens, vazamentos financeiros e ponto de equilíbrio.',                       '/modulo-financas',            FALSE, 'wallet',      20),
+  ('estrategia-valor',    'gestao',    'conteudo',   'Estratégia e Percepção de Valor', 'Por que o paciente aceita pagar mais — e como aumentar isso sem subir custo.',    '/modulo-estrategia-valor',    FALSE, 'target',      30),
+  ('ia-na-pratica',       'gestao',    'conteudo',   'IA na Prática',                'O framework do prompt perfeito e as ferramentas que valem para a clínica.',          '/modulo-ia-na-pratica',       FALSE, 'sparkles',    40),
+  ('calculadora-preco',   'gestao',    'ferramenta', 'Calculadora de Precificação',  'Custo da hora-cadeira, material e imposto para chegar no preço certo do tratamento.', '/ferramenta-calculadora',     FALSE, 'calculator',  50),
 
   -- Comercial
-  ('estrutura-comercial', 'comercial', 'conteudo',   'Estrutura Comercial',          'Quem faz o quê na esteira: SDR, closer, CS e o diagnóstico de gargalo.',             '/modulo-estrutura-comercial.html', FALSE, 'users',       10),
-  ('jornada-paciente',    'comercial', 'conteudo',   'Jornada do Paciente',          'Mapeie os pontos de contato e ache as falhas que custam agendamento.',               '/modulo-jornada-paciente.html',    FALSE, 'route',       20),
-  ('gerador-scripts',     'comercial', 'ferramenta', 'Gerador de Scripts',           'Scripts de atendimento, qualificação e aquecimento gerados para a sua clínica.',     '/app.html',                   FALSE, 'message',     30),
+  ('estrutura-comercial', 'comercial', 'conteudo',   'Estrutura Comercial',          'Quem faz o quê na esteira: SDR, closer, CS e o diagnóstico de gargalo.',             '/modulo-estrutura-comercial', FALSE, 'users',       10),
+  ('jornada-paciente',    'comercial', 'conteudo',   'Jornada do Paciente',          'Mapeie os pontos de contato e ache as falhas que custam agendamento.',               '/modulo-jornada-paciente',    FALSE, 'route',       20),
+  ('gerador-scripts',     'comercial', 'ferramenta', 'Gerador de Scripts',           'Scripts de atendimento, qualificação e aquecimento gerados para a sua clínica.',     '/app',                   FALSE, 'message',     30),
 
   -- Marketing
-  ('marca-posicionamento','marketing', 'conteudo',   'Marca e Posicionamento',       'O iceberg da marca, os 9 elementos e a sua declaração de posicionamento.',           '/modulo-marca-posicionamento.html',FALSE, 'gem',         10),
+  ('marca-posicionamento','marketing', 'conteudo',   'Marca e Posicionamento',       'O iceberg da marca, os 9 elementos e a sua declaração de posicionamento.',           '/modulo-marca-posicionamento',FALSE, 'gem',         10),
   ('biblioteca-criativos','marketing', 'ferramenta', 'Biblioteca de Criativos',      'Referências de criativos validados para inspirar as próximas campanhas.',           '/criativos/', FALSE, 'image', 20)
 ON CONFLICT (slug) DO UPDATE SET
   area        = EXCLUDED.area,

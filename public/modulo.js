@@ -204,18 +204,18 @@ async function iniciarModulo() {
   }
 
   const { data: { session } } = await sb.auth.getSession();
-  if (!session) { window.location.href = '/index.html'; return; }
+  if (!session) { window.location.href = '/'; return; }
   userId = session.user.id;
 
   const { data: perfil } = await sb.from('profiles').select('company_id, role').eq('id', userId).single();
-  if (!perfil?.company_id) { window.location.href = '/setup.html'; return; }
+  if (!perfil?.company_id) { window.location.href = '/setup'; return; }
   companyId = perfil.company_id;
 
   // confere se a empresa tem este módulo liberado (admin passa sempre)
   if (perfil.role !== 'admin') {
     const { data: itens } = await sb.rpc('get_my_portal_items');
     const item = (itens || []).find(i => i.slug === window.MODULO.slug);
-    if (!item || !item.unlocked) { window.location.href = '/portal.html?bloqueado=' + window.MODULO.slug; return; }
+    if (!item || !item.unlocked) { window.location.href = '/portal?bloqueado=' + window.MODULO.slug; return; }
   }
 
   const { data } = await sb.from('module_answers')

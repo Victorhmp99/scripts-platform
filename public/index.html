@@ -147,12 +147,12 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
 async function direcionar(userId) {
   const { data: perfil } = await sb.from('profiles').select('role, company_id').eq('id', userId).single();
-  if (!perfil) { window.location.href = '/setup.html'; return; }
+  if (!perfil) { window.location.href = '/setup'; return; }
 
   // A central é a porta de entrada de todo mundo, inclusive do admin —
   // de lá ele acessa o painel. Só quem ainda não tem empresa vai pro setup.
-  if (!perfil.company_id && perfil.role !== 'admin') { window.location.href = '/setup.html'; return; }
-  window.location.href = '/portal.html';
+  if (!perfil.company_id && perfil.role !== 'admin') { window.location.href = '/setup'; return; }
+  window.location.href = '/portal';
 }
 
 function mostrarErro(msg) {

@@ -387,19 +387,19 @@
         <div class="user-name" id="userName">—</div>
         <div class="user-role" id="userRole">—</div>
       </div>
-      <a id="regenerateLink" href="/setup.html?mode=regenerate" style="display:none; text-decoration:none;">
+      <a id="regenerateLink" href="/setup?mode=regenerate" style="display:none; text-decoration:none;">
         <button class="logout-btn" style="color:var(--warning); width:100%;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
           Refazer Scripts
         </button>
       </a>
-      <a href="/portal.html" style="text-decoration:none;">
+      <a href="/portal" style="text-decoration:none;">
         <button class="logout-btn" style="color:var(--green); width:100%;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
           Central de Ferramentas
         </button>
       </a>
-      <a id="adminLink" href="/admin.html" style="display:none; text-decoration:none;">
+      <a id="adminLink" href="/admin" style="display:none; text-decoration:none;">
         <button class="logout-btn" style="color:var(--green); width:100%;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
           Painel Admin
@@ -428,7 +428,7 @@
       <!-- Top bar -->
       <div class="top-bar">
         <div class="top-bar-esq">
-          <a class="btn-central" href="/portal.html" title="Voltar para a Central de Ferramentas">
+          <a class="btn-central" href="/portal" title="Voltar para a Central de Ferramentas">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
             <span>Central</span>
           </a>
@@ -559,11 +559,11 @@ const CAT_LABELS = {
 // ── Auth + carregamento ────────────────────────────────────────
 (async () => {
   const { data: { session } } = await sb.auth.getSession();
-  if (!session) { window.location.href = '/index.html'; return; }
+  if (!session) { window.location.href = '/'; return; }
 
   currentUser = session.user;
   const { data: prof } = await sb.from('profiles').select('role, company_id, full_name, companies(name, last_regenerated_at)').eq('id', currentUser.id).single();
-  if (!prof) { window.location.href = '/index.html'; return; }
+  if (!prof) { window.location.href = '/'; return; }
 
   userRole = prof.role;
   companyId = prof.company_id;
@@ -579,14 +579,14 @@ const CAT_LABELS = {
     const lastRegen = prof.companies?.last_regenerated_at;
 
     // Passa a data da última geração para o setup via URL
-    let regenUrl = '/setup.html?mode=regenerate';
+    let regenUrl = '/setup?mode=regenerate';
     if (lastRegen) regenUrl += `&last=${encodeURIComponent(lastRegen)}`;
     regenLink.href = regenUrl;
     regenLink.style.display = 'block';
   }
 
   if (userRole === 'admin' && !companyId) {
-    window.location.href = '/admin.html';
+    window.location.href = '/admin';
     return;
   }
 
@@ -602,7 +602,7 @@ const CAT_LABELS = {
     if (!erroItens && Array.isArray(itens)) {
       const gerador = itens.find(i => i.slug === 'gerador-scripts');
       if (!gerador || !gerador.unlocked) {
-        window.location.href = '/portal.html?bloqueado=gerador-scripts';
+        window.location.href = '/portal?bloqueado=gerador-scripts';
         return;
       }
     }
@@ -623,7 +623,7 @@ function showSetupBanner() {
       </div>
       <h2>Bem-vindo à plataforma!</h2>
       <p>Seus scripts ainda não foram gerados. Quando estiver pronto, complete o cadastro para que a IA crie scripts personalizados para o seu negócio.</p>
-      <a href="/setup.html" class="setup-banner-btn">Completar cadastro e gerar scripts</a>
+      <a href="/setup" class="setup-banner-btn">Completar cadastro e gerar scripts</a>
       <p class="setup-banner-hint">Pode fazer isso quando quiser — seus dados de acesso já estão salvos.</p>
     </div>
   `;
@@ -1246,7 +1246,7 @@ function toast(msg, type = 'green') {
 
 async function logout() {
   await sb.auth.signOut();
-  window.location.href = '/index.html';
+  window.location.href = '/';
 }
 </script>
 </body>

@@ -44,7 +44,7 @@ test('home agrupa por area e linka o procedimento', () => {
   const html = htmlAreas(areas, contar);
   assert.ok(html.includes('area-titulo'));
   assert.ok(html.includes('Face'));
-  assert.ok(html.includes('href="procedimento.html?p=full-face"'));
+  assert.ok(html.includes('href="/criativos/procedimento?p=full-face"'));
   assert.ok(html.includes('1 criativo'));
 });
 
@@ -56,14 +56,14 @@ test('procedimento sem criativo ganha a classe vazio e o rotulo em breve', () =>
 
 test('lista os formatos do procedimento', () => {
   const html = htmlFormatos(procedimento);
-  assert.ok(html.includes('href="formato.html?p=full-face&amp;f=bastidor"'));
+  assert.ok(html.includes('href="/criativos/formato?p=full-face&amp;f=bastidor"'));
   assert.ok(html.includes('Bastidor do Procedimento'));
   assert.ok(html.includes('Em breve'));
 });
 
 test('grade de criativos aponta para a pagina do criativo', () => {
   const html = htmlGradeCriativos(procedimento, formatoCheio);
-  assert.ok(html.includes('href="criativo.html?p=full-face&amp;f=bastidor&amp;id=ff-bastidor-01"'));
+  assert.ok(html.includes('href="/criativos/criativo?p=full-face&amp;f=bastidor&amp;id=ff-bastidor-01"'));
   assert.ok(html.includes('preload="metadata"'));
 });
 
@@ -131,4 +131,18 @@ test('trilha separa os niveis e so linka quem tem href', () => {
 
 test('aviso mostra a mensagem recebida', () => {
   assert.ok(htmlAviso('Deu ruim').includes('Deu ruim'));
+});
+
+// Em /criativos (sem barra final) um caminho relativo sai da pasta.
+test('caminho do acervo vira absoluto, e link externo fica intacto', async () => {
+  const { caminhoDoAcervo } = await import('../../public/criativos/assets/render.js');
+  assert.equal(caminhoDoAcervo('videos/full-face/a.mp4'), '/criativos/videos/full-face/a.mp4');
+  assert.equal(caminhoDoAcervo('capas/x.jpg'), '/criativos/capas/x.jpg');
+  assert.equal(caminhoDoAcervo('https://cdn.com/a.mp4'), 'https://cdn.com/a.mp4');
+  assert.equal(caminhoDoAcervo('/criativos/videos/a.mp4'), '/criativos/videos/a.mp4');
+  assert.equal(caminhoDoAcervo(''), '');
+});
+
+test('player de arquivo aponta para o caminho absoluto', () => {
+  assert.ok(htmlPlayer(criativoArquivo).includes('src="/criativos/videos/'));
 });

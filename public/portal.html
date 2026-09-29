@@ -243,7 +243,7 @@ function render(itens, perfil, empresa) {
     : `<small>Empresa</small>${escapar(empresa?.name || '—')}`;
 
   document.getElementById('adminBox').innerHTML = ehAdmin
-    ? `<a class="btn-admin" href="/admin.html">
+    ? `<a class="btn-admin" href="/admin">
          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2.5a1 1 0 0 0-1 0l-7 4a1 1 0 0 0-.5.9v9.2a1 1 0 0 0 .5.9l7 4a1 1 0 0 0 1 0l7-4a1 1 0 0 0 .5-.9V7.4a1 1 0 0 0-.5-.9z"/><circle cx="12" cy="12" r="3"/></svg>
          Painel de configuração
        </a>`
@@ -302,15 +302,15 @@ function render(itens, perfil, empresa) {
 
 /* Demonstração local: só roda em localhost, nunca em produção. */
 const ITENS_DEMO = [
-  { slug:'diagnostico-tempo',    area:'gestao',    kind:'conteudo',   title:'Diagnóstico 360° do Tempo',       description:'Audite onde sua semana vaza e redesenhe a agenda em blocos protegidos.',                  href:'/modulo-diagnostico-tempo.html?demo=1',    external:false, icon:'clock',      unlocked:true,  expires_at:null },
-  { slug:'financas',             area:'gestao',    kind:'conteudo',   title:'Finanças da Clínica',              description:'DRE, margens, vazamentos financeiros e ponto de equilíbrio.',                              href:'/modulo-financas.html?demo=1',             external:false, icon:'wallet',     unlocked:true,  expires_at:null },
-  { slug:'estrategia-valor',     area:'gestao',    kind:'conteudo',   title:'Estratégia e Percepção de Valor',  description:'Por que o paciente aceita pagar mais — e como aumentar isso sem subir custo.',             href:'/modulo-estrategia-valor.html?demo=1',     external:false, icon:'target',     unlocked:true,  expires_at:null },
-  { slug:'ia-na-pratica',        area:'gestao',    kind:'conteudo',   title:'IA na Prática',                    description:'O framework do prompt perfeito e as ferramentas que valem para a clínica.',                href:'/modulo-ia-na-pratica.html?demo=1',        external:false, icon:'sparkles',   unlocked:true,  expires_at:null },
-  { slug:'calculadora-preco',    area:'gestao',    kind:'ferramenta', title:'Calculadora de Precificação',      description:'Custo da hora-cadeira, material e imposto para chegar no preço certo do tratamento.',      href:'/ferramenta-calculadora.html?demo=1',      external:false, icon:'calculator', unlocked:true,  expires_at:'2026-10-29T00:00:00Z' },
-  { slug:'estrutura-comercial',  area:'comercial', kind:'conteudo',   title:'Estrutura Comercial',              description:'Quem faz o quê na esteira: SDR, closer, CS e o diagnóstico de gargalo.',                   href:'/modulo-estrutura-comercial.html?demo=1',  external:false, icon:'users',      unlocked:true,  expires_at:null },
-  { slug:'jornada-paciente',     area:'comercial', kind:'conteudo',   title:'Jornada do Paciente',              description:'Mapeie os pontos de contato e ache as falhas que custam agendamento.',                     href:'/modulo-jornada-paciente.html?demo=1',     external:false, icon:'route',      unlocked:true,  expires_at:null },
-  { slug:'gerador-scripts',      area:'comercial', kind:'ferramenta', title:'Gerador de Scripts',               description:'Scripts de atendimento, qualificação e aquecimento gerados para a sua clínica.',           href:'/app.html',                                external:false, icon:'message',  unlocked:true,  expires_at:null },
-  { slug:'marca-posicionamento', area:'marketing', kind:'conteudo',   title:'Marca e Posicionamento',           description:'O iceberg da marca, os 9 elementos e a sua declaração de posicionamento.',                 href:'/modulo-marca-posicionamento.html?demo=1', external:false, icon:'gem',        unlocked:true,  expires_at:null },
+  { slug:'diagnostico-tempo',    area:'gestao',    kind:'conteudo',   title:'Diagnóstico 360° do Tempo',       description:'Audite onde sua semana vaza e redesenhe a agenda em blocos protegidos.',                  href:'/modulo-diagnostico-tempo?demo=1',    external:false, icon:'clock',      unlocked:true,  expires_at:null },
+  { slug:'financas',             area:'gestao',    kind:'conteudo',   title:'Finanças da Clínica',              description:'DRE, margens, vazamentos financeiros e ponto de equilíbrio.',                              href:'/modulo-financas?demo=1',             external:false, icon:'wallet',     unlocked:true,  expires_at:null },
+  { slug:'estrategia-valor',     area:'gestao',    kind:'conteudo',   title:'Estratégia e Percepção de Valor',  description:'Por que o paciente aceita pagar mais — e como aumentar isso sem subir custo.',             href:'/modulo-estrategia-valor?demo=1',     external:false, icon:'target',     unlocked:true,  expires_at:null },
+  { slug:'ia-na-pratica',        area:'gestao',    kind:'conteudo',   title:'IA na Prática',                    description:'O framework do prompt perfeito e as ferramentas que valem para a clínica.',                href:'/modulo-ia-na-pratica?demo=1',        external:false, icon:'sparkles',   unlocked:true,  expires_at:null },
+  { slug:'calculadora-preco',    area:'gestao',    kind:'ferramenta', title:'Calculadora de Precificação',      description:'Custo da hora-cadeira, material e imposto para chegar no preço certo do tratamento.',      href:'/ferramenta-calculadora?demo=1',      external:false, icon:'calculator', unlocked:true,  expires_at:'2026-10-29T00:00:00Z' },
+  { slug:'estrutura-comercial',  area:'comercial', kind:'conteudo',   title:'Estrutura Comercial',              description:'Quem faz o quê na esteira: SDR, closer, CS e o diagnóstico de gargalo.',                   href:'/modulo-estrutura-comercial?demo=1',  external:false, icon:'users',      unlocked:true,  expires_at:null },
+  { slug:'jornada-paciente',     area:'comercial', kind:'conteudo',   title:'Jornada do Paciente',              description:'Mapeie os pontos de contato e ache as falhas que custam agendamento.',                     href:'/modulo-jornada-paciente?demo=1',     external:false, icon:'route',      unlocked:true,  expires_at:null },
+  { slug:'gerador-scripts',      area:'comercial', kind:'ferramenta', title:'Gerador de Scripts',               description:'Scripts de atendimento, qualificação e aquecimento gerados para a sua clínica.',           href:'/app',                                external:false, icon:'message',  unlocked:true,  expires_at:null },
+  { slug:'marca-posicionamento', area:'marketing', kind:'conteudo',   title:'Marca e Posicionamento',           description:'O iceberg da marca, os 9 elementos e a sua declaração de posicionamento.',                 href:'/modulo-marca-posicionamento?demo=1', external:false, icon:'gem',        unlocked:true,  expires_at:null },
   { slug:'biblioteca-criativos', area:'marketing', kind:'ferramenta', title:'Biblioteca de Criativos',          description:'Referências de criativos validados para inspirar as próximas campanhas.',                  href:'/criativos/', external:false, icon:'image', unlocked:true, expires_at:null }
 ];
 
@@ -323,7 +323,7 @@ async function iniciar() {
   }
 
   const { data: { session } } = await sb.auth.getSession();
-  if (!session) { window.location.href = '/index.html'; return; }
+  if (!session) { window.location.href = '/'; return; }
 
   const { data: perfil } = await sb
     .from('profiles')
@@ -332,7 +332,7 @@ async function iniciar() {
     .single();
 
   // Admin entra mesmo sem empresa vinculada — ele administra, não consome.
-  if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/setup.html'; return; }
+  if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/setup'; return; }
 
   const [{ data: empresa }, { data: itens, error }] = await Promise.all([
     perfil.company_id
@@ -352,7 +352,7 @@ async function iniciar() {
 
 async function sair() {
   await sb.auth.signOut();
-  window.location.href = '/index.html';
+  window.location.href = '/';
 }
 
 iniciar();

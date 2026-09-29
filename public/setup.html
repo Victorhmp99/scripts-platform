@@ -449,7 +449,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       <p style="color:var(--muted); max-width:380px; margin:0 auto 28px; line-height:1.6;">
         Você tem acesso a mais de 80 scripts personalizados para a sua empresa, divididos por etapa do processo de vendas.
       </p>
-      <button class="btn" onclick="window.location.href='/app.html'">
+      <button class="btn" onclick="window.location.href='/app'">
         Acessar meus scripts
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
       </button>
@@ -459,7 +459,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   <!-- Navigation -->
   <div class="step-footer" id="stepFooter">
     <button class="btn-invis" id="btnBack" onclick="prevStep()" style="display:none">← Voltar</button>
-    <button class="btn-invis" id="btnSkip" onclick="window.location.href='/app.html'" style="color:var(--muted); font-size:0.85rem;">Pular por agora</button>
+    <button class="btn-invis" id="btnSkip" onclick="window.location.href='/app'" style="color:var(--muted); font-size:0.85rem;">Pular por agora</button>
     <button class="btn" id="btnNext" onclick="nextStep()">
       Continuar
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
@@ -485,11 +485,11 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   // ── Auth guard ──────────────────────────────────────────────
   (async () => {
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) { window.location.href = '/index.html'; return; }
+    if (!session) { window.location.href = '/'; return; }
     userId = session.user.id;
     const { data: prof } = await sb.from('profiles').select('role, company_id').eq('id', userId).single();
-    if (!prof) { window.location.href = '/index.html'; return; }
-    if (prof.role === 'admin') { window.location.href = '/admin.html'; return; }
+    if (!prof) { window.location.href = '/'; return; }
+    if (prof.role === 'admin') { window.location.href = '/admin'; return; }
 
     companyId = prof.company_id;
 
@@ -499,7 +499,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
     // Se já tem setup completo, vai direto pro app — EXCETO se for modo regenerar
     if (!isRegenerate && companyId) {
       const { data: scripts } = await sb.from('company_scripts').select('id').eq('company_id', companyId).single();
-      if (scripts) { window.location.href = '/app.html'; return; }
+      if (scripts) { window.location.href = '/app'; return; }
     }
 
     // Checa limite semanal de IA (só no modo regenerar)
@@ -943,12 +943,12 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   }
 
   async function finishSetup() {
-    window.location.href = '/app.html';
+    window.location.href = '/app';
   }
 
   async function logout() {
     await sb.auth.signOut();
-    window.location.href = '/index.html';
+    window.location.href = '/';
   }
 </script>
 </body>

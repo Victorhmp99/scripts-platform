@@ -4,7 +4,9 @@ const ERRO_CARGA = 'Não consegui carregar as referências. Recarrega a página.
 export async function carregarDoArquivo(buscar = fetch) {
   let dados;
   try {
-    const resposta = await buscar('criativos.json');
+    // Caminho absoluto: em /criativos (sem barra final) o relativo
+    // resolveria para /criativos.json, fora da pasta.
+    const resposta = await buscar('/criativos/criativos.json');
     if (!resposta.ok) throw new Error(ERRO_CARGA);
     dados = await resposta.json();
   } catch {

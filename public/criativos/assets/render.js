@@ -1,5 +1,15 @@
 import { resolverEmbed, rotuloExterno, miniatura } from './embed.js';
 
+/** O acervo guarda "videos/..." e "capas/...". Em /criativos (sem barra final)
+ *  o relativo sairia da pasta, então o caminho é resolvido aqui, num lugar só. */
+export function caminhoDoAcervo(src) {
+  const valor = String(src || '');
+  if (!valor || /^(https?:)?\/\//i.test(valor) || valor.startsWith('/') || valor.startsWith('data:')) {
+    return valor;
+  }
+  return '/criativos/' + valor;
+}
+
 export function escapar(texto) {
   return String(texto)
     .replaceAll('&', '&amp;')
@@ -25,7 +35,7 @@ export function htmlAreas(areas, contar) {
             .map((procedimento, indice) => {
               const total = contar(procedimento);
               return `
-              <a class="cartao-pasta${total === 0 ? ' vazio' : ''}" style="--i:${Math.min(indice, 7)}" href="procedimento.html?p=${escapar(procedimento.slug)}">
+              <a class="cartao-pasta${total === 0 ? ' vazio' : ''}" style="--i:${Math.min(indice, 7)}" href="/criativos/procedimento?p=${escapar(procedimento.slug)}">
                 <h3>${escapar(procedimento.nome)}</h3>
                 <p>${escapar(procedimento.descricao)}</p>
                 <span class="contagem">${escapar(rotuloContagem(total))}</span>
@@ -42,7 +52,7 @@ export function htmlFormatos(procedimento) {
   return procedimento.formatos
     .map(
       (formato, indice) => `
-      <a class="cartao-pasta${formato.criativos.length === 0 ? ' vazio' : ''}" style="--i:${indice}" href="formato.html?p=${escapar(procedimento.slug)}&amp;f=${escapar(formato.slug)}">
+      <a class="cartao-pasta${formato.criativos.length === 0 ? ' vazio' : ''}" style="--i:${indice}" href="/criativos/formato?p=${escapar(procedimento.slug)}&amp;f=${escapar(formato.slug)}">
         <h3>${escapar(formato.nome)}</h3>
         <p>${escapar(formato.descricao)}</p>
         <span class="contagem">${escapar(rotuloContagem(formato.criativos.length))}</span>
@@ -53,10 +63,10 @@ export function htmlFormatos(procedimento) {
 
 function capaDoCartao(criativo) {
   if (criativo.capa) {
-    return `<img src="${escapar(criativo.capa)}" alt="" loading="lazy">`;
+    return `<img src="${escapar(caminhoDoAcervo(criativo.capa))}" alt="" loading="lazy">`;
   }
   if (criativo.tipo === 'arquivo') {
-    return `<video src="${escapar(criativo.src)}" preload="metadata" muted playsinline></video>`;
+    return `<video src="${escapar(caminhoDoAcervo(criativo.src))}" preload="metadata" muted playsinline></video>`;
   }
 
   const previa = miniatura(criativo.src);
@@ -84,7 +94,7 @@ export function htmlGradeCriativos(procedimento, formato) {
   return formato.criativos
     .map(
       (criativo, indice) => `
-      <a class="cartao-criativo" style="--i:${Math.min(indice, 7)}" href="criativo.html?p=${escapar(procedimento.slug)}&amp;f=${escapar(formato.slug)}&amp;id=${escapar(criativo.id)}">
+      <a class="cartao-criativo" style="--i:${Math.min(indice, 7)}" href="/criativos/criativo?p=${escapar(procedimento.slug)}&amp;f=${escapar(formato.slug)}&amp;id=${escapar(criativo.id)}">
         <div class="moldura">${capaDoCartao(criativo)}</div>
         <h3>${escapar(criativo.titulo)}</h3>
         ${criativo.fonte ? `<span class="etiqueta">No ar desde ${escapar(criativo.fonte.no_ar_desde)}</span>` : criativo.tipo === 'link' ? '<span class="etiqueta">Post externo</span>' : ''}
@@ -95,11 +105,11 @@ export function htmlGradeCriativos(procedimento, formato) {
 
 export function htmlPlayer(criativo) {
   if (criativo.tipo === 'arquivo') {
-    const poster = criativo.capa ? ` poster="${escapar(criativo.capa)}"` : '';
+    const poster = criativo.capa ? ` poster="${escapar(caminhoDoAcervo(criativo.capa))}"` : '';
     // Alguns criativos antigos apontam para MP4 que não está no acervo.
     // Em vez de um player preto sem explicação, o bloco se troca por um aviso.
     return `<div class="player-caixa">
-      <video class="player" src="${escapar(criativo.src)}" controls playsinline preload="metadata"${poster}
+      <video class="player" src="${escapar(caminhoDoAcervo(criativo.src))}" controls playsinline preload="metadata"${poster}
         onerror="this.closest('.player-caixa').classList.add('sem-video')"></video>
       <div class="player-ausente">
         <b>Vídeo indisponível</b>
@@ -110,7 +120,7 @@ export function htmlPlayer(criativo) {
   const { modo, src, proporcao } = resolverEmbed(criativo.src);
 
   if (modo === 'video') {
-    const poster = criativo.capa ? ` poster="${escapar(criativo.capa)}"` : '';
+    const poster = criativo.capa ? ` poster="${escapar(caminhoDoAcervo(criativo.capa))}"` : '';
     return `<div class="player-caixa">
       <video class="player" src="${escapar(src)}" controls playsinline preload="metadata"${poster}></video>
     </div>`;
@@ -126,7 +136,7 @@ export function htmlPlayer(criativo) {
 
   // O site de origem nao permite embutir (Biblioteca de Anuncios do Meta bloqueia iframe).
   const capa = criativo.capa
-    ? `<img src="${escapar(criativo.capa)}" alt="">`
+    ? `<img src="${escapar(caminhoDoAcervo(criativo.capa))}" alt="">`
     : `<span class="capa-vazia">${escapar(criativo.titulo)}</span>`;
   return `
     <div class="player player-externo">

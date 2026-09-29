@@ -60,13 +60,13 @@ function paginaHome(dados) {
 function paginaProcedimento(dados, params) {
   const procedimento = acharProcedimento(dados, params.procedimento);
   if (!procedimento) {
-    window.location.replace('index.html');
+    window.location.replace('/criativos');
     return;
   }
   document.title = `${procedimento.nome} · Referências Criativos`;
   marcarArea(procedimento);
-  definirVolta('index.html', 'Todos os procedimentos');
-  trilha([{ nome: 'Início', href: 'index.html' }, { nome: procedimento.nome }]);
+  definirVolta('/criativos', 'Todos os procedimentos');
+  trilha([{ nome: 'Início', href: '/criativos' }, { nome: procedimento.nome }]);
   definir('titulo', procedimento.nome);
   definir('subtitulo', `${procedimento.descricao} Escolha o formato do vídeo.`);
   conteudo.className = 'grade-pastas';
@@ -78,7 +78,7 @@ function paginaFormato(dados, params) {
   const formato = acharFormato(dados, params.procedimento, params.formato);
   if (!formato) {
     window.location.replace(
-      procedimento ? `procedimento.html?p=${encodeURIComponent(params.procedimento)}` : 'index.html',
+      procedimento ? `procedimento.html?p=${encodeURIComponent(params.procedimento)}` : '/criativos',
     );
     return;
   }
@@ -86,7 +86,7 @@ function paginaFormato(dados, params) {
   marcarArea(procedimento);
   definirVolta(`procedimento.html?p=${encodeURIComponent(procedimento.slug)}`, procedimento.nome);
   trilha([
-    { nome: 'Início', href: 'index.html' },
+    { nome: 'Início', href: '/criativos' },
     { nome: procedimento.nome, href: `procedimento.html?p=${encodeURIComponent(procedimento.slug)}` },
     { nome: formato.nome },
   ]);
@@ -111,7 +111,7 @@ function paginaCriativo(dados, params) {
   const formato = acharFormato(dados, params.procedimento, params.formato);
   const criativo = acharCriativo(dados, params.procedimento, params.formato, params.id);
   if (!criativo) {
-    let destino = 'index.html';
+    let destino = '/criativos';
     if (formato) {
       destino = `formato.html?p=${encodeURIComponent(params.procedimento)}&f=${encodeURIComponent(params.formato)}`;
     } else if (procedimento) {
@@ -127,7 +127,7 @@ function paginaCriativo(dados, params) {
     formato.nome,
   );
   trilha([
-    { nome: 'Início', href: 'index.html' },
+    { nome: 'Início', href: '/criativos' },
     { nome: procedimento.nome, href: `procedimento.html?p=${encodeURIComponent(procedimento.slug)}` },
     {
       nome: formato.nome,
