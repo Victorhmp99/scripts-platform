@@ -1,0 +1,32 @@
+/* ============================================================
+   Base de celular, compartilhada por todas as páginas.
+   Cada página tem seu próprio <style>; aqui ficam só as regras
+   que valem para a plataforma inteira no telefone.
+   Entra DEPOIS do <style> da página.
+   ============================================================ */
+
+@media (max-width: 760px) {
+  /* O iPhone dá zoom sozinho ao focar um campo com fonte menor que 16px.
+     A tela sai do lugar e o cliente tem que fechar o teclado e recentralizar.
+     O !important é proposital: as páginas definem o tamanho por classe. */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Dedo não acerta alvo de 20px. Vale para o caminho de navegação e
+     qualquer link solto; botões e cartões já têm altura própria. */
+  .trilha a, .trilha span, nav a {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Nada de rolagem lateral: uma palavra comprida (URL, e-mail) não pode
+     empurrar a página inteira. */
+  body {
+    overflow-x: hidden;
+  }
+  h1, h2, h3, p, td, li, label, .capa-vazia {
+    overflow-wrap: break-word;
+  }
+}

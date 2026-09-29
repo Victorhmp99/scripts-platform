@@ -2,30 +2,27 @@
   /* trava o tema: a cor é decisão de marca, não preferência do visitante */
   color-scheme: dark !important;
 
-  /* paleta oficial GreenHub */
-  --aqua: #79FFAA;
-  --green: #67FF40;
-  --mint: #3DFF9F;
-  --blue: #00B2FF;
+  /* Paleta oficial Green Hub — a mesma do portal e dos módulos.
+     Os três nomes antigos (aqua/green/mint) viraram a mesma menta para
+     não sobrar cor de fora do padrão em regra esquecida. */
+  --aqua: #2FE38A;
+  --green: #2FE38A;
+  --mint: #2FE38A;
   --deep: #0B3D2E;
   --deep-2: #072A20;
 
-  --aqua-rgb: 121, 255, 170;
+  --aqua-rgb: 47, 227, 138;
   --luz-rgb: 255, 255, 255;
 
-  /* acento padrao, trocado por area */
+  /* acento único da plataforma */
   --acento: var(--aqua);
   --acento-rgb: var(--aqua-rgb);
 
   --tx: #FFFFFF;
-  --tx-mut: #A6B5AC;
-  --tx-fraco: #61756A;
+  --tx-mut: #9FB0A8;
+  --tx-fraco: #5C6E65;
 
-  --font: "Helvetica Neue", Helvetica, "Inter", system-ui, -apple-system, Arial, sans-serif;
-
-  --papel: #F4F8F5;
-  --tinta-escura: #0B1F17;
-  --verde-escuro: #0FA057;
+  --font: 'Poppins', sans-serif;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -37,9 +34,10 @@
   --r-pill: 999px;
 }
 
-[data-area="face"] { --acento: #79FFAA; --acento-rgb: 121, 255, 170; }
-[data-area="corpo"] { --acento: #3DFF9F; --acento-rgb: 61, 255, 159; }
-[data-area="capilar"] { --acento: #00B2FF; --acento-rgb: 0, 178, 255; }
+/* As áreas já não têm cor própria: a plataforma inteira usa a menta. */
+[data-area="face"], [data-area="corpo"], [data-area="capilar"] {
+  --acento: #2FE38A; --acento-rgb: 47, 227, 138;
+}
 
 * { box-sizing: border-box; }
 
@@ -80,9 +78,9 @@ body {
   -webkit-font-smoothing: antialiased;
   /* o preto deixa de ser chapado: dois halos verdes no topo e uma base esmeralda */
   background:
-    radial-gradient(1100px 620px at 12% -12%, rgba(var(--acento-rgb), 0.16), transparent 62%),
-    radial-gradient(900px 520px at 88% 4%, rgba(11, 61, 46, 0.55), transparent 66%),
-    linear-gradient(180deg, #06170F 0%, #04100B 38%, #030B08 100%) !important;
+    radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.44) 0%, rgba(14,92,56,0.28) 32%, rgba(6,26,18,0.09) 60%, rgba(4,8,6,0) 84%),
+    #040806 !important;
+  background-attachment: fixed;
   background-repeat: no-repeat;
 }
 
@@ -105,14 +103,14 @@ body {
 
 .topo { max-width: var(--wrap); margin: 0 auto; padding: 30px 22px 22px; }
 
-/* a barra do topo é clara: separa a navegação do acervo e ancora a marca */
+/* Mesma barra do resto da plataforma: escura, fixa e translúcida. */
 .barra {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--papel);
-  border-bottom: 1px solid rgba(11, 61, 46, 0.12);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  background: rgba(4, 8, 6, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(47, 227, 138, 0.12);
 }
 
 .menu {
@@ -139,11 +137,11 @@ body {
   font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: -0.015em;
-  color: var(--tinta-escura);
+  color: var(--tx);
   white-space: nowrap;
 }
 
-.menu-nome b { color: var(--verde-escuro); font-weight: 700; }
+.menu-nome b { color: var(--acento); font-weight: 700; }
 
 .menu ul {
   display: flex;
@@ -158,7 +156,7 @@ body {
   display: block;
   padding: 7px 15px;
   border-radius: var(--r-pill);
-  color: #4A6055;
+  color: var(--tx-mut);
   text-decoration: none;
   font-size: 0.86rem;
   font-weight: 500;
@@ -169,20 +167,17 @@ body {
 
 @media (hover: hover) and (pointer: fine) {
   .menu a:not(.menu-marca):hover {
-    color: var(--tinta-escura);
-    background: rgba(11, 61, 46, 0.07);
+    color: var(--tx);
+    background: rgba(47, 227, 138, 0.08);
   }
 }
 
 /* o item da área em que você está fica aceso, com a cor daquela área */
 .menu a[aria-current="page"] {
-  color: var(--verde-escuro);
+  color: var(--acento);
   border-color: rgba(var(--acento-rgb), 0.65);
   background: rgba(var(--acento-rgb), 0.18);
 }
-
-[data-area="capilar"] .menu a[aria-current="page"],
-body[data-area="capilar"] .menu a[aria-current="page"] { color: #0077B0; }
 
 .topo h1 {
   font-size: clamp(1.8rem, 4.6vw, 3.1rem);
@@ -195,10 +190,8 @@ body[data-area="capilar"] .menu a[aria-current="page"] { color: #0077B0; }
 
 .topo h1 em {
   font-style: normal;
-  background: linear-gradient(96deg, var(--green), var(--aqua) 55%, var(--blue));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  /* o resto da plataforma destaca em menta chapada; o degradê ia até o azul */
+  color: var(--acento);
 }
 
 .topo p { margin: 0; color: var(--tx-mut); font-size: 1.02rem; }
@@ -609,13 +602,22 @@ body[data-area="capilar"] .menu a[aria-current="page"] { color: #0077B0; }
   display: inline-flex; align-items: center; gap: 7px;
   padding: 9px 15px; border-radius: 999px; text-decoration: none;
   /* a barra é clara: o acento das áreas é verde-claro e some no branco */
-  background: rgba(15, 160, 87, 0.08); border: 1px solid rgba(15, 160, 87, 0.38);
-  color: var(--verde-escuro); font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
+  background: rgba(47, 227, 138, 0.12); border: 1px solid rgba(47, 227, 138, 0.4);
+  color: var(--acento); font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
   transition: background 0.15s, border-color 0.15s;
 }
-.btn-central:hover { background: rgba(15, 160, 87, 0.16); border-color: var(--verde-escuro); }
+.btn-central:hover { background: rgba(47, 227, 138, 0.22); border-color: var(--acento); }
 .btn-central svg { width: 15px; height: 15px; flex-shrink: 0; }
 .menu-marca + .btn-central { margin-right: auto; }
+
+/* Em tela de 320px (iPhone SE) a barra não cabe: marca + botão + três áreas
+   davam 359px. O nome escrito sai e fica só a folha — a marca continua ali. */
+@media (max-width: 420px) {
+  .menu { gap: 8px; padding: 12px 14px; }
+  .menu-nome { display: none; }
+  .menu ul { gap: 2px; }
+  .menu a:not(.menu-marca) { padding: 7px 10px; }
+}
 @media (max-width: 560px) {
   .btn-central span { display: none; }
   .btn-central { padding: 8px 10px; }

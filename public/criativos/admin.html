@@ -54,6 +54,9 @@
     background: transparent; border: 1px solid var(--borda); color: var(--mint);
     border-radius: 999px; font-family: inherit; font-size: 0.8125rem; font-weight: 600;
     padding: 8px 16px; cursor: pointer; transition: background .15s;
+    /* também é usado como <a>: sem isso vem sublinhado e quebra no meio */
+    display: inline-flex; align-items: center; justify-content: center;
+    text-decoration: none; white-space: nowrap;
   }
   .btn-fantasma:hover { background: rgba(47,227,138,0.10); }
   .btn-perigo { border-color: rgba(232,86,74,0.4); color: var(--vermelho); }
@@ -71,6 +74,16 @@
   .quem { font-size: 0.75rem; color: var(--tx-mut); }
 
   .estado-pub { font-size: 0.75rem; font-weight: 600; }
+
+  /* No celular o cabeçalho vira duas faixas, em vez de espremer seis itens. */
+  @media (max-width: 720px) {
+    .topo { padding: 14px 16px; gap: 12px; }
+    .topo-esq, .topo-dir { width: 100%; flex-wrap: wrap; gap: 10px; }
+    .topo-dir { justify-content: flex-start; }
+    .topo h1 { flex: 1 1 100%; order: -1; font-size: 1rem; }
+    .topo img { order: -2; }
+    .btn { flex: 1 1 auto; }
+  }
   .estado-pub.ok { color: var(--tx-fraco); }
   .estado-pub.pendente { color: var(--amarelo); }
 
@@ -146,6 +159,7 @@
   .aviso.aparece { opacity: 1; transform: translateX(-50%) translateY(0); }
   .aviso.erro { border-color: rgba(232,86,74,0.5); color: #FFB8B2; }
 </style>
+  <link rel="stylesheet" href="/base-mobile.css">
 </head>
 <body>
 

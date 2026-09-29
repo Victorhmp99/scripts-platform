@@ -42,8 +42,13 @@ body {
 
 /* ---------- layout ---------- */
 .wrap { max-width:1180px; margin:0 auto; padding:0 40px 90px; display:grid; grid-template-columns:232px 1fr; gap:48px; align-items:start; }
+/* Item de grid não encolhe abaixo do próprio conteúdo mínimo por padrão: uma
+   palavra comprida dentro da coluna alargava a página inteira no celular. */
+.wrap > * { min-width:0; }
 @media (max-width:900px) { .wrap { grid-template-columns:1fr; gap:24px; } aside { position:static !important; padding-top:24px !important; } }
 @media (max-width:660px) { .wrap, .topbar { padding-left:20px; padding-right:20px; } }
+
+}
 
 aside { position:sticky; top:100px; padding-top:56px; }
 aside h4 { font-size:0.625rem; letter-spacing:2.6px; text-transform:uppercase; color:var(--footer); font-weight:600; margin-bottom:14px; }
@@ -54,14 +59,14 @@ aside a b { color:var(--footer); font-weight:600; font-size:0.6875rem; }
 /* ---------- cabeçalho ---------- */
 header.hero { padding:56px 0 8px; }
 header.hero .eyebrow { font-size:0.6875rem; letter-spacing:4px; text-transform:uppercase; color:var(--mint); font-weight:600; }
-header.hero h1 { margin-top:12px; font-size:2.625rem; font-weight:800; letter-spacing:-0.5px; line-height:1.08; }
+header.hero h1 { margin-top:12px; font-size:clamp(1.75rem, 8.5vw, 2.625rem); font-weight:800; letter-spacing:-0.5px; line-height:1.08; }
 header.hero h1 em { font-style:normal; color:var(--mint); }
 header.hero p { margin-top:14px; font-size:1rem; font-weight:300; line-height:1.65; color:var(--muted); max-width:660px; }
 
 /* ---------- seções ---------- */
 section.lente { margin-top:56px; scroll-margin-top:24px; }
 .lente-num { font-size:0.6875rem; letter-spacing:3px; text-transform:uppercase; color:var(--footer); font-weight:600; }
-section.lente h2 { margin-top:8px; font-size:1.75rem; font-weight:800; letter-spacing:-0.2px; }
+section.lente h2 { margin-top:8px; font-size:clamp(1.3rem, 6.5vw, 1.75rem); font-weight:800; letter-spacing:-0.2px; }
 section.lente h2 em { font-style:normal; color:var(--mint); }
 section.lente p.texto { margin-top:14px; font-size:0.9375rem; font-weight:300; line-height:1.72; color:var(--soft); }
 section.lente p.texto + p.texto { margin-top:12px; }
@@ -79,6 +84,16 @@ table.ref th { text-align:left; font-size:0.6875rem; letter-spacing:1.8px; text-
 table.ref td { padding:13px 14px; border-top:1px solid rgba(47,227,138,0.14); color:var(--soft); font-weight:300; line-height:1.5; vertical-align:top; }
 table.ref td b { font-weight:600; color:#fff; }
 table.ref tr td:first-child { white-space:nowrap; color:var(--mint); font-weight:600; }
+
+/* No celular a tabela de duas colunas não cabe: o nowrap da primeira coluna
+   segurava a página em 485px. Empilhado, cada linha vira rótulo + explicação. */
+@media (max-width:760px) {
+  table.ref, table.ref tbody, table.ref tr, table.ref td { display:block; width:100%; }
+  table.ref tr:first-child { display:none; }
+  table.ref tr { border-top:1px solid rgba(47,227,138,0.14); padding:12px 0; }
+  table.ref td { border-top:0; padding:0; }
+  table.ref tr td:first-child { white-space:normal; margin-bottom:5px; }
+}
 
 /* ---------- exercício ---------- */
 .exercicio { margin-top:26px; border:1px solid rgba(47,227,138,0.30); border-radius:18px; overflow:hidden; }
@@ -149,7 +164,7 @@ select option { background:#08130D; color:#fff; }
 
 /* ---------- resultado ---------- */
 .resultado { margin-top:64px; border-radius:20px; border:1px solid var(--card-border); background:var(--card); padding:30px; scroll-margin-top:24px; }
-.resultado h2 { font-size:1.5rem; font-weight:800; }
+.resultado h2 { font-size:clamp(1.2rem, 5.8vw, 1.5rem); font-weight:800; }
 .resultado h2 em { font-style:normal; color:var(--mint); }
 .resultado > p { margin-top:8px; font-size:0.875rem; font-weight:300; color:var(--muted); }
 .sinais { margin-top:22px; display:flex; flex-direction:column; gap:12px; }
@@ -179,3 +194,20 @@ footer { border-top:1px solid rgba(47,227,138,0.12); padding:22px 40px; }
 footer div { max-width:1180px; margin:0 auto; font-size:0.6875rem; letter-spacing:2.2px; text-transform:uppercase; font-weight:600; }
 footer b { color:var(--mint); }
 footer span { color:var(--footer); }
+
+/* Em tela estreita a barra do topo não cabe numa linha só (a volta, a marca e
+   o aviso de salvo somavam 372px em 320px de tela) e empurrava a página toda.
+   Quebrar em duas linhas preserva as três informações. */
+@media (max-width:480px) {
+  .topbar { flex-wrap:wrap; row-gap:10px; padding:14px 16px; }
+  .voltar { order:-1; }
+  .salvo { text-align:left; }
+  .wrap { padding-left:16px; padding-right:16px; }
+  /* 22px de recuo dos dois lados comem a largura útil numa tela de 320px */
+  .exercicio-corpo { padding:16px; }
+  .destaque { padding:14px 16px; }
+  .resultado { padding:20px 16px; }
+  /* Num <li> flex, o texto vira item anônimo e não aceita min-width:0 — não
+     encolhia e alargava a página. Em bloco, a seta fica inline e o texto quebra. */
+  ul.pontos li { display:block; }
+  ul.pontos li::before { margin-right:8px; }
