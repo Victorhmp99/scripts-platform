@@ -35,6 +35,17 @@
       border-radius: 11px; color: var(--green); cursor: pointer;
     }
     .abrir-menu svg { width: 20px; height: 20px; }
+
+    .rodape-salvar {
+      display: none;
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: rgba(4,8,6,0.94); backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(47,227,138,0.22);
+      box-shadow: 0 -12px 34px rgba(0,0,0,0.5);
+    }
+    .rodape-salvar .btn { width: 100%; justify-content: center; }
+
     .fundo-menu {
       display: none; position: fixed; inset: 0; z-index: 55;
       background: rgba(0,0,0,0.6); opacity: 0; pointer-events: none;
@@ -239,6 +250,10 @@
       .table-header { flex-wrap: wrap; gap: 12px; padding: 16px; }
       .table-header .btn { width: 100%; justify-content: center; }
       .atalhos { grid-template-columns: 1fr; }
+      /* Na aba Liberações a lista é longa; o botão do topo obrigava a
+         voltar tudo para salvar. */
+      body.pagina-liberacoes .rodape-salvar { display: block; }
+      body.pagina-liberacoes .main { padding-bottom: 86px; }
       .modal { padding: 22px 18px; border-radius: 16px; max-height: 92dvh; }
     }
 
@@ -290,6 +305,11 @@
   <span id="tituloCelular">Painel de configuração</span>
 </div>
 <div class="fundo-menu" id="fundoMenu" onclick="alternarMenu()"></div>
+
+<!-- Salvar sem ter que voltar ao topo: a lista de itens é longa -->
+<div class="rodape-salvar" id="rodapeSalvar">
+  <button class="btn" id="btnSalvarLibRodape" onclick="salvarLiberacoes()">Salvar liberações</button>
+</div>
 
 <div class="layout">
   <!-- Sidebar -->
@@ -970,9 +990,9 @@
       if (!ok) return;
     }
 
-    const btn = document.getElementById('btnSalvarLib');
-    btn.disabled = true;
-    btn.textContent = 'Salvando...';
+    // Dois botões chamam isto: o do topo e o do rodapé do celular.
+    const botoes = [document.getElementById('btnSalvarLib'), document.getElementById('btnSalvarLibRodape')].filter(Boolean);
+    botoes.forEach(b => { b.disabled = true; b.textContent = 'Salvando...'; });
 
     try {
       const { data: { session } } = await sb.auth.getSession();
@@ -991,8 +1011,7 @@
     } catch (e) {
       toast('Erro: ' + e.message, 'red');
     } finally {
-      btn.disabled = false;
-      btn.textContent = 'Salvar liberações';
+      botoes.forEach(b => { b.disabled = false; b.textContent = 'Salvar liberações'; });
     }
   }
 
@@ -1015,6 +1034,7 @@
     // Pelo data-pagina, e nao pelo elemento clicado: os atalhos do Início
     // tambem trocam de aba e precisam acender o item certo do menu.
     document.querySelector(`.nav-item[data-pagina="${name}"]`)?.classList.add('active');
+    document.body.classList.toggle('pagina-liberacoes', name === 'liberacoes');
     document.querySelector('.main')?.scrollTo({ top: 0 });
     const aceso = document.querySelector(`.nav-item[data-pagina="${name}"]`);
     const titulo = document.getElementById('tituloCelular');

@@ -48,11 +48,16 @@ function marcarSujo() {
   $('btnPublicar').disabled = false;
   $('estadoPublicacao').textContent = 'Há mudanças não publicadas';
   $('estadoPublicacao').className = 'estado-pub pendente';
+  // No celular o botão do topo fica longe depois de mexer no formulário:
+  // a barra do rodapé aparece enquanto houver o que publicar.
+  document.body.classList.add('tem-mudanca');
+  $('btnPublicarRodape').disabled = false;
 }
 
 function marcarLimpo(quando) {
   sujo = false;
   $('btnPublicar').disabled = true;
+  document.body.classList.remove('tem-mudanca');
   $('estadoPublicacao').textContent = quando
     ? `Publicado · ${new Date(quando).toLocaleString('pt-BR')}`
     : 'Tudo publicado';
@@ -430,18 +435,18 @@ function removerProcedimento() {
 /* ---------------- publicar ---------------- */
 
 async function publicar() {
-  const btn = $('btnPublicar');
-  btn.disabled = true;
-  btn.textContent = 'Publicando...';
+  // Dois botões chamam isto: o do topo e o do rodapé do celular.
+  const botoes = [$('btnPublicar'), $('btnPublicarRodape')].filter(Boolean);
+  botoes.forEach((b) => { b.disabled = true; b.textContent = 'Publicando...'; });
   try {
     await publicarAcervo(acervo, sessao.user?.id);
     marcarLimpo(new Date().toISOString());
     aviso('Acervo publicado. Já está no ar para todo mundo.');
   } catch (e) {
     aviso(`Não consegui publicar: ${e.message}`, 'erro');
-    btn.disabled = false;
+    botoes.forEach((b) => { b.disabled = false; });
   } finally {
-    btn.textContent = 'Publicar alterações';
+    botoes.forEach((b) => { b.textContent = 'Publicar alterações'; });
   }
 }
 
@@ -528,6 +533,7 @@ function ligarEventos() {
   };
 
   $('btnPublicar').onclick = publicar;
+  $('btnPublicarRodape').onclick = publicar;
 
   $('btnNovoProcedimento').onclick = () => abrirModal('modalProcedimento');
   $('btnNovoFormato').onclick = () => abrirModal('modalFormato');
