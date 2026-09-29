@@ -1,4 +1,4 @@
-import { resolverEmbed, rotuloExterno } from './embed.js';
+import { resolverEmbed, rotuloExterno, miniatura } from './embed.js';
 
 export function escapar(texto) {
   return String(texto)
@@ -57,6 +57,22 @@ function capaDoCartao(criativo) {
   }
   if (criativo.tipo === 'arquivo') {
     return `<video src="${escapar(criativo.src)}" preload="metadata" muted playsinline></video>`;
+  }
+
+  const previa = miniatura(criativo.src);
+  if (previa.modo === 'img') {
+    // Se a miniatura não existir mais, o cartão volta a mostrar o título.
+    return `<img src="${escapar(previa.src)}" alt="" loading="lazy"
+      onerror="this.outerHTML='<span class=\'capa-vazia\'>${escapar(criativo.titulo)}</span>'">`;
+  }
+  if (previa.modo === 'video') {
+    return `<video src="${escapar(previa.src)}" preload="metadata" muted playsinline></video>`;
+  }
+  if (previa.modo === 'iframe') {
+    // pointer-events fica no CSS: o clique tem que chegar no cartão, não no embed.
+    const corte = previa.src.includes('instagram.com') ? ' previa-instagram' : '';
+    return `<iframe class="previa${corte}" src="${escapar(previa.src)}" loading="lazy" scrolling="no"
+      referrerpolicy="strict-origin-when-cross-origin" tabindex="-1" aria-hidden="true"></iframe>`;
   }
   return `<span class="capa-vazia">${escapar(criativo.titulo)}</span>`;
 }

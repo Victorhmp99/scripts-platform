@@ -45,3 +45,29 @@ test('url vazia nao quebra', () => {
   assert.equal(resolverEmbed('').modo, 'externo');
   assert.equal(resolverEmbed(null).modo, 'externo');
 });
+
+test('miniatura: youtube e drive publicam imagem', async () => {
+  const { miniatura } = await import('../../public/criativos/assets/embed.js');
+  assert.deepEqual(miniatura('https://youtu.be/dQw4w9WgXcQ'), {
+    modo: 'img', src: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
+  });
+  assert.equal(miniatura('https://drive.google.com/file/d/1AbC/view').modo, 'img');
+});
+
+test('miniatura: instagram so mostra pelo embed, e sem a legenda', async () => {
+  const { miniatura } = await import('../../public/criativos/assets/embed.js');
+  const m = miniatura('https://www.instagram.com/reel/Ddwin6atVAA/');
+  assert.equal(m.modo, 'iframe');
+  assert.ok(m.src.endsWith('/embed'), m.src);
+});
+
+test('miniatura: arquivo de video desenha o primeiro quadro', async () => {
+  const { miniatura } = await import('../../public/criativos/assets/embed.js');
+  assert.equal(miniatura('https://cdn.exemplo.com/a.mp4').modo, 'video');
+});
+
+test('miniatura: quem nao embute fica sem previa', async () => {
+  const { miniatura } = await import('../../public/criativos/assets/embed.js');
+  assert.equal(miniatura('https://www.facebook.com/ads/library/?id=1').modo, 'nenhum');
+  assert.equal(miniatura('').modo, 'nenhum');
+});

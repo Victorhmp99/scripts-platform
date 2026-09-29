@@ -120,6 +120,13 @@
   .dica-status.ok { display: block; color: var(--acento, #2FE38A); }
   .dica-status.botao { display: block; color: #F0C43A; }
   .dica-status.erro { display: block; color: #E8564A; }
+  .previa-capa { display: none; margin-top: 9px; align-items: center; gap: 11px; }
+  .previa-capa.mostrar { display: flex; }
+  .previa-capa img { width: 48px; height: 66px; object-fit: cover; border-radius: 7px; border: 1px solid var(--borda); background: #000; }
+  .previa-capa span { font-size: 0.78125rem; font-weight: 500; }
+  .previa-capa.ok span { color: var(--acento, #2FE38A); }
+  .previa-capa.erro span { color: #E8564A; }
+  .previa-capa.erro img { display: none; }
 
   /* ---------- modal ---------- */
   .modal-fundo { position: fixed; inset: 0; background: rgba(0,0,0,0.72); display: none; align-items: center; justify-content: center; padding: 24px; z-index: 50; }
@@ -250,8 +257,13 @@
         </div>
 
         <div class="campo">
-          <label for="fCapa">Capa (opcional)</label>
-          <input type="text" id="fCapa" placeholder="capas/nome-do-arquivo.jpg">
+          <label for="fCapa">Capa</label>
+          <input type="text" id="fCapa" placeholder="Endereço de uma imagem, ou capas/arquivo.jpg">
+          <p class="dica" id="dicaCapa">
+            Só precisa quando o link não gera prévia sozinho — aí o cartão mostra esta imagem.
+            Serve qualquer endereço de imagem terminando em .jpg, .png ou .webp.
+          </p>
+          <div class="previa-capa" id="previaCapa"><img alt=""><span></span></div>
         </div>
 
         <div class="dupla">

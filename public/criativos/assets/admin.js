@@ -4,7 +4,7 @@
 import { slugificar } from './dados.js';
 import { carregarDoArquivo } from './dados.js';
 import { lerAcervoRemoto, publicarAcervo, sessaoAtual, entrar, sair } from './acervo.js';
-import { resolverEmbed } from './embed.js';
+import { resolverEmbed, miniatura } from './embed.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -153,6 +153,8 @@ function desenharFormulario() {
 
   $('dicaSrc').style.display = arquivo ? 'none' : '';
   conferirLink();
+  conferirCapa();
+  atualizarDicaCapa();
 
   $('avisoSemArquivo').style.display = 'none';
   $('btnVirarLink').style.display = 'none';
@@ -188,11 +190,46 @@ function conferirLink() {
   }
   if (/facebook\.com\/ads\/library/i.test(url)) {
     alvo.className = 'dica-status botao';
-    alvo.textContent = 'Biblioteca de Anúncios: não pode ser embutida. Entra como botão para abrir em outra aba.';
+    alvo.textContent = 'Biblioteca de Anúncios: o Facebook não deixa embutir. Vira botão, e o cartão fica sem prévia — preencha a Capa abaixo para aparecer uma imagem.';
     return;
   }
   alvo.className = 'dica-status erro';
   alvo.textContent = 'Link não reconhecido. Vai virar só um botão — confira se colou o endereço do vídeo.';
+}
+
+/** Mostra ali mesmo se a capa carrega, para não descobrir só no site. */
+function conferirCapa() {
+  const caixa = $('previaCapa');
+  const img = caixa.querySelector('img');
+  const texto = caixa.querySelector('span');
+  const valor = $('fCapa').value.trim();
+
+  caixa.className = 'previa-capa';
+  if (!valor) return;
+
+  caixa.classList.add('mostrar');
+  texto.textContent = 'Carregando a capa...';
+  const teste = new Image();
+  teste.onload = () => {
+    if ($('fCapa').value.trim() !== valor) return;
+    img.src = valor;
+    caixa.className = 'previa-capa mostrar ok';
+    texto.textContent = `Capa ok — ${teste.naturalWidth}x${teste.naturalHeight}.`;
+  };
+  teste.onerror = () => {
+    if ($('fCapa').value.trim() !== valor) return;
+    caixa.className = 'previa-capa mostrar erro';
+    texto.textContent = 'Não consegui carregar essa imagem. Confira o endereço.';
+  };
+  teste.src = valor;
+}
+
+/** O aviso da capa só aparece quando o criativo não tem prévia sozinho. */
+function atualizarDicaCapa() {
+  const c = cri();
+  const semPrevia = c && c.tipo === 'link' && miniatura($('fSrc').value.trim()).modo === 'nenhum';
+  $('dicaCapa').style.color = semPrevia ? '#F0C43A' : '';
+  $('dicaCapa').style.fontWeight = semPrevia ? '500' : '';
 }
 
 /** Alguns criativos antigos apontam para MP4 que não está no acervo. */
@@ -494,7 +531,8 @@ function ligarEventos() {
   document.querySelectorAll('#painelCriativo input, #painelCriativo textarea')
     .forEach((campo) => campo.addEventListener('input', lerFormulario));
   $('fPaciente').addEventListener('change', lerFormulario);
-  $('fSrc').addEventListener('input', conferirLink);
+  $('fSrc').addEventListener('input', () => { conferirLink(); atualizarDicaCapa(); });
+  $('fCapa').addEventListener('input', conferirCapa);
 
   window.addEventListener('beforeunload', (e) => {
     if (sujo) { e.preventDefault(); e.returnValue = ''; }

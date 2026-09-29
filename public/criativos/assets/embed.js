@@ -46,3 +46,28 @@ export function rotuloExterno(url) {
     ? 'Abrir na Biblioteca de Anúncios'
     : 'Abrir o post original';
 }
+
+// Prévia para o cartão da grade: a pessoa ver o vídeo antes de clicar.
+// Devolve { modo, src } — 'img' quando a plataforma publica uma miniatura,
+// 'video' para arquivo (o navegador desenha o primeiro quadro), 'iframe'
+// quando só o embed mostra alguma coisa, e 'nenhum' quando não há prévia.
+export function miniatura(url) {
+  const bruto = String(url || '').trim();
+  if (!bruto) return { modo: 'nenhum', src: '' };
+
+  const yt =
+    id(/youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)([\w-]{6,})/i, bruto) ||
+    id(/youtu\.be\/([\w-]{6,})/i, bruto);
+  if (yt) return { modo: 'img', src: `https://img.youtube.com/vi/${yt}/hqdefault.jpg` };
+
+  const drive = id(/drive\.google\.com\/file\/d\/([\w-]+)/i, bruto);
+  if (drive) return { modo: 'img', src: `https://drive.google.com/thumbnail?id=${drive}&sz=w640` };
+
+  const { modo, src } = resolverEmbed(bruto);
+  if (modo === 'video') return { modo: 'video', src };
+  if (modo === 'iframe') {
+    // No cartão o embed do Instagram entra sem a legenda: cabe melhor.
+    return { modo: 'iframe', src: src.replace('/embed/captioned', '/embed') };
+  }
+  return { modo: 'nenhum', src: bruto };
+}
