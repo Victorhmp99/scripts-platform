@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scripts Platform</title>
+  <title>Gerador de Scripts — Green Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #060f09; --surface: #0e1f14; --card: #112a1a; --card-hover: #163322;
-      --border: #1c3d27; --border-light: rgba(28,61,39,0.6);
-      --green: #00e87a; --green-dim: rgba(0,232,122,0.1); --green-glow: rgba(0,232,122,0.2);
-      --text: #e8f5e9; --muted: rgba(232,245,233,0.48); --muted2: rgba(232,245,233,0.28);
-      --danger: #ff6b6b; --warning: #ffc107;
+      --bg: #040806; --surface: #08130D; --card: #0B1710; --card-hover: #0F2018;
+      --border: rgba(47,227,138,0.22); --border-light: rgba(47,227,138,0.14);
+      --green: #2FE38A; --green-dim: rgba(47,227,138,0.12); --green-glow: rgba(47,227,138,0.25);
+      --text: #FFFFFF; --muted: #9FB0A8; --muted2: #5C6E65;
+      --danger: #E8564A; --warning: #ffc107;
       --sidebar-w: 220px;
     }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+    body { font-family: 'Poppins', sans-serif; background: radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.30) 0%, rgba(14,92,56,0.18) 32%, rgba(6,26,18,0.06) 60%, rgba(4,8,6,0) 84%), var(--bg); background-attachment: fixed; color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
     /* ── Layout ── */
     .layout { display: flex; height: 100vh; overflow: hidden; }
@@ -37,7 +37,7 @@
       box-shadow: 0 0 12px var(--green-glow); flex-shrink: 0;
     }
     .logo .mark svg { width: 16px; height: 16px; }
-    .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.875rem; line-height: 1.1; }
+    .logo-text { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.875rem; line-height: 1.1; }
     .logo-text em { color: var(--green); font-style: normal; display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.7; }
     .company-name {
       font-size: 0.75rem; color: var(--muted); padding: 0 2px;
@@ -48,7 +48,7 @@
     .search-wrap { padding: 12px 12px 0; }
     .search-input {
       width: 100%; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+      border-radius: 8px; color: var(--text); font-family: 'Poppins', sans-serif;
       font-size: 0.8125rem; padding: 8px 10px 8px 30px; outline: none;
       transition: border-color 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgba(232,245,233,0.35)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: 9px center;
@@ -66,11 +66,11 @@
     .tab-btn {
       display: flex; align-items: center; gap: 8px; width: 100%;
       padding: 8px 10px; border-radius: 8px; border: 1px solid transparent;
-      background: none; color: var(--muted); font-family: 'DM Sans', sans-serif;
+      background: none; color: var(--muted); font-family: 'Poppins', sans-serif;
       font-size: 0.8375rem; cursor: pointer; transition: all 0.15s; text-align: left;
     }
     .tab-btn:hover { background: var(--green-dim); color: var(--text); }
-    .tab-btn.active { background: var(--green-dim); color: var(--green); border-color: rgba(0,232,122,0.2); }
+    .tab-btn.active { background: var(--green-dim); color: var(--green); border-color: rgba(47,227,138,0.2); }
     .tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
     .tab-btn .dot {
       width: 6px; height: 6px; border-radius: 50%; background: var(--green);
@@ -86,7 +86,7 @@
     .logout-btn {
       display: flex; align-items: center; gap: 8px; width: 100%;
       padding: 8px 10px; border-radius: 8px; background: none; border: none;
-      color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.8125rem;
+      color: var(--muted); font-family: 'Poppins', sans-serif; font-size: 0.8125rem;
       cursor: pointer; transition: all 0.15s;
     }
     .logout-btn:hover { color: var(--danger); background: rgba(255,107,107,0.08); }
@@ -101,11 +101,11 @@
       display: flex; align-items: center; justify-content: space-between;
       background: var(--surface); position: sticky; top: 0; z-index: 10; flex-shrink: 0;
     }
-    .top-bar h1 { font-family: 'Syne', sans-serif; font-size: 1.125rem; font-weight: 700; }
+    .top-bar h1 { font-family: 'Poppins', sans-serif; font-size: 1.125rem; font-weight: 700; }
     .top-bar p { color: var(--muted); font-size: 0.8125rem; margin-top: 2px; }
     .top-actions { display: flex; gap: 8px; align-items: center; }
     .search-results-badge {
-      background: var(--green-dim); border: 1px solid rgba(0,232,122,0.3);
+      background: var(--green-dim); border: 1px solid rgba(47,227,138,0.3);
       color: var(--green); border-radius: 20px; padding: 3px 10px; font-size: 0.75rem;
       display: none;
     }
@@ -124,11 +124,11 @@
       padding-bottom: 12px; border-bottom: 1px solid var(--border-light);
     }
     .section-icon {
-      width: 32px; height: 32px; background: var(--green-dim); border: 1px solid rgba(0,232,122,0.2);
+      width: 32px; height: 32px; background: var(--green-dim); border: 1px solid rgba(47,227,138,0.2);
       border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .section-icon svg { width: 16px; height: 16px; }
-    .section-title { font-family: 'Syne', sans-serif; font-size: 0.9375rem; font-weight: 700; }
+    .section-title { font-family: 'Poppins', sans-serif; font-size: 0.9375rem; font-weight: 700; }
     .section-desc { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
     .script-count {
       margin-left: auto; font-size: 0.75rem; color: var(--muted2);
@@ -144,7 +144,7 @@
       background: var(--card); border: 1px solid var(--border); border-radius: 14px;
       overflow: hidden; transition: all 0.2s; position: relative;
     }
-    .script-card:hover { border-color: rgba(0,232,122,0.25); background: var(--card-hover); }
+    .script-card:hover { border-color: rgba(47,227,138,0.25); background: var(--card-hover); }
     .script-card.editing { border-color: var(--green); box-shadow: 0 0 0 2px var(--green-dim); }
 
     .card-header {
@@ -162,7 +162,7 @@
     .card-usage svg { width: 10px; height: 10px; }
     .badge-edited {
       font-size: 0.65rem; font-weight: 600; color: var(--green); background: var(--green-dim);
-      border: 1px solid rgba(0,232,122,0.3); border-radius: 4px; padding: 1px 6px;
+      border: 1px solid rgba(47,227,138,0.3); border-radius: 4px; padding: 1px 6px;
     }
 
     .card-body { padding: 12px 14px; }
@@ -170,10 +170,10 @@
       font-size: 0.875rem; line-height: 1.65; color: var(--text);
       white-space: pre-wrap; word-break: break-word; min-height: 48px;
     }
-    .card-text.search-highlight em { background: rgba(0,232,122,0.2); border-radius: 3px; padding: 0 2px; font-style: normal; }
+    .card-text.search-highlight em { background: rgba(47,227,138,0.2); border-radius: 3px; padding: 0 2px; font-style: normal; }
     .card-textarea {
       width: 100%; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+      border-radius: 8px; color: var(--text); font-family: 'Poppins', sans-serif;
       font-size: 0.875rem; line-height: 1.65; padding: 10px 12px; outline: none;
       resize: vertical; min-height: 100px; transition: border-color 0.2s;
     }
@@ -182,12 +182,12 @@
     .card-actions { display: flex; gap: 6px; padding: 8px 14px 12px; flex-wrap: wrap; }
     .action-btn {
       display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 11px; border-radius: 7px; font-size: 0.78rem; font-family: 'DM Sans', sans-serif;
+      padding: 5px 11px; border-radius: 7px; font-size: 0.78rem; font-family: 'Poppins', sans-serif;
       font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid var(--border);
       background: none; color: var(--muted);
     }
     .action-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
-    .action-btn.primary { background: var(--green); color: #060f09; border-color: var(--green); font-weight: 600; }
+    .action-btn.primary { background: var(--green); color: #040806; border-color: var(--green); font-weight: 600; }
     .action-btn.primary:hover { opacity: 0.88; }
     .action-btn.danger:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,107,107,0.08); }
     .action-btn.copied { background: var(--green-dim); border-color: var(--green); color: var(--green); }
@@ -206,7 +206,7 @@
     .qual-text { font-size: 0.9rem; line-height: 1.6; padding: 6px 14px 12px; }
     .qual-textarea {
       width: 100%; background: var(--surface); border: none; border-top: 1px solid var(--border);
-      color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      color: var(--text); font-family: 'Poppins', sans-serif; font-size: 0.9rem;
       line-height: 1.6; padding: 10px 14px; outline: none; resize: vertical; min-height: 80px;
     }
 
@@ -218,7 +218,7 @@
     .aq-card.editing { border-color: var(--green); }
     .aq-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px 8px; border-bottom: 1px solid var(--border-light); }
     .aq-day {
-      font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700;
+      font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 700;
       color: var(--green); background: var(--green-dim); border-radius: 4px; padding: 2px 8px;
     }
     .aq-tag { font-size: 0.7rem; color: var(--muted); }
@@ -236,13 +236,13 @@
     }
     .setup-banner-icon svg { width: 32px; height: 32px; color: var(--green); }
     .setup-banner h2 {
-      font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700;
+      font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 700;
       margin-bottom: 12px; letter-spacing: -0.02em;
     }
     .setup-banner p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 28px; }
     .setup-banner-btn {
-      display: inline-block; background: var(--green); color: #060f09;
-      font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700;
+      display: inline-block; background: var(--green); color: #040806;
+      font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 700;
       padding: 14px 28px; border-radius: 12px; text-decoration: none;
       transition: opacity 0.2s; margin-bottom: 16px;
     }
@@ -273,10 +273,10 @@
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
       padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s;
     }
-    .search-result-item:hover { border-color: rgba(0,232,122,0.3); background: var(--card-hover); }
+    .search-result-item:hover { border-color: rgba(47,227,138,0.3); background: var(--card-hover); }
     .search-result-cat { font-size: 0.7rem; color: var(--green); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
     .search-result-text { font-size: 0.875rem; line-height: 1.6; }
-    .search-result-text mark { background: rgba(0,232,122,0.2); border-radius: 3px; padding: 0 2px; color: inherit; }
+    .search-result-text mark { background: rgba(47,227,138,0.2); border-radius: 3px; padding: 0 2px; color: inherit; }
 
     /* Toast */
     .toast {
@@ -286,7 +286,7 @@
       transition: all 0.25s; pointer-events: none;
     }
     .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.green { border-color: rgba(0,232,122,0.4); color: var(--green); }
+    .toast.green { border-color: rgba(47,227,138,0.4); color: var(--green); }
     .toast.red { border-color: rgba(255,107,107,0.35); color: var(--danger); }
 
     /* Mobile */
@@ -317,9 +317,9 @@
     <div class="sidebar-head">
       <div class="logo">
         <div class="mark">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
-        <div class="logo-text">Scripts Platform<em id="companyNameLogo">carregando...</em></div>
+        <div class="logo-text">Gerador de Scripts<em id="companyNameLogo">carregando...</em></div>
       </div>
     </div>
 
@@ -510,19 +510,19 @@ const TABS = {
 };
 
 const ICONS = {
-  msg:     `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
-  heart:   `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
-  check:   `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg>`,
-  bell:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
-  star:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
-  phone:   `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.63a16 16 0 0 0 6 6l.95-1.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 15l.19 1.92z"/></svg>`,
-  user:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
-  file:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>`,
-  form:    `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>`,
-  eye:     `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
-  x:       `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
-  refresh: `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>`,
-  video:   `<svg viewBox="0 0 24 24" fill="none" stroke="#00e87a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`,
+  msg:     `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  heart:   `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  check:   `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg>`,
+  bell:    `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+  star:    `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  phone:   `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.63a16 16 0 0 0 6 6l.95-1.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 15l.19 1.92z"/></svg>`,
+  user:    `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  file:    `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>`,
+  form:    `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>`,
+  eye:     `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  x:       `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+  refresh: `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>`,
+  video:   `<svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`,
 };
 
 const CAT_LABELS = {
