@@ -190,7 +190,12 @@ function conferirLink() {
   }
   if (/facebook\.com\/ads\/library/i.test(url)) {
     alvo.className = 'dica-status botao';
-    alvo.textContent = 'Biblioteca de Anúncios: o Facebook não deixa embutir. Vira botão, e o cartão fica sem prévia — preencha a Capa abaixo para aparecer uma imagem.';
+    alvo.textContent = 'Biblioteca de Anúncios: o Facebook não deixa embutir. Vira botão — preencha a Capa abaixo para o cartão mostrar uma imagem.';
+    return;
+  }
+  if (/tiktok\.com/i.test(url)) {
+    alvo.className = 'dica-status botao';
+    alvo.textContent = 'TikTok: o embed deles falha (“overload-protect”). Vira botão — preencha a Capa abaixo para o cartão mostrar uma imagem.';
     return;
   }
   alvo.className = 'dica-status erro';

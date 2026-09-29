@@ -28,8 +28,9 @@ export function resolverEmbed(url) {
   const insta = id(/instagram\.com\/(?:[\w.]+\/)?(?:reel|reels|p|tv)\/([\w-]+)/i, bruto);
   if (insta) return { modo: 'iframe', src: `https://www.instagram.com/p/${insta}/embed/captioned`, proporcao: '9 / 14' };
 
-  const tiktok = id(/tiktok\.com\/(?:.*\/video\/|v\/)(\d+)/i, bruto);
-  if (tiktok) return { modo: 'iframe', src: `https://www.tiktok.com/embed/v2/${tiktok}`, proporcao: '9 / 15' };
+  // TikTok fica de fora de propósito: o embed dele responde
+  // "overload-protect triggered" ou carrega em branco. Melhor um botão
+  // honesto do que um quadro vazio.
 
   const drive = id(/drive\.google\.com\/file\/d\/([\w-]+)/i, bruto);
   if (drive) return { modo: 'iframe', src: `https://drive.google.com/file/d/${drive}/preview`, proporcao: '16 / 9' };
@@ -42,9 +43,10 @@ export function resolverEmbed(url) {
 
 // Rotulo do botao quando nao da para embutir.
 export function rotuloExterno(url) {
-  return /facebook\.com\/ads\/library/i.test(String(url || ''))
-    ? 'Abrir na Biblioteca de Anúncios'
-    : 'Abrir o post original';
+  const u = String(url || '');
+  if (/facebook\.com\/ads\/library/i.test(u)) return 'Abrir na Biblioteca de Anúncios';
+  if (/tiktok\.com/i.test(u)) return 'Abrir no TikTok';
+  return 'Abrir o post original';
 }
 
 // Prévia para o cartão da grade: a pessoa ver o vídeo antes de clicar.

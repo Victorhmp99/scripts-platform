@@ -609,11 +609,11 @@ body[data-area="capilar"] .menu a[aria-current="page"] { color: #0077B0; }
   display: inline-flex; align-items: center; gap: 7px;
   padding: 9px 15px; border-radius: 999px; text-decoration: none;
   /* a barra é clara: o acento das áreas é verde-claro e some no branco */
-  background: var(--verde-escuro); border: 1px solid var(--verde-escuro);
-  color: #FFFFFF; font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
-  transition: filter 0.15s, transform 0.15s;
+  background: rgba(15, 160, 87, 0.08); border: 1px solid rgba(15, 160, 87, 0.38);
+  color: var(--verde-escuro); font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
 }
-.btn-central:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.btn-central:hover { background: rgba(15, 160, 87, 0.16); border-color: var(--verde-escuro); }
 .btn-central svg { width: 15px; height: 15px; flex-shrink: 0; }
 .menu-marca + .btn-central { margin-right: auto; }
 @media (max-width: 560px) {

@@ -22,8 +22,7 @@ test('reel do instagram vira embed vertical', () => {
   assert.ok(r.src.includes('/p/C1a_b2C3d/embed'));
 });
 
-test('tiktok, vimeo, drive e loom tambem embutem', () => {
-  assert.equal(resolverEmbed('https://www.tiktok.com/@u/video/7212345678901234567').modo, 'iframe');
+test('vimeo, drive e loom tambem embutem', () => {
   assert.equal(resolverEmbed('https://vimeo.com/76979871').modo, 'iframe');
   assert.equal(resolverEmbed('https://drive.google.com/file/d/1AbC_dEf/view').modo, 'iframe');
   assert.equal(resolverEmbed('https://www.loom.com/embed/abc123').modo, 'iframe');
@@ -39,6 +38,13 @@ test('quem bloqueia iframe cai no modo externo', () => {
   assert.equal(resolverEmbed(url).modo, 'externo');
   assert.equal(rotuloExterno(url), 'Abrir na Biblioteca de Anúncios');
   assert.equal(rotuloExterno('https://site.com/post'), 'Abrir o post original');
+});
+
+// O embed do TikTok responde "overload-protect triggered" ou vem em branco.
+test('tiktok fica de fora do embed e vira botao', () => {
+  const url = 'https://www.tiktok.com/@u/video/7212345678901234567';
+  assert.equal(resolverEmbed(url).modo, 'externo');
+  assert.equal(rotuloExterno(url), 'Abrir no TikTok');
 });
 
 test('url vazia nao quebra', () => {
@@ -69,5 +75,6 @@ test('miniatura: arquivo de video desenha o primeiro quadro', async () => {
 test('miniatura: quem nao embute fica sem previa', async () => {
   const { miniatura } = await import('../../public/criativos/assets/embed.js');
   assert.equal(miniatura('https://www.facebook.com/ads/library/?id=1').modo, 'nenhum');
+  assert.equal(miniatura('https://www.tiktok.com/@u/video/7212345678901234567').modo, 'nenhum');
   assert.equal(miniatura('').modo, 'nenhum');
 });
