@@ -101,6 +101,18 @@
       display: flex; align-items: center; justify-content: space-between;
       background: var(--surface); position: sticky; top: 0; z-index: 10; flex-shrink: 0;
     }
+    /* Volta para a central: fica na barra fixa, então continua visível no celular,
+       onde o menu lateral some. */
+    .top-bar-esq { display: flex; align-items: center; gap: 16px; min-width: 0; }
+    .btn-central {
+      display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+      padding: 9px 15px; border-radius: 999px; text-decoration: none;
+      border: 1px solid rgba(47,227,138,0.38); color: var(--green);
+      font-family: 'Poppins', sans-serif; font-size: 0.8125rem; font-weight: 600;
+      transition: background .15s, border-color .15s;
+    }
+    .btn-central:hover { background: rgba(47,227,138,0.12); border-color: var(--green); }
+    .btn-central svg { width: 15px; height: 15px; }
     .top-bar h1 { font-family: 'Poppins', sans-serif; font-size: 1.125rem; font-weight: 700; }
     .top-bar p { color: var(--muted); font-size: 0.8125rem; margin-top: 2px; }
     .top-actions { display: flex; gap: 8px; align-items: center; }
@@ -304,6 +316,9 @@
       .mobile-tab-bar { display: flex; }
       .content { padding: 16px; }
       .top-bar { padding: 12px 16px; }
+      .top-bar-esq { gap: 10px; }
+      .btn-central { padding: 9px 11px; }
+      .btn-central span { display: none; }
       .scripts-grid { grid-template-columns: 1fr; }
       .aq-grid { grid-template-columns: 1fr; }
     }
@@ -411,9 +426,15 @@
     <main class="main">
       <!-- Top bar -->
       <div class="top-bar">
-        <div>
-          <h1 id="pageTitle">Scripts do Dia a Dia</h1>
-          <p id="pageDesc">Fluxo principal de contato e acompanhamento</p>
+        <div class="top-bar-esq">
+          <a class="btn-central" href="/portal.html" title="Voltar para a Central de Ferramentas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            <span>Central</span>
+          </a>
+          <div>
+            <h1 id="pageTitle">Scripts do Dia a Dia</h1>
+            <p id="pageDesc">Fluxo principal de contato e acompanhamento</p>
+          </div>
         </div>
         <div class="top-actions">
           <span class="search-results-badge" id="searchBadge"></span>

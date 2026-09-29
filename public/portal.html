@@ -45,6 +45,17 @@
     text-align: right; line-height: 1.35;
   }
   .empresa small { display: block; color: var(--footer); font-size: 0.6875rem; letter-spacing: 1.6px; text-transform: uppercase; }
+  .btn-admin {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    background: rgba(47,227,138,0.12); border: 1px solid rgba(47,227,138,0.38);
+    color: var(--mint); border-radius: 999px;
+    font-size: 0.8125rem; font-weight: 600; padding: 9px 17px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn-admin:hover { background: rgba(47,227,138,0.2); border-color: var(--mint); }
+  .btn-admin svg { width: 15px; height: 15px; }
+  @media (max-width: 660px) { .btn-admin span, .empresa { display: none; } }
+
   .sair {
     background: transparent; border: 1px solid rgba(47,227,138,0.35);
     color: var(--mint); border-radius: 999px;
@@ -141,6 +152,7 @@
 <div class="topbar">
   <img src="/logo-green-hub.png" alt="Green Hub" />
   <div class="topbar-right">
+    <div id="adminBox"></div>
     <div class="empresa" id="empresaBox"></div>
     <button class="sair" onclick="sair()">Sair</button>
   </div>
@@ -220,8 +232,21 @@ function cardHTML(item) {
 }
 
 function render(itens, perfil, empresa) {
-  document.getElementById('empresaBox').innerHTML =
-    `<small>Empresa</small>${escapar(empresa?.name || '—')}`;
+  const ehAdmin = perfil?.role === 'admin';
+
+  // Admin enxerga tudo aberto na central, igual já acontece nas telas internas.
+  if (ehAdmin) itens = itens.map(i => Object.assign({}, i, { unlocked: true }));
+
+  document.getElementById('empresaBox').innerHTML = ehAdmin && !empresa?.name
+    ? `<small>Acesso</small>Administrador`
+    : `<small>Empresa</small>${escapar(empresa?.name || '—')}`;
+
+  document.getElementById('adminBox').innerHTML = ehAdmin
+    ? `<a class="btn-admin" href="/admin.html">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2.5a1 1 0 0 0-1 0l-7 4a1 1 0 0 0-.5.9v9.2a1 1 0 0 0 .5.9l7 4a1 1 0 0 0 1 0l7-4a1 1 0 0 0 .5-.9V7.4a1 1 0 0 0-.5-.9z"/><circle cx="12" cy="12" r="3"/></svg>
+         Painel de configuração
+       </a>`
+    : '';
 
   const primeiroNome = (perfil?.full_name || '').trim().split(' ')[0];
   const liberados = itens.filter(i => i.unlocked).length;
@@ -305,10 +330,13 @@ async function iniciar() {
     .eq('id', session.user.id)
     .single();
 
-  if (!perfil?.company_id) { window.location.href = '/setup.html'; return; }
+  // Admin entra mesmo sem empresa vinculada — ele administra, não consome.
+  if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/setup.html'; return; }
 
   const [{ data: empresa }, { data: itens, error }] = await Promise.all([
-    sb.from('companies').select('name').eq('id', perfil.company_id).single(),
+    perfil.company_id
+      ? sb.from('companies').select('name').eq('id', perfil.company_id).single()
+      : Promise.resolve({ data: null }),
     sb.rpc('get_my_portal_items')
   ]);
 
