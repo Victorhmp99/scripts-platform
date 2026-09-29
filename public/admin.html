@@ -56,6 +56,23 @@
     .page { display: none; }
     .page.active { display: block; }
     .page-header { margin-bottom: 28px; }
+    .atalhos { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+    .atalho {
+      display: block; text-decoration: none; text-align: left;
+      background: var(--card); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; padding: 20px; cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s, background 0.15s;
+      font: inherit; color: inherit; width: 100%;
+    }
+    .atalho:hover { border-color: rgba(47,227,138,0.45); background: var(--green-dim); transform: translateY(-2px); }
+    .atalho svg { width: 22px; height: 22px; color: var(--green); margin-bottom: 12px; }
+    .atalho b { display: block; font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+    .atalho span { display: block; color: var(--muted); font-size: 0.8125rem; line-height: 1.5; }
+    .atalho-externo b::after { content: ' 97'; color: var(--green); font-weight: 400; }
+    .atalhos-titulo {
+      font-size: 0.6875rem; letter-spacing: 1.6px; text-transform: uppercase;
+      color: var(--muted); margin: 32px 0 12px;
+    }
     .page-header h1 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; }
     .page-header p { color: var(--muted); font-size: 0.875rem; margin-top: 4px; }
 
@@ -187,15 +204,19 @@
       <span>Green <em>Hub</em></span>
     </div>
 
-    <div class="nav-item active" onclick="showPage('usuarios')">
+    <div class="nav-item active" data-pagina="inicio" onclick="showPage('inicio')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      Início
+    </div>
+    <div class="nav-item" data-pagina="usuarios" onclick="showPage('usuarios')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Acessos
     </div>
-    <div class="nav-item" onclick="showPage('empresas')">
+    <div class="nav-item" data-pagina="empresas" onclick="showPage('empresas')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
       Empresas
     </div>
-    <div class="nav-item" onclick="showPage('liberacoes')">
+    <div class="nav-item" data-pagina="liberacoes" onclick="showPage('liberacoes')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0"/></svg>
       Liberações
     </div>
@@ -234,8 +255,63 @@
       </div>
     </div>
 
+    <!-- Página: Início (tudo que o admin faz, num lugar só) -->
+    <div class="page active" id="page-inicio">
+      <div class="page-header">
+        <h1>Painel de configuração</h1>
+        <p>Tudo que só você mexe, num lugar só</p>
+      </div>
+
+      <p class="atalhos-titulo">Quem entra e o que vê</p>
+      <div class="atalhos">
+        <button class="atalho" onclick="showPage('usuarios')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <b>Acessos</b>
+          <span>Convidar alguém por e-mail, ver quem já entrou e remover quem saiu.</span>
+        </button>
+        <button class="atalho" onclick="showPage('empresas')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
+          <b>Empresas</b>
+          <span>Cadastrar uma clínica nova e acompanhar quem já fez o setup dos scripts.</span>
+        </button>
+        <button class="atalho" onclick="showPage('liberacoes')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0"/></svg>
+          <b>Liberações</b>
+          <span>Escolher item por item o que cada empresa enxerga na Central. Sem liberação, fica com cadeado.</span>
+        </button>
+      </div>
+
+      <p class="atalhos-titulo">Conteúdo</p>
+      <div class="atalhos">
+        <a class="atalho atalho-externo" href="/criativos/admin.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          <b>Cadastrar criativos</b>
+          <span>Colar o link do vídeo, escrever o roteiro e criar categorias da Biblioteca de Criativos.</span>
+        </a>
+        <a class="atalho atalho-externo" href="/criativos/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <b>Ver a biblioteca</b>
+          <span>A Biblioteca de Criativos como o cliente vê, para conferir antes de liberar.</span>
+        </a>
+      </div>
+
+      <p class="atalhos-titulo">Ir para</p>
+      <div class="atalhos">
+        <a class="atalho atalho-externo" href="/portal.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <b>Central de Ferramentas</b>
+          <span>A tela inicial do cliente, com os módulos e as ferramentas.</span>
+        </a>
+        <a class="atalho atalho-externo" href="/app.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <b>Gerador de Scripts</b>
+          <span>Os scripts da Green Hub, na sua própria conta.</span>
+        </a>
+      </div>
+    </div>
+
     <!-- Página: Acessos (principal) -->
-    <div class="page active" id="page-usuarios">
+    <div class="page" id="page-usuarios">
       <div class="page-header">
         <h1>Acessos</h1>
         <p>Convide pelo e-mail — a empresa configura os scripts sozinha depois</p>
@@ -826,7 +902,10 @@
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
-    event.currentTarget.classList.add('active');
+    // Pelo data-pagina, e nao pelo elemento clicado: os atalhos do Início
+    // tambem trocam de aba e precisam acender o item certo do menu.
+    document.querySelector(`.nav-item[data-pagina="${name}"]`)?.classList.add('active');
+    document.querySelector('.main')?.scrollTo({ top: 0 });
   }
 
   function openModal(id) { document.getElementById(id).classList.add('open'); }

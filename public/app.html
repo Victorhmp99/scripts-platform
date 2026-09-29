@@ -404,12 +404,6 @@
           Painel Admin
         </button>
       </a>
-      <a id="criativosLink" href="/criativos/admin.html" style="display:none; text-decoration:none;">
-        <button class="logout-btn" style="color:var(--green); width:100%;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-          Cadastrar criativos
-        </button>
-      </a>
       <button class="logout-btn" onclick="logout()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Sair da plataforma
@@ -436,10 +430,6 @@
           <a class="btn-central" href="/portal.html" title="Voltar para a Central de Ferramentas">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
             <span>Central</span>
-          </a>
-          <a class="btn-central" id="criativosTopo" href="/criativos/admin.html" style="display:none;" title="Cadastrar criativos na biblioteca">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            <span>Criativos</span>
           </a>
           <div>
             <h1 id="pageTitle">Scripts do Dia a Dia</h1>
@@ -582,8 +572,6 @@ const CAT_LABELS = {
   document.getElementById('companyNameLogo').textContent = prof.companies?.name || '';
   if (prof.role === 'admin') {
     document.getElementById('adminLink').style.display = 'block';
-    document.getElementById('criativosLink').style.display = 'block';
-    document.getElementById('criativosTopo').style.display = 'inline-flex';
   }
   if (['admin', 'gestor'].includes(prof.role)) {
     const regenLink = document.getElementById('regenerateLink');

@@ -52,7 +52,6 @@
     font-size: 0.8125rem; font-weight: 600; padding: 9px 17px;
     transition: background 0.15s, border-color 0.15s;
   }
-  #adminBox { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
   .btn-admin:hover { background: rgba(47,227,138,0.2); border-color: var(--mint); }
   .btn-admin svg { width: 15px; height: 15px; }
   @media (max-width: 660px) { .btn-admin span, .empresa { display: none; } }
@@ -247,10 +246,7 @@ function render(itens, perfil, empresa) {
          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2.5a1 1 0 0 0-1 0l-7 4a1 1 0 0 0-.5.9v9.2a1 1 0 0 0 .5.9l7 4a1 1 0 0 0 1 0l7-4a1 1 0 0 0 .5-.9V7.4a1 1 0 0 0-.5-.9z"/><circle cx="12" cy="12" r="3"/></svg>
          Painel de configuração
        </a>
-       <a class="btn-admin" href="/criativos/admin.html" title="Cadastrar criativos na biblioteca">
-         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-         Cadastrar criativos
-       </a>`
+
     : '';
 
   const primeiroNome = (perfil?.full_name || '').trim().split(' ')[0];
