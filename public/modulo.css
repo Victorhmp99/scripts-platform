@@ -31,8 +31,12 @@ body {
   /* modulo e pagina longa: sem isso a volta some assim que rola a tela */
   position:sticky; top:0; z-index:30; background:rgba(4,8,6,0.88); backdrop-filter:blur(12px); }
 .topbar img { height:38px; object-fit:contain; }
-.voltar { color:var(--mint); text-decoration:none; font-size:0.8125rem; font-weight:600; display:inline-flex; align-items:center; gap:7px; }
-.voltar:hover { text-decoration:underline; }
+.voltar { display:inline-flex; align-items:center; gap:7px; text-decoration:none;
+  padding:9px 15px; border-radius:999px; white-space:nowrap;
+  background:rgba(47,227,138,0.12); border:1px solid rgba(47,227,138,0.4);
+  color:var(--mint); font-size:0.8125rem; font-weight:600;
+  transition:background 0.15s, border-color 0.15s; }
+.voltar:hover { background:rgba(47,227,138,0.22); border-color:var(--mint); }
 .salvo { font-size:0.75rem; color:var(--footer); font-weight:500; text-align:right; }
 .salvo.ok { color:var(--mint); }
 

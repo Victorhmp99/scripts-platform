@@ -603,4 +603,20 @@ body[data-area="capilar"] .menu a[aria-current="page"] { color: #0077B0; }
 }
 
 /* Volta para a Central de Ferramentas — a biblioteca agora mora dentro do app */
-.menu-central { color: var(--acento) !important; font-weight: 600; }
+/* Saída para a Central. Já existiu como item de menu e passava batido no
+   meio de Face/Corpo/Capilar — por isso agora é botão, colado na marca. */
+.btn-central {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 15px; border-radius: 999px; text-decoration: none;
+  /* a barra é clara: o acento das áreas é verde-claro e some no branco */
+  background: var(--verde-escuro); border: 1px solid var(--verde-escuro);
+  color: #FFFFFF; font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
+  transition: filter 0.15s, transform 0.15s;
+}
+.btn-central:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.btn-central svg { width: 15px; height: 15px; flex-shrink: 0; }
+.menu-marca + .btn-central { margin-right: auto; }
+@media (max-width: 560px) {
+  .btn-central span { display: none; }
+  .btn-central { padding: 8px 10px; }
+}
