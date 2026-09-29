@@ -134,8 +134,9 @@ CREATE POLICY "admin vê todos perfis" ON profiles
   FOR ALL USING (get_my_role() = 'admin');
 CREATE POLICY "usuário vê seu perfil" ON profiles
   FOR SELECT USING (id = auth.uid());
-CREATE POLICY "usuário atualiza seu perfil" ON profiles
-  FOR UPDATE USING (id = auth.uid());
+-- NÃO recriar "usuário atualiza seu perfil": sem restrição de coluna ela
+-- deixava qualquer pessoa logada se promover a admin pelo próprio navegador.
+-- Quem muda papel e empresa é o painel admin, pela política de admin acima.
 
 -- Policies: company_scripts
 DROP POLICY IF EXISTS "admin vê todos scripts" ON company_scripts;

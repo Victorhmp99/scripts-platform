@@ -697,6 +697,14 @@
     const role = document.getElementById('editUsrRole').value;
     const companyId = document.getElementById('editUsrEmpresa').value || null;
     const err = document.getElementById('errEditUsuario');
+
+    // Sem isto dá para tirar o próprio acesso e ficar sem ninguém que
+    // consiga entrar no painel para desfazer.
+    if (editingUserId === currentUserId && role !== 'admin') {
+      err.textContent = 'Você não pode tirar o seu próprio acesso de admin. Peça para outro admin fazer isso.';
+      err.classList.add('show');
+      return;
+    }
     const btn = document.getElementById('btnSalvarEdicao');
     err.classList.remove('show');
     btn.disabled = true;
