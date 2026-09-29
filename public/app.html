@@ -116,6 +116,7 @@
     .top-bar h1 { font-family: 'Poppins', sans-serif; font-size: 1.125rem; font-weight: 700; }
     .top-bar p { color: var(--muted); font-size: 0.8125rem; margin-top: 2px; }
     .top-actions { display: flex; gap: 8px; align-items: center; }
+    .so-celular { display: none !important; cursor: pointer; }
     .search-results-badge {
       background: var(--green-dim); border: 1px solid rgba(47,227,138,0.3);
       color: var(--green); border-radius: 20px; padding: 3px 10px; font-size: 0.75rem;
@@ -311,8 +312,11 @@
     .mobile-tab { padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; border: 1px solid var(--border); background: none; color: var(--muted); font-family: inherit; transition: all 0.15s; }
     .mobile-tab.active { background: var(--green-dim); border-color: var(--green); color: var(--green); }
 
-    @media (max-width: 640px) {
+@media (max-width: 640px) {
       .sidebar { display: none; }
+      /* A lateral some no celular e levava junto o Sair e o Regenerar.
+         Eles reaparecem como ícone na barra do topo. */
+      .so-celular:not(.oculto) { display: inline-flex !important; }
       .mobile-tab-bar { display: flex; }
       .content { padding: 16px; }
       .top-bar { padding: 12px 16px; }
@@ -322,7 +326,7 @@
       .scripts-grid { grid-template-columns: 1fr; }
       .aq-grid { grid-template-columns: 1fr; }
     }
-  </style>
+</style>
   <link rel="stylesheet" href="/base-mobile.css">
 </head>
 <body>
@@ -439,6 +443,12 @@
         </div>
         <div class="top-actions">
           <span class="search-results-badge" id="searchBadge"></span>
+          <a class="btn-central so-celular oculto" id="regenerarTopo" href="/setup?mode=regenerate" title="Regerar os scripts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+          </a>
+          <button class="btn-central so-celular" onclick="logout()" title="Sair da plataforma">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
         </div>
       </div>
 
@@ -582,6 +592,8 @@ const CAT_LABELS = {
     let regenUrl = '/setup?mode=regenerate';
     if (lastRegen) regenUrl += `&last=${encodeURIComponent(lastRegen)}`;
     regenLink.href = regenUrl;
+    const topo = document.getElementById('regenerarTopo');
+    if (topo) { topo.href = regenUrl; topo.classList.remove('oculto'); }
     regenLink.style.display = 'block';
   }
 

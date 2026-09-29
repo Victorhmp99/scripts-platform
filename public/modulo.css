@@ -45,8 +45,8 @@ body {
 /* Item de grid não encolhe abaixo do próprio conteúdo mínimo por padrão: uma
    palavra comprida dentro da coluna alargava a página inteira no celular. */
 .wrap > * { min-width:0; }
-@media (max-width:900px) { .wrap { grid-template-columns:1fr; gap:24px; } aside { position:static !important; padding-top:24px !important; } }
-@media (max-width:660px) { .wrap, .topbar { padding-left:20px; padding-right:20px; } }
+
+
 
 }
 
@@ -87,13 +87,7 @@ table.ref tr td:first-child { white-space:nowrap; color:var(--mint); font-weight
 
 /* No celular a tabela de duas colunas não cabe: o nowrap da primeira coluna
    segurava a página em 485px. Empilhado, cada linha vira rótulo + explicação. */
-@media (max-width:760px) {
-  table.ref, table.ref tbody, table.ref tr, table.ref td { display:block; width:100%; }
-  table.ref tr:first-child { display:none; }
-  table.ref tr { border-top:1px solid rgba(47,227,138,0.14); padding:12px 0; }
-  table.ref td { border-top:0; padding:0; }
-  table.ref tr td:first-child { white-space:normal; margin-bottom:5px; }
-}
+
 
 /* ---------- exercício ---------- */
 .exercicio { margin-top:26px; border:1px solid rgba(47,227,138,0.30); border-radius:18px; overflow:hidden; }
@@ -144,19 +138,19 @@ select option { background:#08130D; color:#fff; }
 .soma.erro b { color:var(--amber); }
 
 .grade2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-@media (max-width:640px) { .grade2 { grid-template-columns:1fr; } }
+
 .quad { border:1px solid rgba(47,227,138,0.26); border-radius:12px; padding:14px; }
 .quad span { display:block; font-size:0.75rem; font-weight:600; color:var(--mint); margin-bottom:9px; }
 
 .deleg { display:grid; grid-template-columns:1fr 132px 132px; gap:10px; align-items:center; }
-@media (max-width:760px) { .deleg { grid-template-columns:1fr; } }
+
 
 .trio { display:grid; grid-template-columns:1fr 150px 150px; gap:10px; align-items:center; }
-@media (max-width:760px) { .trio { grid-template-columns:1fr; } }
+
 
 /* saída calculada dentro do exercício */
 .saidas { margin-top:18px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-@media (max-width:760px) { .saidas { grid-template-columns:1fr; } }
+
 .saida { border:1px solid rgba(47,227,138,0.24); border-radius:12px; padding:14px; background:rgba(4,8,6,0.4); }
 .saida span { display:block; font-size:0.6875rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--footer); font-weight:600; }
 .saida b { display:block; margin-top:7px; font-size:1.375rem; font-weight:700; }
@@ -198,6 +192,27 @@ footer span { color:var(--footer); }
 /* Em tela estreita a barra do topo não cabe numa linha só (a volta, a marca e
    o aviso de salvo somavam 372px em 320px de tela) e empurrava a página toda.
    Quebrar em duas linhas preserva as três informações. */
+
+@media (max-width:900px) { .wrap { grid-template-columns:1fr; gap:24px; } aside { position:static !important; padding-top:24px !important; } }
+
+@media (max-width:660px) { .wrap, .topbar { padding-left:20px; padding-right:20px; } }
+
+@media (max-width:760px) {
+  table.ref, table.ref tbody, table.ref tr, table.ref td { display:block; width:100%; }
+  table.ref tr:first-child { display:none; }
+  table.ref tr { border-top:1px solid rgba(47,227,138,0.14); padding:12px 0; }
+  table.ref td { border-top:0; padding:0; }
+  table.ref tr td:first-child { white-space:normal; margin-bottom:5px; }
+}
+
+@media (max-width:640px) { .grade2 { grid-template-columns:1fr; } }
+
+@media (max-width:760px) { .deleg { grid-template-columns:1fr; } }
+
+@media (max-width:760px) { .trio { grid-template-columns:1fr; } }
+
+@media (max-width:760px) { .saidas { grid-template-columns:1fr; } }
+
 @media (max-width:480px) {
   .topbar { flex-wrap:wrap; row-gap:10px; padding:14px 16px; }
   .voltar { order:-1; }
@@ -211,3 +226,16 @@ footer span { color:var(--footer); }
      encolhia e alargava a página. Em bloco, a seta fica inline e o texto quebra. */
   ul.pontos li { display:block; }
   ul.pontos li::before { margin-right:8px; }
+  /* O índice do módulo vira faixa que rola de lado: empilhado ele empurrava
+     o conteúdo para baixo, e quebrando sozinho ficava desalinhado. */
+  aside { padding-top:26px; }
+  aside nav {
+    display:flex; flex-direction:row; gap:6px;
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; margin:0 -16px; padding:0 16px;
+  }
+  aside nav::-webkit-scrollbar { display:none; }
+  aside nav a {
+    flex:0 0 auto; white-space:nowrap;
+    border:1px solid rgba(47,227,138,0.18); border-radius:999px; padding:8px 13px;
+  }

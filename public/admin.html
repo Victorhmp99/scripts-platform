@@ -189,6 +189,76 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.green { border-color: rgba(47,227,138,0.4); color: var(--green); }
     .toast.red { border-color: rgba(255,107,107,0.4); color: var(--danger); }
+
+    /* ==========================================================
+       Celular. O painel nasceu só para desktop: barra lateral de
+       240px numa tela de 375 deixa 135px de conteúdo, e tabela de
+       cinco colunas não cabe de jeito nenhum.
+       ========================================================== */
+    @media (max-width: 900px) {
+      .layout { flex-direction: column; min-height: 100dvh; }
+      /* A lateral vira uma faixa que rola de lado. Empilhada, os sete
+         itens ocupavam a tela inteira antes de aparecer qualquer conteúdo. */
+      .sidebar {
+        width: 100%; flex-shrink: 0; border-right: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 10px 12px; gap: 6px;
+        flex-direction: row; align-items: center;
+        overflow-x: auto; overflow-y: hidden;
+        -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      }
+      .sidebar::-webkit-scrollbar { display: none; }
+      .sidebar > * { flex: 0 0 auto; }
+      .sidebar-logo { margin: 0 6px 0 0; padding: 0; }
+      .sidebar-logo span { display: none; }
+      .sidebar .nav-item { white-space: nowrap; padding: 9px 13px; margin: 0; }
+      .sidebar-bottom { margin-top: 0; display: flex; gap: 6px; }
+      .sidebar-bottom > * { margin-bottom: 0 !important; }
+      .sidebar-bottom .logout-btn { width: auto; white-space: nowrap; padding: 9px 13px; }
+      .main { padding: 20px 16px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+      .table-header { flex-wrap: wrap; gap: 12px; padding: 16px; }
+      .table-header .btn { width: 100%; justify-content: center; }
+      .atalhos { grid-template-columns: 1fr; }
+      .modal { padding: 22px 18px; border-radius: 16px; max-height: 92dvh; }
+    }
+
+    @media (max-width: 700px) {
+      /* Tabela vira cartão: cada linha é um bloco e cada célula
+         carrega o nome da coluna à esquerda (data-rotulo). */
+      .table-card table, .table-card tbody, .table-card tr, .table-card td { display: block; width: 100%; }
+      .table-card thead { display: none; }
+      .table-card tr {
+        border-bottom: 1px solid var(--border);
+        padding: 14px 16px;
+      }
+      .table-card tr:last-child { border-bottom: none; }
+      .table-card tr:hover td { background: none; }
+      /* Rótulo em cima do valor. Lado a lado, um e-mail comprido
+         era cortado no meio. */
+      .table-card td {
+        border-bottom: 0; padding: 7px 0;
+        display: block; font-size: 0.875rem;
+        overflow-wrap: anywhere;
+      }
+      .table-card td::before {
+        content: attr(data-rotulo);
+        display: block; margin-bottom: 3px;
+        font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase;
+        color: var(--muted); font-weight: 500;
+      }
+      .table-card td:not([data-rotulo])::before { content: none; }
+      /* A célula de ações ganha a linha inteira: são até três botões. */
+      .table-card td[data-rotulo="Ações"] { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+      .table-card td[data-rotulo="Ações"]::before { flex: 1 1 100%; }
+      .table-card td[data-rotulo="Ações"] .action-btn { flex: 1 1 auto; }
+      .table-card tr.empty-row td { justify-content: center; }
+      .table-card tr.empty-row td::before { content: none; }
+
+      /* A faixa de filtros das liberações empilha */
+      #page-liberacoes select,
+      #page-liberacoes .btn { width: 100% !important; min-width: 0 !important; margin-left: 0 !important; }
+    }
   </style>
   <link rel="stylesheet" href="/base-mobile.css">
 </head>
@@ -520,11 +590,11 @@
     }
     tbody.innerHTML = empresas.map(e => `
       <tr>
-        <td><strong>${e.name}</strong></td>
-        <td>${e.industry || '—'}</td>
-        <td><span class="badge ${e.setup_complete ? 'badge-ok' : 'badge-pending'}">${e.setup_complete ? '✓ Concluído' : '⏳ Pendente'}</span></td>
-        <td>${new Date(e.created_at).toLocaleDateString('pt-BR')}</td>
-        <td>
+        <td data-rotulo="Empresa"><strong>${e.name}</strong></td>
+        <td data-rotulo="Setor">${e.industry || '—'}</td>
+        <td data-rotulo="Setup"><span class="badge ${e.setup_complete ? 'badge-ok' : 'badge-pending'}">${e.setup_complete ? '✓ Concluído' : '⏳ Pendente'}</span></td>
+        <td data-rotulo="Criado em">${new Date(e.created_at).toLocaleDateString('pt-BR')}</td>
+        <td data-rotulo="Ações">
           <button class="action-btn danger" onclick="deletarEmpresa('${e.id}', '${e.name.replace(/'/g,"\\'")}')">Remover</button>
         </td>
       </tr>
@@ -539,13 +609,13 @@
     }
     tbody.innerHTML = usuarios.map(u => `
       <tr>
-        <td>
+        <td data-rotulo="Usuário">
           <div style="font-weight:500">${u.full_name || '—'}</div>
           <div style="font-size:0.78rem; color:var(--muted); margin-top:2px">${u.email || ''}</div>
         </td>
-        <td><span class="badge badge-${u.role}">${u.role}</span></td>
-        <td>${u.companies?.name || '<span style="color:var(--muted)">—</span>'}</td>
-        <td>
+        <td data-rotulo="Função"><span class="badge badge-${u.role}">${u.role}</span></td>
+        <td data-rotulo="Empresa">${u.companies?.name || '<span style="color:var(--muted)">—</span>'}</td>
+        <td data-rotulo="Ações">
           <button class="action-btn" onclick="abrirEditarUsuario('${u.id}')">Editar</button>
           <button class="action-btn" onclick="reenviarConvite('${u.email}')">Reenviar</button>
           ${(currentUserId && u.id && u.id !== currentUserId) ? `<button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>` : ''}

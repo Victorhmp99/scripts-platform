@@ -86,18 +86,7 @@ body {
 
 :focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; border-radius: 6px; }
 
-@media (prefers-reduced-motion: reduce) {
-  @view-transition { navigation: none; }
 
-  @keyframes surgir {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  * { transition-duration: 0.1s !important; animation-duration: 0.2s !important; animation-delay: 0ms !important; }
-  .cartao-pasta:hover, .cartao-criativo:hover .moldura, .botao:hover, .botao:active,
-  .cartao-pasta:active, .cartao-criativo:active .moldura { transform: none; }
-}
 
 /* ---------- topo ---------- */
 
@@ -165,12 +154,7 @@ body {
   transition: color 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .menu a:not(.menu-marca):hover {
-    color: var(--tx);
-    background: rgba(47, 227, 138, 0.08);
-  }
-}
+
 
 /* o item da área em que você está fica aceso, com a cor daquela área */
 .menu a[aria-current="page"] {
@@ -267,14 +251,7 @@ body {
 
 .voltar svg { flex: none; transition: transform 0.16s var(--ease-out); }
 
-@media (hover: hover) and (pointer: fine) {
-  .voltar:hover {
-    background: rgba(var(--acento-rgb), 0.14);
-    border-color: rgba(var(--acento-rgb), 0.5);
-  }
 
-  .voltar:hover svg { transform: translateX(-2px); }
-}
 
 .voltar:active { transform: scale(0.97); }
 
@@ -371,15 +348,7 @@ body {
   transition: opacity 0.2s var(--ease-out);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .cartao-pasta:hover {
-    transform: translateY(-3px);
-    border-color: rgba(var(--acento-rgb), 0.5);
-    box-shadow: 0 0 60px rgba(var(--acento-rgb), 0.2), 0 18px 40px rgba(0, 0, 0, 0.5);
-  }
 
-  .cartao-pasta:hover::before { opacity: 1; }
-}
 
 .cartao-pasta:active { transform: translateY(-1px) scale(0.994); }
 
@@ -423,13 +392,7 @@ body {
   transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), transform 0.2s var(--ease-out);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .cartao-criativo:hover .moldura {
-    transform: translateY(-3px);
-    border-color: rgba(var(--acento-rgb), 0.55);
-    box-shadow: 0 0 60px rgba(var(--acento-rgb), 0.22), 0 18px 40px rgba(0, 0, 0, 0.5);
-  }
-}
+
 
 .cartao-criativo:active .moldura { transform: translateY(-1px) scale(0.99); }
 
@@ -511,9 +474,7 @@ body {
   transition: filter 0.16s ease, transform 0.12s var(--ease-out), box-shadow 0.16s var(--ease-out);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .botao:hover { filter: brightness(1.08); transform: translateY(-1px); }
-}
+
 
 .botao:active { transform: scale(0.97); box-shadow: 0 4px 16px rgba(var(--acento-rgb), 0.22); }
 .player-externo .botao { position: absolute; bottom: 20px; }
@@ -581,19 +542,7 @@ body {
   background: rgba(var(--luz-rgb), 0.025);
 }
 
-@media (max-width: 760px) {
-  .detalhe { grid-template-columns: 1fr; gap: 26px; }
-  .player, .player-externo { max-width: 360px; margin-inline: auto; }
-  .topo h1 { max-width: none; }
-  .topo-home { margin: 14px 14px 34px; padding: 24px 20px 24px; }
-  .menu { gap: 10px; padding: 10px 16px; }
-  .menu ul { gap: 0; }
-  .menu-marca { gap: 7px; }
-  .menu-marca img { width: 23px; }
-  .menu-nome { font-size: 0.94rem; }
-  .menu a:not(.menu-marca) { padding: 7px 9px; font-size: 0.8rem; }
-  .coluna-roteiro { padding: 24px 22px 26px; }
-}
+
 
 /* Volta para a Central de Ferramentas — a biblioteca agora mora dentro do app */
 /* Saída para a Central. Já existiu como item de menu e passava batido no
@@ -612,12 +561,79 @@ body {
 
 /* Em tela de 320px (iPhone SE) a barra não cabe: marca + botão + três áreas
    davam 359px. O nome escrito sai e fica só a folha — a marca continua ali. */
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+
+  @keyframes surgir {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  * { transition-duration: 0.1s !important; animation-duration: 0.2s !important; animation-delay: 0ms !important; }
+  .cartao-pasta:hover, .cartao-criativo:hover .moldura, .botao:hover, .botao:active,
+  .cartao-pasta:active, .cartao-criativo:active .moldura { transform: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu a:not(.menu-marca):hover {
+    color: var(--tx);
+    background: rgba(47, 227, 138, 0.08);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .voltar:hover {
+    background: rgba(var(--acento-rgb), 0.14);
+    border-color: rgba(var(--acento-rgb), 0.5);
+  }
+
+  .voltar:hover svg { transform: translateX(-2px); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cartao-pasta:hover {
+    transform: translateY(-3px);
+    border-color: rgba(var(--acento-rgb), 0.5);
+    box-shadow: 0 0 60px rgba(var(--acento-rgb), 0.2), 0 18px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .cartao-pasta:hover::before { opacity: 1; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cartao-criativo:hover .moldura {
+    transform: translateY(-3px);
+    border-color: rgba(var(--acento-rgb), 0.55);
+    box-shadow: 0 0 60px rgba(var(--acento-rgb), 0.22), 0 18px 40px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .botao:hover { filter: brightness(1.08); transform: translateY(-1px); }
+}
+
+@media (max-width: 760px) {
+  .detalhe { grid-template-columns: 1fr; gap: 26px; }
+  .player, .player-externo { max-width: 360px; margin-inline: auto; }
+  .topo h1 { max-width: none; }
+  .topo-home { margin: 14px 14px 34px; padding: 24px 20px 24px; }
+  .menu { gap: 10px; padding: 10px 16px; }
+  .menu ul { gap: 0; }
+  .menu-marca { gap: 7px; }
+  .menu-marca img { width: 23px; }
+  .menu-nome { font-size: 0.94rem; }
+  .menu a:not(.menu-marca) { padding: 7px 9px; font-size: 0.8rem; }
+  .coluna-roteiro { padding: 24px 22px 26px; }
+}
+
 @media (max-width: 420px) {
   .menu { gap: 8px; padding: 12px 14px; }
   .menu-nome { display: none; }
   .menu ul { gap: 2px; }
   .menu a:not(.menu-marca) { padding: 7px 10px; }
 }
+
 @media (max-width: 560px) {
   .btn-central span { display: none; }
   .btn-central { padding: 8px 10px; }

@@ -21,7 +21,7 @@
     color:var(--text); min-height:100vh;
     display:grid; grid-template-columns:1.1fr 1fr;
   }
-  @media (max-width:940px) { body { grid-template-columns:1fr; } .vitrine { display:none; } }
+  
 
   /* ---------- lado esquerdo: vitrine ---------- */
   .vitrine { padding:56px 64px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid rgba(47,227,138,0.12); }
@@ -43,7 +43,7 @@
   .caixa { width:100%; max-width:400px; }
   .marca-mobile { display:none; text-align:center; margin-bottom:34px; }
   .marca-mobile img { height:56px; object-fit:contain; }
-  @media (max-width:940px) { .marca-mobile { display:block; } }
+  
 
   .caixa h2 { font-size:1.5rem; font-weight:700; letter-spacing:-0.2px; }
   .caixa .ajuda { margin-top:7px; font-size:0.875rem; font-weight:300; color:var(--muted); }
@@ -79,6 +79,10 @@
   .erro.aparece { display:block; }
 
   .nota-final { margin-top:26px; text-align:center; font-size:0.8125rem; font-weight:300; color:var(--footer); line-height:1.6; }
+
+@media (max-width:940px) { body { grid-template-columns:1fr; } .vitrine { display:none; } }
+
+@media (max-width:940px) { .marca-mobile { display:block; } }
 </style>
   <link rel="stylesheet" href="/base-mobile.css">
 </head>

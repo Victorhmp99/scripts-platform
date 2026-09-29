@@ -14,7 +14,7 @@
   .preco-final .valor-grande { margin-top:10px; font-size:3rem; font-weight:800; letter-spacing:-1px; line-height:1; }
   .preco-final .obs { margin-top:10px; font-size:0.875rem; font-weight:300; color:var(--soft); line-height:1.6; }
   .faixas { margin-top:22px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-  @media (max-width:760px) { .faixas { grid-template-columns:1fr; } }
+  
   .faixa { border:1px solid rgba(255,255,255,0.10); border-radius:14px; padding:16px; background:rgba(4,8,6,0.4); }
   .faixa span { display:block; font-size:0.6875rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--footer); font-weight:600; }
   .faixa b { display:block; margin-top:7px; font-size:1.375rem; font-weight:700; }
@@ -26,6 +26,8 @@
   .decomposicao .linha-custo b { font-weight:600; }
   .decomposicao .linha-custo.total { border-top:1px solid rgba(47,227,138,0.4); }
   .decomposicao .linha-custo.total span, .decomposicao .linha-custo.total b { color:#fff; font-weight:600; }
+
+@media (max-width:760px) { .faixas { grid-template-columns:1fr; } }
 </style>
   <link rel="stylesheet" href="/base-mobile.css">
 </head>
