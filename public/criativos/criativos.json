@@ -1,0 +1,3759 @@
+{
+  "procedimentos": [
+    {
+      "slug": "full-face",
+      "nome": "Full Face",
+      "area": "Face",
+      "descricao": "Harmonização do rosto inteiro, planejada por proporção.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": [
+            {
+              "id": "ff-reacao-02",
+              "titulo": "O depoimento sentado no sofá",
+              "tipo": "arquivo",
+              "src": "videos/full-face/reacao-de-cliente/ff-reacao-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "A paciente sentada, falando o que ela perdeu antes de dizer o que ganhou.",
+                "desenvolvimento": [
+                  "Legende palavra por palavra, destacando uma de cada vez.",
+                  "Insira a foto do antes no meio da fala dela, sem tirar a voz do ar.",
+                  "Deixe ela dizer com as palavras dela que os procedimentos não são diretos, são planejados."
+                ],
+                "cta": "Feche com ela convidando quem assiste a marcar uma avaliação.",
+                "ficha": {
+                  "duracao": "80 a 90 segundos",
+                  "enquadramento": "Vertical, plano médio sentada",
+                  "cenario": "Sala clara com poltrona",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "ff-ad-02",
+              "titulo": "Corte seco, sem transição bonita",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1481159076527885",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dr. Edson Carlos",
+                "no_ar_desde": "outubro de 2025"
+              },
+              "roteiro": {
+                "gancho": "Comece no rosto parado, de frente, sem legenda e sem música subindo. Deixe o silêncio incomodar por um segundo.",
+                "desenvolvimento": [
+                  "Corte seco do antes para o depois no mesmo enquadramento, mesma luz, mesma distância da câmera.",
+                  "Repita o par de frente e depois de perfil, sempre com o corte no mesmo ponto.",
+                  "Feche com a paciente em movimento, virando o rosto, pra provar que não é foto retocada.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Sem locução: deixe a legenda final chamar pra avaliação no direct.",
+                "ficha": {
+                  "duracao": "15 a 20 segundos",
+                  "enquadramento": "Vertical, tripé fixo, marcação no chão",
+                  "cenario": "Parede lisa, luz constante",
+                  "precisa_paciente": true
+                }
+              }
+            },
+            {
+              "id": "ff-ad-03",
+              "titulo": "Antes embaixo, depois em cima",
+              "tipo": "arquivo",
+              "src": "videos/full-face/antes-e-depois/ff-ad-03.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Empilhe as duas fotos na vertical, o depois em cima e o antes embaixo, com a seta apontando cada uma.",
+                "desenvolvimento": [
+                  "Use a mesma foto de frente nas duas, mesma luz e mesmo enquadramento.",
+                  "Não anime nem faça transição: a tela parada deixa a pessoa comparar no tempo dela.",
+                  "Deixe rodar em loop curto, porque quem volta ao começo continua vendo a comparação.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "O convite vai na legenda do post, não dentro do vídeo.",
+                "ficha": {
+                  "duracao": "18 a 22 segundos",
+                  "enquadramento": "Vertical, duas fotos empilhadas",
+                  "cenario": "Sem cenário, montagem",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": [
+            {
+              "id": "ff-bastidor-02",
+              "titulo": "A harmonização inteira, etapa por etapa",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=826277682699219",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Huff Life Viamão",
+                "no_ar_desde": "junho de 2024"
+              },
+              "roteiro": {
+                "gancho": "Abra com a paciente já na maca, touca colocada, sem apresentação e sem \"oi gente\".",
+                "desenvolvimento": [
+                  "Legende cada etapa na tela no momento em que ela acontece: agora o mento, agora o malar, agora os lábios.",
+                  "Filme de cima, com o rosto de perfil, e mantenha o mesmo enquadramento em todas as etapas para a comparação ficar honesta.",
+                  "Feche no rosto pronto, no mesmo ângulo da abertura, com a paciente ainda deitada."
+                ],
+                "cta": "Termine com o nome da clínica na tela e o convite pra avaliação pelo WhatsApp.",
+                "ficha": {
+                  "duracao": "40 a 45 segundos",
+                  "enquadramento": "Vertical, câmera acima da maca",
+                  "cenario": "Sala de procedimento, luz da maca",
+                  "precisa_paciente": true
+                }
+              }
+            },
+            {
+              "id": "ff-bastidor-03",
+              "titulo": "A legenda que fica a aplicação inteira",
+              "tipo": "arquivo",
+              "src": "videos/full-face/bastidor/ff-bastidor-03.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra já com a agulha entrando e uma única frase fixa na tela: a harmonização não é exagerada, é planejada.",
+                "desenvolvimento": [
+                  "Deixe a mesma legenda parada o vídeo todo. Quem chega no meio entende a mensagem igual.",
+                  "Filme por cima do seu ombro, com a paciente deitada, sem cortar entre um ponto e outro.",
+                  "Não narre nada: o silêncio com a legenda fixa segura mais que locução."
+                ],
+                "cta": "Feche convidando pra avaliação, onde o plano é montado antes de qualquer aplicação.",
+                "ficha": {
+                  "duracao": "12 a 15 segundos",
+                  "enquadramento": "Vertical, por cima do ombro",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "ff-edu-02",
+              "titulo": "Você sabia?",
+              "tipo": "arquivo",
+              "src": "videos/full-face/educacional/ff-edu-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra com a pergunta grande e parada no topo: você sabia que nem todo procedimento é igual?",
+                "desenvolvimento": [
+                  "Deixe a pergunta e a resposta fixas na tela o vídeo inteiro, enquanto o atendimento acontece atrás.",
+                  "Entregue o espelho pra paciente ainda deitada e filme a conferida dela.",
+                  "Não narre: a frase na tela já carrega a mensagem."
+                ],
+                "cta": "Convide pra avaliação, onde o caso dela é olhado sozinho.",
+                "ficha": {
+                  "duracao": "10 a 14 segundos",
+                  "enquadramento": "Vertical, plano médio da sala",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": [
+            {
+              "id": "ff-autoridade-02",
+              "titulo": "Nenhuma palavra sobre a sua imagem",
+              "tipo": "arquivo",
+              "src": "videos/full-face/autoridade/ff-autoridade-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra com duas fotos de mulheres diferentes lado a lado e uma frase que provoca o julgamento.",
+                "desenvolvimento": [
+                  "Use pares de imagem pra mostrar que a mesma pessoa é lida de formas diferentes.",
+                  "Legende palavra por palavra enquanto você fala, sempre no centro.",
+                  "Assuma a posição: a escolha é dela, e o seu papel é executar bem."
+                ],
+                "cta": "Convide pra uma conversa sem compromisso.",
+                "ficha": {
+                  "duracao": "36 a 42 segundos",
+                  "enquadramento": "Vertical, plano médio sentada",
+                  "cenario": "Cenário produzido, luz quente",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": [
+            {
+              "id": "ff-objecao-02",
+              "titulo": "Um dia vão te dizer",
+              "tipo": "arquivo",
+              "src": "videos/full-face/objecao/ff-objecao-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "\"Um dia vão te dizer que harmonização deixa as pessoas iguais.\" Escreva a frase em cursiva sobre o rosto em repouso.",
+                "desenvolvimento": [
+                  "Continue a frase no quadro seguinte, como quem vira a página de uma carta.",
+                  "Mostre o rosto da paciente antes e depois entre uma frase e outra, sem exagero de contorno.",
+                  "Feche com \"que você não ouça\", assumindo a defesa do resultado natural."
+                ],
+                "cta": "Convide quem tem esse medo a conversar antes de decidir.",
+                "ficha": {
+                  "duracao": "14 a 18 segundos",
+                  "enquadramento": "Vertical, rosto em repouso com texto por cima",
+                  "cenario": "Luz natural, fundo claro",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": [
+            {
+              "id": "ff-prova-01",
+              "titulo": "Leia as avaliações comigo",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1501963118149380",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Clínica Onlyou",
+                "no_ar_desde": "abril de 2026"
+              },
+              "roteiro": {
+                "gancho": "\"Todas essas avaliações são reais.\" Comece falando à câmera com o primeiro print já entrando na tela.",
+                "desenvolvimento": [
+                  "Corte para os prints das avaliações do Google, um por vez, segurando cada um pelo tempo de leitura.",
+                  "Volte pro seu rosto entre um print e outro, comentando o que as pacientes repetem.",
+                  "Mantenha o nome de quem avaliou e as estrelas visíveis, sem recortar o print."
+                ],
+                "cta": "Convide pra conhecer a clínica e agendar a avaliação.",
+                "ficha": {
+                  "duracao": "20 segundos",
+                  "enquadramento": "Vertical, sentada, print em tela cheia",
+                  "cenario": "Recepção ou consultório",
+                  "precisa_paciente": false
+                }
+              }
+            },
+            {
+              "id": "ff-prova-02",
+              "titulo": "A conversa da avaliação, sem procedimento nenhum",
+              "tipo": "arquivo",
+              "src": "videos/full-face/prova-social/ff-prova-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Você e a paciente de frente uma pra outra na mesa, e a palavra avaliação parada no alto da tela.",
+                "desenvolvimento": [
+                  "Grave a conversa de verdade, com a paciente de costas, preservando o rosto dela.",
+                  "Deixe aparecer que você escuta antes de propor: o vídeo vende a consulta, não a agulha.",
+                  "Use a vista da janela como cenário. A sala diz tanto quanto a fala."
+                ],
+                "cta": "Chame pra agendar a avaliação.",
+                "ficha": {
+                  "duracao": "12 a 16 segundos",
+                  "enquadramento": "Vertical, plano médio na mesa",
+                  "cenario": "Sala com vista, luz natural",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": [
+            {
+              "id": "ff-convite-01",
+              "titulo": "A palavra AVALIAÇÃO fixa na tela",
+              "tipo": "arquivo",
+              "src": "videos/full-face/convite-direto/ff-convite-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Você conversando com a paciente na mesa, e a palavra avaliação grande e parada no topo.",
+                "desenvolvimento": [
+                  "Grave a consulta de verdade, com a paciente de costas para a câmera.",
+                  "Deixe a legenda pequena acima explicar que ali é o momento de entender a dor dela.",
+                  "Não mostre procedimento nenhum: o vídeo vende a conversa, não a agulha."
+                ],
+                "cta": "Chame pra agendar a avaliação, que é onde tudo começa.",
+                "ficha": {
+                  "duracao": "14 a 20 segundos",
+                  "enquadramento": "Vertical, plano médio na mesa",
+                  "cenario": "Sala de reunião com vista",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "ff-analise-01",
+              "titulo": "Marcação colorida no espelho",
+              "tipo": "arquivo",
+              "src": "videos/full-face/analise-de-caso/ff-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece com a paciente refletida no espelho e a primeira marcação entrando por cima da imagem.",
+                "desenvolvimento": [
+                  "Use uma cor por região: amarelo no terço superior, azul no médio, e assim por diante.",
+                  "Diga o nome de cada etapa enquanto risca, ligando a marcação ao que ela reclama.",
+                  "Feche no reflexo dela já com o resultado, sem marcação nenhuma."
+                ],
+                "cta": "Convide pra montar o mesmo plano na avaliação.",
+                "ficha": {
+                  "duracao": "58 a 64 segundos",
+                  "enquadramento": "Vertical, reflexo no espelho com marcação",
+                  "cenario": "Consultório com espelho grande",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": [
+            {
+              "id": "ff-jornada-01",
+              "titulo": "O casal que veio junto",
+              "tipo": "arquivo",
+              "src": "videos/full-face/jornada-da-paciente/ff-jornada-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece com os dois já na cadeira, um depois do outro, e a legenda dizendo que vieram cuidar juntos.",
+                "desenvolvimento": [
+                  "Alterne entre ele e ela na mesma sequência, mostrando que o protocolo é diferente para cada um.",
+                  "Mantenha a legenda contando a história, não descrevendo a técnica.",
+                  "Feche com os dois lado a lado, ainda na clínica."
+                ],
+                "cta": "Convide quem quer trazer alguém junto a chamar no direct.",
+                "ficha": {
+                  "duracao": "10 a 14 segundos",
+                  "enquadramento": "Vertical, câmera na mão",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "preenchimento-labial",
+      "nome": "Preenchimento Labial",
+      "area": "Face",
+      "descricao": "Volume, contorno e hidratação dos lábios.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "lab-ad-02",
+              "titulo": "Perfil deitada, antes e depois",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-labial/antes-e-depois/lab-ad-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Perfil da paciente deitada na maca, lábios em repouso, sem sorrir.",
+                "desenvolvimento": [
+                  "Grave o antes e o depois no mesmo ângulo, com a cabeça na mesma posição.",
+                  "Use a transição rápida no meio, sem efeito, só um piscar.",
+                  "Deixe o cenário aparecer atrás: prova que é o mesmo lugar e o mesmo dia.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "O convite vai na legenda do post.",
+                "ficha": {
+                  "duracao": "8 a 12 segundos",
+                  "enquadramento": "Vertical, perfil deitada",
+                  "cenario": "Sala com janela ao fundo",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": [
+            {
+              "id": "lab-bastidor-02",
+              "titulo": "Só os lábios, do começo ao fim",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-labial/bastidor/lab-bastidor-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece com a gaze limpando e o lábio já preenchido entrando em quadro. Nada de rosto inteiro.",
+                "desenvolvimento": [
+                  "Mantenha o close nos lábios o vídeo inteiro, girando levemente o ângulo.",
+                  "Sem locução e sem legenda: só o procedimento e a música.",
+                  "Deixe a marca discreta no rodapé, no mesmo lugar do início ao fim."
+                ],
+                "cta": "O convite vai na legenda do post.",
+                "ficha": {
+                  "duracao": "20 a 26 segundos",
+                  "enquadramento": "Vertical, macro nos lábios",
+                  "cenario": "Maca com luz difusa",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "lab-edu-02",
+              "titulo": "O caso contado da poltrona",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-labial/educacional/lab-edu-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Sentada num cenário claro e produzido, comece contando o que aconteceu na avaliação de uma paciente.",
+                "desenvolvimento": [
+                  "Insira a foto do caso em quadro pequeno, sem sair do seu plano.",
+                  "Conte a decisão que vocês tomaram juntas e por quê, em vez de listar técnica.",
+                  "Feche com o resultado dela em tela cheia, com o nome do procedimento escrito."
+                ],
+                "cta": "Convide quem quer a mesma conversa a marcar avaliação.",
+                "ficha": {
+                  "duracao": "55 a 62 segundos",
+                  "enquadramento": "Vertical, plano médio na poltrona",
+                  "cenario": "Sala clara com poltrona",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": [
+            {
+              "id": "lab-autoridade-02",
+              "titulo": "O método que leva o seu nome",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=8796739473748262",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dra Andrielle Ramalho",
+                "no_ar_desde": "dezembro de 2024"
+              },
+              "roteiro": {
+                "gancho": "\"Lábios tão naturais quanto os seus.\" Fale isso segurando um tablet com o resultado em close ao lado do seu rosto.",
+                "desenvolvimento": [
+                  "Explique em uma frase o que o seu método entrega: proporção, sem nódulo, respeitando o desenho do lábio.",
+                  "Aponte no tablet com a caneta enquanto fala, mostrando exatamente onde o trabalho aparece.",
+                  "Diga seu nome e assuma o método como seu, com todas as letras."
+                ],
+                "cta": "Convide pra avaliação e feche com a sua assinatura na tela.",
+                "ficha": {
+                  "duracao": "25 a 30 segundos",
+                  "enquadramento": "Vertical, sentada, tablet na mão",
+                  "cenario": "Consultório com luz de fundo colorida",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": [
+            {
+              "id": "lab-convite-01",
+              "titulo": "Chegou o seu momento",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1463849341006309",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Huff Life Canoas",
+                "no_ar_desde": "março de 2024"
+              },
+              "roteiro": {
+                "gancho": "\"Chegou o seu momento de conquistar os lábios dos sonhos.\" Olhando na câmera, em pé, no ambiente da clínica.",
+                "desenvolvimento": [
+                  "Mantenha a legenda grande na tela acompanhando cada frase, porque a maioria assiste sem som.",
+                  "Fale o que a paciente ganha, não o que você aplica.",
+                  "Repita o convite no meio do vídeo, sem guardar tudo para o final."
+                ],
+                "cta": "Chame pro WhatsApp e deixe a condição para a conversa, sem número na tela.",
+                "ficha": {
+                  "duracao": "30 segundos",
+                  "enquadramento": "Vertical, em pé, corpo inteiro",
+                  "cenario": "Recepção com a marca da clínica ao fundo",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "lab-analise-01",
+              "titulo": "O lábio retraído que ninguém percebe",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-labial/analise-de-caso/lab-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece contando o que a paciente percebia no espelho, antes de mostrar qualquer marcação.",
+                "desenvolvimento": [
+                  "Mostre o perfil dela com uma seta apontando o lábio retraído, uma palavra só na tela.",
+                  "Explique que o plano é devolver o que sumiu, não aumentar o que já existe.",
+                  "Feche com o antes e o depois lado a lado e volte pra você comentando o resultado.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide quem se reconheceu a marcar avaliação.",
+                "ficha": {
+                  "duracao": "45 a 52 segundos",
+                  "enquadramento": "Vertical, você alternando com fotos do caso",
+                  "cenario": "Cenário produzido e fotos de consultório",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": [
+            {
+              "id": "lab-jornada-01",
+              "titulo": "Do procedimento ao retorno de 15 dias",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-labial/jornada-da-paciente/lab-jornada-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra no close dos lábios recebendo o produto, com a legenda dizendo onde a arte acontece.",
+                "desenvolvimento": [
+                  "Mostre a aplicação, o espelho na mão da paciente e a reação, nessa ordem.",
+                  "Corte para o retorno de quinze dias com o mesmo enquadramento do começo.",
+                  "Deixe a legenda avisar que o resultado final é o do retorno, não o do dia."
+                ],
+                "cta": "Convide pra avaliação e diga que o acompanhamento faz parte.",
+                "ficha": {
+                  "duracao": "16 a 20 segundos",
+                  "enquadramento": "Vertical, close nos lábios",
+                  "cenario": "Sala de procedimento com ring light",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "toxina-botulinica",
+      "nome": "Toxina Botulínica",
+      "area": "Face",
+      "descricao": "Suaviza as linhas de expressão da testa, glabela e olhos.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "tox-ad-01",
+              "titulo": "Meu antes e depois, com as setas na tela",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=2019846528840294",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Instituto Gabriela Cyon",
+                "no_ar_desde": "setembro de 2025"
+              },
+              "roteiro": {
+                "gancho": "\"E esse é o meu depois.\" Abra pelo resultado, nunca pelo problema.",
+                "desenvolvimento": [
+                  "Volte para a foto do antes e desenhe por cima: setas onde levantou, círculos onde preencheu.",
+                  "Narre em primeira pessoa o que te incomodava, com a legenda acompanhando cada marcação.",
+                  "Feche com antes e depois lado a lado, no mesmo enquadramento e sem filtro diferente.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Diga que o caminho começa numa avaliação e chame pro direct.",
+                "ficha": {
+                  "duracao": "55 a 65 segundos",
+                  "enquadramento": "Vertical, foto em tela cheia com marcação por cima",
+                  "cenario": "Sem cenário, edição sobre a foto",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": [
+            {
+              "id": "tox-convite-01",
+              "titulo": "Fundo branco, você e o convite",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=5488891994496007",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dra Taísa D’Almeida",
+                "no_ar_desde": "agosto de 2022"
+              },
+              "roteiro": {
+                "gancho": "\"Apesar de todos os cuidados que você tem, os efeitos do envelhecimento aparecem.\" Diga isso contra um fundo branco liso, sem nada em volta.",
+                "desenvolvimento": [
+                  "Mantenha a legenda grande no centro da tela, trocando a cada frase curta.",
+                  "Cite pelo nome os procedimentos que você faz, um por vez, com a legenda acompanhando.",
+                  "Não mude de cenário nem de enquadramento: o fundo vazio segura a atenção no seu rosto."
+                ],
+                "cta": "Feche com um card de avaliação sem compromisso, o seu nome e o convite pra clicar no link.",
+                "ficha": {
+                  "duracao": "45 a 50 segundos",
+                  "enquadramento": "Vertical, meio corpo, altura dos olhos",
+                  "cenario": "Fundo branco liso, luz frontal",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "preenchimento-de-olheiras",
+      "nome": "Preenchimento de Olheiras",
+      "area": "Face",
+      "descricao": "Preenche o vale lacrimal e tira o ar de cansaço.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "olh-ad-01",
+              "titulo": "Close no olhar, antes e depois",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-olheiras/antes-e-depois/olh-ad-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece no close do olho, tão perto que dá pra ver a textura da pele.",
+                "desenvolvimento": [
+                  "Marque com pontos discretos onde entra o produto, sem cobrir o rosto de traço.",
+                  "Volte para o rosto inteiro só no fim, depois de mostrar os detalhes.",
+                  "Feche com a assinatura da clínica em fundo escuro.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "O convite vai na legenda do post.",
+                "ficha": {
+                  "duracao": "20 a 24 segundos",
+                  "enquadramento": "Vertical, macro no olhar",
+                  "cenario": "Sem cenário, fundo neutro",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": [
+            {
+              "id": "olh-bastidor-01",
+              "titulo": "Do centro cirúrgico ao espelho",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=2135553203534557",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dra. Elaine Togoe Kunze",
+                "no_ar_desde": "maio de 2025"
+              },
+              "roteiro": {
+                "gancho": "Abra na equipe paramentada entrando em cena, em silêncio, com a legenda anunciando a técnica.",
+                "desenvolvimento": [
+                  "Mostre o material sendo preparado em close antes de qualquer aplicação.",
+                  "Filme a aplicação de perfil, com a paciente deitada, sem corte brusco.",
+                  "Feche na paciente sentada, ainda de touca, olhando no espelho de mão."
+                ],
+                "cta": "Diga o nome da técnica uma vez só e convide pra avaliação.",
+                "ficha": {
+                  "duracao": "30 a 35 segundos",
+                  "enquadramento": "Vertical, câmera na mão acompanhando a equipe",
+                  "cenario": "Centro cirúrgico e sala de recuperação",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "olh-edu-01",
+              "titulo": "Você fala, a animação explica",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-olheiras/educacional/olh-edu-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece perguntando se a pessoa sabe o que é o procedimento, sem dizer o nome ainda.",
+                "desenvolvimento": [
+                  "Alterne você falando com uma animação simples da região sendo tratada.",
+                  "Deixe a animação carregar a parte técnica e a sua fala carregar o benefício.",
+                  "Cite o incômodo do dia a dia, não só o estético."
+                ],
+                "cta": "Chame pra avaliação pra saber se ela tem indicação.",
+                "ficha": {
+                  "duracao": "2 a 2 minutos e meio",
+                  "enquadramento": "Vertical, plano médio alternando com animação",
+                  "cenario": "Consultório claro",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": [
+            {
+              "id": "olh-prova-01",
+              "titulo": "Nem da aparência cansada",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-olheiras/prova-social/olh-prova-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra no perfil da paciente com a frase entre aspas: nem da aparência cansada ela reclamava.",
+                "desenvolvimento": [
+                  "Mostre o antes de perfil e de três quartos, com marcação pontilhada no que será tratado.",
+                  "Traga o depois nos mesmos ângulos, sem maquiagem diferente.",
+                  "Feche com os pares lado a lado, um sobre o outro, e a assinatura em fundo preto.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "O convite fica na legenda do post.",
+                "ficha": {
+                  "duracao": "22 a 26 segundos",
+                  "enquadramento": "Vertical, perfil e três quartos",
+                  "cenario": "Consultório, fundo neutro",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "olh-analise-01",
+              "titulo": "A caneta sobre a foto da paciente",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1063923815804039",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dra Amanda Tinajero",
+                "no_ar_desde": "julho de 2025"
+              },
+              "roteiro": {
+                "gancho": "Abra com a foto da paciente já aberta no tablet e a caneta entrando no quadro. Sem apresentação.",
+                "desenvolvimento": [
+                  "Risque sobre a foto enquanto explica: onde falta projeção, onde a assimetria aparece, o que puxa o olhar.",
+                  "Fale como quem está pensando alto numa avaliação, não como quem está vendendo.",
+                  "Termine mostrando o antes e o depois no mesmo tablet, com você em quadro."
+                ],
+                "cta": "Convide a pessoa a mandar a foto dela no direct pra receber a mesma leitura.",
+                "ficha": {
+                  "duracao": "70 a 80 segundos",
+                  "enquadramento": "Vertical, tela do tablet gravada de frente",
+                  "cenario": "Consultório, tablet apoiado na mesa",
+                  "precisa_paciente": false
+                }
+              }
+            },
+            {
+              "id": "olh-analise-02",
+              "titulo": "Marcação branca sobre a foto",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-olheiras/analise-de-caso/olh-analise-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra com você no canto e a foto da paciente na tela, dizendo que dá pra rejuvenescer sem exagero.",
+                "desenvolvimento": [
+                  "Desenhe traços brancos em leque sobre cada região: olheira, têmpora, contorno.",
+                  "Comente uma assimetria específica: é o detalhe que faz a pessoa confiar na sua leitura.",
+                  "Volte pro tablet no fim, mostrando o resultado que aquele plano gerou."
+                ],
+                "cta": "Chame pra clicar no link e agendar a avaliação.",
+                "ficha": {
+                  "duracao": "58 a 64 segundos",
+                  "enquadramento": "Vertical, foto em tela cheia com marcação",
+                  "cenario": "Consultório",
+                  "precisa_paciente": true
+                }
+              }
+            },
+            {
+              "id": "olh-analise-03",
+              "titulo": "A caneta sobre a foto, versão longa",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-olheiras/analise-de-caso/olh-analise-03.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Foto da paciente aberta no tablet e a caneta entrando em quadro antes de qualquer palavra.",
+                "desenvolvimento": [
+                  "Risque devagar, comentando cada achado como quem pensa alto numa avaliação.",
+                  "Volte à foto original entre uma marcação e outra pra mostrar o que mudou no desenho.",
+                  "Feche com você em quadro segurando o tablet com o antes e o depois."
+                ],
+                "cta": "Convide a mandar a própria foto no direct pra receber a mesma leitura.",
+                "ficha": {
+                  "duracao": "70 a 78 segundos",
+                  "enquadramento": "Vertical, tela do tablet de frente",
+                  "cenario": "Consultório, tablet apoiado",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "rinomodelacao",
+      "nome": "Rinomodelação",
+      "area": "Face",
+      "descricao": "Ajusta o perfil do nariz sem cirurgia.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": [
+            {
+              "id": "rino-reacao-01",
+              "titulo": "A paciente falando ainda de touca",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=366007203233899",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Centro de Rinoplastia e Plástica Facial",
+                "no_ar_desde": "setembro de 2024"
+              },
+              "roteiro": {
+                "gancho": "A paciente aparece de touca, ainda dentro da sala, dizendo como se sente. Sem vinheta e sem apresentação da clínica.",
+                "desenvolvimento": [
+                  "Deixe ela contar com as palavras dela o que mais temia antes de entrar.",
+                  "Corte para dois ou três inserts curtos do procedimento, sem close agressivo.",
+                  "Volte pra ela explicando o que sentiu, com você ao lado confirmando em uma frase só."
+                ],
+                "cta": "Feche com o convite pra avaliação e o nome da clínica no rodapé.",
+                "ficha": {
+                  "duracao": "80 a 90 segundos",
+                  "enquadramento": "Vertical, celular na mão, dentro da sala",
+                  "cenario": "Centro cirúrgico",
+                  "precisa_paciente": true
+                }
+              }
+            },
+            {
+              "id": "rino-reacao-02",
+              "titulo": "Ela se vendo no tablet",
+              "tipo": "arquivo",
+              "src": "videos/rinomodelacao/reacao-de-cliente/rino-reacao-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece pela paciente olhando o próprio antes na tela do tablet, ainda sem falar nada.",
+                "desenvolvimento": [
+                  "Segure o plano no rosto dela enquanto ela compara, sem cortar para a tela.",
+                  "Deixe a reação vir antes da explicação: primeiro o olhar dela, depois a sua fala.",
+                  "Termine com ela de perfil, olhando pra cima, no plano mais bonito do vídeo."
+                ],
+                "cta": "Convide pra conversar sobre o caso dela no direct.",
+                "ficha": {
+                  "duracao": "40 a 46 segundos",
+                  "enquadramento": "Vertical, plano fechado no rosto",
+                  "cenario": "Consultório com fundo de madeira",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "rino-ad-01",
+              "titulo": "O tablet ao lado do rosto real",
+              "tipo": "arquivo",
+              "src": "videos/rinomodelacao/antes-e-depois/rino-ad-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Segure o tablet com a foto do antes bem ao lado do rosto da paciente, no mesmo ângulo de perfil.",
+                "desenvolvimento": [
+                  "Alinhe o perfil da tela com o perfil real: é a comparação que não dá pra falsear.",
+                  "Passe de perfil para três quartos e para frente, sempre com o tablet acompanhando.",
+                  "Feche no rosto dela sozinho, sem o tablet, olhando pra câmera.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide pra avaliação para ver o antes e depois do próprio nariz.",
+                "ficha": {
+                  "duracao": "50 a 56 segundos",
+                  "enquadramento": "Vertical, tablet ao lado do rosto",
+                  "cenario": "Consultório",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": [
+            {
+              "id": "rino-bastidor-01",
+              "titulo": "Close cinematográfico da aplicação",
+              "tipo": "arquivo",
+              "src": "videos/rinomodelacao/bastidor/rino-bastidor-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra no macro: a pinça, a agulha e o nariz preenchendo a tela inteira, com luz baixa e fundo escuro.",
+                "desenvolvimento": [
+                  "Filme tudo em close fechado, sem mostrar a sala nem a equipe.",
+                  "Trabalhe a luz lateral: sombra funda de um lado, brilho no outro. É o que dá cara de cinema.",
+                  "Termine no rosto em repouso, ainda em close, com o resultado já visível."
+                ],
+                "cta": "Sem locução: a legenda final chama pra avaliação.",
+                "ficha": {
+                  "duracao": "32 a 38 segundos",
+                  "enquadramento": "Vertical, macro com luz lateral",
+                  "cenario": "Sala escurecida",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": [
+            {
+              "id": "rino-autoridade-01",
+              "titulo": "A poltrona, o close e a assinatura",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1189674138826537",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Giovanna Horcel",
+                "no_ar_desde": "agosto de 2024"
+              },
+              "roteiro": {
+                "gancho": "Abra com uma palavra grande na tela sobre você sentada, antes de dizer qualquer coisa.",
+                "desenvolvimento": [
+                  "Alterne entre você falando e closes de rosto bem iluminados, sem legenda por cima do rosto.",
+                  "Fale do que a pessoa quer resolver e só depois diga o nome do procedimento.",
+                  "Mantenha o cenário claro e limpo: a produção é parte do argumento."
+                ],
+                "cta": "Mande clicar no link e feche com a sua marca em tela cheia.",
+                "ficha": {
+                  "duracao": "30 a 35 segundos",
+                  "enquadramento": "Vertical, plano médio na poltrona com closes intercalados",
+                  "cenario": "Sala clara, luz natural",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": [
+            {
+              "id": "rino-prova-01",
+              "titulo": "O mesmo perfil em três momentos",
+              "tipo": "arquivo",
+              "src": "videos/rinomodelacao/prova-social/rino-prova-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Perfil da paciente ocupando a tela, e a foto do antes no tablet entrando ao lado no mesmo ângulo.",
+                "desenvolvimento": [
+                  "Repita a comparação três vezes, em três dias diferentes do pós.",
+                  "Não corte para plano aberto: o perfil é o que conta a história desse procedimento.",
+                  "Feche com ela de frente, sorrindo, sem o tablet em quadro.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide pra avaliação pra ver o próprio perfil planejado.",
+                "ficha": {
+                  "duracao": "44 a 50 segundos",
+                  "enquadramento": "Vertical, perfil com tablet ao lado",
+                  "cenario": "Consultório",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "rino-analise-01",
+              "titulo": "Riscando por cima da foto na TV",
+              "tipo": "arquivo",
+              "src": "videos/rinomodelacao/analise-de-caso/rino-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece pela queixa dela dita em voz alta, com a foto de perfil já aberta na tela grande.",
+                "desenvolvimento": [
+                  "Use uma TV ou monitor grande em vez do tablet: a marcação fica visível mesmo em tela pequena.",
+                  "Risque o contorno do perfil e a projeção do nariz, explicando o que empina e por quê.",
+                  "Termine com o antes e o depois na tela e você em quadro comemorando o resultado."
+                ],
+                "cta": "Chame pra avaliação com quem resolve esse tipo de caso.",
+                "ficha": {
+                  "duracao": "38 a 44 segundos",
+                  "enquadramento": "Vertical, você ao lado da tela grande",
+                  "cenario": "Sala com monitor grande",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": [
+            {
+              "id": "rino-jornada-01",
+              "titulo": "Acompanhe esta transformação",
+              "tipo": "arquivo",
+              "src": "videos/rinomodelacao/jornada-da-paciente/rino-jornada-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Perfil masculino em close com a chamada escrita: acompanhe esta transformação.",
+                "desenvolvimento": [
+                  "Mostre o perfil antes, o procedimento acontecendo e o perfil depois, na mesma ordem sempre.",
+                  "Deixe o tablet com o planejamento aparecer no meio, rápido.",
+                  "Feche com um card de agendamento com o seu rosto e a marca."
+                ],
+                "cta": "Mande clicar no link abaixo pra agendar a consulta.",
+                "ficha": {
+                  "duracao": "22 a 26 segundos",
+                  "enquadramento": "Vertical, perfil em close",
+                  "cenario": "Consultório claro",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "contorno-de-mandibula",
+      "nome": "Contorno de Mandíbula",
+      "area": "Face",
+      "descricao": "Define o ângulo mandibular e o terço inferior.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "mand-ad-01",
+              "titulo": "Cinco segundos em tela dividida",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1270051687829738",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dra Lorena Linhares",
+                "no_ar_desde": "maio de 2025"
+              },
+              "roteiro": {
+                "gancho": "Tela dividida do primeiro frame: o antes de um lado, o depois do outro, os dois em movimento.",
+                "desenvolvimento": [
+                  "Grave os dois lados no mesmo ângulo, com a paciente deitada na maca e a cabeça na mesma posição.",
+                  "Não use locução nem legenda explicativa: o vídeo tem cinco segundos e vive de loop.",
+                  "Deixe a sua marca discreta no rodapé, sempre no mesmo lugar.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "O convite vai na legenda do post, não dentro do vídeo.",
+                "ficha": {
+                  "duracao": "5 a 8 segundos",
+                  "enquadramento": "Vertical, tela dividida, paciente deitada",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "mand-analise-01",
+              "titulo": "Traço amarelo no contorno",
+              "tipo": "arquivo",
+              "src": "videos/contorno-de-mandibula/analise-de-caso/mand-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece pela queixa que a paciente trouxe, escrita na tela, com a foto dela de frente.",
+                "desenvolvimento": [
+                  "Risque em amarelo só o que vai ser trabalhado, sem encher o rosto de marcação.",
+                  "Passe pro perfil e risque a linha da mandíbula, o ângulo que some.",
+                  "Termine com ela de frente e de perfil já com o resultado, no mesmo enquadramento.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide pra avaliação, prometendo naturalidade em vez de mudança.",
+                "ficha": {
+                  "duracao": "48 a 54 segundos",
+                  "enquadramento": "Vertical, frente e perfil",
+                  "cenario": "Sem cenário, luz de janela",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "preenchimento-de-malar",
+      "nome": "Preenchimento de Malar",
+      "area": "Face",
+      "descricao": "Projeta a maçã do rosto e sustenta o terço médio.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "malar-ad-01",
+              "titulo": "Dra, quero ficar natural",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-malar/antes-e-depois/malar-ad-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra com a frase que toda paciente fala: quero ficar natural, só que mais bonita.",
+                "desenvolvimento": [
+                  "Mostre o antes de frente e de perfil, com marcação discreta do que será feito.",
+                  "Corte para o depois nos mesmos dois ângulos, sem maquiagem nova.",
+                  "Feche com os dois lado a lado e a marca da clínica.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide quem quer o natural a marcar avaliação.",
+                "ficha": {
+                  "duracao": "16 a 20 segundos",
+                  "enquadramento": "Vertical, frente e perfil",
+                  "cenario": "Consultório com janela",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "malar-analise-01",
+              "titulo": "Círculo, seta e hachura",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-malar/analise-de-caso/malar-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Foto de frente, luz de casa, sem produção. A primeira marcação entra antes de qualquer palavra.",
+                "desenvolvimento": [
+                  "Use símbolos com significado fixo: círculo no que preenche, seta no que sustenta, hachura no que suaviza.",
+                  "Repita os mesmos símbolos em todos os vídeos: a paciente aprende a ler sua marcação.",
+                  "Termine com o antes e o depois lado a lado, sem marcação.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide pra receber a mesma leitura no direct.",
+                "ficha": {
+                  "duracao": "40 a 46 segundos",
+                  "enquadramento": "Vertical, foto de frente em tela cheia",
+                  "cenario": "Sem cenário, foto simples",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "preenchimento-de-mento",
+      "nome": "Preenchimento de Mento",
+      "area": "Face",
+      "descricao": "Projeta o queixo e equilibra o perfil.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "mento-ad-01",
+              "titulo": "Perfil com a seta no que mudou",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-mento/antes-e-depois/mento-ad-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Perfil da paciente ainda de touca, com uma seta e uma palavra: mento.",
+                "desenvolvimento": [
+                  "Mostre um ponto por vez, com a palavra escrita ao lado da seta.",
+                  "Repita o mesmo perfil no depois, sem mudar a distância da câmera.",
+                  "Feche com os dois perfis lado a lado.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "O convite fica na legenda, o vídeo é curto demais pra caber.",
+                "ficha": {
+                  "duracao": "8 a 12 segundos",
+                  "enquadramento": "Vertical, perfil fechado",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "mento-analise-01",
+              "titulo": "Marcação geométrica preta",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-mento/analise-de-caso/mento-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Rosto de frente, fundo neutro, e a marcação entrando região por região em traço preto e reto.",
+                "desenvolvimento": [
+                  "Marque o triângulo da olheira, o vetor do malar e a linha do mento, nessa ordem.",
+                  "Deixe cada marcação na tela por dois segundos antes da próxima: dá tempo de entender.",
+                  "Feche com o antes e o depois, sem falar de quantidade nem de produto.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Chame pra avaliação pra desenhar o plano dela.",
+                "ficha": {
+                  "duracao": "55 a 62 segundos",
+                  "enquadramento": "Vertical, rosto de frente, fundo neutro",
+                  "cenario": "Sem cenário",
+                  "precisa_paciente": true
+                }
+              }
+            },
+            {
+              "id": "mento-analise-02",
+              "titulo": "A raiz do problema é o mento",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-mento/analise-de-caso/mento-analise-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Sentada com o tablet no colo, comece dizendo que a queixa dela não era o que parecia.",
+                "desenvolvimento": [
+                  "Mostre o perfil com a seta no mento e explique por que ele muda o rosto inteiro.",
+                  "Traga o lábio depois, como consequência, não como pedido dela.",
+                  "Nomeie a técnica uma vez só, no final, quando o raciocínio já foi entendido."
+                ],
+                "cta": "Convide pra avaliação pra descobrir a raiz do próprio caso.",
+                "ficha": {
+                  "duracao": "45 a 52 segundos",
+                  "enquadramento": "Vertical, sentada com tablet, alternando com fotos",
+                  "cenario": "Cenário produzido",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": [
+            {
+              "id": "mento-jornada-01",
+              "titulo": "Ela me procurou por outra coisa",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-mento/jornada-da-paciente/mento-jornada-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece contando quem é a paciente e o que ela veio buscar, sem mostrar foto ainda.",
+                "desenvolvimento": [
+                  "Mostre o perfil dela de antes, com a seta no mento, enquanto você explica o plano.",
+                  "Traga o resultado no mesmo perfil e no mesmo enquadramento.",
+                  "Feche voltando pra você, dizendo o que o embelezamento fez pela confiança dela.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide quem quer o mesmo processo a chamar no direct.",
+                "ficha": {
+                  "duracao": "50 a 58 segundos",
+                  "enquadramento": "Vertical, você alternando com o perfil da paciente",
+                  "cenario": "Cenário produzido",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "preenchimento-de-temporas",
+      "nome": "Preenchimento de Têmporas",
+      "area": "Face",
+      "descricao": "Repõe o volume perdido na lateral da testa.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "temp-analise-01",
+              "titulo": "Setas que mostram para onde o rosto cai",
+              "tipo": "arquivo",
+              "src": "videos/preenchimento-de-temporas/analise-de-caso/temp-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Foto de frente e as primeiras setas subindo do terço superior, antes de qualquer explicação.",
+                "desenvolvimento": [
+                  "Use setas para indicar direção de sustentação, não pontos de aplicação.",
+                  "Explique que o rosto cai como um todo, então o plano começa em cima.",
+                  "Termine com o perfil dela, sem marcação, no mesmo enquadramento."
+                ],
+                "cta": "Chame pra avaliação para ver a direção do próprio rosto.",
+                "ficha": {
+                  "duracao": "42 a 48 segundos",
+                  "enquadramento": "Vertical, foto de frente com marcação",
+                  "cenario": "Sem cenário",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "sulco-nasogeniano",
+      "nome": "Sulco Nasogeniano",
+      "area": "Face",
+      "descricao": "Suaviza o bigode chinês sem pesar o rosto.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "sulco-ad-01",
+              "titulo": "Calma, vamos só realçar",
+              "tipo": "arquivo",
+              "src": "videos/sulco-nasogeniano/antes-e-depois/sulco-ad-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra com a frase que a paciente ouviu de alguém: não faça procedimento, você está nova.",
+                "desenvolvimento": [
+                  "Responda com a marcação pontilhada no sulco e no contorno, discreta, sem cobrir o rosto.",
+                  "Mostre o depois no mesmo ângulo e diga que a proposta era realçar, não mudar.",
+                  "Feche com o par lado a lado e a marca da clínica.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide quem ouve isso a marcar uma avaliação.",
+                "ficha": {
+                  "duracao": "17 a 21 segundos",
+                  "enquadramento": "Vertical, três quartos",
+                  "cenario": "Consultório",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": [
+            {
+              "id": "sulco-analise-01",
+              "titulo": "A espátula apontando no rosto da paciente",
+              "tipo": "arquivo",
+              "src": "videos/sulco-nasogeniano/analise-de-caso/sulco-analise-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Fique atrás da paciente, de frente pro espelho, e comece apontando com a espátula onde ela perdeu sustentação.",
+                "desenvolvimento": [
+                  "Use a espátula como caneta: aponte o sulco, o contorno, a região que cedeu, uma por vez.",
+                  "Explique a causa antes da solução, ligando a perda de sustentação ao que ela enxerga no espelho.",
+                  "Fale como quem explica para a paciente, não para a câmera."
+                ],
+                "cta": "Convide quem se reconheceu a marcar a própria avaliação.",
+                "ficha": {
+                  "duracao": "25 a 30 segundos",
+                  "enquadramento": "Vertical, você atrás da paciente",
+                  "cenario": "Consultório com espelho",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "lipo-enzimatica-de-papada",
+      "nome": "Lipo Enzimática de Papada",
+      "area": "Face",
+      "descricao": "Reduz a gordura submentoniana com enzimas.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": [
+            {
+              "id": "pap-autoridade-01",
+              "titulo": "Você, a tecnologia e três palavras na tela",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=486991277567420",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Instituto Valéria Dognani",
+                "no_ar_desde": "fevereiro de 2025"
+              },
+              "roteiro": {
+                "gancho": "Apareça ao lado do equipamento ligado, com uma palavra forte na tela: definição, redução, conquista.",
+                "desenvolvimento": [
+                  "Troque a palavra da tela a cada frase, sempre em caixa alta e no centro.",
+                  "Insira closes do aparelho trabalhando na pele, com a tela do equipamento visível.",
+                  "Volte pra você explicando o que essa tecnologia entrega que as outras não entregam."
+                ],
+                "cta": "Chame pra avaliação e diga que a agenda do dia é limitada.",
+                "ficha": {
+                  "duracao": "30 a 35 segundos",
+                  "enquadramento": "Vertical, plano médio ao lado do equipamento",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": [
+            {
+              "id": "pap-alerta-01",
+              "titulo": "Cuidado com o vídeo que te enganou",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=581978300899434",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dr Julio Lira",
+                "no_ar_desde": "novembro de 2024"
+              },
+              "roteiro": {
+                "gancho": "\"Tome cuidado com vídeo que manipula resultado.\" Comece pelo alerta, com o selo vermelho na tela.",
+                "desenvolvimento": [
+                  "Mostre o procedimento real acontecendo, sem corte mágico e sem trocar o ângulo entre o antes e o depois.",
+                  "Explique o truque que os outros usam: luz de cima, queixo levantado, filtro.",
+                  "Diga o que é resultado honesto e em quanto tempo ele aparece de verdade."
+                ],
+                "cta": "Convide pra avaliação com quem mostra o processo inteiro.",
+                "ficha": {
+                  "duracao": "85 a 95 segundos",
+                  "enquadramento": "Vertical, câmera na mão, paciente deitada",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "toxina-para-bruxismo",
+      "nome": "Toxina para Bruxismo",
+      "area": "Face",
+      "descricao": "Relaxa o masseter, alivia o aperto e afina o rosto.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "brux-edu-01",
+              "titulo": "Uma palavra por vez na tela",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1266962574808261",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Sorria Rio",
+                "no_ar_desde": "junho de 2025"
+              },
+              "roteiro": {
+                "gancho": "\"Acorda com dor na mandíbula ou sente os dentes desgastados?\" Comece pelo sintoma que a pessoa reconhece em si.",
+                "desenvolvimento": [
+                  "Legende palavra por palavra, uma de cada vez, grande e centralizada: prende quem assiste sem som.",
+                  "Ligue o sintoma à causa em uma frase, sem termo técnico e sem nome de músculo.",
+                  "Diga o que a aplicação resolve e em quanto tempo o alívio aparece."
+                ],
+                "cta": "Chame pra uma consulta de avaliação, sem prometer resultado.",
+                "ficha": {
+                  "duracao": "25 a 30 segundos",
+                  "enquadramento": "Vertical, sentado na cadeira do consultório",
+                  "cenario": "Consultório, equipamento ao fundo",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "sorriso-gengival",
+      "nome": "Sorriso Gengival",
+      "area": "Face",
+      "descricao": "Corrige a exposição excessiva de gengiva ao sorrir.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "fios-de-pdo",
+      "nome": "Fios de PDO",
+      "area": "Face",
+      "descricao": "Sustentação e estímulo de colágeno com fios absorvíveis.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": [
+            {
+              "id": "pdo-convite-01",
+              "titulo": "Com um objeto na mão o olho não desvia",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=452644150791873",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Royal Face",
+                "no_ar_desde": "novembro de 2024"
+              },
+              "roteiro": {
+                "gancho": "Apareça segurando algo físico ligado ao convite, um cartão ou um folheto, e fale olhando na câmera.",
+                "desenvolvimento": [
+                  "Mantenha o objeto na altura do peito o vídeo inteiro: ele ancora o olhar de quem passa rolando.",
+                  "Deixe a marca da clínica visível no fundo, iluminada, sem competir com o seu rosto.",
+                  "Fale de uma condição especial sem citar número: o valor é assunto do WhatsApp."
+                ],
+                "cta": "Chame pro direct pra saber a condição do mês.",
+                "ficha": {
+                  "duracao": "28 a 35 segundos",
+                  "enquadramento": "Vertical, plano médio, objeto na altura do peito",
+                  "cenario": "Recepção com a marca iluminada ao fundo",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "bioestimulador-de-colageno",
+      "nome": "Bioestimulador de Colágeno",
+      "area": "Face",
+      "descricao": "Firmeza e qualidade de pele construídas ao longo dos meses.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": [
+            {
+              "id": "bio-ad-01",
+              "titulo": "Dá pra rejuvenescer dez anos?",
+              "tipo": "arquivo",
+              "src": "videos/bioestimulador-de-colageno/antes-e-depois/bio-ad-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Abra com a pergunta que a paciente fez: dá pra rejuvenescer dez anos sem cirurgia?",
+                "desenvolvimento": [
+                  "Mostre as regiões trabalhadas com sombreado sobre a foto, sem citar quantidade de produto.",
+                  "Passe pelo perfil e pelo close do olhar, que é onde a diferença aparece primeiro.",
+                  "Feche com ela de pé, arrumada, em movimento.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Chame pra avaliação para saber o que o caso dela pede.",
+                "ficha": {
+                  "duracao": "18 a 22 segundos",
+                  "enquadramento": "Vertical, frente, perfil e close",
+                  "cenario": "Consultório",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": [
+            {
+              "id": "bio-objecao-01",
+              "titulo": "O que eu não faço no seu rosto",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=9090718224374100",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dr Hadi Mohamad Mrad",
+                "no_ar_desde": "fevereiro de 2025"
+              },
+              "roteiro": {
+                "gancho": "\"Sim, é possível ter esse efeito.\" Responda a dúvida antes de explicar qualquer técnica.",
+                "desenvolvimento": [
+                  "Intercale a sua fala com cenas curtas do procedimento acontecendo, sem legendar termo técnico.",
+                  "Mostre um caso conhecido de excesso e diga com todas as letras que não é isso que você faz.",
+                  "Volte para o seu rosto em quadro pra dizer o que você faz no lugar."
+                ],
+                "cta": "Ofereça mandar mais informação sobre a técnica pra quem chamar no direct.",
+                "ficha": {
+                  "duracao": "60 a 70 segundos",
+                  "enquadramento": "Vertical, jaleco, sentado, com inserts do procedimento",
+                  "cenario": "Consultório e sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": [
+            {
+              "id": "bio-jornada-01",
+              "titulo": "A paciente jovem e o antes de perto",
+              "tipo": "arquivo",
+              "src": "videos/bioestimulador-de-colageno/jornada-da-paciente/bio-jornada-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece com você explicando rápido e corte para a paciente de perfil, sem maquiagem.",
+                "desenvolvimento": [
+                  "Mostre o rosto dela de perfil e de frente antes de qualquer aplicação.",
+                  "Volte pra você explicando o que a idade dela pede: prevenir, não corrigir.",
+                  "Feche com o antes e o depois lado a lado e a marca da clínica.",
+                  "Só publique com autorização por escrito da paciente e confira as regras do seu conselho sobre imagem de antes e depois."
+                ],
+                "cta": "Convide quem quer prevenir a marcar avaliação.",
+                "ficha": {
+                  "duracao": "50 a 58 segundos",
+                  "enquadramento": "Vertical, alternando você e a paciente",
+                  "cenario": "Clínica produzida",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "skinbooster",
+      "nome": "Skinbooster",
+      "area": "Face",
+      "descricao": "Hidratação profunda e brilho de pele.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": [
+            {
+              "id": "skin-reacao-01",
+              "titulo": "O espelho contra a luz da janela",
+              "tipo": "arquivo",
+              "src": "videos/skinbooster/reacao-de-cliente/skin-reacao-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Grave por trás do ombro da paciente, com ela segurando o espelho de mão contra a janela.",
+                "desenvolvimento": [
+                  "Deixe o rosto dela aparecer só no reflexo do espelho: a imagem fica mais delicada que o close direto.",
+                  "Não peça pra ela falar nada. O sorriso no reflexo diz o suficiente.",
+                  "Mantenha a cidade desfocada ao fundo, com a luz estourando de leve."
+                ],
+                "cta": "O convite vai na legenda.",
+                "ficha": {
+                  "duracao": "6 a 10 segundos",
+                  "enquadramento": "Vertical, por trás do ombro, reflexo no espelho",
+                  "cenario": "Janela com luz natural forte",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": [
+            {
+              "id": "skin-bastidor-01",
+              "titulo": "Protocolo com nome próprio",
+              "tipo": "arquivo",
+              "src": "videos/skinbooster/bastidor/skin-bastidor-01.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Comece na aplicação já em andamento, com o nome do seu protocolo fixo no rodapé.",
+                "desenvolvimento": [
+                  "Mantenha o nome do protocolo e uma frase de posicionamento parados na tela o vídeo inteiro.",
+                  "Filme de cima, mostrando a sua mão trabalhando e o rosto da paciente em perfil.",
+                  "Atenda homem e mulher no mesmo vídeo: mostra que o protocolo serve para os dois."
+                ],
+                "cta": "Convide pra conhecer o protocolo numa avaliação.",
+                "ficha": {
+                  "duracao": "8 a 12 segundos",
+                  "enquadramento": "Vertical, plano de cima",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            },
+            {
+              "id": "skin-bastidor-02",
+              "titulo": "A janela como cenário",
+              "tipo": "arquivo",
+              "src": "videos/skinbooster/bastidor/skin-bastidor-02.mp4",
+              "capa": null,
+              "roteiro": {
+                "gancho": "Plano aberto lateral: você aplicando, a paciente deitada e a cidade inteira na janela atrás.",
+                "desenvolvimento": [
+                  "Grave de longe, mostrando a sala: o cenário é parte do que você está vendendo.",
+                  "Mantenha o plano fixo, sem zoom e sem corte, os poucos segundos que o vídeo tem.",
+                  "Deixe a luz natural da janela fazer todo o trabalho."
+                ],
+                "cta": "O convite vai na legenda do post.",
+                "ficha": {
+                  "duracao": "5 a 8 segundos",
+                  "enquadramento": "Vertical, plano aberto lateral",
+                  "cenario": "Sala com janela panorâmica",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": [
+            {
+              "id": "skin-jornada-01",
+              "titulo": "Da porta da clínica ao espelho",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1366979165009306",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Clínica Pedro Antunes",
+                "no_ar_desde": "outubro de 2025"
+              },
+              "roteiro": {
+                "gancho": "\"Há algumas semanas eu venho me consultando.\" Quem narra é a paciente, em primeira pessoa, desde a chegada.",
+                "desenvolvimento": [
+                  "Grave ela entrando na clínica, a consulta com o tablet, o procedimento e o espelho no fim.",
+                  "Deixe a narração dela conduzir: você aparece atendendo, não explicando para a câmera.",
+                  "Feche em casa, no dia seguinte, com ela falando do resultado em roupa comum."
+                ],
+                "cta": "A própria paciente convida quem quiser o mesmo caminho a chamar no direct.",
+                "ficha": {
+                  "duracao": "28 a 35 segundos",
+                  "enquadramento": "Vertical, câmera na mão acompanhando ela",
+                  "cenario": "Clínica inteira: recepção, sala, espelho",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "microagulhamento",
+      "nome": "Microagulhamento",
+      "area": "Face",
+      "descricao": "Renova a textura, poros e marcas de acne.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": [
+            {
+              "id": "micro-bastidor-01",
+              "titulo": "Close extremo, sem ninguém falando",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=528168056292034",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Karine Garonce",
+                "no_ar_desde": "setembro de 2024"
+              },
+              "roteiro": {
+                "gancho": "Comece no macro absoluto: só a pele, o equipamento entrando em quadro e o som do procedimento.",
+                "desenvolvimento": [
+                  "Filme tudo em close, sem mostrar o rosto inteiro da paciente e sem locução.",
+                  "Alterne entre a aplicação e o produto sendo colocado, sempre no mesmo ritmo.",
+                  "Feche no resultado imediato, ainda em close, com a pele limpa."
+                ],
+                "cta": "O convite vai só na legenda final, em texto, sem voz.",
+                "ficha": {
+                  "duracao": "40 a 45 segundos",
+                  "enquadramento": "Vertical, macro na pele",
+                  "cenario": "Sala de procedimento, fundo neutro",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "peeling-quimico",
+      "nome": "Peeling Químico",
+      "area": "Face",
+      "descricao": "Clareia manchas e renova a superfície da pele.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "peel-edu-01",
+              "titulo": "A pergunta escrita antes da resposta",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=567744262293807",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dra Renata Daltoé",
+                "no_ar_desde": "novembro de 2024"
+              },
+              "roteiro": {
+                "gancho": "Abra com a pergunta escrita na tela sobre a bancada com os produtos: \"qual vem primeiro?\"",
+                "desenvolvimento": [
+                  "Responda direto, sem enrolar, e mostre o frasco na mão enquanto explica.",
+                  "Justifique a ordem com o motivo prático, em linguagem de paciente.",
+                  "Termine dizendo o que acontece se a ordem for invertida."
+                ],
+                "cta": "Convide quem tem a mesma dúvida a perguntar no direct.",
+                "ficha": {
+                  "duracao": "75 a 85 segundos",
+                  "enquadramento": "Vertical, plano médio com inserts da bancada",
+                  "cenario": "Sala de atendimento, produtos à vista",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "pdrn-e-exossomos",
+      "nome": "PDRN e Exossomos",
+      "area": "Face",
+      "descricao": "Regeneração celular e recuperação da pele.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": [
+            {
+              "id": "pdrn-bastidor-01",
+              "titulo": "O protocolo explicado enquanto acontece",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1214842197197292",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dra Daniela Maria",
+                "no_ar_desde": "dezembro de 2025"
+              },
+              "roteiro": {
+                "gancho": "Abra já com a paciente na maca e você começando, narrando o que vai fazer sem olhar para a câmera.",
+                "desenvolvimento": [
+                  "Explique cada etapa no momento em que aplica, dizendo por que aquela região entra no protocolo.",
+                  "Alterne entre o plano aberto com você e o close da aplicação na pele.",
+                  "Termine dizendo o que a paciente vai sentir nos próximos dias."
+                ],
+                "cta": "Convide pra avaliação pra montar o protocolo de quem assiste.",
+                "ficha": {
+                  "duracao": "45 a 50 segundos",
+                  "enquadramento": "Vertical, plano aberto alternando com close",
+                  "cenario": "Sala de procedimento",
+                  "precisa_paciente": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "intradermoterapia-facial",
+      "nome": "Intradermoterapia Facial",
+      "area": "Face",
+      "descricao": "Ativos aplicados ponto a ponto, no alvo certo.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "bioestimulador-corporal",
+      "nome": "Bioestimulador Corporal",
+      "area": "Corpo",
+      "descricao": "Firmeza para braços, abdômen, glúteo e coxas.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "enzimas-para-gordura-localizada",
+      "nome": "Enzimas para Gordura Localizada",
+      "area": "Corpo",
+      "descricao": "Reduz a gordura de pontos específicos do corpo.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "enz-edu-01",
+              "titulo": "A animação que mostra por dentro",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1175278181456525",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dr. Wellington Roberto",
+                "no_ar_desde": "dezembro de 2025"
+              },
+              "roteiro": {
+                "gancho": "Abra no equipamento sendo preparado, com a legenda dizendo que o procedimento é feito na clínica.",
+                "desenvolvimento": [
+                  "Use animação das camadas da pele pra mostrar o que acontece com a gordura, em vez de filmar o corpo.",
+                  "Narre em off, com legenda, cada etapa: o que é aplicado, o que estimula, quanto tempo leva.",
+                  "Feche dizendo em quantos dias a pessoa volta à rotina."
+                ],
+                "cta": "Chame pra avaliação pra descobrir se ela é candidata.",
+                "ficha": {
+                  "duracao": "70 a 75 segundos",
+                  "enquadramento": "Vertical, animação em tela cheia",
+                  "cenario": "Sem cenário, arte animada",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": [
+            {
+              "id": "enz-autoridade-01",
+              "titulo": "O instrumento na sua mão",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=477355341305200",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dr. Douglas Westphal",
+                "no_ar_desde": "maio de 2024"
+              },
+              "roteiro": {
+                "gancho": "Apareça paramentado, dentro da sala, segurando o equipamento que você usa. Mostre antes de explicar.",
+                "desenvolvimento": [
+                  "Segure cada instrumento na altura do peito e diga em uma frase o que ele faz.",
+                  "Destaque uma palavra por vez na tela, em caixa alta, acompanhando a fala.",
+                  "Mostre o detalhe do aparelho em close, girando na mão, pra quem nunca viu entender o tamanho."
+                ],
+                "cta": "Convide pra avaliação pra saber qual tecnologia serve pro caso dela.",
+                "ficha": {
+                  "duracao": "45 a 55 segundos",
+                  "enquadramento": "Vertical, plano médio paramentado",
+                  "cenario": "Centro cirúrgico ou sala de procedimento",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "preenchimento-de-gluteo",
+      "nome": "Preenchimento de Glúteo",
+      "area": "Corpo",
+      "descricao": "Projeção e contorno sem cirurgia.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": [
+            {
+              "id": "glut-autoridade-01",
+              "titulo": "O selo com o seu registro na tela",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1325713291796883",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dr. Luiz Marcelo Monteiro",
+                "no_ar_desde": "fevereiro de 2025"
+              },
+              "roteiro": {
+                "gancho": "Comece respondendo a uma pergunta técnica que a paciente traz da internet, de jaleco e com lapela.",
+                "desenvolvimento": [
+                  "Coloque um selo no canto com seu nome, especialidade e número de registro logo nos primeiros segundos.",
+                  "Fale de material e segurança antes de falar de resultado: é o que separa você do vizinho.",
+                  "Legende palavra por palavra, porque o assunto é técnico e a pessoa precisa acompanhar."
+                ],
+                "cta": "Convide pra avaliação presencial pra decidir o que serve no caso dela.",
+                "ficha": {
+                  "duracao": "70 a 80 segundos",
+                  "enquadramento": "Vertical, plano médio de jaleco, microfone de lapela",
+                  "cenario": "Consultório claro",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "tratamento-de-celulite",
+      "nome": "Tratamento de Celulite",
+      "area": "Corpo",
+      "descricao": "Trata os furinhos na causa, não só na superfície.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "cel-edu-01",
+              "titulo": "Você pode ter e não saber",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1103024587839864",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Drª Fabiana Magalhães",
+                "no_ar_desde": "novembro de 2024"
+              },
+              "roteiro": {
+                "gancho": "\"Você pode ter isso e estar confundindo com celulite.\" Abra pelo diagnóstico que a pessoa nunca ouviu.",
+                "desenvolvimento": [
+                  "Liste os sinais um por um, com a legenda acompanhando cada frase curta.",
+                  "Diga o que a maioria confunde e por que o tratamento errado não resolve.",
+                  "Reconheça o lado emocional, não só o estético: é o que faz a pessoa se identificar."
+                ],
+                "cta": "Peça pra marcar alguém que se encaixa na descrição e chame pra avaliação.",
+                "ficha": {
+                  "duracao": "45 a 50 segundos",
+                  "enquadramento": "Vertical, plano fechado, altura dos olhos",
+                  "cenario": "Fundo de ripado de madeira, luz suave",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "tratamento-de-estrias",
+      "nome": "Tratamento de Estrias",
+      "area": "Corpo",
+      "descricao": "Estimula colágeno e melhora a textura da marca.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "hiperidrose",
+      "nome": "Hiperidrose",
+      "area": "Corpo",
+      "descricao": "Controla o suor excessivo das axilas, mãos e pés.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "hiper-edu-01",
+              "titulo": "Dezenove segundos e nenhuma volta",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1238762794400625",
+              "capa": null,
+              "fonte": {
+                "anunciante": "BioClinic One",
+                "no_ar_desde": "julho de 2025"
+              },
+              "roteiro": {
+                "gancho": "\"Hiperidrose axilar é o excesso de suor nas axilas.\" Diga o nome e o significado na mesma frase, logo no primeiro segundo.",
+                "desenvolvimento": [
+                  "Explique que existe tratamento e qual é o mais indicado, sem citar marca.",
+                  "Fale direto com quem sofre com o desconforto, usando a palavra que a pessoa usa: vergonha, marca na roupa.",
+                  "Não passe de vinte segundos: a mensagem é uma só."
+                ],
+                "cta": "Chame pra agendar uma consulta, prometendo resolver, não amenizar.",
+                "ficha": {
+                  "duracao": "18 a 22 segundos",
+                  "enquadramento": "Vertical, plano médio sentada",
+                  "cenario": "Consultório com prateleira iluminada ao fundo",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "mesoterapia-capilar",
+      "nome": "Mesoterapia Capilar",
+      "area": "Capilar",
+      "descricao": "Nutre o couro cabeludo e freia a queda.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": [
+            {
+              "id": "meso-edu-01",
+              "titulo": "O especialista de terno e a animação",
+              "tipo": "link",
+              "src": "https://www.facebook.com/ads/library/?id=1599367211207124",
+              "capa": null,
+              "fonte": {
+                "anunciante": "Dr Victor Romero",
+                "no_ar_desde": "fevereiro de 2026"
+              },
+              "roteiro": {
+                "gancho": "Abra em pé, num cenário produzido, dizendo a frase que as pacientes mais repetem na consulta.",
+                "desenvolvimento": [
+                  "Corte para uma animação simples explicando o que acontece no couro cabeludo, sem foto de procedimento pesada.",
+                  "Volte pra você sentado, em outro cenário, respondendo a dúvida com calma.",
+                  "Use legenda o vídeo inteiro, porque quase todo mundo assiste sem som."
+                ],
+                "cta": "Convide pra avaliação pra descobrir a causa da queda antes de tratar.",
+                "ficha": {
+                  "duracao": "85 a 95 segundos",
+                  "enquadramento": "Vertical, dois cenários alternados com animação",
+                  "cenario": "Externa produzida e sala de entrevista",
+                  "precisa_paciente": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    },
+    {
+      "slug": "microagulhamento-capilar",
+      "nome": "Microagulhamento Capilar",
+      "area": "Capilar",
+      "descricao": "Estimula o folículo e potencializa o tratamento da queda.",
+      "formatos": [
+        {
+          "slug": "reacao-de-cliente",
+          "nome": "Reação de Cliente",
+          "descricao": "A paciente vendo o resultado pela primeira vez.",
+          "criativos": []
+        },
+        {
+          "slug": "antes-e-depois",
+          "nome": "Antes e Depois",
+          "descricao": "A transformação lado a lado, dentro das regras do conselho.",
+          "criativos": []
+        },
+        {
+          "slug": "bastidor",
+          "nome": "Bastidor do Procedimento",
+          "descricao": "Como é feito, do preparo à finalização.",
+          "criativos": []
+        },
+        {
+          "slug": "educacional",
+          "nome": "Educacional",
+          "descricao": "Tira-dúvida, mito e verdade, o que ninguém explica.",
+          "criativos": []
+        },
+        {
+          "slug": "autoridade",
+          "nome": "Autoridade",
+          "descricao": "Técnica, formação e segurança. Por que confiar em você.",
+          "criativos": []
+        },
+        {
+          "slug": "objecao",
+          "nome": "Quebra de Objeção",
+          "descricao": "Dói? Incha? Fica natural? Dura quanto tempo?",
+          "criativos": []
+        },
+        {
+          "slug": "prova-social",
+          "nome": "Prova Social",
+          "descricao": "Avaliação, print e depoimento de quem já passou pela cadeira.",
+          "criativos": []
+        },
+        {
+          "slug": "convite-direto",
+          "nome": "Convite Direto",
+          "descricao": "Você olhando na câmera e chamando pra agendar, sem rodeio.",
+          "criativos": []
+        },
+        {
+          "slug": "analise-de-caso",
+          "nome": "Análise de Caso",
+          "descricao": "A foto da paciente na tela e você riscando por cima o que dá pra fazer.",
+          "criativos": []
+        },
+        {
+          "slug": "alerta",
+          "nome": "Alerta",
+          "descricao": "O que te vendem errado, o truque do vídeo manipulado, o cuidado que ninguém conta.",
+          "criativos": []
+        },
+        {
+          "slug": "jornada-da-paciente",
+          "nome": "Jornada da Paciente",
+          "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
+          "criativos": []
+        }
+      ]
+    }
+  ]
+}

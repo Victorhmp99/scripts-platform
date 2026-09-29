@@ -174,7 +174,7 @@ INSERT INTO portal_items (slug, area, kind, title, description, href, external, 
 
   -- Marketing
   ('marca-posicionamento','marketing', 'conteudo',   'Marca e Posicionamento',       'O iceberg da marca, os 9 elementos e a sua declaração de posicionamento.',           '/modulo-marca-posicionamento.html',FALSE, 'gem',         10),
-  ('biblioteca-criativos','marketing', 'ferramenta', 'Biblioteca de Criativos',      'Referências de criativos validados para inspirar as próximas campanhas.',           'https://referencias-criativos.vercel.app/index.html', TRUE, 'image', 20)
+  ('biblioteca-criativos','marketing', 'ferramenta', 'Biblioteca de Criativos',      'Referências de criativos validados para inspirar as próximas campanhas.',           '/criativos/', FALSE, 'image', 20)
 ON CONFLICT (slug) DO UPDATE SET
   area        = EXCLUDED.area,
   kind        = EXCLUDED.kind,

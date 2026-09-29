@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel do acervo · Referências Criativos</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/logo-lime-256.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #040806; --mint: #2FE38A; --mint-claro: #3DFF9F;
+    --card: rgba(255,255,255,0.035); --borda: rgba(47,227,138,0.22);
+    --tx: #FFFFFF; --tx-mut: #9FB0A8; --tx-fraco: #5C6E65;
+    --amarelo: #F0C43A; --vermelho: #E8564A;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif; color: var(--tx); min-height: 100vh;
+    background: radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.30) 0%, rgba(14,92,56,0.18) 32%, rgba(6,26,18,0.06) 60%, rgba(4,8,6,0) 84%), var(--bg);
+    background-attachment: fixed;
+  }
+
+  /* ---------- login ---------- */
+  .tela-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .caixa-login { width: 100%; max-width: 380px; }
+  .caixa-login img { height: 46px; display: block; margin: 0 auto 26px; }
+  .caixa-login h1 { font-size: 1.375rem; font-weight: 700; text-align: center; }
+  .caixa-login p.sub { margin-top: 7px; font-size: 0.875rem; font-weight: 300; color: var(--tx-mut); text-align: center; }
+
+  .campo { margin-top: 18px; }
+  .campo label { display: block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--tx-fraco); margin-bottom: 8px; }
+  input[type=text], input[type=email], input[type=password], input[type=url], textarea {
+    width: 100%; background: rgba(4,8,6,0.55); border: 1px solid var(--borda); border-radius: 11px;
+    color: #fff; font-family: inherit; font-size: 0.9375rem; padding: 12px 14px; outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  textarea { min-height: 92px; resize: vertical; line-height: 1.55; }
+  input:focus, textarea:focus { border-color: var(--mint); box-shadow: 0 0 0 3px rgba(47,227,138,0.14); }
+  input::placeholder, textarea::placeholder { color: #4E6259; }
+  input:-webkit-autofill { -webkit-text-fill-color: #fff; -webkit-box-shadow: 0 0 0 1000px #08130D inset; transition: background-color 9999s; }
+
+  .btn {
+    background: var(--mint); color: #04150C; border: none; border-radius: 11px;
+    font-family: inherit; font-size: 0.875rem; font-weight: 700; padding: 12px 20px; cursor: pointer;
+    transition: background .15s;
+  }
+  .btn:hover:not(:disabled) { background: var(--mint-claro); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn-largo { width: 100%; margin-top: 24px; padding: 14px; }
+  .btn-fantasma {
+    background: transparent; border: 1px solid var(--borda); color: var(--mint);
+    border-radius: 999px; font-family: inherit; font-size: 0.8125rem; font-weight: 600;
+    padding: 8px 16px; cursor: pointer; transition: background .15s;
+  }
+  .btn-fantasma:hover { background: rgba(47,227,138,0.10); }
+  .btn-perigo { border-color: rgba(232,86,74,0.4); color: var(--vermelho); }
+  .btn-perigo:hover { background: rgba(232,86,74,0.10); }
+
+  .erro { display: none; margin-top: 16px; background: rgba(232,86,74,0.10); border: 1px solid rgba(232,86,74,0.32); border-radius: 11px; color: #FFB8B2; font-size: 0.8125rem; padding: 12px 14px; line-height: 1.5; }
+  .erro.aparece { display: block; }
+
+  /* ---------- painel ---------- */
+  .topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 28px; border-bottom: 1px solid rgba(47,227,138,0.12); flex-wrap: wrap; }
+  .topo-esq { display: flex; align-items: center; gap: 14px; }
+  .topo img { height: 32px; }
+  .topo h1 { font-size: 0.9375rem; font-weight: 700; }
+  .topo-dir { display: flex; align-items: center; gap: 12px; }
+  .quem { font-size: 0.75rem; color: var(--tx-mut); }
+
+  .estado-pub { font-size: 0.75rem; font-weight: 600; }
+  .estado-pub.ok { color: var(--tx-fraco); }
+  .estado-pub.pendente { color: var(--amarelo); }
+
+  .barra-origem { padding: 9px 28px; font-size: 0.75rem; color: var(--tx-fraco); border-bottom: 1px solid rgba(47,227,138,0.08); }
+
+  .colunas { display: grid; grid-template-columns: 250px 230px 260px 1fr; gap: 0; min-height: calc(100vh - 118px); }
+  @media (max-width: 1100px) { .colunas { grid-template-columns: 1fr; } }
+
+  .coluna { border-right: 1px solid rgba(47,227,138,0.10); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .coluna:last-child { border-right: none; }
+  .coluna-cab { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .coluna-cab h2 { font-size: 0.6875rem; letter-spacing: 2.2px; text-transform: uppercase; color: var(--tx-fraco); font-weight: 600; }
+  .mais { background: rgba(47,227,138,0.12); border: 1px solid var(--borda); color: var(--mint); width: 26px; height: 26px; border-radius: 8px; font-size: 1rem; line-height: 1; cursor: pointer; }
+  .mais:hover { background: rgba(47,227,138,0.22); }
+
+  .lista { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; max-height: calc(100vh - 230px); }
+  .item {
+    text-align: left; background: transparent; border: 1px solid transparent; border-radius: 10px;
+    padding: 10px 12px; cursor: pointer; font-family: inherit; color: var(--tx);
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .item:hover { background: rgba(47,227,138,0.06); }
+  .item.ativo { background: rgba(47,227,138,0.12); border-color: var(--borda); }
+  .item b { font-size: 0.875rem; font-weight: 500; }
+  .item span { font-size: 0.6875rem; color: var(--tx-fraco); flex-shrink: 0; }
+  .vazio { font-size: 0.8125rem; color: var(--tx-fraco); font-weight: 300; padding: 10px 2px; }
+
+  .etq { padding: 3px 8px; border-radius: 999px; font-weight: 600; font-size: 0.625rem; text-transform: uppercase; letter-spacing: .5px; }
+  .etq-link { background: rgba(47,227,138,0.16); color: var(--mint); }
+  .etq-arquivo { background: rgba(255,255,255,0.07); color: var(--tx-fraco); }
+
+  /* ---------- formulário ---------- */
+  .form { display: flex; flex-direction: column; gap: 14px; overflow-y: auto; max-height: calc(100vh - 190px); padding-right: 4px; }
+  .form h3 { font-size: 1rem; font-weight: 700; }
+  .form .dica { font-size: 0.75rem; color: var(--tx-fraco); font-weight: 300; margin-top: -8px; }
+  .dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 720px) { .dupla { grid-template-columns: 1fr; } }
+  .check { display: flex; align-items: center; gap: 10px; font-size: 0.875rem; color: var(--tx-mut); }
+  .check input { width: 17px; height: 17px; accent-color: var(--mint); cursor: pointer; }
+
+  .nota { border: 1px solid rgba(240,196,58,0.34); background: rgba(240,196,58,0.08); border-radius: 11px; padding: 12px 14px; font-size: 0.8125rem; font-weight: 300; line-height: 1.55; color: #F0E3BC; }
+  .nota-erro { border-color: rgba(232,86,74,0.4); background: rgba(232,86,74,0.09); color: #FFC9C4; }
+  .nota-erro b { font-weight: 600; color: #fff; }
+
+  /* ---------- modal ---------- */
+  .modal-fundo { position: fixed; inset: 0; background: rgba(0,0,0,0.72); display: none; align-items: center; justify-content: center; padding: 24px; z-index: 50; }
+  .modal-fundo.aberto { display: flex; }
+  .modal { width: 100%; max-width: 440px; background: #0A140F; border: 1px solid var(--borda); border-radius: 18px; padding: 26px; }
+  .modal h3 { font-size: 1.0625rem; font-weight: 700; margin-bottom: 4px; }
+  .modal p.sub { font-size: 0.8125rem; color: var(--tx-mut); font-weight: 300; line-height: 1.5; }
+  .modal-pe { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+
+  /* ---------- aviso ---------- */
+  .aviso {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(14px);
+    background: #0A140F; border: 1px solid var(--borda); border-radius: 12px;
+    padding: 13px 20px; font-size: 0.875rem; opacity: 0; pointer-events: none;
+    transition: opacity .2s, transform .2s; z-index: 60;
+  }
+  .aviso.aparece { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .aviso.erro { border-color: rgba(232,86,74,0.5); color: #FFB8B2; }
+</style>
+</head>
+<body>
+
+<!-- login -->
+<div class="tela-login" id="telaLogin">
+  <div class="caixa-login">
+    <img src="assets/logo-green-lime.png" alt="Green Hub">
+    <h1>Painel do acervo</h1>
+    <p class="sub">Entre com a mesma conta que você usa na Central de Ferramentas.</p>
+
+    <div class="erro" id="erroLogin"></div>
+
+    <div class="campo">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" placeholder="voce@assessoriagreenlab.com.br" autocomplete="email">
+    </div>
+    <div class="campo">
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn btn-largo" id="btnEntrar">Entrar</button>
+  </div>
+</div>
+
+<!-- painel -->
+<div id="painel" style="display:none">
+  <div class="topo">
+    <div class="topo-esq">
+      <img src="assets/logo-green-lime.png" alt="">
+      <h1>Painel do acervo</h1>
+      <a class="btn-fantasma" href="index.html">Ver o site</a>
+    </div>
+    <div class="topo-dir">
+      <span class="estado-pub ok" id="estadoPublicacao">—</span>
+      <button class="btn" id="btnPublicar" disabled>Publicar alterações</button>
+      <span class="quem" id="quemSou"></span>
+      <button class="btn-fantasma" id="btnSair">Sair</button>
+    </div>
+  </div>
+
+  <div class="barra-origem" id="origem"></div>
+
+  <div class="colunas">
+    <!-- procedimentos -->
+    <div class="coluna">
+      <div class="coluna-cab">
+        <h2>Procedimentos</h2>
+        <button class="mais" id="btnNovoProcedimento" title="Novo procedimento">+</button>
+      </div>
+      <div class="lista" id="listaProcedimentos"></div>
+      <button class="btn-fantasma btn-perigo" id="btnRemoverProcedimento" style="display:none">Remover procedimento</button>
+    </div>
+
+    <!-- formatos -->
+    <div class="coluna" id="colunaFormatos" style="display:none">
+      <div class="coluna-cab">
+        <h2 id="tituloFormatos">Formatos</h2>
+        <button class="mais" id="btnNovoFormato" title="Novo formato">+</button>
+      </div>
+      <div class="lista" id="listaFormatos"></div>
+      <button class="btn-fantasma btn-perigo" id="btnRemoverFormato" style="display:none">Remover formato</button>
+    </div>
+
+    <!-- criativos -->
+    <div class="coluna" id="colunaCriativos" style="display:none">
+      <div class="coluna-cab">
+        <h2 id="tituloCriativos">Criativos</h2>
+        <button class="mais" id="btnNovoCriativo" title="Novo criativo">+</button>
+      </div>
+      <div class="lista" id="listaCriativos"></div>
+    </div>
+
+    <!-- edição -->
+    <div class="coluna">
+      <div class="form" id="painelCriativo" style="display:none">
+        <h3>Editar criativo</h3>
+        <p class="dica">O que você escrever aqui é o que a clínica vê na página do criativo.</p>
+
+        <div class="nota" id="avisoArquivo" style="display:none">
+          Este criativo é um vídeo hospedado no repositório. Ele continua funcionando —
+          só os novos é que entram por link.
+        </div>
+
+        <div class="nota nota-erro" id="avisoSemArquivo" style="display:none">
+          <b>O vídeo deste criativo não existe no acervo.</b><br>
+          Quem abrir a página vê um aviso no lugar do player. Converta para link
+          colando a URL do criativo, ou remova a entrada.
+        </div>
+
+        <button class="btn-fantasma" id="btnVirarLink" style="display:none">Converter para link</button>
+
+        <div class="campo">
+          <label for="fTitulo">Título</label>
+          <input type="text" id="fTitulo" placeholder="Ex: O espelho depois do full face">
+        </div>
+
+        <div class="campo">
+          <label for="fSrc" id="rotuloSrc">Link do criativo</label>
+          <input type="url" id="fSrc" placeholder="https://www.facebook.com/ads/library/?id=...">
+        </div>
+
+        <div class="campo">
+          <label for="fCapa">Capa (opcional)</label>
+          <input type="text" id="fCapa" placeholder="capas/nome-do-arquivo.jpg">
+        </div>
+
+        <div class="dupla">
+          <div class="campo">
+            <label for="fAnunciante">Anunciante (opcional)</label>
+            <input type="text" id="fAnunciante" placeholder="Dr. Fulano">
+          </div>
+          <div class="campo">
+            <label for="fNoAr">No ar desde (opcional)</label>
+            <input type="text" id="fNoAr" placeholder="outubro de 2025">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="fGancho">Gancho</label>
+          <textarea id="fGancho" placeholder="Como o vídeo começa, nos primeiros segundos."></textarea>
+        </div>
+
+        <div class="campo">
+          <label for="fDesenvolvimento">Desenvolvimento — uma instrução por linha</label>
+          <textarea id="fDesenvolvimento" placeholder="Cada linha vira um passo na página."></textarea>
+        </div>
+
+        <div class="campo">
+          <label for="fCta">Chamada final</label>
+          <textarea id="fCta" placeholder="Como o vídeo fecha e o que pede ao paciente."></textarea>
+        </div>
+
+        <div class="dupla">
+          <div class="campo">
+            <label for="fDuracao">Duração</label>
+            <input type="text" id="fDuracao" placeholder="20 a 25 segundos">
+          </div>
+          <div class="campo">
+            <label for="fEnquadramento">Enquadramento</label>
+            <input type="text" id="fEnquadramento" placeholder="Vertical, altura do rosto">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="fCenario">Cenário</label>
+          <input type="text" id="fCenario" placeholder="Sala de atendimento, luz frontal">
+        </div>
+
+        <label class="check"><input type="checkbox" id="fPaciente"> Precisa de paciente na gravação</label>
+
+        <button class="btn-fantasma btn-perigo" id="btnRemoverCriativo">Remover criativo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modais -->
+<div class="modal-fundo" id="modalProcedimento">
+  <div class="modal">
+    <h3>Novo procedimento</h3>
+    <p class="sub">É o que a clínica vende: full face, preenchimento labial, toxina.</p>
+    <div class="campo"><label for="npNome">Nome</label><input type="text" id="npNome" placeholder="Ex: Preenchimento de Olheiras"></div>
+    <div class="campo"><label for="npArea">Área</label><input type="text" id="npArea" placeholder="Face, Corpo ou Capilar"></div>
+    <div class="campo"><label for="npDescricao">Descrição</label><textarea id="npDescricao" placeholder="Uma frase explicando o procedimento."></textarea></div>
+    <div class="modal-pe">
+      <button class="btn-fantasma" data-fechar="modalProcedimento">Cancelar</button>
+      <button class="btn" id="criarProcedimento">Criar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-fundo" id="modalFormato">
+  <div class="modal">
+    <h3>Novo formato</h3>
+    <p class="sub">É o tipo de vídeo: reação de cliente, bastidor, quebra de objeção.</p>
+    <div class="campo"><label for="nfNome">Nome</label><input type="text" id="nfNome" placeholder="Ex: Prova Social"></div>
+    <div class="campo"><label for="nfDescricao">Descrição</label><textarea id="nfDescricao" placeholder="Uma frase explicando o formato."></textarea></div>
+    <div class="modal-pe">
+      <button class="btn-fantasma" data-fechar="modalFormato">Cancelar</button>
+      <button class="btn" id="criarFormato">Criar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-fundo" id="modalCriativo">
+  <div class="modal">
+    <h3>Novo criativo</h3>
+    <p class="sub">Cole o link do criativo. O roteiro você preenche na tela seguinte.</p>
+    <div class="campo"><label for="ncTitulo">Título</label><input type="text" id="ncTitulo" placeholder="Ex: Corte seco, sem transição bonita"></div>
+    <div class="campo"><label for="ncLink">Link</label><input type="url" id="ncLink" placeholder="https://..."></div>
+    <div class="modal-pe">
+      <button class="btn-fantasma" data-fechar="modalCriativo">Cancelar</button>
+      <button class="btn" id="criarCriativo">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<div class="aviso" id="aviso"></div>
+
+<script type="module" src="assets/admin.js"></script>
+</body>
+</html>

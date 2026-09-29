@@ -404,6 +404,12 @@
           Painel Admin
         </button>
       </a>
+      <a id="criativosLink" href="/criativos/admin.html" style="display:none; text-decoration:none;">
+        <button class="logout-btn" style="color:var(--green); width:100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          Cadastrar criativos
+        </button>
+      </a>
       <button class="logout-btn" onclick="logout()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Sair da plataforma
@@ -570,7 +576,10 @@ const CAT_LABELS = {
   document.getElementById('userName').textContent = prof.full_name || currentUser.email;
   document.getElementById('userRole').textContent = prof.role;
   document.getElementById('companyNameLogo').textContent = prof.companies?.name || '';
-  if (prof.role === 'admin') document.getElementById('adminLink').style.display = 'block';
+  if (prof.role === 'admin') {
+    document.getElementById('adminLink').style.display = 'block';
+    document.getElementById('criativosLink').style.display = 'block';
+  }
   if (['admin', 'gestor'].includes(prof.role)) {
     const regenLink = document.getElementById('regenerateLink');
     const lastRegen = prof.companies?.last_regenerated_at;
