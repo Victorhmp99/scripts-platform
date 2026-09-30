@@ -114,6 +114,11 @@
 
   .card h3 { margin-top: 16px; font-size: 1.0625rem; font-weight: 700; line-height: 1.25; }
   .card p { margin-top: 8px; font-size: 0.8125rem; font-weight: 300; line-height: 1.55; color: var(--muted); }
+  .card-foot::after {
+    content: ''; width: 6px; height: 6px;
+    border-top: 2px solid currentColor; border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+  }
   .card-foot { margin-top: auto; padding-top: 16px; font-size: 0.75rem; font-weight: 600; color: var(--mint); display: flex; align-items: center; gap: 6px; }
 
   /* ---------- bloqueado ---------- */
@@ -240,7 +245,7 @@ function cardHTML(item) {
   const alvo  = item.external ? ' target="_blank" rel="noopener"' : '';
 
   return `<a class="card" href="${escapar(item.href)}"${alvo}>${meio}
-    <div class="card-foot">${item.external ? 'Abrir em nova aba' : 'Abrir'} →</div>
+    <div class="card-foot">${item.external ? 'Abrir em nova aba' : 'Abrir'}</div>
     ${prazo}
   </a>`;
 }

@@ -102,7 +102,14 @@
     .atalho svg { width: 22px; height: 22px; color: var(--green); margin-bottom: 12px; }
     .atalho b { display: block; font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
     .atalho span { display: block; color: var(--muted); font-size: 0.8125rem; line-height: 1.5; }
-    .atalho-externo b::after { content: ' 97'; color: var(--green); font-weight: 400; }
+    /* Seta de "abre outra página" desenhada em CSS: a Poppins não tem glifo
+       de seta, e o caractere solto virava caixinha. */
+    .atalho-externo b::after {
+      content: ''; display: inline-block; vertical-align: middle;
+      width: 7px; height: 7px; margin-left: 8px;
+      border-top: 2px solid var(--green); border-right: 2px solid var(--green);
+      transform: rotate(-45deg) translateY(1px);
+    }
     .atalhos-titulo {
       font-size: 0.6875rem; letter-spacing: 1.6px; text-transform: uppercase;
       color: var(--muted); margin: 32px 0 12px;
@@ -640,7 +647,7 @@
       <tr>
         <td data-rotulo="Empresa"><strong>${e.name}</strong></td>
         <td data-rotulo="Setor">${e.industry || '—'}</td>
-        <td data-rotulo="Setup"><span class="badge ${e.setup_complete ? 'badge-ok' : 'badge-pending'}">${e.setup_complete ? '✓ Concluído' : '⏳ Pendente'}</span></td>
+        <td data-rotulo="Setup"><span class="badge ${e.setup_complete ? 'badge-ok' : 'badge-pending'}">${e.setup_complete ? 'Concluído' : 'Pendente'}</span></td>
         <td data-rotulo="Criado em">${new Date(e.created_at).toLocaleDateString('pt-BR')}</td>
         <td data-rotulo="Ações">
           <button class="action-btn danger" onclick="deletarEmpresa('${e.id}', '${e.name.replace(/'/g,"\\'")}')">Remover</button>
@@ -807,8 +814,8 @@
         err.classList.add('show');
       } else {
         suc.textContent = data.status === 'updated'
-          ? `✓ Acesso de ${email} atualizado`
-          : `✓ Convite enviado para ${email}`;
+          ? `Acesso de ${email} atualizado`
+          : `Convite enviado para ${email}`;
         suc.classList.add('show');
         document.getElementById('usrEmail').value = '';
         document.getElementById('usrNome').value = '';

@@ -281,7 +281,7 @@
       <div class="field">
         <label>Como é o processo de vendas? *</label>
         <textarea id="s1Processo" placeholder="Descreva o caminho do lead até fechar: como ele chega, as etapas até a decisão, como apresenta e como fecha. Quanto mais detalhe, mais precisos os scripts."></textarea>
-        <div class="field-hint">Ex: Lead vem pelo Instagram → primeiro contato WhatsApp → qualificação por ligação → reunião online → proposta → fechamento</div>
+        <div class="field-hint">Ex: Lead vem pelo Instagram › primeiro contato WhatsApp › qualificação por ligação › reunião online › proposta › fechamento</div>
       </div>
     </div>
   </div>
@@ -302,7 +302,7 @@
         </div>
         <h4>Gerar com IA</h4>
         <p>A IA cria todos os scripts automaticamente com base nas informações da sua empresa. Rápido e fácil.</p>
-        <div class="ia-lock-badge" id="iaLockBadge" style="display:none">🔒 Disponível em <span id="iaLockDays"></span></div>
+        <div class="ia-lock-badge" id="iaLockBadge" style="display:none">Disponível em <span id="iaLockDays"></span></div>
       </div>
       <div class="method-card" id="cardTXT" onclick="selectMethod('txt')">
         <div class="icon">
@@ -429,7 +429,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       </div>
       <div id="generatedState" style="display:none">
         <p style="color:var(--green); font-size:0.95rem; margin-bottom:20px;">
-          ✓ Scripts gerados! Revise abaixo antes de salvar.
+          Scripts gerados! Revise abaixo antes de salvar.
         </p>
         <div class="preview-tab-bar" id="previewTabs"></div>
         <div id="previewContents"></div>
@@ -442,7 +442,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
   <div class="step" id="step4">
     <div class="step-header">
       <div class="step-num">Passo 4 — Pronto!</div>
-      <h2>Tudo configurado 🎉</h2>
+      <h2>Tudo configurado</h2>
       <p>Seus scripts personalizados foram salvos. Acesse a central de scripts da sua empresa.</p>
     </div>
     <div class="card" style="text-align:center; padding:48px 28px;">
@@ -462,7 +462,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
 
   <!-- Navigation -->
   <div class="step-footer" id="stepFooter">
-    <button class="btn-invis" id="btnBack" onclick="prevStep()" style="display:none">← Voltar</button>
+    <button class="btn-invis" id="btnBack" onclick="prevStep()" style="display:none">Voltar</button>
     <button class="btn-invis" id="btnSkip" onclick="pularScripts()" style="color:var(--green); font-size:0.85rem;">Pular — crio meus scripts depois</button>
     <button class="btn" id="btnNext" onclick="nextStep()">
       Continuar
@@ -718,7 +718,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       // Botão para avançar
       const footer = document.getElementById('stepFooter');
       footer.style.display = 'flex';
-      document.getElementById('btnNext').textContent = 'Salvar e acessar scripts →';
+      document.getElementById('btnNext').textContent = 'Salvar e acessar scripts';
       document.getElementById('btnNext').onclick = finishSetup;
       document.getElementById('btnBack').style.display = 'none';
 
@@ -728,7 +728,7 @@ D30|Tag do gatilho: Texto do dia 30...</div>
       const rawMsg = err.message || '';
       const isOverload = rawMsg.toLowerCase().includes('demand') || rawMsg.includes('503') || rawMsg.includes('UNAVAILABLE') || rawMsg.includes('429');
       errEl.textContent = isOverload
-        ? '⚠️ A IA está com alta demanda agora. Clique em "Tentar novamente" — geralmente resolve na segunda tentativa.'
+        ? 'A IA está com alta demanda agora. Clique em "Tentar novamente" — geralmente resolve na segunda tentativa.'
         : (rawMsg || 'Erro ao gerar scripts. Tente novamente.');
       errEl.style.cssText = 'display:block; background:rgba(255,107,107,0.1); border:1px solid rgba(255,107,107,0.3); border-radius:8px; color:#ff6b6b; font-size:.875rem; padding:12px 14px; margin-bottom:16px;';
 
