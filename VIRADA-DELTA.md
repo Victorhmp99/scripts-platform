@@ -16,6 +16,49 @@ Ele não sai deste projeto, sai do Supabase — por isso só muda lá.
 
 **Faça antes dos outros passos**, senão os convites do passo 3 saem feios.
 
+### 1a — Antes: configurar SMTP próprio (obrigatório, e grátis)
+
+Desde junho/2026 o Supabase **bloqueia a edição de templates** em projetos
+no plano Free que usam o remetente padrão dele. A tela mostra
+*"Set up custom SMTP to edit templates"*.
+
+Isso na verdade é bom, porque o remetente embutido tem dois problemas sérios
+que você ia encontrar de qualquer jeito:
+
+- **limite de 2 e-mails por hora** no projeto inteiro — você bate nisso já ao
+  convidar os dois admins;
+- a própria documentação do Supabase diz que ele **não é para produção**.
+
+Com SMTP próprio, o limite sobe para 30 novos usuários por hora e os templates
+destravam. Não precisa pagar nada.
+
+**Armadilha:** não dá para enviar *como* `adeltasolucoes@gmail.com`. O gmail.com
+tem política DMARC de rejeição — e-mail saindo de outro servidor alegando ser
+`@gmail.com` cai em spam ou volta. O remetente tem que ser um domínio seu.
+Use `assessoriagreenlab.com.br`, que já é seu.
+
+Passo a passo com o **Resend** (grátis até 3.000/mês, citado pelo Supabase):
+
+1. Criar conta em resend.com → **Domains** → adicionar `assessoriagreenlab.com.br`
+2. Colar no DNS do domínio os registros DKIM/SPF que ele mostrar
+3. **API Keys** → criar uma e copiar
+4. Supabase → **Authentication → SMTP Settings** → ligar e preencher:
+   - Host: `smtp.resend.com`
+   - Porta: `465`
+   - Usuário: `resend`
+   - Senha: a API key do passo 3
+   - Sender email: `contato@assessoriagreenlab.com.br`
+   - Sender name: `Delta Soluções`
+5. Salvar.
+6. Supabase → **Authentication → Rate Limits** → subir o limite de e-mails.
+
+Sem domínio / sem querer mexer em DNS agora: o **Brevo** (300/dia grátis)
+aceita verificar um endereço avulso. A entrega é pior; serve de quebra-galho.
+
+### 1b — Depois: colar os templates
+
+Com o SMTP salvo, a aba **Templates** destrava.
+
 Onde: Supabase → projeto `dckvprqsecaxaooppqfp` → **Authentication** →
 **Emails** → **Templates**.
 
