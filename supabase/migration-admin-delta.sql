@@ -1,37 +1,42 @@
 -- ============================================================
 -- Troca do administrador da plataforma
---   sai: assessoriagreenlab@gmail.com
---   entra: vhvictor2015@gmail.com
+--   sai:   assessoriagreenlab@gmail.com
+--   entra: vhvictor2008@hotmail.com   (Victor Hugo Mendes Pessoa)
+--          adeltasolucoes@gmail.com   (conta da empresa)
 --
 -- Projeto dckvprqsecaxaooppqfp (org adeltasolucoes).
 --
--- O diagnóstico de 10/10/2026 mostrou que vhvictor2015@gmail.com ainda
--- NÃO existe na plataforma, e que assessoriagreenlab@gmail.com é o único
--- admin (empresa a0000000-...-0001).
+-- O diagnóstico de 10/10/2026 mostrou que assessoriagreenlab@gmail.com é
+-- o ÚNICO admin (empresa a0000000-...-0001) e que nenhuma das contas
+-- novas existe ainda.
 --
--- Por isso a conta nova NÃO é criada por SQL: ela é criada pelo próprio
--- painel /admin, que já tem a opção "Admin" no formulário e dispara o
--- convite por e-mail. Criar direto em auth.users por SQL pularia o
--- trigger que monta o perfil e o fluxo de senha.
+-- As contas novas NÃO são criadas por SQL: são criadas pelo painel
+-- /admin, que já tem "Admin" no formulário e dispara o convite por
+-- e-mail. Inserir direto em auth.users pularia o gatilho que monta o
+-- perfil e o fluxo de definição de senha.
 --
 -- ORDEM:
 --   1. Logado como assessoriagreenlab@gmail.com, abrir /admin e cadastrar
---      vhvictor2015@gmail.com com papel Admin e a mesma empresa.
---   2. Abrir o convite no e-mail, definir a senha.
---   3. Entrar como vhvictor2015@gmail.com e confirmar que /admin abre e
---      lista usuários e empresas.
---   4. Só então rodar a ETAPA 1 abaixo.
+--      as DUAS contas, papel Admin, mesma empresa:
+--        vhvictor2008@hotmail.com  — nome: Victor Hugo Mendes Pessoa
+--        adeltasolucoes@gmail.com  — nome: Delta Soluções
+--   2. Abrir os dois convites e definir as senhas.
+--   3. Entrar com cada uma e confirmar que /admin abre e lista usuários.
+--   4. Só então rodar a ETAPA 1.
 -- ============================================================
 
 
 -- ------------------------------------------------------------
--- ETAPA 0 — confere se o terreno está pronto para a remoção
--- Tem que listar DUAS linhas, as duas com role = admin.
+-- ETAPA 0 — confere o terreno. Tem que listar as DUAS contas novas
+-- como admin, mais a antiga.
 -- ------------------------------------------------------------
 SELECT p.email, p.role, p.company_id, u.last_sign_in_at
 FROM profiles p
 LEFT JOIN auth.users u ON u.id = p.id
-WHERE p.email IN ('assessoriagreenlab@gmail.com', 'vhvictor2015@gmail.com')
+WHERE p.email IN ('assessoriagreenlab@gmail.com',
+                  'vhvictor2008@hotmail.com',
+                  'adeltasolucoes@gmail.com')
+   OR p.role = 'admin'
 ORDER BY p.email;
 
 
@@ -40,23 +45,30 @@ ORDER BY p.email;
 -- ------------------------------------------------------------
 DO $$
 DECLARE
-  novo_id    UUID;
+  novos      UUID[];
+  quantos    INT;
   velho_id   UUID;
   empresa_id UUID;
+  herdeiro   UUID;
 BEGIN
-  SELECT id, company_id INTO novo_id, empresa_id
-    FROM profiles WHERE email = 'vhvictor2015@gmail.com';
-  SELECT id INTO velho_id
+  SELECT array_agg(id) INTO novos
+    FROM profiles
+   WHERE email IN ('vhvictor2008@hotmail.com', 'adeltasolucoes@gmail.com')
+     AND role = 'admin';
+
+  quantos := coalesce(array_length(novos, 1), 0);
+
+  SELECT id, company_id INTO velho_id, empresa_id
     FROM profiles WHERE email = 'assessoriagreenlab@gmail.com';
 
-  IF novo_id IS NULL THEN
-    RAISE EXCEPTION 'vhvictor2015@gmail.com não existe. Cadastre pelo painel /admin antes (passos 1 a 3 do cabeçalho).';
+  -- trava: sem nenhum admin novo funcionando, remover a conta antiga
+  -- deixaria o sistema sem administrador nenhum
+  IF quantos = 0 THEN
+    RAISE EXCEPTION 'Nenhuma das contas novas está como admin. Faça os passos 1 a 3 do cabeçalho antes de rodar isto.';
   END IF;
 
-  -- trava: a conta nova precisa já estar funcionando como admin,
-  -- senão a remoção deixaria o sistema sem nenhum administrador
-  IF NOT EXISTS (SELECT 1 FROM profiles WHERE id = novo_id AND role = 'admin') THEN
-    RAISE EXCEPTION 'vhvictor2015@gmail.com existe mas não é admin. Ajuste o papel antes de remover a conta antiga.';
+  IF quantos < 2 THEN
+    RAISE WARNING 'Só % das 2 contas novas está como admin. Seguindo mesmo assim, mas confira a outra depois.', quantos;
   END IF;
 
   IF velho_id IS NULL THEN
@@ -64,27 +76,33 @@ BEGIN
     RETURN;
   END IF;
 
-  -- herda a empresa da conta antiga, se a nova tiver ficado sem
-  IF empresa_id IS NULL THEN
-    UPDATE profiles SET company_id = (SELECT company_id FROM profiles WHERE id = velho_id)
-     WHERE id = novo_id;
-  END IF;
+  -- quem recebe a empresa e a autoria: a conta pessoal, se estiver pronta
+  SELECT coalesce(
+           (SELECT id FROM profiles WHERE email = 'vhvictor2008@hotmail.com' AND role = 'admin'),
+           novos[1])
+    INTO herdeiro;
 
-  -- a autoria das respostas de módulo passa para a conta nova;
-  -- sem isso elas ficariam órfãs quando o usuário antigo sumisse
-  UPDATE module_answers SET updated_by = novo_id WHERE updated_by = velho_id;
+  -- qualquer admin novo que tenha ficado sem empresa herda a da antiga
+  UPDATE profiles SET company_id = empresa_id
+   WHERE id = ANY(novos) AND company_id IS NULL;
+
+  -- a autoria das respostas de módulo passa adiante; sem isso elas
+  -- ficariam órfãs quando o usuário antigo sumisse
+  UPDATE module_answers SET updated_by = herdeiro WHERE updated_by = velho_id;
 
   -- apagar de auth.users cascateia para profiles
   DELETE FROM auth.users WHERE id = velho_id;
 
-  RAISE NOTICE 'Pronto. Admin agora é vhvictor2015@gmail.com (%). Conta antiga removida.', novo_id;
+  RAISE NOTICE 'Conta antiga removida. Admins ativos: %', quantos;
 END $$;
 
 
 -- ------------------------------------------------------------
--- ETAPA 2 — confirmação. Tem que sobrar UMA linha: a conta nova.
+-- ETAPA 2 — confirmação.
+-- Tem que listar só vhvictor2008@hotmail.com e adeltasolucoes@gmail.com.
 -- ------------------------------------------------------------
 SELECT p.email, p.role, p.company_id, c.name AS empresa
 FROM profiles p
 LEFT JOIN companies c ON c.id = p.company_id
-WHERE p.role = 'admin';
+WHERE p.role = 'admin'
+ORDER BY p.email;
