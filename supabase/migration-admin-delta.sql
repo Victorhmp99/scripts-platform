@@ -1,38 +1,42 @@
 -- ============================================================
--- Troca do administrador: vhvictor2015@gmail.com assume tudo
--- Rodar no SQL Editor do projeto dckvprqsecaxaooppqfp (org adeltasolucoes)
+-- Troca do administrador da plataforma
+--   sai: assessoriagreenlab@gmail.com
+--   entra: vhvictor2015@gmail.com
 --
--- São DUAS ETAPAS de propósito. A etapa 1 promove a conta nova
--- sem tirar nada de ninguém; a etapa 2 só deve ser rodada DEPOIS
--- de você confirmar, logado como vhvictor2015@gmail.com, que o
--- painel /admin abre normalmente. Assim não existe momento em que
--- o sistema fica sem nenhum administrador.
+-- Projeto dckvprqsecaxaooppqfp (org adeltasolucoes).
+--
+-- O diagnóstico de 10/10/2026 mostrou que vhvictor2015@gmail.com ainda
+-- NÃO existe na plataforma, e que assessoriagreenlab@gmail.com é o único
+-- admin (empresa a0000000-...-0001).
+--
+-- Por isso a conta nova NÃO é criada por SQL: ela é criada pelo próprio
+-- painel /admin, que já tem a opção "Admin" no formulário e dispara o
+-- convite por e-mail. Criar direto em auth.users por SQL pularia o
+-- trigger que monta o perfil e o fluxo de senha.
+--
+-- ORDEM:
+--   1. Logado como assessoriagreenlab@gmail.com, abrir /admin e cadastrar
+--      vhvictor2015@gmail.com com papel Admin e a mesma empresa.
+--   2. Abrir o convite no e-mail, definir a senha.
+--   3. Entrar como vhvictor2015@gmail.com e confirmar que /admin abre e
+--      lista usuários e empresas.
+--   4. Só então rodar a ETAPA 1 abaixo.
 -- ============================================================
 
 
 -- ------------------------------------------------------------
--- ETAPA 0 — diagnóstico. Rode sozinha primeiro e leia o resultado.
--- Mostra quem é admin hoje e se a conta nova já existe.
+-- ETAPA 0 — confere se o terreno está pronto para a remoção
+-- Tem que listar DUAS linhas, as duas com role = admin.
 -- ------------------------------------------------------------
-SELECT
-  p.email,
-  p.role,
-  p.company_id,
-  c.name AS empresa,
-  u.last_sign_in_at
+SELECT p.email, p.role, p.company_id, u.last_sign_in_at
 FROM profiles p
-LEFT JOIN companies c ON c.id = p.company_id
 LEFT JOIN auth.users u ON u.id = p.id
-WHERE p.role = 'admin' OR p.email = 'vhvictor2015@gmail.com'
-ORDER BY p.role, p.email;
-
--- Se 'vhvictor2015@gmail.com' NÃO aparecer na lista acima, pare aqui:
--- a conta ainda não existe. Crie-a pelo próprio painel /admin (ou pelo
--- Authentication > Users do Supabase) e só então siga para a etapa 1.
+WHERE p.email IN ('assessoriagreenlab@gmail.com', 'vhvictor2015@gmail.com')
+ORDER BY p.email;
 
 
 -- ------------------------------------------------------------
--- ETAPA 1 — promove a conta nova e passa a ela a herança
+-- ETAPA 1 — passa a herança e remove a conta antiga
 -- ------------------------------------------------------------
 DO $$
 DECLARE
@@ -40,63 +44,47 @@ DECLARE
   velho_id   UUID;
   empresa_id UUID;
 BEGIN
-  SELECT id INTO novo_id FROM profiles WHERE email = 'vhvictor2015@gmail.com';
+  SELECT id, company_id INTO novo_id, empresa_id
+    FROM profiles WHERE email = 'vhvictor2015@gmail.com';
+  SELECT id INTO velho_id
+    FROM profiles WHERE email = 'assessoriagreenlab@gmail.com';
+
   IF novo_id IS NULL THEN
-    RAISE EXCEPTION 'A conta vhvictor2015@gmail.com não existe ainda. Crie-a antes de rodar esta etapa.';
+    RAISE EXCEPTION 'vhvictor2015@gmail.com não existe. Cadastre pelo painel /admin antes (passos 1 a 3 do cabeçalho).';
   END IF;
 
-  -- admin atual (o mais antigo que não seja a conta nova)
-  SELECT id, company_id INTO velho_id, empresa_id
-  FROM profiles
-  WHERE role = 'admin' AND id <> novo_id
-  ORDER BY created_at
-  LIMIT 1;
-
-  -- herda a empresa do admin antigo (se ele tinha uma e a conta nova não tem)
-  UPDATE profiles
-     SET role = 'admin',
-         company_id = COALESCE(company_id, empresa_id)
-   WHERE id = novo_id;
-
-  -- passa a autoria das respostas de módulo para a conta nova,
-  -- senão elas ficariam órfãs quando o usuário antigo for apagado
-  IF velho_id IS NOT NULL THEN
-    UPDATE module_answers SET updated_by = novo_id WHERE updated_by = velho_id;
+  -- trava: a conta nova precisa já estar funcionando como admin,
+  -- senão a remoção deixaria o sistema sem nenhum administrador
+  IF NOT EXISTS (SELECT 1 FROM profiles WHERE id = novo_id AND role = 'admin') THEN
+    RAISE EXCEPTION 'vhvictor2015@gmail.com existe mas não é admin. Ajuste o papel antes de remover a conta antiga.';
   END IF;
 
-  RAISE NOTICE 'Pronto. vhvictor2015@gmail.com agora é admin (id %). Admin antigo: %', novo_id, COALESCE(velho_id::text, 'nenhum');
+  IF velho_id IS NULL THEN
+    RAISE NOTICE 'A conta antiga já não existe. Nada a remover.';
+    RETURN;
+  END IF;
+
+  -- herda a empresa da conta antiga, se a nova tiver ficado sem
+  IF empresa_id IS NULL THEN
+    UPDATE profiles SET company_id = (SELECT company_id FROM profiles WHERE id = velho_id)
+     WHERE id = novo_id;
+  END IF;
+
+  -- a autoria das respostas de módulo passa para a conta nova;
+  -- sem isso elas ficariam órfãs quando o usuário antigo sumisse
+  UPDATE module_answers SET updated_by = novo_id WHERE updated_by = velho_id;
+
+  -- apagar de auth.users cascateia para profiles
+  DELETE FROM auth.users WHERE id = velho_id;
+
+  RAISE NOTICE 'Pronto. Admin agora é vhvictor2015@gmail.com (%). Conta antiga removida.', novo_id;
 END $$;
 
--- Confira:
-SELECT email, role, company_id FROM profiles WHERE role = 'admin';
-
--- >>> PARE AQUI. Saia, entre no sistema como vhvictor2015@gmail.com
--- >>> e confirme que /admin abre e lista usuários e empresas.
--- >>> Só depois disso rode a etapa 2.
-
 
 -- ------------------------------------------------------------
--- ETAPA 2 — remove a conta antiga (irreversível)
--- Troque o e-mail abaixo pelo que a etapa 0 mostrou como admin antigo.
+-- ETAPA 2 — confirmação. Tem que sobrar UMA linha: a conta nova.
 -- ------------------------------------------------------------
--- DO $$
--- DECLARE
---   alvo UUID;
--- BEGIN
---   SELECT id INTO alvo FROM profiles WHERE email = 'COLOQUE_AQUI_O_EMAIL_ANTIGO';
---   IF alvo IS NULL THEN
---     RAISE EXCEPTION 'E-mail não encontrado. Confira a etapa 0.';
---   END IF;
---
---   -- trava de segurança: não apaga se isso fosse deixar o sistema sem admin
---   IF NOT EXISTS (
---     SELECT 1 FROM profiles
---     WHERE role = 'admin' AND email = 'vhvictor2015@gmail.com' AND id <> alvo
---   ) THEN
---     RAISE EXCEPTION 'A conta nova ainda não está como admin. Rode a etapa 1 primeiro.';
---   END IF;
---
---   -- apagar de auth.users cascateia para profiles
---   DELETE FROM auth.users WHERE id = alvo;
---   RAISE NOTICE 'Conta % removida.', alvo;
--- END $$;
+SELECT p.email, p.role, p.company_id, c.name AS empresa
+FROM profiles p
+LEFT JOIN companies c ON c.id = p.company_id
+WHERE p.role = 'admin';
