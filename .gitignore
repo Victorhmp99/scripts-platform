@@ -1,2 +1,12 @@
 .vercel
 .env*
+
+# Dumps do banco: contêm auth.users com hash de senha dos clientes.
+# Nunca versionar.
+backup/
+*.dump
+*.sql.gz
+dump*.sql
+
+# Supabase CLI
+supabase/.temp/

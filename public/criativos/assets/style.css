@@ -2,14 +2,14 @@
   /* trava o tema: a cor é decisão de marca, não preferência do visitante */
   color-scheme: dark !important;
 
-  /* Paleta oficial Green Hub — a mesma do portal e dos módulos.
-     Os três nomes antigos (aqua/green/mint) viraram a mesma menta para
+  /* Paleta oficial Delta Soluções — a mesma do portal e dos módulos.
+     Os três nomes antigos (aqua/green/mint) viraram o mesmo ciano para
      não sobrar cor de fora do padrão em regra esquecida. */
-  --aqua: #2FE38A;
-  --green: #2FE38A;
-  --mint: #2FE38A;
-  --deep: #0B3D2E;
-  --deep-2: #072A20;
+  --aqua: #29B6E8;
+  --signal: #29B6E8;
+  --mint: #29B6E8;
+  --deep: #071641;
+  --deep-2: #040E2D;
 
   --aqua-rgb: 47, 227, 138;
   --luz-rgb: 255, 255, 255;
@@ -19,10 +19,10 @@
   --acento-rgb: var(--aqua-rgb);
 
   --tx: #FFFFFF;
-  --tx-mut: #9FB0A8;
-  --tx-fraco: #5C6E65;
+  --tx-mut: #8B93A8;
+  --tx-fraco: #5C616E;
 
-  --font: 'Poppins', sans-serif;
+  --font: 'DM Sans', system-ui, sans-serif;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -36,7 +36,7 @@
 
 /* As áreas já não têm cor própria: a plataforma inteira usa a menta. */
 [data-area="face"], [data-area="corpo"], [data-area="capilar"] {
-  --acento: #2FE38A; --acento-rgb: 47, 227, 138;
+  --acento: #29B6E8; --acento-rgb: 47, 227, 138;
 }
 
 * { box-sizing: border-box; }
@@ -67,7 +67,7 @@
 .topo-home .chamada { animation-delay: 60ms; }
 .topo-home .passos { animation-delay: 120ms; }
 
-html { background: #03110B; }
+html { background: #020612; }
 
 body {
   margin: 0;
@@ -78,8 +78,8 @@ body {
   -webkit-font-smoothing: antialiased;
   /* o preto deixa de ser chapado: dois halos verdes no topo e uma base esmeralda */
   background:
-    radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.44) 0%, rgba(14,92,56,0.28) 32%, rgba(6,26,18,0.09) 60%, rgba(4,8,6,0) 84%),
-    #040806 !important;
+    radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,153,200,0.44) 0%, rgba(14,70,92,0.28) 32%, rgba(4,10,28,0.09) 60%, rgba(4,5,8,0) 84%),
+    #06080F !important;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
@@ -97,9 +97,9 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(4, 8, 6, 0.88);
+  background: rgba(4,5,8, 0.88);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(47, 227, 138, 0.12);
+  border-bottom: 1px solid rgba(47,176,227, 0.12);
 }
 
 .menu {
@@ -189,13 +189,13 @@ body {
   border-radius: var(--r-l);
   background:
     radial-gradient(680px 340px at 82% 6%, rgba(var(--aqua-rgb), 0.14), transparent 68%),
-    linear-gradient(150deg, var(--deep) 0%, var(--deep-2) 46%, #05130D 100%);
+    linear-gradient(150deg, var(--deep) 0%, var(--deep-2) 46%, #040814 100%);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(var(--luz-rgb), 0.06);
 }
 
 
 
-.chamada { max-width: 62ch; font-size: 1.06rem; line-height: 1.66; color: #C9DCD0; }
+.chamada { max-width: 62ch; font-size: 1.06rem; line-height: 1.66; color: #C9CFDC; }
 
 /* os três passos são uma sequência real, por isso são numerados */
 .passos {
@@ -228,7 +228,7 @@ body {
 }
 
 .passos b { font-size: 1rem; font-weight: 600; }
-.passos span { color: #A9C0B3; font-size: 0.89rem; line-height: 1.5; }
+.passos span { color: #A9B0C0; font-size: 0.89rem; line-height: 1.5; }
 
 /* ---------- voltar ---------- */
 
@@ -334,7 +334,7 @@ body {
   overflow: hidden;
   background:
     radial-gradient(280px 160px at 100% 0%, rgba(var(--acento-rgb), 0.1), transparent 70%),
-    linear-gradient(160deg, #0C1A14 0%, #081209 100%);
+    linear-gradient(160deg, #0B0F1B 0%, #070A13 100%);
   transition: transform 0.2s var(--ease-out), border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
 }
 
@@ -359,7 +359,7 @@ body {
 
 .cartao-pasta.vazio::before { background: rgba(var(--luz-rgb), 0.14); opacity: 0.6; }
 .cartao-pasta.vazio .contagem { color: var(--tx-fraco); }
-.cartao-pasta.vazio h3 { color: #CFDDD5; }
+.cartao-pasta.vazio h3 { color: #CFD3DD; }
 
 .cartao-pasta h3 { margin: 0; font-size: 1.12rem; letter-spacing: -0.01em; font-weight: 600; }
 .cartao-pasta p { margin: 0 0 10px; color: var(--tx-mut); font-size: 0.9rem; line-height: 1.45; }
@@ -386,7 +386,7 @@ body {
   border-radius: var(--r-m);
   overflow: hidden;
   border: 1px solid rgba(var(--acento-rgb), 0.2);
-  background: linear-gradient(165deg, #0F231A 0%, #071009 100%);
+  background: linear-gradient(165deg, #0E1325 0%, #060911 100%);
   display: grid;
   place-items: center;
   transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), transform 0.2s var(--ease-out);
@@ -426,7 +426,7 @@ body {
   width: 100%;
   aspect-ratio: 9 / 16;
   border-radius: var(--r-l);
-  background: linear-gradient(165deg, #0F231A 0%, #050D08 100%);
+  background: linear-gradient(165deg, #0E1325 0%, #04070E 100%);
   border: 1px solid rgba(var(--acento-rgb), 0.22);
   box-shadow: 0 0 70px rgba(var(--acento-rgb), 0.12), 0 24px 60px rgba(0, 0, 0, 0.55);
   display: block;
@@ -452,7 +452,7 @@ body {
   text-align: center;
   border-radius: var(--r-l);
   border: 1px dashed rgba(var(--acento-rgb), 0.3);
-  background: linear-gradient(165deg, #0F231A 0%, #050D08 100%);
+  background: linear-gradient(165deg, #0E1325 0%, #04070E 100%);
 }
 .player-caixa.sem-video .player-ausente b { font-size: 1rem; color: var(--tx); }
 .player-caixa.sem-video .player-ausente span {
@@ -460,8 +460,8 @@ body {
 }
 
 .botao {
-  background: linear-gradient(96deg, var(--green), var(--acento));
-  color: #04140D;
+  background: linear-gradient(96deg, var(--signal), var(--acento));
+  color: #030715;
   padding: 13px 26px;
   border-radius: var(--r-pill);
   text-decoration: none;
@@ -488,7 +488,7 @@ body {
   padding: 32px 34px 34px;
   background:
     radial-gradient(520px 260px at 100% 0%, rgba(var(--acento-rgb), 0.08), transparent 70%),
-    linear-gradient(160deg, #0B1A13 0%, #060F0A 100%);
+    linear-gradient(160deg, #0A0E1B 0%, #050810 100%);
 }
 
 .coluna-roteiro section {
@@ -515,7 +515,7 @@ body {
   line-height: 1.5;
   border-left: 2px solid var(--acento);
   padding: 2px 0 2px 16px;
-  color: #EAF6EF;
+  color: #EAF3F6;
 }
 
 .coluna-roteiro ol { margin: 0; padding-left: 22px; }
@@ -551,11 +551,11 @@ body {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 9px 15px; border-radius: 999px; text-decoration: none;
   /* a barra é clara: o acento das áreas é verde-claro e some no branco */
-  background: rgba(47, 227, 138, 0.12); border: 1px solid rgba(47, 227, 138, 0.4);
+  background: rgba(47,176,227, 0.12); border: 1px solid rgba(47,176,227, 0.4);
   color: var(--acento); font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
   transition: background 0.15s, border-color 0.15s;
 }
-.btn-central:hover { background: rgba(47, 227, 138, 0.22); border-color: var(--acento); }
+.btn-central:hover { background: rgba(47,176,227, 0.22); border-color: var(--acento); }
 .btn-central svg { width: 15px; height: 15px; flex-shrink: 0; }
 .menu-marca + .btn-central { margin-right: auto; }
 
@@ -578,7 +578,7 @@ body {
 @media (hover: hover) and (pointer: fine) {
   .menu a:not(.menu-marca):hover {
     color: var(--tx);
-    background: rgba(47, 227, 138, 0.08);
+    background: rgba(47,176,227, 0.08);
   }
 }
 

@@ -3,35 +3,35 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Green Hub — Central de Ferramentas</title>
+<title>Delta Soluções — Central de Ferramentas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 
   :root {
-    --bg:#040806; --mint:#2FE38A; --mint-bright:#3DFF9F;
-    --text:#FFFFFF; --soft:#D3DED8; --muted:#9FB0A8; --footer:#5C6E65; --red:#E8564A;
+    --bg:#06080F; --mint:#29B6E8; --mint-bright:#38BDF8;
+    --text:#FFFFFF; --soft:#D3D6DE; --muted:#8B93A8; --footer:#5C616E; --red:#E8564A;
   }
 
   body {
-    font-family:'Poppins',sans-serif;
-    background:radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.44) 0%, rgba(14,92,56,0.28) 32%, rgba(6,26,18,0.09) 60%, rgba(4,8,6,0) 84%), var(--bg);
+    font-family:'DM Sans',system-ui,sans-serif;
+    background:radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,153,200,0.44) 0%, rgba(14,70,92,0.28) 32%, rgba(4,10,28,0.09) 60%, rgba(4,5,8,0) 84%), var(--bg);
     color:var(--text); min-height:100vh; min-height:100dvh;
     display:grid; grid-template-columns:1.1fr 1fr;
   }
   
 
   /* ---------- lado esquerdo: vitrine ---------- */
-  .vitrine { padding:56px 64px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid rgba(47,227,138,0.12); }
+  .vitrine { padding:56px 64px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid rgba(47,176,227,0.12); }
   .vitrine .marca img { height:52px; object-fit:contain; }
   .vitrine h1 { margin-top:56px; font-size:2.75rem; font-weight:800; letter-spacing:-0.8px; line-height:1.1; max-width:520px; }
   .vitrine h1 em { font-style:normal; color:var(--mint); }
   .vitrine .sub { margin-top:16px; font-size:1rem; font-weight:300; line-height:1.65; color:var(--muted); max-width:460px; }
   .recursos { margin-top:44px; display:flex; flex-direction:column; gap:16px; }
   .recurso { display:flex; gap:14px; align-items:flex-start; }
-  .recurso .ico { width:36px; height:36px; flex:0 0 auto; border-radius:11px; background:rgba(47,227,138,0.12); border:1px solid rgba(47,227,138,0.28); display:flex; align-items:center; justify-content:center; }
+  .recurso .ico { width:36px; height:36px; flex:0 0 auto; border-radius:11px; background:rgba(47,176,227,0.12); border:1px solid rgba(47,176,227,0.28); display:flex; align-items:center; justify-content:center; }
   .recurso svg { width:17px; height:17px; stroke:var(--mint); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
   .recurso b { display:block; font-size:0.9375rem; font-weight:600; }
   .recurso span { display:block; margin-top:2px; font-size:0.8125rem; font-weight:300; color:var(--muted); line-height:1.5; }
@@ -51,20 +51,20 @@
   .campo { margin-top:20px; }
   .campo label { display:block; font-size:0.6875rem; font-weight:600; letter-spacing:1.8px; text-transform:uppercase; color:var(--footer); margin-bottom:8px; }
   .campo input {
-    width:100%; background:rgba(4,8,6,0.55); border:1px solid rgba(47,227,138,0.28); border-radius:12px;
+    width:100%; background:rgba(4,5,8,0.55); border:1px solid rgba(47,176,227,0.28); border-radius:12px;
     color:#fff; font-family:inherit; font-size:0.9375rem; padding:14px 16px; outline:none;
     transition:border-color .15s, box-shadow .15s, background .15s;
   }
-  .campo input:hover { border-color:rgba(47,227,138,0.5); }
-  .campo input:focus { border-color:var(--mint); box-shadow:0 0 0 3px rgba(47,227,138,0.14); background:rgba(4,8,6,0.75); }
-  .campo input::placeholder { color:#4E6259; }
+  .campo input:hover { border-color:rgba(47,176,227,0.5); }
+  .campo input:focus { border-color:var(--mint); box-shadow:0 0 0 3px rgba(47,176,227,0.14); background:rgba(4,5,8,0.75); }
+  .campo input::placeholder { color:#4E5462; }
   .campo input:-webkit-autofill, .campo input:-webkit-autofill:hover, .campo input:-webkit-autofill:focus {
-    -webkit-text-fill-color:#fff; -webkit-box-shadow:0 0 0 1000px #08130D inset; caret-color:#fff;
+    -webkit-text-fill-color:#fff; -webkit-box-shadow:0 0 0 1000px #0E1526 inset; caret-color:#fff;
     transition:background-color 9999s ease-out;
   }
 
   .entrar {
-    width:100%; margin-top:26px; background:var(--mint); color:#04150C; border:none; border-radius:12px;
+    width:100%; margin-top:26px; background:var(--mint); color:#030816; border:none; border-radius:12px;
     font-family:inherit; font-size:0.9375rem; font-weight:700; padding:15px; cursor:pointer;
     transition:background .15s, transform .1s;
   }
@@ -89,11 +89,11 @@
 <body>
 
 <div class="vitrine">
-  <div class="marca"><img src="/logo-green-hub.png" alt="Green Hub" /></div>
+  <div class="marca"><img src="/logo-delta.svg" alt="Delta Soluções" /></div>
 
   <div>
     <h1>Tudo que sua clínica precisa,<br><em>num lugar só</em>.</h1>
-    <p class="sub">A central de conteúdos e ferramentas da Green Hub para estruturar gestão, comercial e marketing — com diagnóstico, plano de ação e as ferramentas que a clínica usa no dia a dia.</p>
+    <p class="sub">A central de conteúdos e ferramentas da Delta Soluções para estruturar gestão, comercial e marketing — com diagnóstico, plano de ação e as ferramentas que a clínica usa no dia a dia.</p>
 
     <div class="recursos">
       <div class="recurso">
@@ -111,15 +111,15 @@
     </div>
   </div>
 
-  <div class="rodape-vitrine"><b>GREEN HUB</b><span> · CENTRAL DE FERRAMENTAS</span></div>
+  <div class="rodape-vitrine"><b>DELTA SOLUÇÕES</b><span> · CENTRAL DE FERRAMENTAS</span></div>
 </div>
 
 <div class="area-login">
   <div class="caixa">
-    <div class="marca-mobile"><img src="/logo-green-hub.png" alt="Green Hub" /></div>
+    <div class="marca-mobile"><img src="/logo-delta.svg" alt="Delta Soluções" /></div>
 
     <h2>Entrar na central</h2>
-    <p class="ajuda">Use o e-mail cadastrado pela Green Hub.</p>
+    <p class="ajuda">Use o e-mail cadastrado pela Delta Soluções.</p>
 
     <div class="erro" id="erro"></div>
 
@@ -135,7 +135,7 @@
 
     <button class="entrar" id="btnEntrar" onclick="entrar()">Entrar</button>
 
-    <p class="nota-final">Acesso liberado pela Green Hub.<br>Ainda não tem login? Fale com o seu consultor.</p>
+    <p class="nota-final">Acesso liberado pela Delta Soluções.<br>Ainda não tem login? Fale com o seu consultor.</p>
   </div>
 </div>
 

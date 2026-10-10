@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin — Green Hub</title>
+  <title>Admin — Delta Soluções</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #040806; --surface: #08130D; --card: #0B1710; --border: rgba(47,227,138,0.22);
-      --green: #2FE38A; --green-dim: rgba(47,227,138,0.12); --green-glow: rgba(47,227,138,0.25);
-      --text: #FFFFFF; --muted: #9FB0A8; --danger: #E8564A;
+      --bg: #06080F; --surface: #0E1526; --card: #101A2E; --border: rgba(47,176,227,0.22);
+      --signal: #29B6E8; --signal-dim: rgba(47,176,227,0.12); --signal-glow: rgba(47,176,227,0.25);
+      --text: #FFFFFF; --muted: #8B93A8; --danger: #E8564A;
       --warning: #ffc107;
     }
-    body { font-family: 'Poppins', sans-serif; background: radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.30) 0%, rgba(14,92,56,0.18) 32%, rgba(6,26,18,0.06) 60%, rgba(4,8,6,0) 84%), var(--bg); background-attachment: fixed; color: var(--text); min-height: 100vh; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,153,200,0.30) 0%, rgba(14,70,92,0.18) 32%, rgba(4,10,28,0.06) 60%, rgba(4,5,8,0) 84%), var(--bg); background-attachment: fixed; color: var(--text); min-height: 100vh; }
 
     /* Layout */
     .layout { display: flex; min-height: 100vh; }
@@ -24,15 +24,15 @@
     .barra-celular {
       display: none; position: sticky; top: 0; z-index: 50;
       align-items: center; gap: 12px; padding: 12px 14px;
-      background: rgba(4,8,6,0.92); backdrop-filter: blur(12px);
+      background: rgba(4,5,8,0.92); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-    .barra-celular span { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.9375rem; }
+    .barra-celular span { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 0.9375rem; }
     .abrir-menu {
       display: inline-flex; align-items: center; justify-content: center;
       width: 40px; height: 40px; flex-shrink: 0;
-      background: var(--green-dim); border: 1px solid rgba(47,227,138,0.3);
-      border-radius: 11px; color: var(--green); cursor: pointer;
+      background: var(--signal-dim); border: 1px solid rgba(47,176,227,0.3);
+      border-radius: 11px; color: var(--signal); cursor: pointer;
     }
     .abrir-menu svg { width: 20px; height: 20px; }
 
@@ -40,8 +40,8 @@
       display: none;
       position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
       padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-      background: rgba(4,8,6,0.94); backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(47,227,138,0.22);
+      background: rgba(4,5,8,0.94); backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(47,176,227,0.22);
       box-shadow: 0 -12px 34px rgba(0,0,0,0.5);
     }
     .rodape-salvar .btn { width: 100%; justify-content: center; }
@@ -61,20 +61,20 @@
       display: flex; align-items: center; gap: 10px; padding: 8px 12px; margin-bottom: 20px;
     }
     .sidebar-logo .mark {
-      width: 36px; height: 36px; background: var(--green-dim); border: 1px solid var(--green);
+      width: 36px; height: 36px; background: var(--signal-dim); border: 1px solid var(--signal);
       border-radius: 10px; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 16px var(--green-glow);
+      box-shadow: 0 0 16px var(--signal-glow);
     }
     .sidebar-logo .mark svg { width: 18px; height: 18px; }
-    .sidebar-logo span { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.9rem; }
-    .sidebar-logo span em { color: var(--green); font-style: normal; }
+    .sidebar-logo span { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 0.9rem; }
+    .sidebar-logo span em { color: var(--signal); font-style: normal; }
     .nav-item {
       display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
       cursor: pointer; color: var(--muted); font-size: 0.9rem; transition: all 0.15s;
       border: 1px solid transparent; text-decoration: none;
     }
-    .nav-item:hover { background: var(--green-dim); color: var(--text); }
-    .nav-item.active { background: var(--green-dim); color: var(--green); border-color: rgba(47,227,138,0.2); }
+    .nav-item:hover { background: var(--signal-dim); color: var(--text); }
+    .nav-item.active { background: var(--signal-dim); color: var(--signal); border-color: rgba(47,176,227,0.2); }
     .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
     .sidebar-bottom { margin-top: auto; }
     .logout-btn {
@@ -98,23 +98,23 @@
       transition: border-color 0.15s, transform 0.15s, background 0.15s;
       font: inherit; color: inherit; width: 100%;
     }
-    .atalho:hover { border-color: rgba(47,227,138,0.45); background: var(--green-dim); transform: translateY(-2px); }
-    .atalho svg { width: 22px; height: 22px; color: var(--green); margin-bottom: 12px; }
-    .atalho b { display: block; font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+    .atalho:hover { border-color: rgba(47,176,227,0.45); background: var(--signal-dim); transform: translateY(-2px); }
+    .atalho svg { width: 22px; height: 22px; color: var(--signal); margin-bottom: 12px; }
+    .atalho b { display: block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
     .atalho span { display: block; color: var(--muted); font-size: 0.8125rem; line-height: 1.5; }
-    /* Seta de "abre outra página" desenhada em CSS: a Poppins não tem glifo
+    /* Seta de "abre outra página" desenhada em CSS: a fonte do sistema não tem glifo
        de seta, e o caractere solto virava caixinha. */
     .atalho-externo b::after {
       content: ''; display: inline-block; vertical-align: middle;
       width: 7px; height: 7px; margin-left: 8px;
-      border-top: 2px solid var(--green); border-right: 2px solid var(--green);
+      border-top: 2px solid var(--signal); border-right: 2px solid var(--signal);
       transform: rotate(-45deg) translateY(1px);
     }
     .atalhos-titulo {
       font-size: 0.6875rem; letter-spacing: 1.6px; text-transform: uppercase;
       color: var(--muted); margin: 32px 0 12px;
     }
-    .page-header h1 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; }
+    .page-header h1 { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.5rem; font-weight: 700; }
     .page-header p { color: var(--muted); font-size: 0.875rem; margin-top: 4px; }
 
     /* Stats */
@@ -122,7 +122,7 @@
     .stat-card {
       background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
     }
-    .stat-card .num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: var(--green); }
+    .stat-card .num { font-family: 'DM Sans', system-ui, sans-serif; font-size: 2rem; font-weight: 800; color: var(--signal); }
     .stat-card .label { color: var(--muted); font-size: 0.8125rem; margin-top: 4px; }
 
     /* Table */
@@ -134,52 +134,52 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 20px; border-bottom: 1px solid var(--border);
     }
-    .table-header h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; }
+    .table-header h3 { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; font-weight: 700; }
     table { width: 100%; border-collapse: collapse; }
     th {
       text-align: left; padding: 12px 20px; font-size: 0.75rem; font-weight: 500;
       color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em;
       border-bottom: 1px solid var(--border);
     }
-    td { padding: 14px 20px; font-size: 0.9rem; border-bottom: 1px solid rgba(28,61,39,0.5); }
+    td { padding: 14px 20px; font-size: 0.9rem; border-bottom: 1px solid rgba(26,35,63,0.5); }
     tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(47,227,138,0.03); }
+    tr:hover td { background: rgba(47,176,227,0.03); }
     .badge {
       display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px;
       font-size: 0.75rem; font-weight: 500;
     }
-    .badge-admin { background: rgba(47,227,138,0.15); color: var(--green); }
+    .badge-admin { background: rgba(47,176,227,0.15); color: var(--signal); }
     .badge-gestor { background: rgba(255,193,7,0.15); color: var(--warning); }
-    .badge-user { background: rgba(232,245,233,0.1); color: var(--muted); }
-    .badge-ok { background: rgba(47,227,138,0.15); color: var(--green); }
+    .badge-user { background: rgba(232,241,245,0.1); color: var(--muted); }
+    .badge-ok { background: rgba(47,176,227,0.15); color: var(--signal); }
     .badge-pending { background: rgba(255,193,7,0.15); color: var(--warning); }
     .action-btn {
       background: none; border: 1px solid var(--border); border-radius: 7px; color: var(--muted);
       padding: 5px 10px; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; font-family: inherit;
     }
-    .action-btn:hover { border-color: var(--green); color: var(--green); }
+    .action-btn:hover { border-color: var(--signal); color: var(--signal); }
     .action-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
     .empty-row td { text-align: center; color: var(--muted); padding: 32px; }
 
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--green); color: #040806; border: none; border-radius: 10px;
-      font-family: 'Poppins', sans-serif; font-size: 0.875rem; font-weight: 700;
+      background: var(--signal); color: #06080F; border: none; border-radius: 10px;
+      font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.875rem; font-weight: 700;
       padding: 10px 18px; cursor: pointer; transition: opacity 0.2s;
     }
     .btn:hover { opacity: 0.88; }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; }
     .btn-ghost {
       background: none; border: 1px solid var(--border); color: var(--text);
-      font-family: 'Poppins', sans-serif; font-weight: 500;
+      font-family: 'DM Sans', system-ui, sans-serif; font-weight: 500;
     }
-    .btn-ghost:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+    .btn-ghost:hover { border-color: var(--signal); color: var(--signal); background: var(--signal-dim); }
     .btn svg { width: 16px; height: 16px; }
 
     /* Modal */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(6,15,9,0.85); backdrop-filter: blur(4px);
+      position: fixed; inset: 0; background: rgba(5,8,16,0.85); backdrop-filter: blur(4px);
       display: flex; align-items: center; justify-content: center; z-index: 100; padding: 24px;
       opacity: 0; pointer-events: none; transition: opacity 0.2s;
     }
@@ -190,7 +190,7 @@
       transform: scale(0.95); transition: transform 0.2s;
     }
     .modal-overlay.open .modal { transform: scale(1); }
-    .modal h3 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+    .modal h3 { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
     .field { margin-bottom: 16px; }
     .field label {
       display: block; font-size: 0.75rem; font-weight: 500; color: var(--muted);
@@ -198,11 +198,11 @@
     }
     .field input, .field select, .field textarea {
       width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 9px;
-      color: var(--text); font-family: 'Poppins', sans-serif; font-size: 0.9375rem;
+      color: var(--text); font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.9375rem;
       padding: 10px 14px; outline: none; transition: border-color 0.2s;
     }
     .field input:focus, .field select:focus, .field textarea:focus {
-      border-color: var(--green);
+      border-color: var(--signal);
     }
     .field select option { background: var(--surface); }
     .field textarea { resize: vertical; min-height: 80px; }
@@ -214,8 +214,8 @@
     }
     .error-msg.show { display: block; }
     .success-msg {
-      background: rgba(47,227,138,0.1); border: 1px solid rgba(47,227,138,0.3);
-      border-radius: 8px; color: var(--green); font-size: 0.85rem;
+      background: rgba(47,176,227,0.1); border: 1px solid rgba(47,176,227,0.3);
+      border-radius: 8px; color: var(--signal); font-size: 0.85rem;
       padding: 10px 14px; margin-bottom: 14px; display: none;
     }
     .success-msg.show { display: block; }
@@ -228,7 +228,7 @@
       transition: all 0.3s; pointer-events: none;
     }
     .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.green { border-color: rgba(47,227,138,0.4); color: var(--green); }
+    .toast.ok { border-color: rgba(47,176,227,0.4); color: var(--signal); }
     .toast.red { border-color: rgba(255,107,107,0.4); color: var(--danger); }
 
     /* ==========================================================
@@ -323,11 +323,11 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="mark">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#2FE38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#29B6E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
         </svg>
       </div>
-      <span>Green <em>Hub</em></span>
+      <span>Delta <em>Soluções</em></span>
     </div>
 
     <div class="nav-item active" data-pagina="inicio" onclick="showPage('inicio')">
@@ -348,7 +348,7 @@
     </div>
 
     <div class="sidebar-bottom">
-      <a class="nav-item" href="/portal" style="text-decoration:none; margin-bottom:4px; color:var(--green);">
+      <a class="nav-item" href="/portal" style="text-decoration:none; margin-bottom:4px; color:var(--signal);">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
         Central de Ferramentas
       </a>
@@ -431,7 +431,7 @@
         <a class="atalho atalho-externo" href="/app">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           <b>Gerador de Scripts</b>
-          <span>Os scripts da Green Hub, na sua própria conta.</span>
+          <span>Os scripts da Delta Soluções, na sua própria conta.</span>
         </a>
       </div>
     </div>
@@ -541,7 +541,7 @@
       <select id="editUsrRole">
         <option value="user">Usuário — só usa os scripts (não edita)</option>
         <option value="gestor">Gestor — configura e usa os scripts da empresa</option>
-        <option value="admin">Admin — acesso total ao painel (Green Lab)</option>
+        <option value="admin">Admin — acesso total ao painel (Delta Soluções)</option>
       </select>
     </div>
     <div class="field">
@@ -571,7 +571,7 @@
       <select id="usrRole">
         <option value="gestor">Gestor — configura e usa os scripts da empresa</option>
         <option value="user">Usuário — só usa os scripts (não edita)</option>
-        <option value="admin">Admin — acesso total ao painel (Green Lab)</option>
+        <option value="admin">Admin — acesso total ao painel (Delta Soluções)</option>
       </select>
     </div>
     <div class="modal-footer">
@@ -731,7 +731,7 @@
     }
 
     closeModal('modalEditarUsuario');
-    toast('Perfil atualizado com sucesso', 'green');
+    toast('Perfil atualizado com sucesso', 'ok');
     await loadData();
   }
 
@@ -769,7 +769,7 @@
 
     closeModal('modalEmpresa');
     clearEmpresaForm();
-    toast('Empresa criada com sucesso', 'green');
+    toast('Empresa criada com sucesso', 'ok');
     loadData();
   }
 
@@ -861,7 +861,7 @@
         body: JSON.stringify({ email })
       });
       const data = await res.json();
-      if (res.ok) toast(`Convite reenviado para ${email}`, 'green');
+      if (res.ok) toast(`Convite reenviado para ${email}`, 'ok');
       else toast(data.error || 'Erro ao reenviar', 'red');
     } catch {
       toast('Erro de conexão', 'red');
@@ -947,7 +947,7 @@
           <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid var(--border);">
             <input type="checkbox" id="lib_${i.slug}" ${i.enabled ? 'checked' : ''}
                    onchange="alternarItem('${i.slug}', this.checked)"
-                   style="width:18px; height:18px; accent-color:var(--green); cursor:pointer; flex:0 0 auto;" />
+                   style="width:18px; height:18px; accent-color:var(--signal); cursor:pointer; flex:0 0 auto;" />
             <label for="lib_${i.slug}" style="flex:1 1 auto; cursor:pointer;">
               <b style="display:block; font-size:0.875rem; font-weight:600;">${i.title}</b>
               <span style="display:block; margin-top:2px; font-size:0.75rem; color:var(--muted); font-weight:300;">
@@ -1064,7 +1064,7 @@
     document.querySelectorAll(`#${id} .error-msg, #${id} .success-msg`).forEach(el => el.classList.remove('show'));
   }
 
-  function toast(msg, type = 'green') {
+  function toast(msg, type = 'ok') {
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.className = `toast ${type} show`;

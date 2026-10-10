@@ -1,5 +1,5 @@
 /* ============================================================
-   Green Hub — motor compartilhado dos módulos do portal.
+   Delta Soluções — motor compartilhado dos módulos do portal.
    Cada página define window.MODULO = { slug, avaliar(h), mensagens? }
    e o resto (login, salvar, somas, sinais, plano) roda daqui.
    ============================================================ */
@@ -121,7 +121,7 @@ function renderResultado() {
   if (!sinais.length) {
     box.innerHTML = '';
     ver.style.borderColor = 'rgba(255,255,255,0.10)';
-    ver.style.background = 'rgba(4,8,6,0.35)';
+    ver.style.background = 'rgba(4,5,8,0.35)';
     ver.innerHTML = '<b style="color:var(--footer)">Aguardando</b><p style="color:var(--muted)">Preencha as atividades para receber a leitura deste módulo.</p>';
     return;
   }
@@ -140,7 +140,7 @@ function renderResultado() {
   const rotulos = Object.assign({}, { verde: NIVEIS.verde.rotulo, amarelo: NIVEIS.amarelo.rotulo, vermelho: NIVEIS.vermelho.rotulo }, window.MODULO.rotulos || {});
 
   ver.style.borderColor = cor;
-  ver.style.background = 'rgba(47,227,138,0.05)';
+  ver.style.background = 'rgba(47,176,227,0.05)';
   ver.innerHTML = '<b style="color:' + cor + '">' + rotulos[geral] + '</b>' +
                   '<p style="color:var(--soft)">' + msgs[geral] + '</p>';
 }

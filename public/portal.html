@@ -3,29 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Green Hub — Central de Ferramentas</title>
+<title>Delta Soluções — Central de Ferramentas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #040806;
-    --mint: #2FE38A;
-    --mint-bright: #3DFF9F;
+    --bg: #06080F;
+    --mint: #29B6E8;
+    --mint-bright: #38BDF8;
     --card: rgba(255,255,255,0.035);
-    --card-border: rgba(47,227,138,0.22);
+    --card-border: rgba(47,176,227,0.22);
     --text: #FFFFFF;
-    --muted: #9FB0A8;
-    --soft: #D3DED8;
-    --footer: #5C6E65;
+    --muted: #8B93A8;
+    --soft: #D3D6DE;
+    --footer: #5C616E;
   }
 
   body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Sans', system-ui, sans-serif;
     background:
-      radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,200,118,0.44) 0%, rgba(14,92,56,0.28) 32%, rgba(6,26,18,0.09) 60%, rgba(4,8,6,0) 84%),
+      radial-gradient(ellipse 95% 62% at 50% 104%, rgba(34,153,200,0.44) 0%, rgba(14,70,92,0.28) 32%, rgba(4,10,28,0.09) 60%, rgba(4,5,8,0) 84%),
       var(--bg);
     background-attachment: fixed;
     color: var(--text);
@@ -36,7 +36,7 @@
   .topbar {
     display: flex; align-items: center; justify-content: space-between;
     padding: 20px 40px;
-    border-bottom: 1px solid rgba(47,227,138,0.12);
+    border-bottom: 1px solid rgba(47,176,227,0.12);
   }
   .topbar img { height: 42px; object-fit: contain; }
   .topbar-right { display: flex; align-items: center; gap: 18px; }
@@ -47,22 +47,22 @@
   .empresa small { display: block; color: var(--footer); font-size: 0.6875rem; letter-spacing: 1.6px; text-transform: uppercase; }
   .btn-admin {
     display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-    background: rgba(47,227,138,0.12); border: 1px solid rgba(47,227,138,0.38);
+    background: rgba(47,176,227,0.12); border: 1px solid rgba(47,176,227,0.38);
     color: var(--mint); border-radius: 999px;
     font-size: 0.8125rem; font-weight: 600; padding: 9px 17px;
     transition: background 0.15s, border-color 0.15s;
   }
-  .btn-admin:hover { background: rgba(47,227,138,0.2); border-color: var(--mint); }
+  .btn-admin:hover { background: rgba(47,176,227,0.2); border-color: var(--mint); }
   .btn-admin svg { width: 15px; height: 15px; }
   
 
   .sair {
-    background: transparent; border: 1px solid rgba(47,227,138,0.35);
+    background: transparent; border: 1px solid rgba(47,176,227,0.35);
     color: var(--mint); border-radius: 999px;
     font-family: inherit; font-size: 0.8125rem; font-weight: 600;
     padding: 8px 18px; cursor: pointer; transition: background 0.15s;
   }
-  .sair:hover { background: rgba(47,227,138,0.10); }
+  .sair:hover { background: rgba(47,176,227,0.10); }
 
   /* ---------- cabeçalho ---------- */
   .hero { max-width: 1180px; margin: 0 auto; padding: 56px 40px 8px; }
@@ -74,7 +74,7 @@
   /* ---------- seções ---------- */
   main { max-width: 1180px; margin: 0 auto; padding: 24px 40px 80px; }
   .area { margin-top: 48px; }
-  .area-head { display: flex; align-items: baseline; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(47,227,138,0.14); }
+  .area-head { display: flex; align-items: baseline; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(47,176,227,0.14); }
   .area-head h2 { font-size: 1.125rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
   .area-head span { font-size: 0.75rem; font-weight: 300; color: var(--footer); }
 
@@ -93,14 +93,14 @@
     text-decoration: none; color: inherit;
     transition: border-color 0.18s, background 0.18s, transform 0.12s;
   }
-  a.card:hover { border-color: rgba(47,227,138,0.55); background: rgba(47,227,138,0.07); transform: translateY(-2px); }
+  a.card:hover { border-color: rgba(47,176,227,0.55); background: rgba(47,176,227,0.07); transform: translateY(-2px); }
 
   .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
   .icon {
     width: 42px; height: 42px; flex: 0 0 auto;
     border-radius: 12px;
-    background: rgba(47,227,138,0.12);
-    border: 1px solid rgba(47,227,138,0.28);
+    background: rgba(47,176,227,0.12);
+    border: 1px solid rgba(47,176,227,0.28);
     display: flex; align-items: center; justify-content: center;
   }
   .icon svg { width: 20px; height: 20px; stroke: var(--mint); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -108,8 +108,8 @@
   .tag {
     font-size: 0.625rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
     padding: 5px 11px; border-radius: 999px;
-    background: rgba(47,227,138,0.14); color: var(--mint);
-    border: 1px solid rgba(47,227,138,0.25);
+    background: rgba(47,176,227,0.14); color: var(--mint);
+    border: 1px solid rgba(47,176,227,0.25);
   }
 
   .card h3 { margin-top: 16px; font-size: 1.0625rem; font-weight: 700; line-height: 1.25; }
@@ -124,11 +124,11 @@
   /* ---------- bloqueado ---------- */
   .card.locked { border-style: dashed; border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.015); cursor: default; }
   .card.locked .icon { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.10); }
-  .card.locked .icon svg { stroke: #4E6259; }
-  .card.locked h3 { color: #7E9188; }
-  .card.locked p { color: #61736A; }
-  .card.locked .tag { background: transparent; color: #5C6E65; border-color: rgba(255,255,255,0.10); }
-  .card.locked .card-foot { color: #5C6E65; }
+  .card.locked .icon svg { stroke: #4E5462; }
+  .card.locked h3 { color: #7E8491; }
+  .card.locked p { color: #616673; }
+  .card.locked .tag { background: transparent; color: #5C616E; border-color: rgba(255,255,255,0.10); }
+  .card.locked .card-foot { color: #5C616E; }
 
   .prazo { font-size: 0.6875rem; font-weight: 500; color: #C9A227; margin-top: 6px; }
 
@@ -143,10 +143,10 @@
   /* ---------- estados ---------- */
   .estado { max-width: 1180px; margin: 0 auto; padding: 80px 40px; text-align: center; color: var(--muted); font-weight: 300; }
   .vazio {
-    margin-top: 22px; border: 1px dashed rgba(47,227,138,0.28); border-radius: 18px;
+    margin-top: 22px; border: 1px dashed rgba(47,176,227,0.28); border-radius: 18px;
     padding: 34px; text-align: center; color: var(--muted); font-size: 0.875rem; font-weight: 300;
   }
-  footer { border-top: 1px solid rgba(47,227,138,0.12); padding: 22px 40px; }
+  footer { border-top: 1px solid rgba(47,176,227,0.12); padding: 22px 40px; }
   footer div { max-width: 1180px; margin: 0 auto; font-size: 0.6875rem; letter-spacing: 2.2px; text-transform: uppercase; font-weight: 600; }
   footer b { color: var(--mint); font-weight: 600; }
   footer span { color: var(--footer); }
@@ -169,7 +169,7 @@
 <body>
 
 <div class="topbar">
-  <img src="/logo-green-hub.png" alt="Green Hub" />
+  <img src="/logo-delta.svg" alt="Delta Soluções" />
   <div class="topbar-right">
     <div id="adminBox"></div>
     <div class="empresa" id="empresaBox"></div>
@@ -182,7 +182,7 @@
 </div>
 
 <footer>
-  <div><b>GREEN HUB</b><span> · CENTRAL DE FERRAMENTAS</span></div>
+  <div><b>DELTA SOLUÇÕES</b><span> · CENTRAL DE FERRAMENTAS</span></div>
 </footer>
 
 <script>
@@ -237,7 +237,7 @@ function cardHTML(item) {
 
   if (!item.unlocked) {
     return `<div class="card locked">${meio}
-      <div class="card-foot">Fale com a Green Hub para liberar</div>
+      <div class="card-foot">Fale com a Delta Soluções para liberar</div>
     </div>`;
   }
 
@@ -277,13 +277,13 @@ function render(itens, perfil, empresa) {
   const aviso = itemBloqueado ? `
     <div class="aviso">
       <b>${escapar(itemBloqueado.title)}</b> não está liberado para a sua clínica no momento.
-      Fale com o seu consultor da Green Hub para liberar o acesso.
+      Fale com o seu consultor da Delta Soluções para liberar o acesso.
     </div>` : '';
 
   const semNada = liberados === 0 ? `
     <div class="aviso">
       Ainda não há nada liberado para a sua clínica.
-      Fale com o seu consultor da Green Hub — ele define o que entra no seu acesso.
+      Fale com o seu consultor da Delta Soluções — ele define o que entra no seu acesso.
     </div>` : '';
 
   let html = `
