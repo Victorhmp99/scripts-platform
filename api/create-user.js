@@ -21,6 +21,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Dados incompletos: email, password e role são obrigatórios' });
   }
 
+  // Quem administra administradores é a master. Sem isto, um admin comum
+  // criaria outro admin e o controle sobre quem tem acesso total vazaria.
+  if (role === 'admin' && !auth.isMaster) {
+    return res.status(403).json({ error: 'Só a conta master pode criar administradores.' });
+  }
+
   try {
     // Cria usuário no Supabase Auth
     const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({

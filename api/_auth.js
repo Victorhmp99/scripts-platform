@@ -27,7 +27,7 @@ export async function requireAdmin(req) {
 
   const { data: profile } = await supabaseAdmin
     .from('profiles')
-    .select('role')
+    .select('role, is_master')
     .eq('id', user.id)
     .single();
 
@@ -35,7 +35,38 @@ export async function requireAdmin(req) {
     return { error: 'Acesso restrito ao administrador', status: 403 };
   }
 
-  return { user };
+  return { user, isMaster: profile.is_master === true };
+}
+
+/**
+ * Regras da conta master.
+ *
+ * A master é a dona da plataforma: só ela mexe em outros admins, e
+ * ninguém mexe nela. Isto vive aqui, e não só no banco, porque estas
+ * rotas usam a service_role — que ignora RLS por definição.
+ *
+ * Devolve { error, status } quando a ação é proibida, ou null quando pode.
+ */
+export async function podeMexerEm(auth, alvoUserId) {
+  if (!alvoUserId) return { error: 'user_id obrigatório', status: 400 };
+
+  const { data: alvo } = await supabaseAdmin
+    .from('profiles')
+    .select('role, is_master')
+    .eq('id', alvoUserId)
+    .single();
+
+  if (!alvo) return { error: 'Usuário não encontrado', status: 404 };
+
+  if (alvo.is_master) {
+    return { error: 'A conta master da plataforma não pode ser alterada ou removida.', status: 403 };
+  }
+
+  if (alvo.role === 'admin' && !auth.isMaster) {
+    return { error: 'Só a conta master pode mexer em outros administradores.', status: 403 };
+  }
+
+  return null;
 }
 
 export { supabaseAdmin };

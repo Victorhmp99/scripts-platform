@@ -152,6 +152,7 @@
     .badge-admin { background: rgba(47,176,227,0.15); color: var(--signal); }
     .badge-gestor { background: rgba(255,193,7,0.15); color: var(--warning); }
     .badge-user { background: rgba(232,241,245,0.1); color: var(--muted); }
+    .badge-master { background: rgba(240,196,58,0.15); color: #F0C43A; border: 1px solid rgba(240,196,58,0.35); }
     .badge-ok { background: rgba(47,176,227,0.15); color: var(--signal); }
     .badge-pending { background: rgba(255,193,7,0.15); color: var(--warning); }
     .action-btn {
@@ -603,14 +604,16 @@
   let empresas = [];
   let usuarios = [];
   let currentUserId = null;
+  let souMaster = false;
 
   // ── Auth guard ──────────────────────────────────────────────
   (async () => {
     const { data: { session } } = await sb.auth.getSession();
     if (!session) { window.location.href = '/'; return; }
     currentUserId = session.user.id;
-    const { data: prof } = await sb.from('profiles').select('role').eq('id', session.user.id).single();
+    const { data: prof } = await sb.from('profiles').select('role, is_master').eq('id', session.user.id).single();
     if (prof?.role !== 'admin') { window.location.href = '/app'; return; }
+    souMaster = prof.is_master === true;
     loadData();
   })();
 
@@ -627,7 +630,7 @@
   }
 
   async function loadUsuarios() {
-    const { data } = await sb.from('profiles').select('id, email, full_name, role, company_id, created_at, companies(name)').order('created_at', { ascending: false });
+    const { data } = await sb.from('profiles').select('id, email, full_name, role, company_id, is_master, created_at, companies(name)').order('created_at', { ascending: false });
     usuarios = data || [];
     renderUsuarios();
   }
@@ -657,6 +660,15 @@
     `).join('');
   }
 
+  // Espelha a regra que vale no banco (RLS) e nas rotas /api. Aqui é só
+  // conforto: esconder um botão não protege nada — quem protege é o RLS,
+  // o gatilho no banco e a checagem da API.
+  function podeMexer(u) {
+    if (u.is_master) return false;
+    if (u.role === 'admin' && !souMaster) return false;
+    return true;
+  }
+
   function renderUsuarios() {
     const tbody = document.getElementById('tblUsuarios');
     if (!usuarios.length) {
@@ -669,12 +681,13 @@
           <div style="font-weight:500">${u.full_name || '—'}</div>
           <div style="font-size:0.78rem; color:var(--muted); margin-top:2px">${u.email || ''}</div>
         </td>
-        <td data-rotulo="Função"><span class="badge badge-${u.role}">${u.role}</span></td>
+        <td data-rotulo="Função"><span class="badge badge-${u.role}">${u.role}</span>${u.is_master ? ' <span class="badge badge-master" title="Conta dona da plataforma">master</span>' : ''}</td>
         <td data-rotulo="Empresa">${u.companies?.name || '<span style="color:var(--muted)">—</span>'}</td>
         <td data-rotulo="Ações">
-          <button class="action-btn" onclick="abrirEditarUsuario('${u.id}')">Editar</button>
+          ${podeMexer(u) ? `<button class="action-btn" onclick="abrirEditarUsuario('${u.id}')">Editar</button>` : ''}
           <button class="action-btn" onclick="reenviarConvite('${u.email}')">Reenviar</button>
-          ${(currentUserId && u.id && u.id !== currentUserId) ? `<button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>` : ''}
+          ${(podeMexer(u) && currentUserId && u.id && u.id !== currentUserId) ? `<button class="action-btn danger" onclick="deletarUsuario('${u.id}', '${(u.full_name || u.email || 'este usuário').replace(/'/g,"\\'")}')">Remover</button>` : ''}
+          ${podeMexer(u) ? '' : `<span style="font-size:0.76rem; color:var(--muted)">${u.is_master ? 'conta master' : 'só a master altera admins'}</span>`}
         </td>
       </tr>
     `).join('');

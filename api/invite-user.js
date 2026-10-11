@@ -2,7 +2,7 @@
 // O usuário recebe um link, clica e já entra autenticado — sem precisar criar senha
 
 import { createClient } from '@supabase/supabase-js';
-import { requireAdmin } from './_auth.js';
+import { requireAdmin, podeMexerEm } from './_auth.js';
 
 const supabaseAdmin = createClient(
   process.env.SUPABASE_URL,
@@ -23,6 +23,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Role inválido' });
   }
 
+  // Quem administra administradores é a master. Sem isto, um admin comum
+  // criaria outro admin e o controle sobre quem tem acesso total vazaria.
+  if (role === 'admin' && !auth.isMaster) {
+    return res.status(403).json({ error: 'Só a conta master pode criar administradores.' });
+  }
+
   const redirectTo = `${process.env.APP_URL || 'https://scripts-platform.vercel.app'}/set-password.html`;
 
   try {
@@ -38,6 +44,12 @@ export default async function handler(req, res) {
         const { data: existing } = await supabaseAdmin.auth.admin.listUsers();
         const user = existing?.users?.find(u => u.email === email);
         if (user) {
+          // Este caminho altera o perfil de uma conta que já existe. Sem a
+          // checagem abaixo, um admin comum poderia "convidar" a master e,
+          // de quebra, rebaixá-la para usuário comum.
+          const barrado = await podeMexerEm(auth, user.id);
+          if (barrado) return res.status(barrado.status).json({ error: barrado.error });
+
           await supabaseAdmin
             .from('profiles')
             .update({ role, company_id: company_id || null, full_name: full_name || email })

@@ -1,7 +1,7 @@
 // Remove o usuário do Supabase Auth via service role
 
 import { createClient } from '@supabase/supabase-js';
-import { requireAdmin } from './_auth.js';
+import { requireAdmin, podeMexerEm } from './_auth.js';
 
 const supabaseAdmin = createClient(
   process.env.SUPABASE_URL,
@@ -17,6 +17,13 @@ export default async function handler(req, res) {
 
   const { user_id } = req.body;
   if (!user_id) return res.status(400).json({ error: 'user_id obrigatório' });
+
+  if (user_id === auth.user.id) {
+    return res.status(400).json({ error: 'Você não pode remover a própria conta.' });
+  }
+
+  const barrado = await podeMexerEm(auth, user_id);
+  if (barrado) return res.status(barrado.status).json({ error: barrado.error });
 
   try {
     // Deleta o usuário do Supabase Auth (remove perfil via CASCADE)
