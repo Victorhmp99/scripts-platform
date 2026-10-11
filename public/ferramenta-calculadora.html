@@ -47,7 +47,7 @@
     <h4>Nesta ferramenta</h4>
     <nav>
       <a href="#p1"><b>01</b> Custo da hora-cadeira</a>
-      <a href="#p2"><b>02</b> Custo do tratamento</a>
+      <a href="#p2"><b>02</b> Custo do serviço</a>
       <a href="#p3"><b>03</b> Imposto e margem</a>
       <a href="#resultado"><b>•</b> Seu preço</a>
     </nav>
@@ -57,19 +57,19 @@
     <header class="hero">
       <div class="eyebrow">Gestão da Empresa</div>
       <h1>Calculadora de<br><em>precificação</em></h1>
-      <p>A maioria das clínicas precifica olhando o concorrente. Isso funciona até o dia em que o concorrente erra a conta — e você copia o erro dele. Aqui o preço sai do seu custo real: quanto custa manter a cadeira aberta, quanto custa o tratamento e quanto precisa sobrar.</p>
+      <p>A maioria das empresas precifica olhando o concorrente. Isso funciona até o dia em que o concorrente erra a conta — e você copia o erro dele. Aqui o preço sai do seu custo real: quanto custa manter a cadeira aberta, quanto custa o serviço e quanto precisa sobrar.</p>
     </header>
 
     <section class="lente" id="p1">
       <div class="lente-num">Passo 01</div>
       <h2>Custo da <em>hora-cadeira</em></h2>
-      <p class="texto">Antes de saber o preço de um tratamento, você precisa saber quanto custa <strong>uma hora da sua cadeira aberta</strong> — mesmo vazia. Aluguel, folha, software e estrutura correm igual, com ou sem paciente sentado.</p>
-      <div class="destaque">Esse é o número que quase ninguém sabe de cabeça — e é ele que explica por que uma clínica cheia pode não dar lucro.</div>
+      <p class="texto">Antes de saber o preço de um serviço, você precisa saber quanto custa <strong>uma hora da sua cadeira aberta</strong> — mesmo vazia. Aluguel, folha, software e estrutura correm igual, com ou sem cliente sentado.</p>
+      <div class="destaque">Esse é o número que quase ninguém sabe de cabeça — e é ele que explica por que uma empresa cheia pode não dar lucro.</div>
 
       <div class="exercicio">
         <div class="exercicio-topo">Passo 01 — estrutura</div>
         <div class="exercicio-corpo">
-          <h3>Quanto custa manter a clínica aberta</h3>
+          <h3>Quanto custa manter a empresa aberta</h3>
           <p class="ajuda">Use os custos fixos do mês: aluguel, folha administrativa, software, contador, energia, limpeza. Não inclua material nem comissão.</p>
           <div class="campos">
             <div class="linha"><label>Custos fixos por mês</label><input class="valor" type="number" min="0" data-c id="k_fixos" placeholder="R$"></div>
@@ -80,7 +80,7 @@
           <div class="saidas">
             <div class="saida"><span>Horas disponíveis/mês</span><b id="o_horas_mes">—</b><small>somando todas as cadeiras</small></div>
             <div class="saida"><span>Horas realmente usadas</span><b id="o_horas_uteis">—</b><small>aplicando a ocupação</small></div>
-            <div class="saida"><span>Custo da hora-cadeira</span><b id="o_hora">—</b><small>o que a hora custa antes do tratamento</small></div>
+            <div class="saida"><span>Custo da hora-cadeira</span><b id="o_hora">—</b><small>o que a hora custa antes do serviço</small></div>
           </div>
         </div>
       </div>
@@ -88,18 +88,18 @@
 
     <section class="lente" id="p2">
       <div class="lente-num">Passo 02</div>
-      <h2>Custo do <em>tratamento</em></h2>
+      <h2>Custo do <em>serviço</em></h2>
       <p class="texto">Agora o custo específico daquele procedimento: o tempo de cadeira que ele ocupa, o material que consome e quanto o profissional recebe por ele.</p>
       <p class="texto">Repare que o tempo entra duas vezes na conta — como custo de estrutura (hora-cadeira) e como comissão. Por isso um procedimento longo com ticket médio costuma ser menos rentável do que parece.</p>
 
       <div class="exercicio">
-        <div class="exercicio-topo">Passo 02 — o tratamento</div>
+        <div class="exercicio-topo">Passo 02 — o serviço</div>
         <div class="exercicio-corpo">
-          <h3>O tratamento que você quer precificar</h3>
+          <h3>O serviço que você quer precificar</h3>
           <div class="campos">
-            <label class="campo-bloco"><span>Nome do tratamento</span><input type="text" data-c id="k_nome" placeholder="Ex: implante unitário com coroa"></label>
+            <label class="campo-bloco"><span>Nome do serviço</span><input type="text" data-c id="k_nome" placeholder="Ex: pacote mensal de manutenção"></label>
             <div class="linha"><label>Tempo total de cadeira <small>somando todas as sessões, em horas</small></label><input class="valor" type="number" min="0" step="0.5" data-c id="k_tempo" placeholder="h"></div>
-            <div class="linha"><label>Material e laboratório <small>tudo que é consumido neste tratamento</small></label><input class="valor" type="number" min="0" data-c id="k_material" placeholder="R$"></div>
+            <div class="linha"><label>Material e laboratório <small>tudo que é consumido neste serviço</small></label><input class="valor" type="number" min="0" data-c id="k_material" placeholder="R$"></div>
             <div class="linha"><label>Comissão do profissional <small>em % do valor cobrado</small></label><input class="pct" type="number" min="0" max="100" data-c id="k_comissao" placeholder="%"></div>
           </div>
         </div>
@@ -119,7 +119,7 @@
           <div class="campos">
             <div class="linha"><label>Imposto sobre a venda <small>o percentual que sai do faturamento</small></label><input class="pct" type="number" min="0" max="100" data-c id="k_imposto" placeholder="%"></div>
             <div class="linha"><label>Margem de lucro desejada <small>o que você quer que sobre depois de tudo</small></label><input class="pct" type="number" min="0" max="90" data-c id="k_margem" placeholder="%"></div>
-            <div class="linha"><label>Quantos tratamentos desses você faz por mês <small>opcional, para projetar o resultado</small></label><input class="valor" type="number" min="0" data-c id="k_volume" placeholder="qtd"></div>
+            <div class="linha"><label>Quantos serviços desses você faz por mês <small>opcional, para projetar o resultado</small></label><input class="valor" type="number" min="0" data-c id="k_volume" placeholder="qtd"></div>
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@
       <div class="faixas">
         <div class="faixa"><span>Preço mínimo</span><b id="o_minimo">—</b><small>abaixo disso você paga para atender</small></div>
         <div class="faixa destaque-verde"><span>Preço sugerido</span><b id="o_sugerido">—</b><small>com a margem que você definiu</small></div>
-        <div class="faixa"><span>Lucro por tratamento</span><b id="o_lucro">—</b><small>o que sobra depois de tudo</small></div>
+        <div class="faixa"><span>Lucro por serviço</span><b id="o_lucro">—</b><small>o que sobra depois de tudo</small></div>
       </div>
 
       <div class="decomposicao" id="decomposicao"></div>
@@ -172,8 +172,8 @@ window.MODULO = {
   },
 
   mensagens: {
-    vermelho: 'A conta mostra que esse tratamento não se paga como está sendo cobrado hoje. Corrigir preço aqui vale mais do que trazer paciente novo — porque cada novo tratamento nessa condição aumenta o prejuízo.',
-    amarelo:  'O tratamento se paga, mas com margem apertada. Qualquer imprevisto — retrabalho, sessão a mais, material mais caro — consome o lucro inteiro.',
+    vermelho: 'A conta mostra que esse serviço não se paga como está sendo cobrado hoje. Corrigir preço aqui vale mais do que trazer cliente novo — porque cada novo serviço nessa condição aumenta o prejuízo.',
+    amarelo:  'O serviço se paga, mas com margem apertada. Qualquer imprevisto — retrabalho, sessão a mais, material mais caro — consome o lucro inteiro.',
     verde:    'A precificação está coerente com o custo real e com a margem que você quer. Agora o trabalho é sustentar o preço na hora de apresentar.'
   },
 
@@ -264,7 +264,7 @@ window.MODULO = {
     var s = [];
     var c = window.MODULO.calc || {};
     var num = h.num, txt = h.txt;
-    var nome = txt('k_nome') || 'esse tratamento';
+    var nome = txt('k_nome') || 'esse serviço';
 
     if (c.impossivel) {
       s.push({
@@ -283,7 +283,7 @@ window.MODULO = {
     if (c.custoHora !== undefined) s.push({
       nivel: 'verde',
       titulo: 'Sua hora-cadeira custa ' + moeda(c.custoHora),
-      texto: 'Esse é o valor que a clínica gasta por hora de cadeira aberta, antes de qualquer material. É o piso de qualquer conta de preço.',
+      texto: 'Esse é o valor que a empresa gasta por hora de cadeira aberta, antes de qualquer material. É o piso de qualquer conta de preço.',
       acao: {
         titulo: 'Leve o custo da hora-cadeira para a decisão do dia a dia',
         porque: 'Sabendo esse número, dá para avaliar na hora se vale abrir horário extra, aceitar convênio ou dar desconto.',
@@ -300,32 +300,32 @@ window.MODULO = {
            : 'Boa ocupação. O custo fixo está bem diluído entre os atendimentos.',
       acao: {
         titulo: 'Suba a ocupação antes de subir o preço',
-        porque: 'Com ' + ocup + '% de ocupação, cada hora vazia joga custo fixo em cima dos pacientes que comparecem.',
+        porque: 'Com ' + ocup + '% de ocupação, cada hora vazia joga custo fixo em cima dos clientes que comparecem.',
         como: 'Ataque as duas causas mais comuns: falta sem aviso (régua de confirmação em três toques) e buraco na agenda (lista de espera para encaixe no mesmo dia).'
       }
     });
 
     if (c.margemReal !== undefined) s.push({
       nivel: c.margemReal < 10 ? 'vermelho' : c.margemReal < 20 ? 'amarelo' : 'verde',
-      titulo: 'Lucro de ' + moeda(c.lucro) + ' por tratamento · ' + pct(c.margemReal),
-      texto: c.margemReal < 10 ? 'Margem muito apertada. Uma sessão a mais ou um retrabalho consome o lucro inteiro desse tratamento.'
+      titulo: 'Lucro de ' + moeda(c.lucro) + ' por serviço · ' + pct(c.margemReal),
+      texto: c.margemReal < 10 ? 'Margem muito apertada. Uma sessão a mais ou um retrabalho consome o lucro inteiro desse serviço.'
            : c.margemReal < 20 ? 'Margem funcional, mas sem folga para imprevisto.'
            : 'Margem saudável, com espaço para absorver imprevisto e ainda investir.',
       acao: {
         titulo: 'Use ' + moeda(c.minimo) + ' como o seu limite de desconto',
-        porque: 'Abaixo desse valor, ' + nome + ' passa a custar dinheiro para a clínica em vez de gerar.',
+        porque: 'Abaixo desse valor, ' + nome + ' passa a custar dinheiro para a empresa em vez de gerar.',
         como: 'Comunique esse piso para quem apresenta orçamento e combine que qualquer valor abaixo dele precisa da sua autorização.'
       }
     });
 
     if (c.lucroMes !== undefined) s.push({
       nivel: 'verde',
-      titulo: moeda(c.lucroMes) + ' de lucro por mês com esse tratamento',
-      texto: 'Projeção considerando o volume que você informou. É esse número que mostra se vale investir em divulgar justamente esse tratamento.',
+      titulo: moeda(c.lucroMes) + ' de lucro por mês com esse serviço',
+      texto: 'Projeção considerando o volume que você informou. É esse número que mostra se vale investir em divulgar justamente esse serviço.',
       acao: {
-        titulo: 'Compare esse resultado com os outros tratamentos',
-        porque: 'Nem todo tratamento de ticket alto é o mais rentável — tempo de cadeira e material mudam tudo.',
-        como: 'Refaça essa conta para os três tratamentos que você mais realiza e concentre a divulgação no que tiver o melhor lucro por hora de cadeira.'
+        titulo: 'Compare esse resultado com os outros serviços',
+        porque: 'Nem todo serviço de ticket alto é o mais rentável — tempo de cadeira e material mudam tudo.',
+        como: 'Refaça essa conta para os três serviços que você mais realiza e concentre a divulgação no que tiver o melhor lucro por hora de cadeira.'
       }
     });
 

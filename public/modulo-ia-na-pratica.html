@@ -45,7 +45,7 @@
     <header class="hero">
       <div class="eyebrow">Gestão da Empresa</div>
       <h1>IA<br><em>na prática</em></h1>
-      <p>A IA não vai substituir o dono de clínica. Mas o dono que usa IA vai passar na frente do que não usa — não por ser mais inteligente, e sim por produzir em um dia o que o outro leva uma semana para fazer.</p>
+      <p>A IA não vai substituir o dono de empresa. Mas o dono que usa IA vai passar na frente do que não usa — não por ser mais inteligente, e sim por produzir em um dia o que o outro leva uma semana para fazer.</p>
     </header>
 
     <section class="lente" id="l1">
@@ -64,7 +64,7 @@
         <li><strong>Não é infalível</strong> — inventa dado com total confiança.</li>
         <li><strong>Não substitui estratégia</strong> — ela potencializa execução, não define direção.</li>
       </ul>
-      <div class="destaque">Dono de clínica não executa IA. Dono de clínica <strong>direciona</strong> e <strong>valida</strong> IA. Quem inverte essa ordem publica erro com a própria marca.</div>
+      <div class="destaque">Dono de empresa não executa IA. Dono de empresa <strong>direciona</strong> e <strong>valida</strong> IA. Quem inverte essa ordem publica erro com a própria marca.</div>
     </section>
 
     <section class="lente" id="l2">
@@ -79,17 +79,17 @@
         <tr><td>Formato</td><td>Como a resposta deve vir: lista, tabela, tamanho, tom.</td></tr>
         <tr><td>Restrição</td><td>Prazo, orçamento, o que evitar, o que não pode ser dito.</td></tr>
       </table>
-      <div class="destaque">Compare: <em>"me ajuda a escrever um post"</em> contra <em>"Você é especialista em copy para clínicas odontológicas. Escreva um post para Instagram sobre implante, para mulheres de 40 a 60 anos, em tom acolhedor, até 120 palavras, sem citar preço e sem prometer resultado."</em> <strong>Mesma IA, resultados incomparáveis.</strong></div>
+      <div class="destaque">Compare: <em>"me ajuda a escrever um post"</em> contra <em>"Você é especialista em copy para pequenas e médias empresas. Escreva um post para Instagram sobre implante, para mulheres de 40 a 60 anos, em tom acolhedor, até 120 palavras, sem citar preço e sem prometer resultado."</em> <strong>Mesma IA, resultados incomparáveis.</strong></div>
 
       <div class="exercicio">
         <div class="exercicio-topo">Sua vez — atividade 01</div>
         <div class="exercicio-corpo">
           <h3>Avalie um prompt seu</h3>
           <p class="ajuda">Pegue um comando que você já usou na IA e dê uma nota para cada elemento. Seja rigoroso: a nota baixa aqui é o que explica o resultado ruim lá.</p>
-          <label class="campo-bloco" style="margin-bottom:16px"><span>Cole aqui o prompt que você usou</span><textarea data-c id="i_prompt" placeholder="Ex: me ajuda a criar um post para o instagram da clínica"></textarea></label>
+          <label class="campo-bloco" style="margin-bottom:16px"><span>Cole aqui o prompt que você usou</span><textarea data-c id="i_prompt" placeholder="Ex: me ajuda a criar um post para o instagram da empresa"></textarea></label>
           <div class="campos">
             <div class="nota"><label>Papel <small>disse que especialista ela deveria ser?</small></label><select data-c id="i_papel"><option value="">Nota</option><option value="0">0 — não disse</option><option value="1">1 — está implícito</option><option value="2">2 — explícito</option></select></div>
-            <div class="nota"><label>Contexto <small>deu dados da clínica e do público?</small></label><select data-c id="i_contexto"><option value="">Nota</option><option value="0">0 — nenhum</option><option value="1">1 — pouco</option><option value="2">2 — suficiente</option></select></div>
+            <div class="nota"><label>Contexto <small>deu dados da empresa e do público?</small></label><select data-c id="i_contexto"><option value="">Nota</option><option value="0">0 — nenhum</option><option value="1">1 — pouco</option><option value="2">2 — suficiente</option></select></div>
             <div class="nota"><label>Tarefa <small>pediu algo específico e delimitado?</small></label><select data-c id="i_tarefa"><option value="">Nota</option><option value="0">0 — vago</option><option value="1">1 — amplo demais</option><option value="2">2 — específico</option></select></div>
             <div class="nota"><label>Formato <small>definiu como a resposta deveria vir?</small></label><select data-c id="i_formato"><option value="">Nota</option><option value="0">0 — não definiu</option><option value="1">1 — parcial</option><option value="2">2 — definido</option></select></div>
             <div class="nota"><label>Restrição <small>colocou limites, tom, o que evitar?</small></label><select data-c id="i_restricao"><option value="">Nota</option><option value="0">0 — nenhuma</option><option value="1">1 — alguma</option><option value="2">2 — claras</option></select></div>
@@ -108,8 +108,8 @@
           <h3>Reescreva com os 5 elementos</h3>
           <p class="ajuda">Preencha os campos e o prompt reescrito se monta embaixo, pronto para copiar.</p>
           <div class="campos">
-            <label class="campo-bloco"><span>Papel — que especialista ela deve ser</span><input type="text" data-c id="i_r_papel" placeholder="Ex: especialista em copy para clínicas odontológicas"></label>
-            <label class="campo-bloco"><span>Contexto — sua situação e seu público</span><input type="text" data-c id="i_r_contexto" placeholder="Ex: clínica de implantes em Goiânia, público de 40 a 60 anos, ticket médio R$ 8 mil"></label>
+            <label class="campo-bloco"><span>Papel — que especialista ela deve ser</span><input type="text" data-c id="i_r_papel" placeholder="Ex: especialista em copy para pequenas e médias empresas"></label>
+            <label class="campo-bloco"><span>Contexto — sua situação e seu público</span><input type="text" data-c id="i_r_contexto" placeholder="Ex: empresa de manutenção predial em Goiânia, síndicos de 40 a 60 anos, ticket médio R$ 8 mil"></label>
             <label class="campo-bloco"><span>Tarefa — o que exatamente você quer</span><input type="text" data-c id="i_r_tarefa" placeholder="Ex: escrever 3 opções de post para Instagram sobre perda de dentes"></label>
             <label class="campo-bloco"><span>Formato — como a resposta deve vir</span><input type="text" data-c id="i_r_formato" placeholder="Ex: em lista, cada opção com até 120 palavras e uma sugestão de imagem"></label>
             <label class="campo-bloco"><span>Restrição — limites e o que evitar</span><input type="text" data-c id="i_r_restricao" placeholder="Ex: sem citar preço, sem prometer resultado, tom acolhedor e sem jargão técnico"></label>
@@ -123,15 +123,15 @@
       <div class="lente-num">Conceito 03</div>
       <h2>Risco de <em>alucinação</em></h2>
       <p class="texto">A IA não sabe a verdade — ela gera o que parece mais plausível. Isso significa que ela pode inventar dado, criar referência que não existe e afirmar coisa errada com total segurança.</p>
-      <p class="texto">Em clínica isso é especialmente sério, porque conteúdo de saúde publicado errado não é só constrangimento: é risco de conselho profissional e de plataforma.</p>
+      <p class="texto">Em setor regulado isso é especialmente sério: informação técnica publicada errada não é só constrangimento, é risco com órgão de classe e com a própria plataforma.</p>
       <table class="ref">
         <tr><th>Tipo de conteúdo</th><th>Risco e como validar</th></tr>
         <tr><td>Legenda e post</td><td><b>Baixo.</b> Revisar tom e alinhamento com a marca.</td></tr>
         <tr><td>Conteúdo educativo</td><td><b>Médio.</b> Conferir cada afirmação técnica antes de publicar.</td></tr>
         <tr><td>Dados e estatísticas</td><td><b>Alto.</b> Peça a fonte. Se ela não souber citar, provavelmente inventou.</td></tr>
-        <tr><td>Orientação clínica</td><td><b>Muito alto.</b> Nunca publicar sem revisão do profissional responsável.</td></tr>
+        <tr><td>Orientação técnica ou profissional</td><td><b>Muito alto.</b> Nunca publicar sem revisão do profissional responsável.</td></tr>
       </table>
-      <div class="destaque">A regra que resolve quase tudo: <strong>a IA escreve, um humano responsável assina.</strong> Nada de saúde vai ao ar sem passar pelo profissional que responde tecnicamente pela clínica.</div>
+      <div class="destaque">A regra que resolve quase tudo: <strong>a IA escreve, um humano responsável assina.</strong> Nada de assunto técnico vai ao ar sem passar por quem responde por ele na empresa.</div>
     </section>
 
     <section class="lente" id="l4">
@@ -150,7 +150,7 @@
         <div class="exercicio-corpo">
           <h3>Seu nível e sua validação</h3>
           <div class="campos">
-            <label class="campo-bloco"><span>Em que nível a clínica está hoje?</span>
+            <label class="campo-bloco"><span>Em que nível a empresa está hoje?</span>
               <select data-c id="i_nivel">
                 <option value="">Selecione</option>
                 <option>Nível 0 — não usamos</option>
@@ -206,7 +206,7 @@ window.MODULO = {
   mensagens: {
     vermelho: 'A IA está sendo usada — ou ignorada — de um jeito que não entrega resultado. O problema quase nunca é a ferramenta, é o comando. O plano abaixo resolve isso em uma sessão.',
     amarelo:  'Você já usa, mas cada pessoa usa de um jeito e o resultado varia. Padronizar o comando é o que transforma uso ocasional em ganho de produtividade real.',
-    verde:    'Uso maduro e com validação. O próximo passo é ampliar para mais áreas da clínica sem perder a regra de revisão.'
+    verde:    'Uso maduro e com validação. O próximo passo é ampliar para mais áreas da empresa sem perder a regra de revisão.'
   },
 
   ELEMENTOS: [
@@ -280,9 +280,9 @@ window.MODULO = {
     if (c.promptPronto === true) s.push({
       nivel: 'verde',
       titulo: 'Prompt reescrito com os 5 elementos',
-      texto: 'Você tem um comando pronto para usar e reaproveitar. Esse é o começo da biblioteca de prompts da clínica.',
+      texto: 'Você tem um comando pronto para usar e reaproveitar. Esse é o começo da biblioteca de prompts da empresa.',
       acao: {
-        titulo: 'Comece a biblioteca de prompts da clínica',
+        titulo: 'Comece a biblioteca de prompts da empresa',
         porque: 'Prompt bom guardado vira produtividade de equipe; prompt bom esquecido vira trabalho refeito.',
         como: 'Crie um documento com um prompt por tarefa recorrente: post, resposta a avaliação no Google, roteiro de vídeo, resumo de reunião. Compartilhe com quem cuida da comunicação.'
       }
@@ -294,7 +294,7 @@ window.MODULO = {
         'Nível 0 — não usamos': {
           titulo: 'Use a IA para uma tarefa real ainda esta semana',
           porque: 'Nível 0 não se resolve estudando — se resolve usando uma vez com um problema de verdade.',
-          como: 'Abra o ChatGPT ou o Gemini e peça, com os 5 elementos, três legendas para o próximo post da clínica. Compare com o tempo que isso levaria antes.'
+          como: 'Abra o ChatGPT ou o Gemini e peça, com os 5 elementos, três legendas para o próximo post da empresa. Compare com o tempo que isso levaria antes.'
         },
         'Nível 1 — uso pontual, sem processo': {
           titulo: 'Padronize o comando antes de ampliar o uso',
@@ -303,7 +303,7 @@ window.MODULO = {
         },
         'Nível 2 — uso frequente, sem padrão na equipe': {
           titulo: 'Monte a biblioteca de prompts e treine a equipe',
-          porque: 'Sem padrão, cada pessoa reinventa o comando e a qualidade do que sai da clínica varia conforme quem escreveu.',
+          porque: 'Sem padrão, cada pessoa reinventa o comando e a qualidade do que sai da empresa varia conforme quem escreveu.',
           como: 'Documente os 5 prompts mais usados, faça uma sessão de 1 hora com quem cuida de comunicação e defina quem revisa antes de publicar.'
         },
         'Nível 3 — integrada à rotina': {
@@ -316,7 +316,7 @@ window.MODULO = {
       s.push({
         nivel: nivel.indexOf('Nível 0') === 0 ? 'vermelho' : nivel.indexOf('Nível 1') === 0 ? 'amarelo' : 'verde',
         titulo: 'Maturidade: ' + nivel,
-        texto: nivel.indexOf('Nível 0') === 0 ? 'A clínica ainda faz manualmente o que poderia levar minutos.'
+        texto: nivel.indexOf('Nível 0') === 0 ? 'A empresa ainda faz manualmente o que poderia levar minutos.'
              : nivel.indexOf('Nível 1') === 0 ? 'Existe uso, mas sem processo — o ganho ainda é individual e inconstante.'
              : 'Uso consistente. Daqui o ganho vem de ampliar para novas áreas.',
         acao: proximos[nivel]
@@ -329,10 +329,10 @@ window.MODULO = {
       titulo: 'Validação antes de publicar: ' + val.toLowerCase(),
       texto: val === 'Sim, profissional responsável revisa tudo' ? 'Regra clara. É o que permite usar IA em saúde sem correr risco desnecessário.'
            : val === 'Revisão informal, quando alguém lembra' ? 'Revisão que depende de lembrança falha exatamente no dia corrido — que é quando mais se publica.'
-           : 'Publicar conteúdo de saúde gerado por IA sem revisão é risco de conselho profissional e de plataforma.',
+           : 'Publicar conteúdo técnico gerado por IA sem revisão é risco com órgão de classe e com a própria plataforma.',
       acao: {
         titulo: 'Defina quem assina antes de publicar',
-        porque: 'A IA afirma coisa errada com total confiança. Em conteúdo de saúde, isso vira responsabilidade técnica e pode gerar sanção.',
+        porque: 'A IA afirma coisa errada com total confiança. Em conteúdo técnico, isso vira responsabilidade de quem assina e pode gerar sanção.',
         como: 'Escreva a regra: nada de saúde vai ao ar sem revisão do profissional responsável, com nome e registro. Coloque essa checagem no fluxo de aprovação de conteúdo.'
       }
     });

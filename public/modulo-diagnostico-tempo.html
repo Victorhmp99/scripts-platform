@@ -52,7 +52,7 @@
         <li><strong>Urgente</strong> — tem prazo curto. Em geral, reativo.</li>
         <li><strong>Circunstancial</strong> — aparece sem aviso. Em geral, dispensável.</li>
       </ul>
-      <div class="destaque">Clínica em modo caos costuma ficar em 70% urgente e 25% circunstancial. A meta é <strong>60% importante, 30% urgente e 10% circunstancial</strong>.</div>
+      <div class="destaque">Empresa em modo caos costuma ficar em 70% urgente e 25% circunstancial. A meta é <strong>60% importante, 30% urgente e 10% circunstancial</strong>.</div>
 
       <div class="exercicio">
         <div class="exercicio-topo">Sua vez — atividade 01</div>
@@ -74,7 +74,7 @@
       <h2>Lei de <em>Pareto</em></h2>
       <p class="texto">20% das atividades produzem 80% do resultado. Pareto não é regra matemática, é régua de decisão: sempre que algo te paralisar, pergunte se aquilo está nos seus 20%.</p>
       <ul class="pontos">
-        <li>Em vendas: 20% dos pacientes geram 80% do faturamento.</li>
+        <li>Em vendas: 20% dos clientes geram 80% do faturamento.</li>
         <li>Na equipe: 20% das pessoas entregam 80% da operação crítica.</li>
         <li>Na agenda: 20% das reuniões geram 80% das decisões.</li>
         <li>No marketing: 20% dos canais trazem 80% dos leads.</li>
@@ -87,8 +87,8 @@
           <h3>Os seus 20%</h3>
           <p class="ajuda">Responda rápido, sem pensar muito. A primeira resposta costuma ser a verdadeira.</p>
           <div class="campos">
-            <label class="campo-bloco"><span>Os tratamentos ou pacientes que mais pesam no faturamento</span><input type="text" data-c id="p_clientes" placeholder="Ex: implante e protocolo respondem por 60%"></label>
-            <label class="campo-bloco"><span>As atividades suas que mais geram resultado</span><input type="text" data-c id="p_atividades" placeholder="Ex: avaliação de novos pacientes, fechamento de orçamento"></label>
+            <label class="campo-bloco"><span>Os serviços ou clientes que mais pesam no faturamento</span><input type="text" data-c id="p_clientes" placeholder="Ex: implante e protocolo respondem por 60%"></label>
+            <label class="campo-bloco"><span>As atividades suas que mais geram resultado</span><input type="text" data-c id="p_atividades" placeholder="Ex: avaliação de novos clientes, fechamento de orçamento"></label>
             <label class="campo-bloco"><span>As reuniões que não precisam de você na próxima semana</span><input type="text" data-c id="p_reunioes" placeholder="Ex: alinhamento operacional da recepção"></label>
           </div>
         </div>
@@ -130,10 +130,10 @@
       <ul class="pontos">
         <li><strong>Operacional</strong> — você executa a tarefa.</li>
         <li><strong>Tático</strong> — você organiza quem faz.</li>
-        <li><strong>Estratégico</strong> — você decide o que a clínica vai e não vai fazer.</li>
+        <li><strong>Estratégico</strong> — você decide o que a empresa vai e não vai fazer.</li>
         <li><strong>Visionário</strong> — você desenha o próximo nível.</li>
       </ul>
-      <div class="destaque">Enquanto o dono opera, a clínica cresce no limite da capacidade dele. Quando o dono decide e cria, ela cresce no limite do time. <strong>100% operacional é uma clínica do tamanho de uma pessoa só.</strong></div>
+      <div class="destaque">Enquanto o dono opera, a empresa cresce no limite da capacidade dele. Quando o dono decide e cria, ela cresce no limite do time. <strong>100% operacional é uma empresa do tamanho de uma pessoa só.</strong></div>
 
       <div class="exercicio">
         <div class="exercicio-topo">Sua vez — atividade 04</div>
@@ -206,7 +206,7 @@
           <p class="ajuda">Escreva dia e horário de cada bloco recorrente. Depois lance na agenda como evento fixo.</p>
           <div class="campos">
             <div class="linha"><label style="max-width:150px">Estratégico</label><input type="text" data-c id="b_est" placeholder="Ex: segunda 8h-12h — números e decisões"></div>
-            <div class="linha"><label style="max-width:150px">Comercial</label><input type="text" data-c id="b_com" placeholder="Ex: terça e quinta 14h-17h — pacientes-chave"></div>
+            <div class="linha"><label style="max-width:150px">Comercial</label><input type="text" data-c id="b_com" placeholder="Ex: terça e quinta 14h-17h — clientes-chave"></div>
             <div class="linha"><label style="max-width:150px">Time</label><input type="text" data-c id="b_time" placeholder="Ex: quarta 9h-12h — 1:1s e formação"></div>
             <div class="linha"><label style="max-width:150px">Revisão</label><input type="text" data-c id="b_rev" placeholder="Ex: sexta 14h-16h — indicadores da semana"></div>
             <div class="linha"><label style="max-width:150px">Pessoal</label><input type="text" data-c id="b_pes" placeholder="Ex: diário 7h-8h — treino e leitura"></div>
@@ -282,10 +282,10 @@ window.MODULO = {
       titulo: 'Q2 (planejar) em ' + q2 + '% da semana',
       texto: q2 < 15 ? 'Praticamente não existe planejamento na sua semana. O crescimento hoje depende de heroísmo.'
            : q2 < 30 ? 'O planejamento existe, mas é a primeira coisa a ser cortada quando algo urgente aparece.'
-           : 'Você está protegendo o que constrói a clínica no longo prazo.',
+           : 'Você está protegendo o que constrói a empresa no longo prazo.',
       acao: {
         titulo: 'Reserve o bloco de planejamento antes de tudo',
-        porque: 'Com o Q2 em ' + q2 + '%, o que constrói a clínica só acontece quando sobra tempo — e nunca sobra.',
+        porque: 'Com o Q2 em ' + q2 + '%, o que constrói a empresa só acontece quando sobra tempo — e nunca sobra.',
         como: 'Lance hoje um bloco recorrente de 2h no início da semana, marcado como ocupado. Ele entra na agenda antes de qualquer atendimento ou reunião.'
       }
     });
@@ -294,12 +294,12 @@ window.MODULO = {
     if (op !== null) s.push({
       nivel: op > 60 ? 'vermelho' : op > 40 ? 'amarelo' : 'verde',
       titulo: 'Modo operacional em ' + op + '% do tempo',
-      texto: op > 60 ? 'A clínica está crescendo no limite da sua capacidade pessoal — é uma clínica do tamanho de uma pessoa só.'
+      texto: op > 60 ? 'A empresa está crescendo no limite da sua capacidade pessoal — é uma empresa do tamanho de uma pessoa só.'
            : op > 40 ? 'Você já divide o tempo, mas o operacional ainda decide o tamanho da operação.'
            : 'Você está no lugar certo: decidindo e criando mais do que executando.',
       acao: {
         titulo: 'Tire uma atividade das suas mãos nesta semana',
-        porque: 'Com ' + op + '% do seu tempo no operacional, a clínica não cresce além do que você consegue executar sozinho.',
+        porque: 'Com ' + op + '% do seu tempo no operacional, a empresa não cresce além do que você consegue executar sozinho.',
         como: 'Escolha a atividade operacional que mais se repete, faça uma vez junto com a pessoa (N2) e combine que na próxima ela faz e te mostra antes de executar (N3).'
       }
     });
