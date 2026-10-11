@@ -6,6 +6,8 @@
 <title>Delta Soluções — Central de Ferramentas</title>
   <link rel="icon" href="/logo-delta.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://dckvprqsecaxaooppqfp.supabase.co" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
@@ -344,21 +346,39 @@ async function iniciar() {
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { window.location.href = '/'; return; }
 
-  const { data: perfil } = await sb
-    .from('profiles')
-    .select('full_name, role, company_id')
-    .eq('id', session.user.id)
-    .single();
+  // Cada ida ao banco custa de 200 a 500ms. Antes eram duas em sequência:
+  // o perfil, e só depois empresa + itens. get_my_portal devolve os três
+  // de uma vez, então sobra uma espera só.
+  let perfil, empresa, itens, error;
+
+  const { data: tudo, error: erroRpc } = await sb.rpc('get_my_portal');
+
+  if (!erroRpc && tudo) {
+    ({ perfil, empresa, itens } = tudo);
+  } else {
+    // A função só existe depois da migration-portal-uma-chamada.sql.
+    // Enquanto ela não rodar, o caminho antigo mantém o portal de pé.
+    ({ data: perfil } = await sb
+      .from('profiles')
+      .select('full_name, role, company_id')
+      .eq('id', session.user.id)
+      .single());
+
+    if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/setup'; return; }
+
+    const [resEmpresa, resItens] = await Promise.all([
+      perfil.company_id
+        ? sb.from('companies').select('name').eq('id', perfil.company_id).single()
+        : Promise.resolve({ data: null }),
+      sb.rpc('get_my_portal_items')
+    ]);
+    empresa = resEmpresa.data;
+    itens = resItens.data;
+    error = resItens.error;
+  }
 
   // Admin entra mesmo sem empresa vinculada — ele administra, não consome.
   if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/setup'; return; }
-
-  const [{ data: empresa }, { data: itens, error }] = await Promise.all([
-    perfil.company_id
-      ? sb.from('companies').select('name').eq('id', perfil.company_id).single()
-      : Promise.resolve({ data: null }),
-    sb.rpc('get_my_portal_items')
-  ]);
 
   if (error) {
     document.getElementById('conteudo').innerHTML =
