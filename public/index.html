@@ -122,6 +122,7 @@
     <div class="marca-mobile"><img src="/logo-delta.png" alt="Delta Soluções" /></div>
 
     <h2>Entrar na central</h2>
+    <p class="ajuda" id="avisoExpirou" style="display:none; color:var(--amber, #F0C43A)"></p>
     <p class="ajuda">Use o e-mail cadastrado pela Delta Soluções.</p>
 
     <div class="erro" id="erro"></div>
@@ -146,6 +147,29 @@
 const SUPABASE_URL = 'https://dckvprqsecaxaooppqfp.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRja3ZwcnFzZWNheGFvb3BwcWZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzOTU4MjcsImV4cCI6MjA5Nzk3MTgyN30.fY17RCGW5k_9hDIfGStJn4Xi_HpeL1ned5zrZQCOwZ4';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// Chegar à tela de entrada significa que a sessão anterior acabou. Os
+// marcadores de atividade precisam morrer aqui: se sobrassem com a hora
+// antiga, o próximo login seria encerrado no primeiro clique, porque a
+// conferência veria "parado há 31 minutos" numa sessão recém-criada.
+try {
+  localStorage.removeItem('delta.ultima_atividade');
+  localStorage.removeItem('delta.inicio_sessao');
+} catch (e) { /* modo anônimo */ }
+
+// A sessão encerrada por inatividade manda a pessoa para cá. Sem uma
+// palavra explicando, ela acha que o login quebrou e tenta de novo.
+(function () {
+  const motivo = new URLSearchParams(location.search).get('expirou');
+  if (!motivo) return;
+  const el = document.getElementById('avisoExpirou');
+  if (!el) return;
+  el.textContent = motivo === 'tempo'
+    ? 'Sua sessão passou do tempo máximo. Entre de novo para continuar.'
+    : 'Sua sessão foi encerrada por inatividade. Entre de novo para continuar.';
+  el.style.display = '';
+  history.replaceState(null, '', location.pathname);
+})();
 
 (async () => {
   const { data: { session } } = await sb.auth.getSession();
