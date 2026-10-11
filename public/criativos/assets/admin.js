@@ -1,7 +1,10 @@
 // Painel do acervo: cadastrar criativo por link, criar procedimento e formato.
 // Entra com a mesma conta do portal; quem grava é o papel de admin no banco.
 
-import { slugificar } from './dados.js';
+import {
+  normalizarAcervo,
+  slugificar,
+} from './dados.js';
 import { carregarDoArquivo } from './dados.js';
 import { lerAcervoRemoto, publicarAcervo, sessaoAtual, entrar, sair } from './acervo.js';
 import { resolverEmbed, miniatura } from './embed.js';
@@ -24,7 +27,7 @@ function irPara(id) {
 
 let acervo = null;        // { procedimentos: [...] }
 let sessao = null;
-let selecionado = { procedimento: null, formato: null, criativo: null };
+let selecionado = { nicho: null, procedimento: null, formato: null, criativo: null };
 let sujo = false;         // tem mudança não publicada?
 
 /* ---------------- utilidades ---------------- */
@@ -64,6 +67,7 @@ function marcarLimpo(quando) {
   $('estadoPublicacao').className = 'estado-pub ok';
 }
 
+const nic = () => acervo?.nichos?.find((n) => n.slug === selecionado.nicho) ?? null;
 const proc = () => acervo?.procedimentos.find((p) => p.slug === selecionado.procedimento) ?? null;
 const fmt = () => proc()?.formatos.find((f) => f.slug === selecionado.formato) ?? null;
 const cri = () => fmt()?.criativos.find((c) => c.id === selecionado.criativo) ?? null;
@@ -83,19 +87,40 @@ function novoId(procedimento, formato) {
 
 /* ---------------- listas ---------------- */
 
+function desenharNichos() {
+  const lista = $('listaNichos');
+  lista.innerHTML = (acervo.nichos || []).map((n) => {
+    const procs = acervo.procedimentos.filter((p) => p.nicho === n.slug);
+    const qtd = procs.reduce((t, p) => t + p.formatos.reduce((s, f) => s + f.criativos.length, 0), 0);
+    const ativo = n.slug === selecionado.nicho ? ' ativo' : '';
+    return `<button class="item${ativo}" data-nicho="${esc(n.slug)}">
+      <b>${esc(n.nome)}</b><span>${procs.length} serviço${procs.length === 1 ? '' : 's'} · ${qtd} criativo${qtd === 1 ? '' : 's'}</span>
+    </button>`;
+  }).join('') || '<p class="vazio">Nenhum nicho ainda.</p>';
+
+  lista.querySelectorAll('[data-nicho]').forEach((b) => {
+    b.onclick = () => {
+      selecionado = { nicho: b.dataset.nicho, procedimento: null, formato: null, criativo: null };
+      desenharTudo();
+      irPara('colunaProcedimentos');
+    };
+  });
+}
+
 function desenharProcedimentos() {
   const lista = $('listaProcedimentos');
-  lista.innerHTML = acervo.procedimentos.map((p) => {
+  // só os serviços do nicho aberto: a lista inteira misturaria ramos
+  lista.innerHTML = acervo.procedimentos.filter((p) => p.nicho === selecionado.nicho).map((p) => {
     const qtd = p.formatos.reduce((t, f) => t + f.criativos.length, 0);
     const ativo = p.slug === selecionado.procedimento ? ' ativo' : '';
     return `<button class="item${ativo}" data-proc="${esc(p.slug)}">
       <b>${esc(p.nome)}</b><span>${esc(p.area)} · ${qtd} criativo${qtd === 1 ? '' : 's'}</span>
     </button>`;
-  }).join('') || '<p class="vazio">Nenhum procedimento ainda.</p>';
+  }).join('') || '<p class="vazio">Nenhum serviço neste nicho ainda.</p>';
 
   lista.querySelectorAll('[data-proc]').forEach((b) => {
     b.onclick = () => {
-      selecionado = { procedimento: b.dataset.proc, formato: null, criativo: null };
+      selecionado = { ...selecionado, procedimento: b.dataset.proc, formato: null, criativo: null };
       desenharTudo();
       irPara('colunaFormatos');
     };
@@ -319,10 +344,53 @@ function lerFormulario() {
 
 /* ---------------- criar e remover ---------------- */
 
+function criarNicho() {
+  const nome = $('nnNome').value.trim();
+  const descricao = $('nnDescricao').value.trim();
+  if (!nome) { aviso('O nome é obrigatório.', 'erro'); return; }
+
+  const slug = slugificar(nome);
+  if ((acervo.nichos || []).some((n) => n.slug === slug)) {
+    aviso('Já existe um nicho com esse nome.', 'erro');
+    return;
+  }
+
+  if (!Array.isArray(acervo.nichos)) acervo.nichos = [];
+  acervo.nichos.push({ slug, nome, descricao });
+  selecionado = { nicho: slug, procedimento: null, formato: null, criativo: null };
+  ['nnNome', 'nnDescricao'].forEach((id) => { $(id).value = ''; });
+  fecharModal('modalNicho');
+  marcarSujo();
+  desenharTudo();
+  aviso(`Nicho "${nome}" criado.`);
+}
+
+function removerNicho() {
+  const n = nic();
+  if (!n) return;
+  const procs = acervo.procedimentos.filter((p) => p.nicho === n.slug);
+  const qtd = procs.reduce((t, p) => t + p.formatos.reduce((s, f) => s + f.criativos.length, 0), 0);
+
+  // Remover nicho apaga tudo que está dentro. Vale dizer o tamanho do
+  // estrago antes, porque não há como desfazer depois de publicar.
+  const aviso_texto = procs.length
+    ? `Remover "${n.nome}" apaga também ${procs.length} serviço(s) e ${qtd} criativo(s). Continuar?`
+    : `Remover o nicho "${n.nome}"?`;
+  if (!confirm(aviso_texto)) return;
+
+  acervo.nichos = acervo.nichos.filter((x) => x.slug !== n.slug);
+  acervo.procedimentos = acervo.procedimentos.filter((p) => p.nicho !== n.slug);
+  selecionado = { nicho: null, procedimento: null, formato: null, criativo: null };
+  marcarSujo();
+  desenharTudo();
+  aviso('Nicho removido.');
+}
+
 function criarProcedimento() {
   const nome = $('npNome').value.trim();
   const area = $('npArea').value.trim();
   const descricao = $('npDescricao').value.trim();
+  if (!selecionado.nicho) { aviso('Escolha um nicho antes.', 'erro'); return; }
   if (!nome || !area) { aviso('Nome e área são obrigatórios.', 'erro'); return; }
 
   const slug = slugificar(nome);
@@ -331,13 +399,13 @@ function criarProcedimento() {
     return;
   }
 
-  acervo.procedimentos.push({ slug, nome, area, descricao, formatos: [] });
-  selecionado = { procedimento: slug, formato: null, criativo: null };
+  acervo.procedimentos.push({ slug, nome, area, descricao, nicho: selecionado.nicho, formatos: [] });
+  selecionado = { ...selecionado, procedimento: slug, formato: null, criativo: null };
   ['npNome', 'npArea', 'npDescricao'].forEach((id) => { $(id).value = ''; });
   fecharModal('modalProcedimento');
   marcarSujo();
   desenharTudo();
-  aviso(`Procedimento "${nome}" criado.`);
+  aviso(`Serviço "${nome}" criado.`);
 }
 
 function criarFormato() {
@@ -426,10 +494,10 @@ function removerProcedimento() {
   if (!confirm(`Remover "${p.nome}"${qtd ? ` e seus ${qtd} criativos` : ''}?`)) return;
 
   acervo.procedimentos = acervo.procedimentos.filter((x) => x.slug !== p.slug);
-  selecionado = { procedimento: null, formato: null, criativo: null };
+  selecionado = { ...selecionado, procedimento: null, formato: null, criativo: null };
   marcarSujo();
   desenharTudo();
-  aviso('Procedimento removido.');
+  aviso('Serviço removido.');
 }
 
 /* ---------------- publicar ---------------- */
@@ -458,13 +526,17 @@ function fecharModal(id) { $(id).classList.remove('aberto'); }
 /* ---------------- desenho geral ---------------- */
 
 function desenharTudo() {
+  desenharNichos();
   desenharProcedimentos();
   desenharFormatos();
   desenharCriativos();
   desenharFormulario();
 
+  const n = nic();
   const p = proc();
   const f = fmt();
+  $('colunaProcedimentos').style.display = n ? '' : 'none';
+  $('btnRemoverNicho').style.display = n ? '' : 'none';
   $('btnNovoFormato').style.display = p ? '' : 'none';
   $('btnNovoCriativo').style.display = f ? '' : 'none';
   $('btnRemoverProcedimento').style.display = p ? '' : 'none';
@@ -476,12 +548,12 @@ function desenharTudo() {
 async function carregarAcervo() {
   const remoto = await lerAcervoRemoto();
   if (remoto?.dados) {
-    acervo = remoto.dados;
+    acervo = normalizarAcervo(remoto.dados);
     marcarLimpo(remoto.atualizadoEm);
     $('origem').textContent = 'Acervo vindo do banco';
     return;
   }
-  acervo = await carregarDoArquivo();
+  acervo = normalizarAcervo(await carregarDoArquivo());
   $('origem').textContent = 'Acervo vindo do criativos.json — publique para passar a usar o banco';
   marcarSujo();
 }
@@ -535,14 +607,17 @@ function ligarEventos() {
   $('btnPublicar').onclick = publicar;
   $('btnPublicarRodape').onclick = publicar;
 
+  $('btnNovoNicho').onclick = () => abrirModal('modalNicho');
   $('btnNovoProcedimento').onclick = () => abrirModal('modalProcedimento');
   $('btnNovoFormato').onclick = () => abrirModal('modalFormato');
   $('btnNovoCriativo').onclick = () => abrirModal('modalCriativo');
 
+  $('criarNicho').onclick = criarNicho;
   $('criarProcedimento').onclick = criarProcedimento;
   $('criarFormato').onclick = criarFormato;
   $('criarCriativo').onclick = criarCriativo;
 
+  $('btnRemoverNicho').onclick = removerNicho;
   $('btnRemoverProcedimento').onclick = removerProcedimento;
   $('btnRemoverFormato').onclick = removerFormato;
   $('btnRemoverCriativo').onclick = removerCriativo;

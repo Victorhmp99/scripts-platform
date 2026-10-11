@@ -6,6 +6,7 @@ export function lerParametros(queryString) {
     return limpo === '' ? null : limpo;
   };
   return {
+    nicho: limpar(params.get('n')),
     procedimento: limpar(params.get('p')),
     formato: limpar(params.get('f')),
     id: limpar(params.get('id')),

@@ -24,6 +24,26 @@ function rotuloContagem(total) {
   return total === 1 ? '1 criativo' : `${total} criativos`;
 }
 
+export function htmlNichos(nichos, contar) {
+  return `
+    <section class="area">
+      <h2 class="area-titulo">Escolha o nicho<span>${nichos.length}</span></h2>
+      <div class="grade-pastas">
+        ${nichos
+          .map((nicho, indice) => {
+            const total = contar(nicho.slug);
+            return `
+            <a class="cartao-pasta${total === 0 ? ' vazio' : ''}" style="--i:${Math.min(indice, 7)}" href="/criativos/nicho?n=${escapar(nicho.slug)}">
+              <h3>${escapar(nicho.nome)}</h3>
+              <p>${escapar(nicho.descricao || '')}</p>
+              <span class="contagem">${escapar(rotuloContagem(total))}</span>
+            </a>`;
+          })
+          .join('')}
+      </div>
+    </section>`;
+}
+
 export function htmlAreas(areas, contar) {
   return areas
     .map(

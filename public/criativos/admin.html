@@ -267,14 +267,24 @@
   <div class="barra-origem" id="origem"></div>
 
   <div class="colunas">
-    <!-- procedimentos -->
+    <!-- nichos -->
     <div class="coluna">
       <div class="coluna-cab">
-        <h2>Procedimentos</h2>
-        <button class="mais" id="btnNovoProcedimento" title="Novo procedimento">+</button>
+        <h2>Nichos</h2>
+        <button class="mais" id="btnNovoNicho" title="Novo nicho">+</button>
+      </div>
+      <div class="lista" id="listaNichos"></div>
+      <button class="btn-fantasma btn-perigo" id="btnRemoverNicho" style="display:none">Remover nicho</button>
+    </div>
+
+    <!-- serviços -->
+    <div class="coluna" id="colunaProcedimentos" style="display:none">
+      <div class="coluna-cab">
+        <h2>Serviços</h2>
+        <button class="mais" id="btnNovoProcedimento" title="Novo serviço">+</button>
       </div>
       <div class="lista" id="listaProcedimentos"></div>
-      <button class="btn-fantasma btn-perigo" id="btnRemoverProcedimento" style="display:none">Remover procedimento</button>
+      <button class="btn-fantasma btn-perigo" id="btnRemoverProcedimento" style="display:none">Remover serviço</button>
     </div>
 
     <!-- formatos -->
@@ -395,14 +405,27 @@
 <!-- modais -->
 <div class="modal-fundo" id="modalProcedimento">
   <div class="modal">
-    <h3>Novo procedimento</h3>
-    <p class="sub">É o que a clínica vende: full face, preenchimento labial, toxina.</p>
+    <h3>Novo serviço</h3>
+    <p class="sub">É o que a empresa vende. Entra no nicho que estiver selecionado.</p>
     <div class="campo"><label for="npNome">Nome</label><input type="text" id="npNome" placeholder="Ex: Preenchimento de Olheiras"></div>
-    <div class="campo"><label for="npArea">Área</label><input type="text" id="npArea" placeholder="Face, Corpo ou Capilar"></div>
-    <div class="campo"><label for="npDescricao">Descrição</label><textarea id="npDescricao" placeholder="Uma frase explicando o procedimento."></textarea></div>
+    <div class="campo"><label for="npArea">Área</label><input type="text" id="npArea" placeholder="Agrupa os serviços dentro do nicho. Ex: Face, Corpo"></div>
+    <div class="campo"><label for="npDescricao">Descrição</label><textarea id="npDescricao" placeholder="Uma frase explicando o serviço."></textarea></div>
     <div class="modal-pe">
       <button class="btn-fantasma" data-fechar="modalProcedimento">Cancelar</button>
       <button class="btn" id="criarProcedimento">Criar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-fundo" id="modalNicho">
+  <div class="modal">
+    <h3>Novo nicho</h3>
+    <p class="sub">O ramo do cliente: e-commerce, negócio local, serviços profissionais.</p>
+    <div class="campo"><label for="nnNome">Nome</label><input type="text" id="nnNome" placeholder="Ex: Negócio local"></div>
+    <div class="campo"><label for="nnDescricao">Descrição</label><textarea id="nnDescricao" placeholder="Uma frase dizendo para quem é esse acervo."></textarea></div>
+    <div class="modal-pe">
+      <button class="btn-fantasma" data-fechar="modalNicho">Cancelar</button>
+      <button class="btn" id="criarNicho">Criar</button>
     </div>
   </div>
 </div>

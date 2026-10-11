@@ -2,15 +2,18 @@ import { lerParametros } from './rotas.js';
 import {
   acharCriativo,
   acharFormato,
+  acharNicho,
   acharProcedimento,
   agruparPorArea,
   carregarDados,
   contarCriativos,
+  contarDoNicho,
   slugificar,
 } from './dados.js';
 import { formatarRoteiroTexto } from './roteiro.js';
 import {
   htmlAreas,
+  htmlNichos,
   htmlAviso,
   htmlBotaoCopiar,
   htmlFormatos,
@@ -29,9 +32,10 @@ function acenderMenu(slugArea) {
   }
 }
 
-function marcarArea(procedimento) {
+function marcarArea(procedimento, dados) {
   const slugArea = slugificar(procedimento.area);
   document.body.dataset.area = slugArea;
+  if (dados) montarMenuAreas(dados, procedimento.nicho);
   acenderMenu(slugArea);
 }
 
@@ -54,7 +58,38 @@ function trilha(itens) {
 
 function paginaHome(dados) {
   conteudo.className = 'lista-areas';
-  conteudo.innerHTML = htmlAreas(agruparPorArea(dados), contarCriativos);
+  conteudo.innerHTML = htmlNichos(dados.nichos, (slug) => contarDoNicho(dados, slug));
+  montarMenuAreas(dados, null);
+}
+
+function paginaNicho(dados, params) {
+  const nicho = acharNicho(dados, params.nicho);
+  if (!nicho) {
+    window.location.replace('/criativos');
+    return;
+  }
+  document.title = `${nicho.nome} · Referências Criativos`;
+  definirVolta('/criativos', 'Todos os nichos');
+  trilha([{ nome: 'Início', href: '/criativos' }, { nome: nicho.nome }]);
+  definir('titulo', nicho.nome);
+  definir('subtitulo', nicho.descricao || 'Escolha o serviço que você quer vender.');
+  conteudo.className = 'lista-areas';
+  conteudo.innerHTML = htmlAreas(agruparPorArea(dados, nicho.slug), contarCriativos);
+  montarMenuAreas(dados, nicho.slug);
+}
+
+/**
+ * O menu de áreas era fixo em Face/Corpo/Capilar — só fazia sentido em
+ * estética. Agora ele é montado a partir das áreas que existem dentro do
+ * nicho aberto, e some na home, onde a escolha ainda é de nicho.
+ */
+function montarMenuAreas(dados, slugNicho) {
+  const lista = document.getElementById('menu-areas');
+  if (!lista) return;
+  if (!slugNicho) { lista.innerHTML = ''; return; }
+  lista.innerHTML = agruparPorArea(dados, slugNicho)
+    .map((area) => `<li><a href="/criativos/nicho?n=${encodeURIComponent(slugNicho)}#${area.slug}" data-menu-area="${area.slug}">${area.nome}</a></li>`)
+    .join('');
 }
 
 function paginaProcedimento(dados, params) {
@@ -64,7 +99,7 @@ function paginaProcedimento(dados, params) {
     return;
   }
   document.title = `${procedimento.nome} · Referências Criativos`;
-  marcarArea(procedimento);
+  marcarArea(procedimento, dados);
   definirVolta('/criativos', 'Todos os procedimentos');
   trilha([{ nome: 'Início', href: '/criativos' }, { nome: procedimento.nome }]);
   definir('titulo', procedimento.nome);
@@ -83,7 +118,7 @@ function paginaFormato(dados, params) {
     return;
   }
   document.title = `${formato.nome} · ${procedimento.nome}`;
-  marcarArea(procedimento);
+  marcarArea(procedimento, dados);
   definirVolta(`procedimento.html?p=${encodeURIComponent(procedimento.slug)}`, procedimento.nome);
   trilha([
     { nome: 'Início', href: '/criativos' },
@@ -121,7 +156,7 @@ function paginaCriativo(dados, params) {
     return;
   }
   document.title = `${criativo.titulo} · Referências Criativos`;
-  marcarArea(procedimento);
+  marcarArea(procedimento, dados);
   definirVolta(
     `formato.html?p=${encodeURIComponent(procedimento.slug)}&f=${encodeURIComponent(formato.slug)}`,
     formato.nome,
@@ -176,6 +211,7 @@ async function iniciar() {
   }
   const pagina = document.body.dataset.pagina;
   if (pagina === 'home') paginaHome(dados);
+  else if (pagina === 'nicho') paginaNicho(dados, params);
   else if (pagina === 'procedimento') paginaProcedimento(dados, params);
   else if (pagina === 'formato') paginaFormato(dados, params);
   else if (pagina === 'criativo') paginaCriativo(dados, params);

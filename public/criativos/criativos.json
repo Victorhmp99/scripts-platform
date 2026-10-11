@@ -1,4 +1,36 @@
 {
+  "nichos": [
+    {
+      "slug": "saude-e-estetica",
+      "nome": "Saúde e estética",
+      "descricao": "Clínicas, consultórios e profissionais de saúde, estética e bem-estar."
+    },
+    {
+      "slug": "negocio-local",
+      "nome": "Negócio local",
+      "descricao": "Quem vende para quem está perto: comércio de rua, serviços de bairro, food."
+    },
+    {
+      "slug": "ecommerce",
+      "nome": "E-commerce",
+      "descricao": "Loja online, marketplace e venda de produto físico pela internet."
+    },
+    {
+      "slug": "servicos-profissionais",
+      "nome": "Serviços profissionais",
+      "descricao": "Advocacia, contabilidade, arquitetura, consultoria e afins."
+    },
+    {
+      "slug": "educacao-e-infoproduto",
+      "nome": "Educação e infoproduto",
+      "descricao": "Curso, mentoria, treinamento e conteúdo pago."
+    },
+    {
+      "slug": "imobiliario",
+      "nome": "Imobiliário",
+      "descricao": "Corretagem, incorporação, locação e investimento em imóvel."
+    }
+  ],
   "procedimentos": [
     {
       "slug": "full-face",
@@ -382,7 +414,8 @@
             }
           ]
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "preenchimento-labial",
@@ -627,7 +660,8 @@
             }
           ]
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "toxina-botulinica",
@@ -756,7 +790,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "preenchimento-de-olheiras",
@@ -999,7 +1034,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "rinomodelacao",
@@ -1266,7 +1302,8 @@
             }
           ]
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "contorno-de-mandibula",
@@ -1392,7 +1429,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "preenchimento-de-malar",
@@ -1514,7 +1552,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "preenchimento-de-mento",
@@ -1682,7 +1721,8 @@
             }
           ]
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "preenchimento-de-temporas",
@@ -1779,7 +1819,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "sulco-nasogeniano",
@@ -1900,7 +1941,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "lipo-enzimatica-de-papada",
@@ -2028,7 +2070,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "toxina-para-bruxismo",
@@ -2129,7 +2172,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "sorriso-gengival",
@@ -2203,7 +2247,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "fios-de-pdo",
@@ -2304,7 +2349,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "bioestimulador-de-colageno",
@@ -2453,7 +2499,8 @@
             }
           ]
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "skinbooster",
@@ -2622,7 +2669,8 @@
             }
           ]
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "microagulhamento",
@@ -2723,7 +2771,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "peeling-quimico",
@@ -2824,7 +2873,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "pdrn-e-exossomos",
@@ -2925,7 +2975,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "intradermoterapia-facial",
@@ -2999,7 +3050,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "bioestimulador-corporal",
@@ -3073,7 +3125,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "enzimas-para-gordura-localizada",
@@ -3201,7 +3254,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "preenchimento-de-gluteo",
@@ -3302,7 +3356,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "tratamento-de-celulite",
@@ -3403,7 +3458,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "tratamento-de-estrias",
@@ -3477,7 +3533,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "hiperidrose",
@@ -3578,7 +3635,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "mesoterapia-capilar",
@@ -3679,7 +3737,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     },
     {
       "slug": "microagulhamento-capilar",
@@ -3753,7 +3812,8 @@
           "descricao": "Da chegada na clínica ao resultado, narrado por ela mesma.",
           "criativos": []
         }
-      ]
+      ],
+      "nicho": "saude-e-estetica"
     }
   ]
 }
