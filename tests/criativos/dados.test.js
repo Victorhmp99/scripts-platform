@@ -21,7 +21,7 @@ test('devolve null para procedimento inexistente', () => {
 });
 
 test('acha formato dentro do procedimento', () => {
-  assert.equal(acharFormato(dados, 'full-face', 'bastidor').nome, 'Bastidor do Procedimento');
+  assert.equal(acharFormato(dados, 'full-face', 'bastidor').nome, 'Bastidor do Serviço');
 });
 
 test('devolve null para formato inexistente', () => {

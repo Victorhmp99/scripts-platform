@@ -1,3 +1,4 @@
+import { fichaPrecisaCliente } from './dados.js';
 export function formatarRoteiroTexto(criativo) {
   const { roteiro } = criativo;
   const linhas = [criativo.titulo.toUpperCase(), '', 'GANCHO', roteiro.gancho];
@@ -16,7 +17,7 @@ export function formatarRoteiroTexto(criativo) {
     `Duração: ${roteiro.ficha.duracao}`,
     `Enquadramento: ${roteiro.ficha.enquadramento}`,
     `Cenário: ${roteiro.ficha.cenario}`,
-    `Precisa de paciente: ${roteiro.ficha.precisa_paciente ? 'sim' : 'não'}`,
+    `Precisa de cliente: ${fichaPrecisaCliente(roteiro.ficha) ? 'sim' : 'não'}`,
   );
 
   if (criativo.fonte) {

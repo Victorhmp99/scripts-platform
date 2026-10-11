@@ -1,3 +1,4 @@
+import { fichaPrecisaCliente } from './dados.js';
 import { resolverEmbed, rotuloExterno, miniatura } from './embed.js';
 
 /** O acervo guarda "videos/..." e "capas/...". Em /criativos (sem barra final)
@@ -185,7 +186,7 @@ export function htmlRoteiro(criativo) {
         <dt>Duração</dt><dd>${escapar(roteiro.ficha.duracao)}</dd>
         <dt>Enquadramento</dt><dd>${escapar(roteiro.ficha.enquadramento)}</dd>
         <dt>Cenário</dt><dd>${escapar(roteiro.ficha.cenario)}</dd>
-        <dt>Precisa de paciente</dt><dd>${roteiro.ficha.precisa_paciente ? 'sim' : 'não'}</dd>
+        <dt>Precisa de cliente</dt><dd>${fichaPrecisaCliente(roteiro.ficha) ? 'sim' : 'não'}</dd>
         ${fonte}
       </dl>
     </section>`;

@@ -1,4 +1,4 @@
-// Painel do acervo: cadastrar criativo por link, criar procedimento e formato.
+// Painel do acervo: cadastrar criativo por link, criar nicho, serviço e formato.
 // Entra com a mesma conta do portal; quem grava é o papel de admin no banco.
 
 import {
@@ -139,7 +139,7 @@ function desenharFormatos() {
     return `<button class="item${ativo}" data-fmt="${esc(f.slug)}">
       <b>${esc(f.nome)}</b><span>${f.criativos.length} criativo${f.criativos.length === 1 ? '' : 's'}</span>
     </button>`;
-  }).join('') || '<p class="vazio">Nenhum formato neste procedimento.</p>';
+  }).join('') || '<p class="vazio">Nenhum formato neste serviço.</p>';
 
   lista.querySelectorAll('[data-fmt]').forEach((b) => {
     b.onclick = () => {
@@ -190,7 +190,7 @@ function desenharFormulario() {
   $('fDuracao').value = c.roteiro?.ficha?.duracao ?? '';
   $('fEnquadramento').value = c.roteiro?.ficha?.enquadramento ?? '';
   $('fCenario').value = c.roteiro?.ficha?.cenario ?? '';
-  $('fPaciente').checked = Boolean(c.roteiro?.ficha?.precisa_paciente);
+  $('fPaciente').checked = Boolean(c.roteiro?.ficha?.precisa_cliente ?? c.roteiro?.ficha?.precisa_paciente);
 
   const arquivo = c.tipo !== 'link';
   $('avisoArquivo').style.display = arquivo ? '' : 'none';
@@ -334,7 +334,7 @@ function lerFormulario() {
       duracao: $('fDuracao').value.trim(),
       enquadramento: $('fEnquadramento').value.trim(),
       cenario: $('fCenario').value.trim(),
-      precisa_paciente: $('fPaciente').checked,
+      precisa_cliente: $('fPaciente').checked,
     },
   };
 
@@ -395,7 +395,7 @@ function criarProcedimento() {
 
   const slug = slugificar(nome);
   if (acervo.procedimentos.some((p) => p.slug === slug)) {
-    aviso('Já existe um procedimento com esse nome.', 'erro');
+    aviso('Já existe um serviço com esse nome.', 'erro');
     return;
   }
 
@@ -418,7 +418,7 @@ function criarFormato() {
 
   const slug = slugificar(nome);
   if (p.formatos.some((f) => f.slug === slug)) {
-    aviso('Esse formato já existe neste procedimento.', 'erro');
+    aviso('Esse formato já existe neste serviço.', 'erro');
     return;
   }
 

@@ -22,7 +22,7 @@ const criativoArquivo = {
     gancho: 'Abra na caneta desenhando os pontos.',
     desenvolvimento: ['Mostre a marcação em close.'],
     cta: 'Convide pra avaliação.',
-    ficha: { duracao: '30s', enquadramento: 'Vertical', cenario: 'Consultório', precisa_paciente: true },
+    ficha: { duracao: '30s', enquadramento: 'Vertical', cenario: 'Consultório', precisa_cliente: true },
   },
 };
 

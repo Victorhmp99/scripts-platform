@@ -137,3 +137,13 @@ export function agruparPorArea(dados, slugNicho = null) {
   }
   return areas;
 }
+
+/**
+ * A ficha trocou `precisa_paciente` por `precisa_cliente` quando a
+ * ferramenta deixou de ser só odontológica. O acervo publicado no banco
+ * ainda tem a chave antiga, então ler só a nova mostraria "não" para
+ * todo criativo até alguém republicar.
+ */
+export function fichaPrecisaCliente(ficha) {
+  return Boolean(ficha?.precisa_cliente ?? ficha?.precisa_paciente);
+}

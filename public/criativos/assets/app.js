@@ -92,6 +92,23 @@ function montarMenuAreas(dados, slugNicho) {
     .join('');
 }
 
+/**
+ * Trilha até o nicho. Antes do nicho existir, "voltar" da página de serviço
+ * ia para a home — que agora lista nichos, não serviços. Sem isto a pessoa
+ * sobe dois degraus de uma vez e perde o lugar onde estava.
+ */
+function ateONicho(dados, procedimento) {
+  const nicho = acharNicho(dados, procedimento.nicho);
+  const base = [{ nome: 'Início', href: '/criativos' }];
+  if (!nicho) return { migalhas: base, href: '/criativos', rotulo: 'Todos os nichos' };
+  const href = `/criativos/nicho?n=${encodeURIComponent(nicho.slug)}`;
+  return {
+    migalhas: [...base, { nome: nicho.nome, href }],
+    href,
+    rotulo: nicho.nome,
+  };
+}
+
 function paginaProcedimento(dados, params) {
   const procedimento = acharProcedimento(dados, params.procedimento);
   if (!procedimento) {
@@ -100,8 +117,9 @@ function paginaProcedimento(dados, params) {
   }
   document.title = `${procedimento.nome} · Referências Criativos`;
   marcarArea(procedimento, dados);
-  definirVolta('/criativos', 'Todos os procedimentos');
-  trilha([{ nome: 'Início', href: '/criativos' }, { nome: procedimento.nome }]);
+  const ate = ateONicho(dados, procedimento);
+  definirVolta(ate.href, ate.rotulo);
+  trilha([...ate.migalhas, { nome: procedimento.nome }]);
   definir('titulo', procedimento.nome);
   definir('subtitulo', `${procedimento.descricao} Escolha o formato do vídeo.`);
   conteudo.className = 'grade-pastas';
@@ -121,7 +139,7 @@ function paginaFormato(dados, params) {
   marcarArea(procedimento, dados);
   definirVolta(`procedimento.html?p=${encodeURIComponent(procedimento.slug)}`, procedimento.nome);
   trilha([
-    { nome: 'Início', href: '/criativos' },
+    ...ateONicho(dados, procedimento).migalhas,
     { nome: procedimento.nome, href: `procedimento.html?p=${encodeURIComponent(procedimento.slug)}` },
     { nome: formato.nome },
   ]);
@@ -162,7 +180,7 @@ function paginaCriativo(dados, params) {
     formato.nome,
   );
   trilha([
-    { nome: 'Início', href: '/criativos' },
+    ...ateONicho(dados, procedimento).migalhas,
     { nome: procedimento.nome, href: `procedimento.html?p=${encodeURIComponent(procedimento.slug)}` },
     {
       nome: formato.nome,
