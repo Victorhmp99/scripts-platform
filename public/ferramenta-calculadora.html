@@ -46,7 +46,7 @@
   <aside>
     <h4>Nesta ferramenta</h4>
     <nav>
-      <a href="#p1"><b>01</b> Custo da hora-cadeira</a>
+      <a href="#p1"><b>01</b> Custo da hora-<span class="un">posto</span></a>
       <a href="#p2"><b>02</b> Custo do serviço</a>
       <a href="#p3"><b>03</b> Imposto e margem</a>
       <a href="#resultado"><b>•</b> Seu preço</a>
@@ -57,13 +57,13 @@
     <header class="hero">
       <div class="eyebrow">Gestão da Empresa</div>
       <h1>Calculadora de<br><em>precificação</em></h1>
-      <p>A maioria das empresas precifica olhando o concorrente. Isso funciona até o dia em que o concorrente erra a conta — e você copia o erro dele. Aqui o preço sai do seu custo real: quanto custa manter a cadeira aberta, quanto custa o serviço e quanto precisa sobrar.</p>
+      <p>A maioria das empresas precifica olhando o concorrente. Isso funciona até o dia em que o concorrente erra a conta — e você copia o erro dele. Aqui o preço sai do seu custo real: quanto custa manter a estrutura funcionando, quanto custa o serviço e quanto precisa sobrar.</p>
     </header>
 
     <section class="lente" id="p1">
       <div class="lente-num">Passo 01</div>
-      <h2>Custo da <em>hora-cadeira</em></h2>
-      <p class="texto">Antes de saber o preço de um serviço, você precisa saber quanto custa <strong>uma hora da sua cadeira aberta</strong> — mesmo vazia. Aluguel, folha, software e estrutura correm igual, com ou sem cliente sentado.</p>
+      <h2>Custo da <em>hora-<span class="un">posto</span></em></h2>
+      <p class="texto">Antes de saber o preço de um serviço, você precisa saber quanto custa <strong>uma hora de <span class="un">posto</span></strong> — mesmo sem ninguém sendo atendido. Aluguel, folha, software e estrutura correm igual, com ou sem cliente na sua frente.</p>
       <div class="destaque">Esse é o número que quase ninguém sabe de cabeça — e é ele que explica por que uma empresa cheia pode não dar lucro.</div>
 
       <div class="exercicio">
@@ -72,15 +72,19 @@
           <h3>Quanto custa manter a empresa aberta</h3>
           <p class="ajuda">Use os custos fixos do mês: aluguel, folha administrativa, software, contador, energia, limpeza. Não inclua material nem comissão.</p>
           <div class="campos">
+            <div class="linha"><label>Como você chama sua unidade de atendimento? <small>onde o cliente é atendido, um de cada vez: cadeira, sala, maca, mesa, baia, box…</small></label><input class="valor" type="text" data-c id="k_unidade" list="unidades" placeholder="posto" value=""></div>
+            <datalist id="unidades">
+              <option value="cadeira"><option value="sala"><option value="maca"><option value="mesa"><option value="baia"><option value="box"><option value="posto"><option value="consultório"><option value="estação">
+            </datalist>
             <div class="linha"><label>Custos fixos por mês</label><input class="valor" type="number" min="0" data-c id="k_fixos" placeholder="R$"></div>
-            <div class="linha"><label>Cadeiras em operação</label><input class="valor" type="number" min="1" data-c id="k_cadeiras" placeholder="qtd" value=""></div>
-            <div class="linha"><label>Horas de atendimento por cadeira, por semana <small>horas realmente disponíveis para atender</small></label><input class="valor" type="number" min="1" data-c id="k_horas" placeholder="h"></div>
+            <div class="linha"><label><span class="un-pl cap">Postos</span> em operação</label><input class="valor" type="number" min="1" data-c id="k_cadeiras" placeholder="qtd" value=""></div>
+            <div class="linha"><label>Horas de atendimento por <span class="un">posto</span>, por semana <small>horas realmente disponíveis para atender</small></label><input class="valor" type="number" min="1" data-c id="k_horas" placeholder="h"></div>
             <div class="linha"><label>Taxa média de ocupação <small>quanto dessas horas são de fato preenchidas</small></label><input class="pct" type="number" min="1" max="100" data-c id="k_ocupacao" placeholder="%"></div>
           </div>
           <div class="saidas">
-            <div class="saida"><span>Horas disponíveis/mês</span><b id="o_horas_mes">—</b><small>somando todas as cadeiras</small></div>
+            <div class="saida"><span>Horas disponíveis/mês</span><b id="o_horas_mes">—</b><small>somando <span class="un-pl">postos</span></small></div>
             <div class="saida"><span>Horas realmente usadas</span><b id="o_horas_uteis">—</b><small>aplicando a ocupação</small></div>
-            <div class="saida"><span>Custo da hora-cadeira</span><b id="o_hora">—</b><small>o que a hora custa antes do serviço</small></div>
+            <div class="saida"><span>Custo da hora-<span class="un">posto</span></span><b id="o_hora">—</b><small>o que a hora custa antes do serviço</small></div>
           </div>
         </div>
       </div>
@@ -89,8 +93,8 @@
     <section class="lente" id="p2">
       <div class="lente-num">Passo 02</div>
       <h2>Custo do <em>serviço</em></h2>
-      <p class="texto">Agora o custo específico daquele procedimento: o tempo de cadeira que ele ocupa, o material que consome e quanto o profissional recebe por ele.</p>
-      <p class="texto">Repare que o tempo entra duas vezes na conta — como custo de estrutura (hora-cadeira) e como comissão. Por isso um procedimento longo com ticket médio costuma ser menos rentável do que parece.</p>
+      <p class="texto">Agora o custo específico daquele procedimento: o tempo de <span class="un">posto</span> que ele ocupa, o material que consome e quanto o profissional recebe por ele.</p>
+      <p class="texto">Repare que o tempo entra duas vezes na conta — como custo de estrutura (hora-<span class="un">posto</span>) e como comissão. Por isso um procedimento longo com ticket médio costuma ser menos rentável do que parece.</p>
 
       <div class="exercicio">
         <div class="exercicio-topo">Passo 02 — o serviço</div>
@@ -98,7 +102,7 @@
           <h3>O serviço que você quer precificar</h3>
           <div class="campos">
             <label class="campo-bloco"><span>Nome do serviço</span><input type="text" data-c id="k_nome" placeholder="Ex: pacote mensal de manutenção"></label>
-            <div class="linha"><label>Tempo total de cadeira <small>somando todas as sessões, em horas</small></label><input class="valor" type="number" min="0" step="0.5" data-c id="k_tempo" placeholder="h"></div>
+            <div class="linha"><label>Tempo total de <span class="un">posto</span> <small>somando todas as sessões, em horas</small></label><input class="valor" type="number" min="0" step="0.5" data-c id="k_tempo" placeholder="h"></div>
             <div class="linha"><label>Material e laboratório <small>tudo que é consumido neste serviço</small></label><input class="valor" type="number" min="0" data-c id="k_material" placeholder="R$"></div>
             <div class="linha"><label>Comissão do profissional <small>em % do valor cobrado</small></label><input class="pct" type="number" min="0" max="100" data-c id="k_comissao" placeholder="%"></div>
           </div>
@@ -162,6 +166,47 @@
 <footer><div><b>DELTA SOLUÇÕES</b><span> · CALCULADORA DE PRECIFICAÇÃO</span></div></footer>
 
 <script>
+// A conta é a mesma para qualquer ramo: o que muda é o nome da unidade onde
+// se atende um cliente de cada vez. Dentista chama de cadeira, estética de
+// sala, fisioterapia de maca, oficina de baia. O usuário escolhe o nome e
+// todo rótulo da página passa a falar a língua dele — a matemática não muda.
+var UNIDADE_PADRAO = 'posto';
+
+function un() {
+  var campo = document.getElementById('k_unidade');
+  var v = campo ? campo.value : '';
+  return (v || '').trim().toLowerCase() || UNIDADE_PADRAO;
+}
+
+function unPlural() {
+  var u = un();
+  if (/(r|s|z|x)$/.test(u)) return u + 'es';   // box -> boxes, consultor -> consultores
+  if (/m$/.test(u))       return u.slice(0, -1) + 'ns';
+  if (/l$/.test(u))       return u.slice(0, -1) + 'is';
+  return u + 's';
+}
+
+function aplicarUnidade() {
+  var s = un(), pl = unPlural();
+  function por(sel, palavra) {
+    Array.prototype.forEach.call(document.querySelectorAll(sel), function (el) {
+      el.textContent = el.classList.contains('cap')
+        ? palavra.charAt(0).toUpperCase() + palavra.slice(1)
+        : palavra;
+    });
+  }
+  por('.un', s);
+  por('.un-pl', pl);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  var campo = document.getElementById('k_unidade');
+  if (campo) campo.addEventListener('input', aplicarUnidade);
+  aplicarUnidade();
+});
+</script>
+
+<script>
 window.MODULO = {
   slug: 'calculadora-preco',
 
@@ -181,6 +226,11 @@ window.MODULO = {
     var num = h.num, txt = h.txt;
     var c = {};
 
+    // Roda aqui também, e não só no 'input' do campo: quando a página
+    // reabre, o módulo repõe as respostas salvas sem disparar 'input',
+    // e os rótulos voltariam a dizer "posto".
+    aplicarUnidade();
+
     var fixos = num('k_fixos'), cadeiras = num('k_cadeiras'), horas = num('k_horas'), ocup = num('k_ocupacao');
 
     if (cadeiras && horas) {
@@ -191,7 +241,11 @@ window.MODULO = {
         document.getElementById('o_horas_uteis').textContent = Math.round(c.horasUteis) + ' h';
         if (fixos && c.horasUteis > 0) {
           c.custoHora = fixos / c.horasUteis;
-          document.getElementById('o_hora').textContent = moeda(c.custoHora);
+          // Com centavos, ao contrário dos outros valores: este é o número
+          // que a pessoa anota e multiplica por hora na mão. Arredondar
+          // R$ 115,47 para R$ 115 vira erro no preço que ela vai cobrar.
+          document.getElementById('o_hora').textContent =
+            c.custoHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
       }
     }
@@ -247,7 +301,7 @@ window.MODULO = {
     var dec = document.getElementById('decomposicao');
     if (c.sugerido) {
       dec.innerHTML =
-        '<div class="linha-custo"><span>Estrutura ' + (tempo ? '(' + tempo + 'h de cadeira)' : '') + '</span><b>' + moeda(c.custoEstrutura) + '</b></div>' +
+        '<div class="linha-custo"><span>Estrutura ' + (tempo ? '(' + tempo + 'h de ' + un() + ')' : '') + '</span><b>' + moeda(c.custoEstrutura) + '</b></div>' +
         '<div class="linha-custo"><span>Material e laboratório</span><b>' + moeda(material) + '</b></div>' +
         '<div class="linha-custo"><span>Comissão do profissional</span><b>' + moeda(c.comissaoValor) + '</b></div>' +
         '<div class="linha-custo"><span>Imposto sobre a venda</span><b>' + moeda(c.impostoValor) + '</b></div>' +
@@ -282,10 +336,10 @@ window.MODULO = {
 
     if (c.custoHora !== undefined) s.push({
       nivel: 'verde',
-      titulo: 'Sua hora-cadeira custa ' + moeda(c.custoHora),
-      texto: 'Esse é o valor que a empresa gasta por hora de cadeira aberta, antes de qualquer material. É o piso de qualquer conta de preço.',
+      titulo: 'Sua hora-' + un() + ' custa ' + moeda(c.custoHora),
+      texto: 'Esse é o valor que a empresa gasta por hora de ' + un() + ', antes de qualquer material. É o piso de qualquer conta de preço.',
       acao: {
-        titulo: 'Leve o custo da hora-cadeira para a decisão do dia a dia',
+        titulo: 'Leve o custo da hora-' + un() + ' para a decisão do dia a dia',
         porque: 'Sabendo esse número, dá para avaliar na hora se vale abrir horário extra, aceitar convênio ou dar desconto.',
         como: 'Anote ' + moeda(c.custoHora) + ' por hora e use como referência toda vez que for decidir preço, encaixe ou parceria.'
       }
@@ -294,7 +348,7 @@ window.MODULO = {
     var ocup = num('k_ocupacao');
     if (ocup !== null) s.push({
       nivel: ocup < 50 ? 'vermelho' : ocup < 70 ? 'amarelo' : 'verde',
-      titulo: 'Ocupação da cadeira em ' + ocup + '%',
+      titulo: 'Ocupação de ' + un() + ' em ' + ocup + '%',
       texto: ocup < 50 ? 'Menos da metade das horas disponíveis são usadas. O custo fixo se concentra em poucos atendimentos e empurra o preço para cima.'
            : ocup < 70 ? 'Ocupação razoável, mas com espaço claro — cada ponto a mais dilui o custo fixo e melhora a margem sem mexer no preço.'
            : 'Boa ocupação. O custo fixo está bem diluído entre os atendimentos.',
@@ -324,8 +378,8 @@ window.MODULO = {
       texto: 'Projeção considerando o volume que você informou. É esse número que mostra se vale investir em divulgar justamente esse serviço.',
       acao: {
         titulo: 'Compare esse resultado com os outros serviços',
-        porque: 'Nem todo serviço de ticket alto é o mais rentável — tempo de cadeira e material mudam tudo.',
-        como: 'Refaça essa conta para os três serviços que você mais realiza e concentre a divulgação no que tiver o melhor lucro por hora de cadeira.'
+        porque: 'Nem todo serviço de ticket alto é o mais rentável — tempo de ' + un() + ' e material mudam tudo.',
+        como: 'Refaça essa conta para os três serviços que você mais realiza e concentre a divulgação no que tiver o melhor lucro por hora de ' + un() + '.'
       }
     });
 
