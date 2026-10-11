@@ -137,6 +137,21 @@ degradado, é aí que está o ganho real — não no código.
 
 ---
 
+## Passo 8 — Biblioteca de criativos genérica (SQL)
+
+O site lê o acervo **do banco**, não do `criativos.json` — então a troca de
+vocabulário e os nichos só chegam na produção por aqui.
+
+**Arquivo:** `supabase/migration-acervo-generico.sql`
+
+Rode uma etapa por vez. A etapa 4 confere, e `caminhos_alterados` **tem que
+ser 0** — se não for, algum caminho de vídeo mudou e os 68 arquivos dariam
+404; nesse caso rode a etapa 5, que desfaz.
+
+Enquanto não rodar, o site funciona igual: o código aceita o acervo antigo.
+
+---
+
 ## Ainda em aberto (decidir depois)
 
 - O domínio continua `assessoriagreenlab.com.br`. Trocar envolve DNS, o endereço
