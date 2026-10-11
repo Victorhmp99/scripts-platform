@@ -579,7 +579,18 @@ const CAT_LABELS = {
   if (!session) { window.location.href = '/'; return; }
 
   currentUser = session.user;
-  const { data: prof } = await sb.from('profiles').select('role, company_id, full_name, companies(name, last_regenerated_at)').eq('id', currentUser.id).single();
+
+  // Cada requisição custa de 200 a 500ms — e o custo é por requisição,
+  // não por consulta (no banco isto roda em 5ms). Por isso perfil,
+  // empresa, liberação do gerador, scripts e edições vêm juntos.
+  // PRE guarda o que já veio, para loadScripts() não ir buscar de novo.
+  let PRE = null;
+  const { data: tudo, error: erroApp } = await sb.rpc('get_my_app');
+  if (!erroApp && tudo?.perfil) PRE = tudo;
+
+  const prof = PRE
+    ? { ...PRE.perfil, companies: PRE.empresa }
+    : (await sb.from('profiles').select('role, company_id, full_name, companies(name, last_regenerated_at)').eq('id', currentUser.id).single()).data;
   if (!prof) { window.location.href = '/'; return; }
 
   userRole = prof.role;
@@ -617,17 +628,24 @@ const CAT_LABELS = {
   // Liberação do gerador é controlada pelo painel (admin passa sempre).
   // Se a tabela do portal ainda não existir, não bloqueia ninguém.
   if (userRole !== 'admin') {
-    const { data: itens, error: erroItens } = await sb.rpc('get_my_portal_items');
-    if (!erroItens && Array.isArray(itens)) {
-      const gerador = itens.find(i => i.slug === 'gerador-scripts');
-      if (!gerador || !gerador.unlocked) {
+    if (PRE) {
+      if (PRE.gerador_liberado === false) {
         window.location.href = '/portal?bloqueado=gerador-scripts';
         return;
+      }
+    } else {
+      const { data: itens, error: erroItens } = await sb.rpc('get_my_portal_items');
+      if (!erroItens && Array.isArray(itens)) {
+        const gerador = itens.find(i => i.slug === 'gerador-scripts');
+        if (!gerador || !gerador.unlocked) {
+          window.location.href = '/portal?bloqueado=gerador-scripts';
+          return;
+        }
       }
     }
   }
 
-  await loadScripts();
+  await loadScripts(PRE);
 })();
 
 function showSetupBanner() {
@@ -648,11 +666,14 @@ function showSetupBanner() {
   `;
 }
 
-async function loadScripts() {
-  const [scriptsRes, editsRes] = await Promise.all([
-    sb.from('company_scripts').select('scripts, qual, aq').eq('company_id', companyId).single(),
-    sb.from('script_edits').select('script_key, content, usage_count').eq('company_id', companyId)
-  ]);
+async function loadScripts(pre) {
+  // Se get_my_app já trouxe tudo, não vale pagar outra ida ao servidor.
+  const [scriptsRes, editsRes] = pre
+    ? [{ data: pre.scripts }, { data: pre.edicoes || [] }]
+    : await Promise.all([
+        sb.from('company_scripts').select('scripts, qual, aq').eq('company_id', companyId).single(),
+        sb.from('script_edits').select('script_key, content, usage_count').eq('company_id', companyId)
+      ]);
 
   if (!scriptsRes.data) {
     showSetupBanner();
