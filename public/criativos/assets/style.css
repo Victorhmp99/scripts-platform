@@ -11,7 +11,7 @@
   --deep: #071641;
   --deep-2: #040E2D;
 
-  --aqua-rgb: 47, 227, 138;
+  --aqua-rgb: 41, 182, 232;
   --luz-rgb: 255, 255, 255;
 
   /* acento único da plataforma */
@@ -36,7 +36,7 @@
 
 /* As áreas já não têm cor própria: a plataforma inteira usa a menta. */
 [data-area="face"], [data-area="corpo"], [data-area="capilar"] {
-  --acento: #29B6E8; --acento-rgb: 47, 227, 138;
+  --acento: #29B6E8; --acento-rgb: 41, 182, 232;
 }
 
 * { box-sizing: border-box; }
