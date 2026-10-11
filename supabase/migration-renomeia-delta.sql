@@ -29,6 +29,8 @@ SELECT 'company_scripts.qual',    left(qual::text,140)    FROM company_scripts W
 UNION ALL
 SELECT 'company_scripts.aq',      left(aq::text,140)      FROM company_scripts WHERE aq::text      ILIKE '%green%'
 UNION ALL
+SELECT 'profiles.full_name',      full_name               FROM profiles        WHERE full_name     ILIKE '%green%'
+UNION ALL
 SELECT 'script_edits',            left(content,140)       FROM script_edits    WHERE content       ILIKE '%green%'
 UNION ALL
 SELECT 'portal_items',            title||' — '||coalesce(description,'') FROM portal_items
@@ -98,6 +100,11 @@ UPDATE company_scripts SET
   qual       = public.delta_rename(qual::text)::jsonb,
   aq         = public.delta_rename(aq::text)::jsonb,
   updated_at = NOW();
+
+-- profiles.full_name: o nome que aparece na lista de usuários. Ficou de
+-- fora na primeira versão e deixou "SDR Green hub" visível no painel.
+UPDATE profiles SET full_name = public.delta_rename(full_name)
+ WHERE full_name ILIKE '%green%';
 
 UPDATE script_edits   SET content = public.delta_rename(content), updated_at = NOW();
 UPDATE portal_items   SET title   = public.delta_rename(title),
