@@ -1,3 +1,5 @@
+import { interpretar } from './_json-ia.js';
+
 // Gera scripts completos via Gemini 2.5 Flash — chamada única
 
 export default async function handler(req, res) {
@@ -11,65 +13,95 @@ export default async function handler(req, res) {
 
   try {
     const models = ['gemini-2.5-flash', 'gemini-2.0-flash'];
-    let geminiRes, lastErr;
+    let parsed = null;
+    let ultimoErro = 'Erro na geração de scripts';
+    let ultimoMotivo = null;
+
+    // Antes, só erro HTTP dava nova tentativa. Resposta 200 com JSON
+    // malformado quebrava de primeira, e com temperature 0.8 isso
+    // acontece de vez em quando — a pessoa via "Erro ao interpretar
+    // resposta da IA" e tinha que clicar em Tentar novamente. O servidor
+    // é quem deve absorver isso. A cada tentativa a temperatura cai, para
+    // a última ser a mais previsível possível.
+    const temperaturas = [0.8, 0.5, 0.2];
 
     for (const model of models) {
-      for (let attempt = 0; attempt < 3; attempt++) {
-        if (attempt > 0) await new Promise(r => setTimeout(r, 1500 * attempt));
-        geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: prompt }] }],
-              generationConfig: {
-                temperature: 0.8,
-                maxOutputTokens: 16384,
-                responseMimeType: 'application/json',
-                thinkingConfig: { thinkingBudget: 0 }
-              }
-            })
-          }
-        );
-        if (geminiRes.ok) break;
-        const errText = await geminiRes.text();
-        lastErr = errText;
-        console.error(`Gemini error (${model} attempt ${attempt + 1}):`, errText);
-        // só tenta de novo em 503/429; outros erros quebra direto
-        let code;
-        try { code = JSON.parse(errText)?.error?.code; } catch {}
-        if (code !== 503 && code !== 429) break;
+      if (parsed) break;
+      let trocarDeModelo = false;
+
+      for (let attempt = 0; attempt < temperaturas.length && !trocarDeModelo; attempt++) {
+        if (attempt > 0) await new Promise(r => setTimeout(r, 1200 * attempt));
+
+        let geminiRes;
+        try {
+          geminiRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                  temperature: temperaturas[attempt],
+                  maxOutputTokens: 16384,
+                  responseMimeType: 'application/json',
+                  thinkingConfig: { thinkingBudget: 0 }
+                }
+              })
+            }
+          );
+        } catch (erroRede) {
+          console.error(`Gemini rede (${model} tentativa ${attempt + 1}):`, erroRede.message);
+          continue;
+        }
+
+        if (!geminiRes.ok) {
+          const errText = await geminiRes.text();
+          console.error(`Gemini HTTP (${model} tentativa ${attempt + 1}):`, errText.substring(0, 300));
+          try { ultimoErro = JSON.parse(errText)?.error?.message || ultimoErro; } catch {}
+          let code;
+          try { code = JSON.parse(errText)?.error?.code; } catch {}
+          // 503/429 são passageiros: espera e repete no mesmo modelo.
+          // Qualquer outro erro não melhora repetindo — troca de modelo.
+          if (code !== 503 && code !== 429) trocarDeModelo = true;
+          continue;
+        }
+
+        const data = await geminiRes.json();
+        const candidato = data.candidates?.[0];
+        const motivo = candidato?.finishReason;
+        ultimoMotivo = motivo || ultimoMotivo;
+
+        // Gemini 2.5 pode ter thinking tokens em parts[0] — pega a última com texto
+        const parts = candidato?.content?.parts || [];
+        const text = parts.filter(p => p.text).map(p => p.text).pop();
+
+        if (!text) {
+          console.error(`Gemini sem texto (${model}, finishReason=${motivo}):`,
+            JSON.stringify(data).substring(0, 300));
+          continue;
+        }
+
+        // Resposta cortada no meio nunca vai ser JSON válido: nem tenta.
+        if (motivo === 'MAX_TOKENS') {
+          console.error(`Gemini truncou (${model}): ${text.length} caracteres`);
+          continue;
+        }
+
+        parsed = interpretar(text);
+        if (parsed) break;
+
+        console.error(`Parse falhou (${model} tentativa ${attempt + 1}, finishReason=${motivo}). Trecho:`,
+          text.substring(0, 300));
       }
-      if (geminiRes.ok) break;
     }
 
-    if (!geminiRes.ok) {
-      let msg = 'Erro na geração de scripts';
-      try { msg = JSON.parse(lastErr)?.error?.message || msg; } catch {}
-      return res.status(500).json({ error: msg });
-    }
-
-    const data = await geminiRes.json();
-
-    // Gemini 2.5 pode ter thinking tokens em parts[0] — pega a última parte com texto
-    const parts = data.candidates?.[0]?.content?.parts || [];
-    const text = parts.filter(p => p.text).map(p => p.text).pop();
-    if (!text) {
-      console.error('Gemini sem texto:', JSON.stringify(data).substring(0, 500));
-      return res.status(500).json({ error: 'Resposta vazia do Gemini' });
-    }
-
-    let parsed;
-    try {
-      parsed = JSON.parse(text);
-    } catch {
-      const m = text.match(/```json\n?([\s\S]*?)\n?```/) || text.match(/\{[\s\S]*\}/s);
-      try { parsed = JSON.parse(m?.[1] || m?.[0] || text); }
-      catch(e2) {
-        console.error('Parse error. Texto recebido:', text.substring(0, 500));
-        return res.status(500).json({ error: 'Erro ao interpretar resposta da IA' });
-      }
+    if (!parsed) {
+      const detalhe = ultimoMotivo && ultimoMotivo !== 'STOP' ? ` (${ultimoMotivo})` : '';
+      return res.status(500).json({
+        error: `Não consegui montar os scripts agora${detalhe}. Tente de novo em alguns segundos.`,
+        detalhe: ultimoErro
+      });
     }
 
     return res.status(200).json({ data: parsed });

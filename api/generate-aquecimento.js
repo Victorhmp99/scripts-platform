@@ -1,3 +1,5 @@
+import { interpretar } from './_json-ia.js';
+
 // Gera aquecimento 30 dias — chamada 2 de 2
 
 export default async function handler(req, res) {
@@ -44,9 +46,15 @@ export default async function handler(req, res) {
     const text = data.choices?.[0]?.message?.content;
     if (!text) return res.status(500).json({ error: 'Resposta vazia' });
 
-    let parsed;
-    try { parsed = JSON.parse(text); }
-    catch { const m = text.match(/\{[\s\S]*\}/); parsed = JSON.parse(m?.[0] || text); }
+    // Antes, o segundo JSON.parse ficava fora de try/catch: uma resposta
+    // cortada estourava e virava "Erro interno" com mensagem crua.
+    const parsed = interpretar(text);
+    if (!parsed) {
+      console.error('Aquecimento: resposta ilegível. Trecho:', String(text).substring(0, 300));
+      return res.status(500).json({
+        error: 'Não consegui montar a sequência agora. Tente de novo em alguns segundos.'
+      });
+    }
 
     return res.status(200).json({ data: parsed });
   } catch (err) {
