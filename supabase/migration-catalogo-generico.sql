@@ -69,11 +69,27 @@ LANGUAGE sql IMMUTABLE AS $$
            '\mclínica\M',      'empresa',   'g')
 $$;
 
+-- Faltava tratamento→serviço: a consulta da etapa 0 detectava a palavra,
+-- mas a função não a trocava, e "preço certo do tratamento" sobreviveu na
+-- descrição da calculadora.
+CREATE OR REPLACE FUNCTION public.texto_catalogo2(t TEXT) RETURNS TEXT
+LANGUAGE sql IMMUTABLE AS $$
+  SELECT regexp_replace(
+         regexp_replace(
+         regexp_replace(
+         regexp_replace($1,
+           '\mTratamentos\M', 'Serviços', 'g'),
+           '\mtratamentos\M', 'serviços', 'g'),
+           '\mTratamento\M',  'Serviço',  'g'),
+           '\mtratamento\M',  'serviço',  'g')
+$$;
+
 UPDATE portal_items SET
-  title       = public.texto_catalogo(title),
-  description = public.texto_catalogo(description);
+  title       = public.texto_catalogo2(public.texto_catalogo(title)),
+  description = public.texto_catalogo2(public.texto_catalogo(description));
 
 DROP FUNCTION IF EXISTS public.texto_catalogo(TEXT);
+DROP FUNCTION IF EXISTS public.texto_catalogo2(TEXT);
 
 
 -- ------------------------------------------------------------
@@ -84,8 +100,8 @@ DROP FUNCTION IF EXISTS public.texto_catalogo(TEXT);
 -- ------------------------------------------------------------
 SELECT 'ainda fora do padrão' AS aviso, slug, title, description
 FROM portal_items
-WHERE title       ~* '\m(paciente|pacientes|clínica|clínicas)\M'
-   OR description ~* '\m(paciente|pacientes|clínica|clínicas)\M';
+WHERE title       ~* '\m(paciente|pacientes|clínica|clínicas|tratamento|tratamentos)\M'
+   OR description ~* '\m(paciente|pacientes|clínica|clínicas|tratamento|tratamentos)\M';
 
 SELECT area, slug, title, padrao, description
 FROM portal_items
