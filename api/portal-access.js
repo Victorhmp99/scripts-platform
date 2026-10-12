@@ -33,9 +33,13 @@ export default async function handler(req, res) {
 
     const byslug = Object.fromEntries((access.data || []).map(a => [a.item_slug, a]));
 
+    // Sem linha de empresa, vale o padrão do item — a mesma regra que o
+    // portal usa. Antes caía sempre em `false`, e um item que já vem
+    // liberado apareceria desmarcado no painel, contradizendo o que a
+    // pessoa vê na Central.
     const items = (catalog.data || []).map(item => ({
       ...item,
-      enabled:    byslug[item.slug]?.enabled ?? false,
+      enabled:    byslug[item.slug]?.enabled ?? item.padrao ?? false,
       expires_at: byslug[item.slug]?.expires_at ?? null
     }));
 
@@ -67,12 +71,38 @@ export default async function handler(req, res) {
       }
 
       if (revogados.length) {
-        const { error } = await supabaseAdmin
-          .from('company_items')
-          .delete()
-          .eq('company_id', company_id)
-          .in('item_slug', revogados);
-        if (error) return res.status(500).json({ error: error.message });
+        // Item que já vem liberado precisa de uma linha dizendo "não" —
+        // apagar a linha dele o devolveria ao padrão, e desmarcar no
+        // painel não faria efeito nenhum. Para os demais, apagar é o
+        // certo: sem linha significa bloqueado, e a tabela fica limpa.
+        const { data: catalogo, error: erroCatalogo } = await supabaseAdmin
+          .from('portal_items')
+          .select('slug, padrao')
+          .in('slug', revogados);
+        if (erroCatalogo) return res.status(500).json({ error: erroCatalogo.message });
+
+        const ehPadrao = new Set((catalogo || []).filter(i => i.padrao).map(i => i.slug));
+        const paraMarcar = revogados.filter(s => ehPadrao.has(s));
+        const paraApagar = revogados.filter(s => !ehPadrao.has(s));
+
+        if (paraMarcar.length) {
+          const { error } = await supabaseAdmin
+            .from('company_items')
+            .upsert(
+              paraMarcar.map(slug => ({ company_id, item_slug: slug, enabled: false, expires_at: null })),
+              { onConflict: 'company_id,item_slug' }
+            );
+          if (error) return res.status(500).json({ error: error.message });
+        }
+
+        if (paraApagar.length) {
+          const { error } = await supabaseAdmin
+            .from('company_items')
+            .delete()
+            .eq('company_id', company_id)
+            .in('item_slug', paraApagar);
+          if (error) return res.status(500).json({ error: error.message });
+        }
       }
 
       return res.status(200).json({ ok: true, liberados: liberados.length });

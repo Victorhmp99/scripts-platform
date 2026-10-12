@@ -279,9 +279,14 @@ function render(itens, perfil, empresa) {
   const primeiroNome = (perfil?.full_name || '').trim().split(' ')[0];
   const liberados = itens.filter(i => i.unlocked).length;
 
-  // Veio redirecionado de um item que não está liberado
+  // Veio redirecionado de um item que não está liberado.
+  // Confere a liberação de novo em vez de confiar no parâmetro: ele fica
+  // na URL depois do redirecionamento, e recarregar a página mostrava o
+  // aviso mesmo com o item já liberado.
   const bloqueado = new URLSearchParams(location.search).get('bloqueado');
-  const itemBloqueado = bloqueado ? itens.find(i => i.slug === bloqueado) : null;
+  const itemBloqueado = bloqueado
+    ? itens.find(i => i.slug === bloqueado && !i.unlocked)
+    : null;
 
   const aviso = itemBloqueado ? `
     <div class="aviso">
