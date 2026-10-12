@@ -659,10 +659,14 @@ function showSetupBanner() {
           <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
         </svg>
       </div>
-      <h2>Bem-vindo à plataforma!</h2>
-      <p>Seus scripts ainda não foram gerados. Quando estiver pronto, complete o cadastro para que a IA crie scripts personalizados para o seu negócio.</p>
-      <a href="/setup" class="setup-banner-btn">Completar cadastro e gerar scripts</a>
-      <p class="setup-banner-hint">Pode fazer isso quando quiser — seus dados de acesso já estão salvos.</p>
+      <h2>Seus scripts ainda não existem</h2>
+      <p>Para escrever os scripts no tom do seu negócio, a IA precisa saber o que você vende e para quem. São alguns campos, uma vez só.</p>
+      <a href="/setup" class="setup-banner-btn">Preencher e gerar meus scripts</a>
+      <!-- Saída visível de propósito: entrar aqui sem querer preencher não
+           pode virar beco sem saída. O resto da Central não depende disto. -->
+      <p class="setup-banner-hint">
+        <a href="/portal" style="color:var(--muted); text-decoration:underline">Agora não — voltar para a Central</a>
+      </p>
     </div>
   `;
 }

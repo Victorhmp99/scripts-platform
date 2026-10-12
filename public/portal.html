@@ -215,6 +215,7 @@ const ICONES = {
   message:    '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
   gem:        '<path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18"/><path d="M9 4l3 16 3-16"/>',
   image:      '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M3 17l5-4 4 3 3-2 6 5"/>',
+  book:       '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v16H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v4H6.5A2.5 2.5 0 0 1 4 19.5z"/><path d="M8 6h8"/><path d="M8 10h6"/>',
   lock:       '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'
 };
 
@@ -291,11 +292,14 @@ function render(itens, perfil, empresa) {
   // Quem ainda não preencheu o cadastro chega aqui de propósito. A tela
   // não pode parecer quebrada nem empurrar de volta para o formulário:
   // é um convite, com a porta aberta para fechar e usar o resto.
+  // O convite não promete destravar nada: os playbooks e o gerador já
+  // entram liberados. O que o cadastro muda é o gerador passar a escrever
+  // no tom do negócio dela, em vez de ficar só como ferramenta vazia.
   const semEmpresa = !ehAdmin && !empresa?.name ? `
     <div class="aviso convite">
-      <b>Falta pouco para liberar o gerador de scripts.</b>
+      <b>Seus materiais já estão aqui. Falta só personalizar.</b>
       Conte sobre o seu negócio e a IA escreve os scripts de atendimento no seu tom.
-      Leva uns minutos — e dá para fazer depois, quando quiser.
+      Leva uns minutos — e dá para fazer quando quiser, sem pressa.
       <a class="btn-convite" href="/setup">Completar cadastro</a>
     </div>` : '';
 
@@ -344,6 +348,8 @@ const ITENS_DEMO = [
   { slug:'estrategia-valor',     area:'gestao',    kind:'conteudo',   title:'Estratégia e Percepção de Valor',  description:'Por que o cliente aceita pagar mais — e como aumentar isso sem subir custo.',             href:'/modulo-estrategia-valor?demo=1',     external:false, icon:'target',     unlocked:true,  expires_at:null },
   { slug:'ia-na-pratica',        area:'gestao',    kind:'conteudo',   title:'IA na Prática',                    description:'O framework do prompt perfeito e as ferramentas que valem para a empresa.',                href:'/modulo-ia-na-pratica?demo=1',        external:false, icon:'sparkles',   unlocked:true,  expires_at:null },
   { slug:'calculadora-preco',    area:'gestao',    kind:'ferramenta', title:'Calculadora de Precificação',      description:'Custo da hora-cadeira, material e imposto para chegar no preço certo do serviço.',      href:'/ferramenta-calculadora?demo=1',      external:false, icon:'calculator', unlocked:true,  expires_at:'2026-10-29T00:00:00Z' },
+  { slug:'playbook-comercial',   area:'comercial', kind:'conteudo',   title:'Playbook Comercial',              description:'O passo a passo do processo comercial da Delta, do primeiro contato ao fechamento.',          href:'/playbooks/playbook-comercial-delta.pdf', external:true,  icon:'book',       unlocked:true,  expires_at:null },
+  { slug:'playbook-conteudo',    area:'marketing', kind:'conteudo',   title:'Playbook de Criação de Conteúdo', description:'Como planejar, gravar e publicar conteúdo que gera demanda.',                                 href:'/playbooks/playbook-conteudo-delta.pdf', external:true,  icon:'book',       unlocked:true,  expires_at:null },
   { slug:'estrutura-comercial',  area:'comercial', kind:'conteudo',   title:'Estrutura Comercial',              description:'Quem faz o quê na esteira: SDR, closer, CS e o diagnóstico de gargalo.',                   href:'/modulo-estrutura-comercial?demo=1',  external:false, icon:'users',      unlocked:true,  expires_at:null },
   { slug:'jornada-cliente',     area:'comercial', kind:'conteudo',   title:'Jornada do Cliente',              description:'Mapeie os pontos de contato e ache as falhas que custam agendamento.',                     href:'/modulo-jornada-paciente?demo=1',     external:false, icon:'route',      unlocked:true,  expires_at:null },
   { slug:'gerador-scripts',      area:'comercial', kind:'ferramenta', title:'Gerador de Scripts',               description:'Scripts de atendimento, qualificação e aquecimento gerados para a sua empresa.',           href:'/app',                                external:false, icon:'message',  unlocked:true,  expires_at:null },

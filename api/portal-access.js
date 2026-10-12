@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const [catalog, access] = await Promise.all([
       supabaseAdmin
         .from('portal_items')
-        .select('slug, area, kind, title, description, sort_order, active')
+        .select('slug, area, kind, title, description, sort_order, active, padrao')
         .eq('active', true)
         .order('area')
         .order('sort_order'),

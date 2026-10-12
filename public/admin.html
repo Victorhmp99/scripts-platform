@@ -964,11 +964,12 @@
           <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid var(--border);">
             <input type="checkbox" id="lib_${i.slug}" ${i.enabled ? 'checked' : ''}
                    onchange="alternarItem('${i.slug}', this.checked)"
+                   title="${i.padrao ? 'Este item já vem liberado para todos. Desmarcar tira dele desta empresa.' : 'Marcar libera este item para esta empresa.'}"
                    style="width:18px; height:18px; accent-color:var(--signal); cursor:pointer; flex:0 0 auto;" />
             <label for="lib_${i.slug}" style="flex:1 1 auto; cursor:pointer;">
               <b style="display:block; font-size:0.875rem; font-weight:600;">${i.title}</b>
               <span style="display:block; margin-top:2px; font-size:0.75rem; color:var(--muted); font-weight:300;">
-                ${i.kind === 'ferramenta' ? 'Ferramenta' : 'Conteúdo'} · ${i.description || ''}
+                ${i.kind === 'ferramenta' ? 'Ferramenta' : 'Conteúdo'}${i.padrao ? ' · <b style="color:var(--signal); font-weight:600;">já vem liberado</b>' : ''} · ${i.description || ''}
               </span>
             </label>
             <input type="date" id="exp_${i.slug}" value="${i.expires_at ? i.expires_at.slice(0, 10) : ''}"
