@@ -604,13 +604,18 @@ D30|Tag do gatilho: Texto do dia 30...</div>
 
     document.getElementById('btnBack').style.display = n > 0 && n < 3 ? 'block' : 'none';
     document.getElementById('stepFooter').style.display = n === 2 || n === 3 ? 'none' : 'flex';
-    // Pular só no passo do método. No passo 1 a empresa ainda não existe,
-    // e sem ela a Central devolve a pessoa para cá — um laço sem saída.
-    document.getElementById('btnSkip').style.display = n === 1 ? 'inline-block' : 'none';
+    // Dá para sair em qualquer passo do formulário. Antes o primeiro passo
+    // não tinha saída, porque a Central barrava quem não tivesse empresa e
+    // devolvia a pessoa para cá — laço sem fim. A Central agora recebe
+    // todo mundo, então o cadastro virou opcional de verdade.
+    document.getElementById('btnSkip').style.display = n <= 1 ? 'inline-block' : 'none';
+    document.getElementById('btnSkip').textContent = n === 0
+      ? 'Agora não — ir para a Central'
+      : 'Pular — crio meus scripts depois';
   }
 
-  /** A empresa já foi criada no passo 1; os scripts é que são opcionais.
-   *  O gerador mostra sozinho um convite para criá-los quando ela quiser. */
+  /** Sair do cadastro, de qualquer passo. O que já foi salvo continua
+   *  salvo; o que não foi, o portal oferece de novo quando ela voltar. */
   function pularScripts() {
     window.location.href = '/portal';
   }

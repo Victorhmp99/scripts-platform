@@ -167,6 +167,10 @@
   .area-head h2 { font-size: 1rem; letter-spacing: 1.6px; }
   .area-head span { display: block; margin-top: 4px; }
 }
+  .aviso.convite { border-color: rgba(41,182,232,0.35); background: rgba(41,182,232,0.08); }
+  .aviso.convite b { display:block; margin-bottom:6px; color:var(--text); }
+  .btn-convite { display:inline-block; margin-top:12px; padding:10px 18px; border-radius:10px;
+    background:var(--signal); color:#06080F; font-weight:700; font-size:0.875rem; text-decoration:none; }
 </style>
   <link rel="stylesheet" href="/base-mobile.css">
 </head>
@@ -284,7 +288,18 @@ function render(itens, perfil, empresa) {
       Fale com o seu consultor da Delta Soluções para liberar o acesso.
     </div>` : '';
 
-  const semNada = liberados === 0 ? `
+  // Quem ainda não preencheu o cadastro chega aqui de propósito. A tela
+  // não pode parecer quebrada nem empurrar de volta para o formulário:
+  // é um convite, com a porta aberta para fechar e usar o resto.
+  const semEmpresa = !ehAdmin && !empresa?.name ? `
+    <div class="aviso convite">
+      <b>Falta pouco para liberar o gerador de scripts.</b>
+      Conte sobre o seu negócio e a IA escreve os scripts de atendimento no seu tom.
+      Leva uns minutos — e dá para fazer depois, quando quiser.
+      <a class="btn-convite" href="/setup">Completar cadastro</a>
+    </div>` : '';
+
+  const semNada = (liberados === 0 && !semEmpresa) ? `
     <div class="aviso">
       Ainda não há nada liberado para a sua empresa.
       Fale com o seu consultor da Delta Soluções — ele define o que entra no seu acesso.
@@ -295,7 +310,7 @@ function render(itens, perfil, empresa) {
       <div class="eyebrow">Central de Ferramentas</div>
       <h1>${primeiroNome ? `Olá, ${escapar(primeiroNome)}.` : 'Bem-vindo.'}<br>Tudo que sua empresa precisa, <em>num lugar só</em>.</h1>
       <p>Conteúdos e ferramentas para estruturar gestão, comercial e marketing. Você tem ${liberados} ${liberados === 1 ? 'item liberado' : 'itens liberados'} hoje.</p>
-      ${aviso}${semNada}
+      ${aviso}${semEmpresa}${semNada}
     </div>
     <main>`;
 
@@ -365,8 +380,6 @@ async function iniciar() {
       .eq('id', session.user.id)
       .single());
 
-    if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/setup'; return; }
-
     const [resEmpresa, resItens] = await Promise.all([
       perfil.company_id
         ? sb.from('companies').select('name').eq('id', perfil.company_id).single()
@@ -378,8 +391,9 @@ async function iniciar() {
     error = resItens.error;
   }
 
-  // Admin entra mesmo sem empresa vinculada — ele administra, não consome.
-  if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/setup'; return; }
+  // Ninguém é barrado por não ter empresa. Sem ela o catálogo aparece
+  // todo bloqueado, que é o estado verdadeiro — e o convite para
+  // completar o cadastro fica visível em vez de obrigatório.
 
   if (error) {
     document.getElementById('conteudo').innerHTML =
