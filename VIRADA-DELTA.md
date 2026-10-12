@@ -114,7 +114,7 @@ e os modelos prontos são:
 | Magic Link      | `emails/link-magico.html`     |
 
 **Armadilha:** o remetente não pode ser `@gmail.com` — o DMARC do Gmail rejeita
-e-mail saindo de outro servidor em nome dele. Use `assessoriagreenlab.com.br`.
+e-mail saindo de outro servidor em nome dele. Use `adeltasolucoes.com.br`.
 
 ---
 
@@ -154,8 +154,12 @@ Enquanto não rodar, o site funciona igual: o código aceita o acervo antigo.
 
 ## Ainda em aberto (decidir depois)
 
-- O domínio continua `assessoriagreenlab.com.br`. Trocar envolve DNS, o endereço
-  nos e-mails e o `APP_URL` na Vercel — trabalho à parte.
+- **O domínio mudou para `adeltasolucoes.com.br`** (12/10/2026). O antigo
+  `assessoriagreenlab.com.br` teve os nameservers devolvidos ao Registro.br e
+  não resolve mais — nem o site, nem o e-mail. Conferir na Vercel se a variável
+  `APP_URL` já aponta para `https://ferramentas.adeltasolucoes.com.br`: é ela
+  que monta o link do convite por e-mail, e apontando para o domínio morto o
+  convite leva a lugar nenhum.
 - O projeto Supabase continua sem backup automático.
 - O `ADMIN_SECRET` antigo nas variáveis da Vercel não é mais usado e pode sair.
 - A logo tem só a versão de 256px. Se for usar em material impresso ou redes,

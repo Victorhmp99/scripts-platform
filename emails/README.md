@@ -35,7 +35,7 @@ que alguém caia num e-mail feio ao pedir "esqueci minha senha".
 - **Texto de prévia escondido** no topo: é o trecho que o Gmail mostra na
   lista de mensagens, antes de abrir.
 - **A logo é carregada por URL absoluta**
-  (`https://ferramentas.assessoriagreenlab.com.br/logo-delta.png`).
+  (`https://ferramentas.adeltasolucoes.com.br/logo-delta.png`).
   Se o domínio mudar, atualizar nos quatro arquivos, senão a marca some.
 - **Fundo escuro.** Combina com a plataforma. Alguns clientes com "modo claro
   forçado" podem clarear o cartão; o texto continua legível porque o contraste
