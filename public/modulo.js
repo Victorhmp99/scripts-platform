@@ -208,7 +208,12 @@ async function iniciarModulo() {
   userId = session.user.id;
 
   const { data: perfil } = await sb.from('profiles').select('company_id, role').eq('id', userId).single();
-  if (!perfil?.company_id) { window.location.href = '/setup'; return; }
+
+  // Sem empresa não há onde gravar as respostas (module_answers é por
+  // empresa). Mas o destino é a Central, não o cadastro: mandar para o
+  // formulário obrigava a preencher, e era metade do laço que prendia
+  // quem acabou de criar conta. Na Central o convite está lá, opcional.
+  if (!perfil?.company_id && perfil?.role !== 'admin') { window.location.href = '/portal'; return; }
   companyId = perfil.company_id;
 
   // confere se a empresa tem este módulo liberado (admin passa sempre)
