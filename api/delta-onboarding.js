@@ -61,7 +61,7 @@ export default async function handler(req, res) {
     }
 
     const upd = await supabaseAdmin.from('profiles')
-      .update({ company_id: comp.id, full_name: nome || email, role: 'user' }).eq('id', userId);
+      .update({ company_id: comp.id, full_name: nome || email, role: 'gestor' }).eq('id', userId);
     if (upd.error) throw upd.error;
 
     // Libera todos os itens ativos do catálogo.
